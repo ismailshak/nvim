@@ -44,9 +44,9 @@ bufferline.setup({
 		diagnostics = "nvim_lsp", -- | "nvim_lsp" | "coc" | false,
 		diagnostics_update_in_insert = true,
 		diagnostics_indicator = function(count, level, diagnostics_dict, context)
-      if not level:match("error") then
-        return
-      end
+			if not level:match("error") then
+				return
+			end
 			-- only count error diagnostics, and just display those
 			local errorCount = 0
 			for e, n in pairs(diagnostics_dict) do

@@ -63,7 +63,7 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_keymaps(bufnr)
-  local utils = require("utils.keybindings")
+	local utils = require("utils.keybindings")
 	utils.buf_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 	utils.buf_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 	utils.buf_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
@@ -74,7 +74,7 @@ local function lsp_keymaps(bufnr)
 	-- utils.buf_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 	-- utils.buf_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>")
 	utils.buf_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>')
-	utils.buf_keymap(bufnr, "n", "gl", '<cmd>lua vim.diagnostic.open_float()<CR>')
+	utils.buf_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
 	utils.buf_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>')
 	utils.buf_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
 	utils.buf_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
@@ -83,7 +83,7 @@ local function lsp_keymaps(bufnr)
 
 	local telescope_present, telescope = pcall(require, "telescope.builtin")
 	if telescope_present then
-		utils.buf_keymap(bufnr, 'n', '<leader>fs', "<cmd>lua require('telescope.builtin').lsp_document_symbols() <CR>")
+		utils.buf_keymap(bufnr, "n", "<leader>fs", "<cmd>lua require('telescope.builtin').lsp_document_symbols() <CR>")
 	end
 end
 

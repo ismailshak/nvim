@@ -1,13 +1,13 @@
 local M = {}
 
-M.keymap= function(mode, key, binding, opts)
-  local options = opts or { noremap = true }
+M.keymap = function(mode, key, binding, opts)
+	local options = opts or { noremap = true }
 
-  vim.api.nvim_set_keymap(mode, key, binding, options)
+	vim.api.nvim_set_keymap(mode, key, binding, options)
 end
 
-M.buf_keymap = function (bufnr, mode, key, binding)
-  local opts = { noremap = true, silent = true }
+M.buf_keymap = function(bufnr, mode, key, binding)
+	local opts = { noremap = true, silent = true }
 	vim.api.nvim_buf_set_keymap(bufnr, mode, key, binding, opts)
 end
 
