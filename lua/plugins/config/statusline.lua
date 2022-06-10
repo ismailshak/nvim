@@ -233,8 +233,8 @@ opt.git_branch = {
 		return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
 	end,
 	hl = {
-		fg = colors.grey_fg2,
-		bg = colors.statusline_bg,
+		fg = colors.white,
+		bg = colors.lightbg,
 	},
 	icon = "  ",
 }
@@ -243,7 +243,7 @@ opt.empty_space = {
 	provider = " " .. opt.icons.left,
 	hl = {
 		fg = colors.one_bg2,
-		bg = colors.statusline_bg,
+		bg = colors.lightbg,
 	},
 }
 
