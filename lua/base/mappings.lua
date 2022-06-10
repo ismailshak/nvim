@@ -8,3 +8,6 @@ utils.keymap("n", "<c-h>", "<c-w>h")
 utils.keymap("n", "<c-j>", "<c-w>j")
 utils.keymap("n", "<c-k>", "<c-w>k")
 utils.keymap("n", "<c-l>", "<c-w>l")
+
+-- close buffer
+utils.keymap("n", "<leader>w", "<CMD>bd<CR>")
