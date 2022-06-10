@@ -12,16 +12,16 @@ opt.lsp = require("feline.providers.lsp")
 opt.lsp_severity = vim.diagnostic.severity
 
 opt.icons = {
-	left = "",
-	right = "",
-	main_icon = "  ",
-	vi_mode_icon = " ",
-	position_icon = " ",
+	left = " ",
+	right = " ",
+	main_icon = "   ",
+	vi_mode_icon = "  ",
+	position_icon = "  ",
 }
 
 opt.mode_colors = {
-	["n"] = { "NORMAL", colors.red },
-	["no"] = { "N-PENDING", colors.red },
+	["n"] = { "NORMAL", colors.white },
+	["no"] = { "N-PENDING", colors.white },
 	["i"] = { "INSERT", colors.dark_purple },
 	["ic"] = { "INSERT", colors.dark_purple },
 	["t"] = { "TERMINAL", colors.green },
@@ -268,13 +268,21 @@ opt.mode_icon = {
 	end,
 }
 
-opt.empty_space2 = {
+opt.mode = {
 	provider = function()
 		return " " .. opt.mode_colors[vim.fn.mode()][1] .. " "
 	end,
 	hl = {
-		fg = opt.mode_colors[vim.fn.mode()][2],
-		bg = colors.one_bg,
+		fg = colors.statusline_bg,
+		bg = colors.nord_blue,
+	},
+
+	right_sep = {
+		str = opt.icons.right,
+		hl = {
+			fg = colors.nord_blue,
+			bg = colors.lightbg,
+		},
 	},
 }
 
@@ -350,7 +358,9 @@ M.setup = function()
 	local right = {}
 
 	-- left
-	add_table(left, opt.main_icon)
+	--add_table(left, opt.main_icon)
+	--add_table(left, opt.mode_icon)
+	add_table(left, opt.mode)
 	add_table(left, opt.file_name)
 	add_table(left, opt.dir_name)
 	add_table(left, opt.diff.add)
@@ -368,11 +378,10 @@ M.setup = function()
 	--add_table(right, opt.lsp_icon)
 	add_table(right, opt.git_branch)
 	add_table(right, opt.empty_space)
-	add_table(right, opt.empty_spaceColored)
-	add_table(right, opt.mode_icon)
-	add_table(right, opt.empty_space2)
-	add_table(right, opt.separator_right)
-	add_table(right, opt.separator_right2)
+	--add_table(right, opt.empty_spaceColored)
+
+	--add_table(right, opt.separator_right)
+	--add_table(right, opt.separator_right2)
 	add_table(right, opt.position_icon)
 	add_table(right, opt.current_line)
 
