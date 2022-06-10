@@ -4,7 +4,7 @@ M.load_plugins = function(use)
 	use("wbthomason/packer.nvim") -- Package manager
 
 	-- themes
-	use("shaunsingh/nord.nvim")
+	require("plugins.colors").setup(use)
 
 	-- file explorer tree
 	use({

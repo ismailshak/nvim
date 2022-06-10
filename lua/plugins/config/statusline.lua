@@ -3,7 +3,7 @@ if not feline_status_ok then
 	return
 end
 
-local colors = require("plugins.colors.nord-colors")
+local colors = require("plugins.colors.theme").colors
 
 -- contains all options that will be passed to feline
 local opt = {}

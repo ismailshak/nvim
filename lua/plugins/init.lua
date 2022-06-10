@@ -19,8 +19,4 @@ return require("packer").startup(function(use)
 	if packer_bootstrap then
 		require("packer").sync()
 	end
-
-	-- set theme
-	vim.g.nord_italic = false
-	vim.cmd([[colorscheme nord]])
 end)
