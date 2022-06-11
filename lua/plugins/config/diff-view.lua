@@ -4,11 +4,11 @@ if not present then
 end
 
 -- Keybinds
-local util = require("utils.keybindings")
+local utils = require("utils.keybindings")
 
-util.keymap("n", "<leader>dv", "<cmd>DiffviewOpen<cr>")
-util.keymap("n", "<leader>df", "<cmd>DiffviewFileHistory %<cr>")
-util.keymap("n", "<leader>dc", "<cmd>DiffviewClose<cr>")
+utils.keymap("n", "<leader>dv", "<cmd>DiffviewOpen<cr>")
+utils.keymap("n", "<leader>df", "<cmd>DiffviewFileHistory %<cr>")
+utils.keymap("n", "<leader>dc", "<cmd>DiffviewClose<cr>")
 
 local actions = require("diffview.actions")
 
@@ -32,7 +32,7 @@ require("diffview").setup({
     },
     win_config = {                      -- See ':h diffview-config-win_config'
       position = "left",
-      width = 35,
+      width = 30,
     },
   },
   file_history_panel = {

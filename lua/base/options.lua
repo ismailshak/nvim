@@ -36,3 +36,6 @@ opt.smartcase = true -- ignore case until a capital letter is used?
 -- disables the line number column from bouncing whenever
 -- the LSP adds an icon to the column - god bless
 vim.wo.signcolumn = "yes"
+
+-- Set the diff fill characters to '/', default is '-'
+vim.cmd("set fillchars+=diff:╱")
