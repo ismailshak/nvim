@@ -81,6 +81,10 @@ M.load_plugins = function(use)
 	-- tmux navigation
 	use("numToStr/Navigator.nvim")
 	require("plugins.config.tmux-navigator")
+
+	-- Diff view
+	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+  require("plugins.config.diff-view")
 end
 
 return M
