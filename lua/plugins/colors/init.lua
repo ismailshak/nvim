@@ -2,6 +2,7 @@ local M = {}
 
 M.setup = function(use)
 	use("shaunsingh/nord.nvim")
+	use("folke/tokyonight.nvim")
 
 	-- general theme options
 	vim.g.nord_italic = false
