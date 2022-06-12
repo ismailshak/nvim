@@ -10,4 +10,7 @@ utils.keymap("n", "<c-k>", "<c-w>k")
 utils.keymap("n", "<c-l>", "<c-w>l")
 
 -- close buffer
-utils.keymap("n", "<leader>w", "<CMD>bd<CR>")
+utils.keymap("n", "<leader>w", "<cmd>bd<cr>")
+
+-- close tab
+utils.keymap("n", "<leader>t", "<cmd>tabclose<cr>")

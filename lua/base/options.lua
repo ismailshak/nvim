@@ -1,4 +1,4 @@
-opt = vim.opt
+local opt = vim.opt
 
 -- enter :help <option> for more info
 

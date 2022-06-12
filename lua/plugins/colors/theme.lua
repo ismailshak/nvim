@@ -1,5 +1,6 @@
 -- this will change the selected theme
 local selected_theme = "tokyonight"
+-- local selected_theme = "nord"
 
 local M = {}
 
