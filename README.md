@@ -3,6 +3,5 @@
 ## Binaries needed
 
 ```bash
-brew install stylua
-brew install codespell
+brew install stylua codespell
 ```
