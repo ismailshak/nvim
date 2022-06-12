@@ -8,7 +8,6 @@ local utils = require("utils.keybindings")
 
 utils.keymap("n", "<leader>dv", "<cmd>DiffviewOpen<cr>")
 utils.keymap("n", "<leader>df", "<cmd>DiffviewFileHistory %<cr>")
-utils.keymap("n", "<leader>dc", "<cmd>DiffviewClose<cr>")
 
 local actions = require("diffview.actions")
 
