@@ -15,7 +15,7 @@ null_ls.setup({
 		formatting.prettier,
 		formatting.stylua,
 		diagnostics.eslint,
-    diagnostics.codespell,
+		diagnostics.codespell,
 		code_actions.gitsigns,
 		code_actions.eslint,
 	},

@@ -6,7 +6,7 @@ M.setup = function(use)
 
 	-- general theme options
 	vim.g.nord_italic = false
-  vim.g.tokyonight_style = "night" -- default "storm"
+	vim.g.tokyonight_style = "night" -- default "storm"
 
 	-- set theme
 	local theme = require("plugins.colors.theme").get_theme()
