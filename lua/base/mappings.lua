@@ -14,3 +14,8 @@ utils.keymap("n", "<leader>w", "<cmd>bd<cr>")
 
 -- close tab
 utils.keymap("n", "<leader>t", "<cmd>tabclose<cr>")
+
+-- don't yank on delete
+utils.keymap("n", "d", '"_d')
+utils.keymap("v", "d", '"_d')
+
