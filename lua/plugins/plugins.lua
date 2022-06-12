@@ -6,6 +6,12 @@ M.load_plugins = function(use)
 	-- themes
 	require("plugins.colors").setup(use)
 
+	-- tree sitter
+	use("nvim-treesitter/nvim-treesitter")
+  -- use("nvim-treesitter/playground") -- helpful when updating a theme's highlight groups (:TSHighlightCapturesUnderCursor)
+	require("plugins.config.tree-sitter")
+
+
 	-- file explorer tree
 	use({
 		"kyazdani42/nvim-tree.lua",
@@ -23,10 +29,6 @@ M.load_plugins = function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 	})
 	require("plugins.config.statusline").setup()
-
-	-- tree sitter
-	use("nvim-treesitter/nvim-treesitter")
-	require("plugins.config.tree-sitter")
 
 	-- auto completion
 	use("hrsh7th/nvim-cmp") -- the completion plugin
@@ -84,7 +86,7 @@ M.load_plugins = function(use)
 
 	-- Diff view
 	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
-  require("plugins.config.diff-view")
+	require("plugins.config.diff-view")
 end
 
 return M
