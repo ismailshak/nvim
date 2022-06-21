@@ -14,6 +14,8 @@ null_ls.setup({
 	sources = {
 		formatting.prettier,
 		formatting.stylua,
+		formatting.gofmt,
+		-- formatting.goimports, -- TODO: set this up, will replace gofmt and will handle auto imports
 		diagnostics.eslint,
 		diagnostics.codespell,
 		code_actions.gitsigns,

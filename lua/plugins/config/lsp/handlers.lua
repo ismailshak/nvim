@@ -69,10 +69,8 @@ local function lsp_keymaps(bufnr)
 	utils.buf_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 	utils.buf_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 	utils.buf_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-	-- utils.buf_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+	utils.buf_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
 	utils.buf_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-	-- utils.buf_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-	-- utils.buf_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>")
 	utils.buf_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>')
 	utils.buf_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
 	utils.buf_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>')
@@ -81,7 +79,7 @@ local function lsp_keymaps(bufnr)
 	utils.buf_keymap(bufnr, "n", "<leader>lf", ":Format <CR>")
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.formatting, {})
 
-	local telescope_present, telescope = pcall(require, "telescope.builtin")
+	local telescope_present, _ = pcall(require, "telescope.builtin")
 	if telescope_present then
 		utils.buf_keymap(bufnr, "n", "<leader>fs", "<cmd>lua require('telescope.builtin').lsp_document_symbols() <CR>")
 	end
@@ -95,6 +93,7 @@ end
 
 M.on_attach = function(client, bufnr)
 	disable_client_formatting(client, "tsserver")
+  disable_client_formatting(client, "gopls")
 	disable_client_formatting(client, "sumneko_lua")
 	lsp_keymaps(bufnr) -- set up keymaps
 	lsp_highlight_document(client) -- enable highlighting tokens
