@@ -87,9 +87,9 @@ M.load_plugins = function(use)
 	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 	require("plugins.config.diff-view")
 
-  -- Togglable terminal
-  use("akinsho/toggleterm.nvim")
-  require("plugins.config.toggle-term")
+	-- Togglable terminal
+	use("akinsho/toggleterm.nvim")
+	require("plugins.config.toggle-term")
 end
 
 return M
