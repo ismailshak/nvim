@@ -95,6 +95,7 @@ M.on_attach = function(client, bufnr)
 	disable_client_formatting(client, "tsserver")
 	disable_client_formatting(client, "gopls")
 	disable_client_formatting(client, "sumneko_lua")
+	disable_client_formatting(client, "jsonls")
 	lsp_keymaps(bufnr) -- set up keymaps
 	lsp_highlight_document(client) -- enable highlighting tokens
 end
