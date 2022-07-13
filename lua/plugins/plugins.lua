@@ -90,6 +90,14 @@ M.load_plugins = function(use)
 	-- Togglable terminal
 	use("akinsho/toggleterm.nvim")
 	require("plugins.config.toggle-term")
+
+	-- surround utility
+	use("kylechui/nvim-surround")
+	require("plugins.config.surround")
+
+	-- sessions
+	use("rmagatti/auto-session")
+	require("plugins.config.sessions")
 end
 
 return M
