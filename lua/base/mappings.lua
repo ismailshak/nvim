@@ -19,6 +19,9 @@ utils.keymap("n", "<leader>q", "<cmd>tabclose<cr>")
 utils.keymap("n", "d", '"_d')
 utils.keymap("v", "d", '"_d')
 
+-- close all buffers except current one
+utils.keymap("n", "<leader>e", ":%bd|e#<CR>"
+
 -- don't yank on cut
 -- utils.keymap("n", "x", '"_x')
 -- utils.keymap("v", "x", '"_x')
