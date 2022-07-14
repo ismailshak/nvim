@@ -12,15 +12,15 @@ utils.keymap("n", "<c-l>", "<c-w>l")
 -- close buffer
 utils.keymap("n", "<leader>w", "<cmd>bd<cr>")
 
+-- close all buffers except current one
+utils.keymap("n", "<leader>e", ":%bd|e#<CR>")
+
 -- close tab
 utils.keymap("n", "<leader>q", "<cmd>tabclose<cr>")
 
 -- don't yank on delete
 utils.keymap("n", "d", '"_d')
 utils.keymap("v", "d", '"_d')
-
--- close all buffers except current one
-utils.keymap("n", "<leader>e", ":%bd|e#<CR>"
 
 -- don't yank on cut
 -- utils.keymap("n", "x", '"_x')
