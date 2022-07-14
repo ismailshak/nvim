@@ -13,7 +13,7 @@ utils.keymap("n", "<c-l>", "<c-w>l")
 utils.keymap("n", "<leader>w", "<cmd>bd<cr>")
 
 -- close all buffers except current one
-utils.keymap("n", "<leader>e", ":%bd|e#<CR>")
+utils.keymap("n", "<leader>e", ":%bd|e#|bd#<CR>")
 
 -- close tab
 utils.keymap("n", "<leader>q", "<cmd>tabclose<cr>")
