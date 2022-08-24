@@ -1,6 +1,6 @@
 -- this will change the selected theme
 -- local selected_theme = "tokyonight"
--- local selected_theme = "nord"
+-- local selected_theme = "nord" -- installed in /colors/nord.vim
 local selected_theme = "iceberg" -- installed in /colors/iceberg.vim
 
 local M = {}
