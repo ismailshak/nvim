@@ -88,7 +88,8 @@ M.load_plugins = function(use)
 	require("plugins.config.diff-view")
 
 	-- Togglable terminal
-	use("akinsho/toggleterm.nvim")
+	-- use("akinsho/toggleterm.nvim")
+	use("numToStr/FTerm.nvim")
 	require("plugins.config.toggle-term")
 
 	-- surround utility
