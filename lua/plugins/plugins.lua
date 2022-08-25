@@ -29,6 +29,10 @@ M.load_plugins = function(use)
 	})
 	require("plugins.config.statusline").setup()
 
+	-- indent blank lines
+	use("lukas-reineke/indent-blankline.nvim")
+	require("plugins.config.blankline")
+
 	-- auto completion
 	use("hrsh7th/nvim-cmp") -- the completion plugin
 	use("hrsh7th/cmp-buffer") -- buffer completions
