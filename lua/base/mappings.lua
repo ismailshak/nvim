@@ -18,6 +18,9 @@ utils.keymap("n", "<leader>e", ":%bd|e#|bd#<CR>")
 -- close tab
 utils.keymap("n", "<leader>q", "<cmd>tabclose<cr>")
 
+-- remove selection highlighting
+utils.keymap("n", "<Esc>", "<cmd>noh<CR>")
+
 -- don't yank on delete
 utils.keymap("n", "d", '"_d')
 utils.keymap("v", "d", '"_d')

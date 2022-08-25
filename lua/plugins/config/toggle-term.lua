@@ -5,8 +5,8 @@ end
 
 local utils = require("utils.keybindings")
 
-utils.keymap("n", "<C-j>", '<CMD>lua require("FTerm").toggle()<CR>')
-utils.keymap("t", "<C-j>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+utils.keymap("n", "<C-\\>", '<CMD>lua require("FTerm").toggle()<CR>')
+utils.keymap("t", "<C-\\>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
 fterm.setup({
 	---Filetype of the terminal buffer
