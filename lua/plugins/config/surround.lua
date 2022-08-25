@@ -4,63 +4,35 @@ if not ok then
 end
 
 surround.setup({
-	keymaps = { -- vim-surround style keymaps
-		insert = "ys",
-		insert_line = "yss",
+	keymaps = {
+		insert = "<C-g>s",
+		insert_line = "<C-g>S",
+		normal = "ys",
+		normal_cur = "yss",
+		normal_line = "yS",
+		normal_cur_line = "ySS",
 		visual = "S",
+		visual_line = "gS",
 		delete = "ds",
 		change = "cs",
 	},
-	delimiters = {
-		pairs = {
-			["("] = { "( ", " )" },
-			[")"] = { "(", ")" },
-			["{"] = { "{ ", " }" },
-			["}"] = { "{", "}" },
-			["<"] = { "< ", " >" },
-			[">"] = { "<", ">" },
-			["["] = { "[ ", " ]" },
-			["]"] = { "[", "]" },
-			-- Define pairs based on function evaluations!
-			-- ["i"] = function()
-			--     return {
-			--         require("nvim-surround.utils").get_input(
-			--             "Enter the left delimiter: "
-			--         ),
-			--         require("nvim-surround.utils").get_input(
-			--             "Enter the right delimiter: "
-			--         )
-			--     }
-			-- end,
-			-- ["f"] = function()
-			--     return {
-			--         require("nvim-surround.utils").get_input(
-			--             "Enter the function name: "
-			--         ) .. "(",
-			--         ")"
-			--     }
-			-- end,
-		},
-		separators = {
-			["'"] = { "'", "'" },
-			['"'] = { '"', '"' },
-			["`"] = { "`", "`" },
-		},
-		HTML = {
-			["t"] = "type", -- Change just the tag type
-			["T"] = "whole", -- Change the whole tag contents
-		},
-		aliases = {
-			["a"] = ">", -- Single character aliases apply everywhere
-			["b"] = ")",
-			["B"] = "}",
-			["r"] = "]",
-			-- Table aliases only apply for changes/deletions
-			["q"] = { '"', "'", "`" }, -- Any quote character
-			["s"] = { ")", "]", "}", ">", "'", '"', "`" }, -- Any surrounding delimiter
-		},
+	aliases = {
+		["a"] = ">",
+		["b"] = ")",
+		["B"] = "}",
+		["r"] = "]",
+		["q"] = { '"', "'", "`" },
+		["s"] = { "}", "]", ")", ">", '"', "'", "`" },
 	},
-	highlight_motion = { -- Highlight before inserting/changing surrounds
+	highlight = {
 		duration = 0,
 	},
+	move_cursor = "begin",
+	indent_lines = function(start, stop)
+		local b = vim.bo
+		-- Only re-indent the selection if a formatter is set up already
+		if start <= stop and (b.equalprg ~= "" or b.indentexpr ~= "" or b.cindent or b.smartindent or b.lisp) then
+			vim.cmd(string.format("silent normal! %dG=%dG", start, stop))
+		end
+	end,
 })
