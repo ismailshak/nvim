@@ -57,6 +57,7 @@ M.load_plugins = function(use)
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
+	use({ "nvim-telescope/telescope-ui-select.nvim" }) -- vim selects use telescope
 	require("plugins.config.telescope")
 
 	-- bufferline
