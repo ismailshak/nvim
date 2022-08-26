@@ -19,8 +19,11 @@ M.load_plugins = function(use)
 		},
 		--tag = 'nightly' -- optional, updated every week. (see issue #1193)
 	})
-
 	require("plugins.config.nvim-tree")
+
+	-- better vim UI menus
+	use({ "stevearc/dressing.nvim" })
+	require("plugins.config.ui")
 
 	-- statusline at the bottom
 	use({
