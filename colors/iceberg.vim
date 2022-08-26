@@ -450,8 +450,8 @@ hi! link typescriptIdentifier Statement
 hi! link typescriptMessage icebergNormalFg
 hi! link typescriptNull Constant
 hi! link typescriptParens icebergNormalFg
-hi! link NormalFloat DiagnosticFloatingHint
-hi! link FloatBorder DiagnosticFloatingHint
+hi! link NormalFloat Normal
+hi! link FloatBorder Normal
 
 if !has('nvim')
   hi! link SpecialKey Whitespace
