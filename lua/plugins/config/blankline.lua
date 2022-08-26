@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 indent.setup({
+	filetype_exclude = { "dashboard" },
 	show_current_context = false,
 	show_current_context_start = false,
 })

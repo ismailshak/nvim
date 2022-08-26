@@ -6,6 +6,9 @@ M.load_plugins = function(use)
 	-- themes
 	require("plugins.colors").setup(use)
 
+	use({ "glepnir/dashboard-nvim" })
+	require("plugins.config.dashboard-setup")
+
 	-- tree sitter
 	use("nvim-treesitter/nvim-treesitter")
 	-- use("nvim-treesitter/playground") -- helpful when updating a theme's highlight groups (:TSHighlightCapturesUnderCursor)
@@ -62,7 +65,7 @@ M.load_plugins = function(use)
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
-	use({ "nvim-telescope/telescope-ui-select.nvim" }) -- vim selects use telescope
+	use { "nvim-telescope/telescope-file-browser.nvim" }
 	require("plugins.config.telescope")
 
 	-- bufferline

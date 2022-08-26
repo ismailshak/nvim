@@ -7,13 +7,16 @@ end
 local utils = require("utils.keybindings")
 utils.keymap("n", "<leader>ff", ":Telescope find_files <CR>")
 utils.keymap("n", "<leader>fg", ":Telescope live_grep <CR>")
-utils.keymap("n", "<leader>fb", ":Telescope buffers <CR>")
+utils.keymap("n", "<leader>fb", ":Telescope file_browser <CR>")
+utils.keymap("n", "<leader>bl", ":Telescope buffers <CR>")
 utils.keymap("n", "<leader>fh", ":Telescope help_tags <CR>")
 utils.keymap("n", "<leader>fa", ":Telescope find_files hidden=true <CR>")
 utils.keymap("n", "<leader>gb", ":Telescope git_branches <CR>")
 utils.keymap("n", "<leader>gc", ":Telescope git_commits <CR>")
 utils.keymap("n", "<leader>gt", ":Telescope git_status <CR>")
 utils.keymap("n", "<leader>fo", ":Telescope oldfiles <CR>")
+utils.keymap("n", "<leader>th", ":Telescope colorscheme <CR>")
+utils.keymap("n", "<leader>sc", ":Telescope spell_suggest <CR>")
 
 local actions = require("telescope.actions")
 
@@ -132,6 +135,22 @@ telescope.setup({
 			filetypes = { "png", "webp", "jpg", "jpeg", "pdf" },
 			find_cmd = "rg", -- find command (defaults to `fd`)
 		},
+		file_browser = {
+			theme = "ivy",
+			-- disables netrw and use telescope-file-browser in its place
+			hijack_netrw = true,
+			-- show hidden files
+			hidden = true,
+			display_stat = false,
+			mappings = {
+				["i"] = {
+					-- your custom insert mode mappings
+				},
+				["n"] = {
+					-- your custom normal mode mappings
+				},
+			},
+		},
 		-- Your extension configuration goes here:
 		-- extension_name = {
 		--   extension_config_key = value,
@@ -139,3 +158,5 @@ telescope.setup({
 		-- please take a look at the readme of the extension you want to configure
 	},
 })
+
+require("telescope").load_extension("file_browser")
