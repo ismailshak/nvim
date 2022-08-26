@@ -9,6 +9,8 @@ M.load_plugins = function(use)
 	-- tree sitter
 	use("nvim-treesitter/nvim-treesitter")
 	-- use("nvim-treesitter/playground") -- helpful when updating a theme's highlight groups (:TSHighlightCapturesUnderCursor)
+	-- autocloses and autorenames html-like tags
+	use("windwp/nvim-ts-autotag")
 	require("plugins.config.tree-sitter")
 
 	-- file explorer tree

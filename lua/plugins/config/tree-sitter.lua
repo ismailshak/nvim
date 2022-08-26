@@ -4,6 +4,10 @@ if not configs_ok then
 end
 
 configs.setup({
+	-- autotag is enabled by https://github.com/windwp/nvim-ts-autotag
+	autotag = {
+		enable = true,
+	},
 	ensure_installed = {
 		"lua",
 		"html",
