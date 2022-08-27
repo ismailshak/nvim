@@ -60,7 +60,7 @@ return require("packer").startup(function(use)
 		"feline-nvim/feline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 	})
-	require("plugins.config.statusline").setup()
+	require("plugins.config.statusline")
 
 	-- indent blank lines
 	use("lukas-reineke/indent-blankline.nvim")

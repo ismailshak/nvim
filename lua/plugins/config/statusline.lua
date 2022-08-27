@@ -347,55 +347,53 @@ local function add_table(a, b)
 	table.insert(a, b)
 end
 
-local M = {}
-M.setup = function()
-	-- components are divided in 3 sections
-	local components = {
-		active = {},
-	}
-	local left = {}
-	local middle = {}
-	local right = {}
+-- components are divided in 3 sections
+local components = {
+	active = {},
+}
+local left = {}
+local middle = {}
+local right = {}
 
-	-- left
-	--add_table(left, opt.main_icon)
-	--add_table(left, opt.mode_icon)
-	add_table(left, opt.mode)
-	add_table(left, opt.file_name)
-	add_table(left, opt.dir_name)
-	add_table(left, opt.diff.add)
-	add_table(left, opt.diff.change)
-	add_table(left, opt.diff.remove)
-	add_table(left, opt.diagnostic.error)
-	add_table(left, opt.diagnostic.warning)
-	add_table(left, opt.diagnostic.hint)
-	add_table(left, opt.diagnostic.info)
+-- left
+--add_table(left, opt.main_icon)
+--add_table(left, opt.mode_icon)
+add_table(left, opt.mode)
+add_table(left, opt.file_name)
+add_table(left, opt.dir_name)
+add_table(left, opt.diff.add)
+add_table(left, opt.diff.change)
+add_table(left, opt.diff.remove)
+add_table(left, opt.diagnostic.error)
+add_table(left, opt.diagnostic.warning)
+add_table(left, opt.diagnostic.hint)
+add_table(left, opt.diagnostic.info)
 
-	-- middle
-	add_table(middle, opt.lsp_progress)
+-- middle
+add_table(middle, opt.lsp_progress)
 
-	-- right
-	--add_table(right, opt.lsp_icon)
-	add_table(right, opt.git_branch)
-	add_table(right, opt.empty_space)
-	--add_table(right, opt.empty_spaceColored)
+-- right
+--add_table(right, opt.lsp_icon)
+add_table(right, opt.git_branch)
+add_table(right, opt.empty_space)
+--add_table(right, opt.empty_spaceColored)
 
-	--add_table(right, opt.separator_right)
-	--add_table(right, opt.separator_right2)
-	add_table(right, opt.position_icon)
-	add_table(right, opt.current_line)
+--add_table(right, opt.separator_right)
+--add_table(right, opt.separator_right2)
+add_table(right, opt.position_icon)
+add_table(right, opt.current_line)
 
-	components.active[1] = left
-	components.active[2] = middle
-	components.active[3] = right
+components.active[1] = left
+components.active[2] = middle
+components.active[3] = right
 
-	feline.setup({
-		theme = {
-			bg = colors.statusline_bg,
-			fg = colors.fg,
-		},
-		components = components,
-	})
-end
+feline.setup({
+	theme = {
+		bg = colors.statusline_bg,
+		fg = colors.fg,
+	},
+	components = components,
+})
 
-return M
+
+
