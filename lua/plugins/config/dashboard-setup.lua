@@ -15,12 +15,13 @@ dashboard.footer_pad = 5
 
 local function make_custom_footer()
 	local default_footer = { "", "No plugins loaded" }
+	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+	default_footer[1] = " " .. dir_name
 	if packer_plugins ~= nil then
 		local count = #vim.tbl_keys(packer_plugins)
-		local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-		default_footer[1] = " " .. dir_name
 		default_footer[2] = ""
-		default_footer[3] = "loaded " .. count .. " plugins"
+		default_footer[3] = ""
+		default_footer[4] = "loaded " .. count .. " plugins"
 	end
 	return default_footer
 end
