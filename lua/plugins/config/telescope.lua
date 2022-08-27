@@ -17,6 +17,7 @@ utils.keymap("n", "<leader>gt", ":Telescope git_status <CR>")
 utils.keymap("n", "<leader>fo", ":Telescope oldfiles <CR>")
 utils.keymap("n", "<leader>th", ":Telescope colorscheme <CR>")
 utils.keymap("n", "<leader>sc", ":Telescope spell_suggest <CR>")
+utils.keymap("n", "<leader>fc", ":Telescope dotfiles <CR>") -- custom extension
 
 local actions = require("telescope.actions")
 
@@ -151,6 +152,14 @@ telescope.setup({
 				},
 			},
 		},
+		dotfiles = {
+			theme = "ivy",
+      layout_strategy = "horizontal",
+			layout_config = {
+				width = 0.40,
+				height = 0.50,
+			},
+		},
 		-- Your extension configuration goes here:
 		-- extension_name = {
 		--   extension_config_key = value,
@@ -160,3 +169,4 @@ telescope.setup({
 })
 
 require("telescope").load_extension("file_browser")
+require("telescope").load_extension("dotfiles")

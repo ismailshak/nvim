@@ -32,7 +32,7 @@ fterm.setup({
 
 	---Transparency of the floating window. See `:h winblend`
 	---@type integer
-	blend = 0,
+	blend = 30,
 
 	---Object containing the terminal window dimensions.
 	---The value for each field should be between `0` and `1`

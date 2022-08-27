@@ -13,13 +13,13 @@ utils.keymap("n", "<c-l>", "<c-w>l")
 utils.keymap("n", "<leader>w", "<cmd>bd<cr>")
 
 -- close all buffers except current one
-utils.keymap("n", "<leader>e", ":%bd|e#|bd#<CR>")
+utils.keymap("n", "<leader>e", ":%bd|e#|bd#<cr>|'\"'")
 
 -- close tab
 utils.keymap("n", "<leader>q", "<cmd>tabclose<cr>")
 
 -- remove selection highlighting
-utils.keymap("n", "<Esc>", "<cmd>noh<CR>")
+utils.keymap("n", "<Esc>", "<cmd>noh<cr>")
 
 -- don't yank on delete
 utils.keymap("n", "d", '"_d')
@@ -49,5 +49,5 @@ That is, the current line is moved up one line.
 After visually selecting some lines, entering :m '>+1 moves the selected lines to after line number '>+1 (one line after the last selected line; '>
 is a mark assigned by Vim to identify the selection end). That is, the block of selected lines is moved down one line.
 
-The == re-indents the line to suit its new position. For the visual-mode mappings, gv reselects the last visual block and = re-indents that block. 
+The == re-indents the line to suit its new position. For the visual-mode mappings, gv reselects the last visual block and = re-indents that block.
 --]]

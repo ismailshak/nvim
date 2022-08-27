@@ -7,17 +7,20 @@ local home = os.getenv("HOME")
 
 dashboard.preview_file_height = 12
 dashboard.preview_file_width = 80
-dashboard.hide_statusline = false
-dashboard.hide_tabline = false
+dashboard.hide_statusline = true
+dashboard.hide_tabline = true
 dashboard.header_pad = 5
-dashboard.center_pad = 7
+dashboard.center_pad = 5
 dashboard.footer_pad = 5
 
 local function make_custom_footer()
 	local default_footer = { "", "No plugins loaded" }
 	if packer_plugins ~= nil then
 		local count = #vim.tbl_keys(packer_plugins)
-		default_footer[2] = "loaded " .. count .. " plugins"
+		local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+		default_footer[1] = " " .. dir_name
+		default_footer[2] = ""
+		default_footer[3] = "loaded " .. count .. " plugins"
 	end
 	return default_footer
 end
@@ -57,9 +60,9 @@ dashboard.custom_center = {
 	},
 	{
 		icon = "  ",
-		desc = "Open zshrc                              ",
-		action = "Telescope dotfiles path=" .. home .. "/code/dotfiles",
-		shortcut = "SPC z r",
+		desc = "Open doftile                            ",
+		action = "Telescope dotfiles",
+		shortcut = "SPC f c",
 	},
 }
 
@@ -67,7 +70,7 @@ dashboard.custom_header = {
 	[[                                                     ___'        ]],
 	[[                                                 ,o88888'        ]],
 	[[                                               ,o8888888''       ]],
-	[[                         ,:o:o:oooo.        ,8O88Pd8888"'        ]],
+	[[                         ,:o:o:oooo.        ,7O88Pd8888"'        ]],
 	[[                     ,.::.::o:ooooOoOoO. ,oO8O8Pd888'"'          ]],
 	[[                   ,.:.::o:ooOoOoOO8O8OOo.8OOPd8O8O"'            ]],
 	[[                  , ..:.::o:ooOoOOOO8OOOOo.FdO8O8"'              ]],
