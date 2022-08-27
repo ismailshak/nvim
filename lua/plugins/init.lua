@@ -9,17 +9,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 		"https://github.com/wbthomason/packer.nvim",
 		install_path,
 	})
-	vim.api.nvim_command("packadd packer.nvim")
-	vim.api.nvim_command("PackerSync")
+	vim.cmd [[packadd packer.nvim]]
 end
-
--- Autocommand to reload nvim config when this file is saved
-vim.cmd([[
-	augroup packer_user_config
-		autocmd!
-		autocmd BufWritePost init.lua source <afile> | PackerInstall
-	augroup end
-]])
 
 local ok, packer = pcall(require, "packer")
 if not ok then
