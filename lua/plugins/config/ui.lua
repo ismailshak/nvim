@@ -1,7 +1,13 @@
-local configs_ok, dressing = pcall(require, "dressing")
-if not configs_ok then
+local d_ok, dressing = pcall(require, "dressing")
+if not d_ok then
 	return
 end
+
+local t_ok, _ = pcall(require, "telescope")
+if not t_ok then
+	return
+end
+
 
 dressing.setup({
 	input = {
