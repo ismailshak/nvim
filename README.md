@@ -15,6 +15,6 @@ Make sure you have go's bin dir on your PATH: `export PATH="$PATH:$HOME/go/bin"`
 ## LSPs installed
 
 ```vim
-:LspInstall cssls gopls jsonls tsserver html dockerls sumneko_lua marksman yamlls
+:LspInstall cssls gopls jsonls tsserver html dockerls sumneko_lua marksman yamlls bashls
 ```
 
