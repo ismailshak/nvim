@@ -227,6 +227,21 @@ opt.lsp_icon = {
 	hl = { fg = colors.grey_fg2, bg = colors.statusline_bg },
 }
 
+opt.file_type = {
+	provider = "file_type",
+	filetype_icon = true,
+	case = "lowercase",
+	hl = { fg = colors.grey_fg2, bg = colors.statusline_bg },
+	right_sep = {
+		str = opt.icons.right,
+		hl = { bg = colors.statusline_bg },
+	},
+	left_sep = {
+		str = opt.icons.left,
+		hl = { bg = colors.statusline_bg },
+	},
+}
+
 opt.git_branch = {
 	provider = "git_branch",
 	enabled = function(winid)
@@ -240,10 +255,18 @@ opt.git_branch = {
 }
 
 opt.empty_space = {
-	provider = " " .. opt.icons.left,
-	hl = {
-		fg = colors.one_bg2,
-		bg = colors.lightbg,
+	dark = {
+		provider = " " .. opt.icons.left,
+		hl = {
+			bg = colors.statusline_bg,
+		},
+	},
+	light = {
+		provider = " " .. opt.icons.left,
+		hl = {
+			fg = colors.one_bg2,
+			bg = colors.lightbg,
+		},
 	},
 }
 
@@ -315,11 +338,11 @@ opt.position_icon = {
 	end,
 	hl = {
 		fg = colors.black,
-		bg = colors.green,
+		bg = colors.nord_blue,
 	},
 }
 
-opt.current_line = {
+opt.line_percentage = {
 	provider = function()
 		local current_line = vim.fn.line(".")
 		local total_line = vim.fn.line("$")
@@ -336,10 +359,34 @@ opt.current_line = {
 	enabled = function(winid)
 		return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
 	end,
-
 	hl = {
-		fg = colors.green,
-		bg = colors.one_bg,
+		fg = colors.black,
+		bg = colors.nord_blue,
+	},
+	right_sep = {
+		str = opt.icons.right,
+		hl = { fg = colors.nord_blue, bg = colors.nord_blue },
+	},
+	left_sep = {
+		str = opt.icons.left,
+		hl = { fg = colors.nord_blue, bg = colors.nord_blue },
+	},
+}
+
+opt.current_line = {
+	provider = "position",
+	format = "Ln {line}, Col {col}",
+	hl = {
+		fg = colors.black,
+		bg = colors.nord_blue,
+	},
+	right_sep = {
+		str = opt.icons.right,
+		hl = { fg = colors.nord_blue, bg = colors.nord_blue },
+	},
+	left_sep = {
+		str = opt.icons.left,
+		hl = { fg = colors.nord_blue, bg = colors.nord_blue },
 	},
 }
 
@@ -356,31 +403,24 @@ local middle = {}
 local right = {}
 
 -- left
---add_table(left, opt.main_icon)
---add_table(left, opt.mode_icon)
 add_table(left, opt.mode)
 add_table(left, opt.file_name)
 add_table(left, opt.dir_name)
 add_table(left, opt.diff.add)
 add_table(left, opt.diff.change)
 add_table(left, opt.diff.remove)
-add_table(left, opt.diagnostic.error)
-add_table(left, opt.diagnostic.warning)
-add_table(left, opt.diagnostic.hint)
-add_table(left, opt.diagnostic.info)
 
 -- middle
 add_table(middle, opt.lsp_progress)
 
 -- right
---add_table(right, opt.lsp_icon)
+add_table(right, opt.diagnostic.error)
+add_table(right, opt.diagnostic.warning)
+add_table(right, opt.diagnostic.hint)
+add_table(right, opt.diagnostic.info)
+add_table(right, opt.empty_space.dark)
 add_table(right, opt.git_branch)
-add_table(right, opt.empty_space)
---add_table(right, opt.empty_spaceColored)
-
---add_table(right, opt.separator_right)
---add_table(right, opt.separator_right2)
-add_table(right, opt.position_icon)
+add_table(right, opt.empty_space.light)
 add_table(right, opt.current_line)
 
 components.active[1] = left
@@ -394,6 +434,3 @@ feline.setup({
 	},
 	components = components,
 })
-
-
-
