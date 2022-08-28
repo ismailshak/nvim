@@ -29,13 +29,14 @@ utils.keymap("v", "d", '"_d')
 -- utils.keymap("n", "x", '"_x')
 -- utils.keymap("v", "x", '"_x')
 
+-- CURRENTLY HANDLED BY A PLUGIN
 -- move current cursor line up or down
-utils.keymap("n", "<A-k>", "<cmd>m .-2<cr>==")
-utils.keymap("n", "<A-j>", "<cmd>m +1<cr>==")
-utils.keymap("i", "<A-k>", "<Esc><cmd>m .-2<cr>==i")
-utils.keymap("i", "<A-j>", "<Esc><cmd>m .+1<cr>==i")
-utils.keymap("v", "<A-k>", ":m '<-2<cr>gv=gv")
-utils.keymap("v", "<A-j>", ":m '>+1<cr>gv=gv")
+--[[ utils.keymap("n", "<A-k>", "<cmd>m .-2<cr>==") ]]
+--[[ utils.keymap("n", "<A-j>", "<cmd>m +1<cr>==") ]]
+--[[ utils.keymap("i", "<A-k>", "<Esc><cmd>m .-2<cr>==i") ]]
+--[[ utils.keymap("i", "<A-j>", "<Esc><cmd>m .+1<cr>==i") ]]
+--[[ utils.keymap("v", "<A-k>", ":m '<-2<cr>gv=gv") ]]
+--[[ utils.keymap("v", "<A-j>", ":m '>+1<cr>gv=gv") ]]
 
 --[[
 Move line mapping explanation

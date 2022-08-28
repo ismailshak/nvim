@@ -120,6 +120,7 @@ cmp.setup({
 	},
 	-- order matters, it will appear in that order in the completion menu (using its own custom weighting system)
 	sources = {
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "buffer" },

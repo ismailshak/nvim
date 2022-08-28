@@ -66,7 +66,7 @@ return require("packer").startup(function(use)
 	use("lukas-reineke/indent-blankline.nvim")
 	require("plugins.config.blankline")
 
-	-- auto completion
+	-- auto completion & code snippets
 	use("hrsh7th/nvim-cmp") -- the completion plugin
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
@@ -74,8 +74,7 @@ return require("packer").startup(function(use)
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 	use("hrsh7th/cmp-nvim-lsp") -- lsp completions
 	use("hrsh7th/cmp-nvim-lua") -- lua completions (helps when working in this dir)
-
-	-- snippets
+	use("hrsh7th/cmp-nvim-lsp-signature-help") -- function signature hints
 	use("L3MON4D3/LuaSnip") -- snippet engine
 	use("rafamadriz/friendly-snippets") -- bunch of snippets to use
 	require("plugins.config.cmp-conf")
@@ -137,6 +136,9 @@ return require("packer").startup(function(use)
 	-- sessions
 	use("rmagatti/auto-session")
 	require("plugins.config.sessions")
+
+	-- move lines or characters up/down/left/right
+	use("matze/vim-move")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
