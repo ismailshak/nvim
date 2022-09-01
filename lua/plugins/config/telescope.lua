@@ -18,6 +18,9 @@ utils.keymap("n", "<leader>fo", ":Telescope oldfiles <CR>")
 utils.keymap("n", "<leader>th", ":Telescope colorscheme <CR>")
 utils.keymap("n", "<leader>sc", ":Telescope spell_suggest <CR>")
 utils.keymap("n", "<leader>fc", ":Telescope dotfiles <CR>") -- custom extension
+utils.keymap("n", "<leader>ghp", ":Telescope gh pull_request <CR>")
+utils.keymap("n", "<leader>ghc", ":Telescope gh pull_request state=closed<CR>")
+utils.keymap("n", "<leader>ghi", ":Telescope gh issues <CR>")
 
 local actions = require("telescope.actions")
 
@@ -154,7 +157,7 @@ telescope.setup({
 		},
 		dotfiles = {
 			theme = "ivy",
-      layout_strategy = "horizontal",
+			layout_strategy = "horizontal",
 			layout_config = {
 				width = 0.40,
 				height = 0.50,
@@ -169,4 +172,6 @@ telescope.setup({
 })
 
 require("telescope").load_extension("file_browser")
+require("telescope").load_extension("gh")
+-- this is my custom thing
 require("telescope").load_extension("dotfiles")

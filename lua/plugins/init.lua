@@ -87,9 +87,12 @@ return require("packer").startup(function(use)
 	-- telescope
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope-file-browser.nvim" },
+			{ "nvim-telescope/telescope-github.nvim" },
+		},
 	})
-	use({ "nvim-telescope/telescope-file-browser.nvim" })
 	require("plugins.config.telescope")
 
 	-- bufferline
