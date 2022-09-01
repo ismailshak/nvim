@@ -22,6 +22,7 @@ configs.setup({
 		"gomod",
 		"dockerfile",
 		"python",
+		"bash",
 	},
 	highlight = {
 		enable = true,

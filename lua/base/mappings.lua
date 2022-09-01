@@ -29,6 +29,10 @@ utils.keymap("v", "d", '"_d')
 -- utils.keymap("n", "x", '"_x')
 -- utils.keymap("v", "x", '"_x')
 
+-- duplicate line up or down
+utils.keymap("n", "<A-Up>", "yyP")
+utils.keymap("n", "<A-Down>", "yyp")
+
 -- CURRENTLY HANDLED BY A PLUGIN
 -- move current cursor line up or down
 --[[ utils.keymap("n", "<A-k>", "<cmd>m .-2<cr>==") ]]
