@@ -1,6 +1,6 @@
 local M = {}
 
-M.dots = {
+M.list = {
 	{
 		name = "zsh",
 		path = "~/.zshrc",
@@ -9,7 +9,7 @@ M.dots = {
 	},
 	{
 		name = "tmux",
-		path = "~/.tmuxconf",
+		path = "~/.tmux.conf",
 		description = "tmux configuration",
 		icon = "",
 	},

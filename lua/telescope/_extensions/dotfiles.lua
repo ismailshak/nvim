@@ -5,7 +5,7 @@ local conf = require("telescope.config").values
 local entry_display = require("telescope.pickers.entry_display")
 local action_state = require("telescope.actions.state")
 
-local dotfile_list = require("telescope._extensions.list").dots
+local dotfile_list = require("telescope._extensions.dotfiles.list").list
 
 local function action(dot)
 	vim.cmd("e " .. dot.path)
