@@ -84,6 +84,25 @@ opt.file_name = {
 	},
 }
 
+opt.dir_name = {
+	provider = function()
+		local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+		return "  " .. dir_name .. " "
+	end,
+	enabled = function(winid)
+		return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
+	end,
+	hl = {
+		fg = colors.white,
+		bg = colors.lightbg,
+	},
+
+	right_sep = {
+		str = opt.icons.right,
+		hl = { fg = colors.lightbg, bg = colors.lightbg2 },
+	},
+}
+
 opt.diff = {
 	add = {
 		provider = "git_diff_added",
@@ -113,11 +132,13 @@ opt.diff = {
 	},
 }
 
-opt.dir_name = {
-	provider = function()
-		local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-		return "  " .. dir_name .. " "
-	end,
+opt.file_path = {
+	provider = {
+		name = "file_info",
+		opts = {
+			type = "relative",
+		},
+	},
 
 	enabled = function(winid)
 		return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 80
@@ -404,13 +425,13 @@ local right = {}
 
 -- left
 add_table(left, opt.mode)
-add_table(left, opt.file_name)
 add_table(left, opt.dir_name)
+add_table(left, opt.file_path)
+
+-- middle
 add_table(left, opt.diff.add)
 add_table(left, opt.diff.change)
 add_table(left, opt.diff.remove)
-
--- middle
 add_table(middle, opt.lsp_progress)
 
 -- right
