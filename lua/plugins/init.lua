@@ -41,6 +41,9 @@ return require("packer").startup(function(use)
 	use("windwp/nvim-ts-autotag")
 	require("plugins.config.tree-sitter")
 
+	use("kyazdani42/nvim-web-devicons")
+	require("plugins.config.icons")
+
 	-- file explorer tree
 	use({
 		"kyazdani42/nvim-tree.lua",
