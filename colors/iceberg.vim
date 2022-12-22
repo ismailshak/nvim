@@ -5,7 +5,7 @@
 "
 " File:       iceberg.vim
 " Maintainer: cocopon <cocopon@me.com>
-" Modified:   2022-04-26 21:56+0900
+" Modified:   2022-11-16 22:13+0900
 " License:    MIT
 
 
@@ -113,12 +113,12 @@ if &background == 'light'
   hi SyntasticStyleErrorSign ctermbg=253 ctermfg=125 guibg=#dcdfe7 guifg=#cc517a
   hi SyntasticStyleWarningSign ctermbg=253 ctermfg=130 guibg=#dcdfe7 guifg=#c57339
   hi SyntasticWarningSign ctermbg=253 ctermfg=130 guibg=#dcdfe7 guifg=#c57339
+  hi ZenSpace ctermbg=125 guibg=#cc517a
   hi TSFunction ctermfg=237 guifg=#505695
   hi TSFunctionBuiltin ctermfg=237 guifg=#505695
   hi TSFunctionMacro ctermfg=237 guifg=#505695
   hi TSMethod ctermfg=237 guifg=#505695
   hi TSURI cterm=underline ctermfg=31 gui=underline guifg=#3f83a6 term=underline
-  hi ZenSpace ctermbg=125 guibg=#cc517a
   hi DiagnosticUnderlineInfo cterm=underline ctermfg=31 gui=underline guisp=#3f83a6 term=underline
   hi DiagnosticInfo ctermfg=31 guifg=#3f83a6
   hi DiagnosticSignInfo ctermbg=253 ctermfg=31 guibg=#dcdfe7 guifg=#3f83a6
@@ -174,7 +174,7 @@ else
   hi ErrorMsg ctermbg=234 ctermfg=203 guibg=#161821 guifg=#e27878
   hi WarningMsg ctermbg=234 ctermfg=203 guibg=#161821 guifg=#e27878
   hi EndOfBuffer ctermfg=236 guifg=#242940
-  hi NonText ctermfg=236 guifg=#323a59
+  hi NonText ctermfg=236 guifg=#242940
   hi Whitespace ctermfg=236 guifg=#242940
   hi Folded ctermbg=235 ctermfg=245 guibg=#1e2132 guifg=#686f9a
   hi FoldColumn ctermbg=235 ctermfg=239 guibg=#1e2132 guifg=#444b71
@@ -204,7 +204,6 @@ else
   hi SpellLocal ctermbg=23 ctermfg=252 gui=undercurl guifg=NONE guisp=#89b8c2
   hi SpellRare ctermbg=97 ctermfg=252 gui=undercurl guifg=NONE guisp=#a093c7
   hi Statement ctermfg=110 gui=NONE guifg=#84a0c6
-  hi Keyword ctermfg=110 gui=NONE guifg=#84a0c6
   hi StatusLine cterm=reverse ctermbg=234 ctermfg=245 gui=reverse guibg=#17171b guifg=#818596 term=reverse
   hi StatusLineTerm cterm=reverse ctermbg=234 ctermfg=245 gui=reverse guibg=#17171b guifg=#818596 term=reverse
   hi StatusLineNC cterm=reverse ctermbg=238 ctermfg=233 gui=reverse guibg=#3e445e guifg=#0f1117
@@ -218,7 +217,7 @@ else
   hi TermCursorNC ctermbg=242 ctermfg=234 guibg=#6b7089 guifg=#161821
   hi Title ctermfg=216 gui=NONE guifg=#e2a478
   hi Todo ctermbg=234 ctermfg=150 guibg=#45493e guifg=#b4be82
-  hi Type ctermfg=110 gui=NONE guifg=#a093c7
+  hi Type ctermfg=110 gui=NONE guifg=#84a0c6
   hi Underlined cterm=underline ctermfg=110 gui=underline guifg=#84a0c6 term=underline
   hi VertSplit cterm=NONE ctermbg=233 ctermfg=233 gui=NONE guibg=#0f1117 guifg=#0f1117
   hi Visual ctermbg=236 ctermfg=NONE guibg=#272c42 guifg=NONE
@@ -237,8 +236,8 @@ else
   hi EasyMotionTarget2First ctermfg=216 guifg=#e2a478
   hi EasyMotionTarget2Second ctermfg=216 guifg=#e2a478
   hi GitGutterAdd ctermbg=235 ctermfg=150 guibg=#1e2132 guifg=#b4be82
-  hi GitGutterChange ctermbg=235 ctermfg=109 guibg=#1e2132 guifg=#2d539e
-  hi GitGutterChangeDelete ctermbg=235 ctermfg=109 guibg=#1e2132 guifg=#2d539e
+  hi GitGutterChange ctermbg=235 ctermfg=109 guibg=#1e2132 guifg=#89b8c2
+  hi GitGutterChangeDelete ctermbg=235 ctermfg=109 guibg=#1e2132 guifg=#89b8c2
   hi GitGutterDelete ctermbg=235 ctermfg=203 guibg=#1e2132 guifg=#e27878
   hi gitmessengerEndOfBuffer ctermbg=235 ctermfg=239 guibg=#1e2132 guifg=#444b71
   hi gitmessengerPopupNormal ctermbg=235 ctermfg=252 guibg=#1e2132 guifg=#c6c8d1
@@ -248,12 +247,12 @@ else
   hi SyntasticStyleErrorSign ctermbg=235 ctermfg=203 guibg=#1e2132 guifg=#e27878
   hi SyntasticStyleWarningSign ctermbg=235 ctermfg=216 guibg=#1e2132 guifg=#e2a478
   hi SyntasticWarningSign ctermbg=235 ctermfg=216 guibg=#1e2132 guifg=#e2a478
-  hi TSFunction ctermfg=252 guifg=#b4be82
+  hi ZenSpace ctermbg=203 guibg=#e27878
+  hi TSFunction ctermfg=252 guifg=#a3adcb
   hi TSFunctionBuiltin ctermfg=252 guifg=#a3adcb
   hi TSFunctionMacro ctermfg=252 guifg=#a3adcb
   hi TSMethod ctermfg=252 guifg=#a3adcb
   hi TSURI cterm=underline ctermfg=109 gui=underline guifg=#89b8c2 term=underline
-  hi ZenSpace ctermbg=203 guibg=#e27878
   hi DiagnosticUnderlineInfo cterm=underline ctermfg=109 gui=underline guisp=#89b8c2 term=underline
   hi DiagnosticInfo ctermfg=109 guifg=#89b8c2
   hi DiagnosticSignInfo ctermbg=235 ctermfg=109 guibg=#1e2132 guifg=#89b8c2
@@ -404,7 +403,7 @@ hi! link TSAttribute Special
 hi! link TSBoolean Constant
 hi! link TSCharacter Constant
 hi! link TSComment Comment
-hi! link TSConstructor TSFunction
+hi! link TSConstructor icebergNormalFg
 hi! link TSConditional Statement
 hi! link TSConstant Constant
 hi! link TSConstBuiltin Constant
@@ -415,7 +414,6 @@ hi! link TSField icebergNormalFg
 hi! link TSFloat Constant
 hi! link TSInclude Statement
 hi! link TSKeyword Statement
-hi! link TSKeywordOperator Statement
 hi! link TSKeywordFunction Function
 hi! link TSLabel Special
 hi! link TSNamespace Statement
@@ -423,7 +421,7 @@ hi! link TSNumber Constant
 hi! link TSOperator icebergNormalFg
 hi! link TSParameter icebergNormalFg
 hi! link TSParameterReference icebergNormalFg
-hi! link TSProperty TSKeyword
+hi! link TSProperty icebergNormalFg
 hi! link TSPunctDelimiter icebergNormalFg
 hi! link TSPunctBracket icebergNormalFg
 hi! link TSPunctSpecial Special
@@ -450,8 +448,54 @@ hi! link typescriptIdentifier Statement
 hi! link typescriptMessage icebergNormalFg
 hi! link typescriptNull Constant
 hi! link typescriptParens icebergNormalFg
-hi! link NormalFloat Normal
-hi! link FloatBorder Normal
+
+if has('nvim-0.8')
+  hi! link @attribute TSAttribute
+  hi! link @boolean TSBoolean
+  hi! link @character TSCharacter
+  hi! link @comment TSComment
+  hi! link @constructor TSConstructor
+  hi! link @conditional TSConditional
+  hi! link @constant TSConstant
+  hi! link @constant.builtin TSConstBuiltin
+  hi! link @constant.macro TSConstMacro
+  hi! link @error TSError
+  hi! link @exception TSException
+  hi! link @field TSField
+  hi! link @float TSFloat
+  hi! link @function TSFunction
+  hi! link @function.builtin TSFunctionBuiltin
+  hi! link @function.macro TSFunctionMacro
+  hi! link @include TSInclude
+  hi! link @keyword TSKeyword
+  hi! link @keyword.function TSKeywordFunction
+  hi! link @label TSLabel
+  hi! link @method TSMethod
+  hi! link @namespace TSNamespace
+  hi! link @number TSNumber
+  hi! link @operator TSOperator
+  hi! link @parameter TSParameter
+  hi! link @parameter.reference TSParameterReference
+  hi! link @property TSProperty
+  hi! link @punctuation.delimiter TSPunctDelimiter
+  hi! link @punctuation.bracket TSPunctBracket
+  hi! link @punctuation.special TSPunctSpecial
+  hi! link @repeat TSRepeat
+  hi! link @string TSString
+  hi! link @string.regex TSStringRegex
+  hi! link @string.escape TSStringEscape
+  hi! link @tag TSTag
+  hi! link @tag.attribute TSTagAttribute
+  hi! link @tag.delimiter TSTagDelimiter
+  hi! link @text TSText
+  hi! link @text.note Todo
+  hi! link @text.title TSTitle
+  hi! link @text.uri TSURI
+  hi! link @type TSType
+  hi! link @type.builtin TSTypeBuiltin
+  hi! link @variable TSVariable
+  hi! link @variable.builtin TSVariableBuiltin
+endif
 
 if !has('nvim')
   hi! link SpecialKey Whitespace
