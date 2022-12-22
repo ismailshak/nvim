@@ -91,6 +91,7 @@ M.init = function(use)
 	use("windwp/nvim-autopairs") -- autocreates bracket pairs
 	use("kylechui/nvim-surround") -- surround utility
 	use("matze/vim-move") -- move lines/characters up/down/left/right
+	use("folke/zen-mode.nvim")
 end
 
 return M
