@@ -28,7 +28,7 @@ utils.nmap(
 	"List all closed Github pull requests [telescope]"
 )
 utils.nmap("<leader>ghi", ":Telescope gh issues <CR>", "List all open Github issues [telescope]")
-utils.nmap("<leader>/", function()
+utils.nmap("<leader>th", function()
 	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 		winblend = 10,
 		previewer = false,

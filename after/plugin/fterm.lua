@@ -1,5 +1,5 @@
 local helpers = require("utils.helpers")
-if not helpers.exists("") then
+if not helpers.exists("fterm") then
 	return
 end
 
