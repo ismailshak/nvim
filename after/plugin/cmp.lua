@@ -3,7 +3,6 @@ if not helpers.exists("cmp") then
 	return
 end
 
-
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 

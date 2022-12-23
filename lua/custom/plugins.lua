@@ -25,7 +25,7 @@ M.init = function(use)
 			"hrsh7th/cmp-cmdline", -- cmdline completions
 			"hrsh7th/cmp-nvim-lsp", -- lsp completions
 			"hrsh7th/cmp-nvim-lua", -- lua completions (helps when working in this dir)
-			"hrsh7th/cmp-nvim-lsp-signature-help", -- function signature hints
+			"hrsh7th/cmp-nvim-lsp-signature-help", -- function signature hints plugin
 			"L3MON4D3/LuaSnip", -- snippet engine
 			"saadparwaiz1/cmp_luasnip", -- snippet completions
 			"rafamadriz/friendly-snippets", -- bunch of snippets to use

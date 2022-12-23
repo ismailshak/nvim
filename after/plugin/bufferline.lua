@@ -3,7 +3,6 @@ if not helpers.exists("bufferline") then
 	return
 end
 
-
 -- keybindings
 local utils = require("utils.keybindings")
 utils.nmap("<TAB>", ":BufferLineCycleNext <CR>", "Cycle next open buffer")
