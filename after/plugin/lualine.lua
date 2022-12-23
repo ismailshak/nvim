@@ -73,7 +73,7 @@ require("lualine").setup({
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { dir_name },
-		lualine_c = { "filename", diff_opts },
+		lualine_c = { { "filename", path = 1 }, diff_opts },
 		lualine_x = { mixed_indent, "diagnostics", "searchcount", "filetype" },
 		lualine_y = { "branch" },
 		lualine_z = { { "location", fmt = helpers.trim } },
