@@ -61,7 +61,7 @@ local diff_opts = {
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "iceberg_dark",
+		theme = "auto",
 		component_separators = "|",
 		section_separators = "",
 		disabled_filetypes = {
