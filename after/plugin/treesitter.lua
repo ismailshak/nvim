@@ -23,6 +23,8 @@ require("nvim-treesitter.configs").setup({
 		"dockerfile",
 		"python",
 		"bash",
+		"vim",
+		"help",
 	},
 	highlight = {
 		enable = true,
