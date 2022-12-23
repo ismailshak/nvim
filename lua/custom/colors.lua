@@ -15,7 +15,8 @@ vim.g.tokyonight_style = "night" -- default "storm"
   - fidget support
   - fix some colors (virtual text, functions etc)
   - fix border
-]]--
+]]
+--
 vim.cmd([[
   augroup IcebergColors
     autocmd!
