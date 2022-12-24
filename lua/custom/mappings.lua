@@ -25,14 +25,14 @@ utils.nmap("<A-Down>", "yyp", "Duplicate current line below")
 utils.vmap("<A-Up>", "yP", "Duplicate multiple lines")
 utils.vmap("<A-Down>", "yP", "Duplicate multiple lines")
 
-utils.nmap("<A-h>", ":vertical resize +2<CR>", "Make split pane wider (normal mode)")
-utils.nmap("<A-l>", ":vertical resize -2<CR>", "Make split pane thinner (normal mode)")
-utils.nmap("<A-j>", ":horizontal resize -2<CR>", "Make split pane shorter (normal mode)")
-utils.nmap("<A-k>", ":horizontal resize +2<CR>", "Make split pane longer (normal mode)")
-utils.vmap("<A-h>", ":vertical resize -2<CR>", "Make split pane shorter (visual mode)")
-utils.vmap("<A-l>", ":vertical resize +2<CR>", "Make split pane longer (visual mode)")
-utils.vmap("<A-j>", ":horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
-utils.vmap("<A-k>", ":horizontal resize +2<CR>", "Make split pane wider (visual mode)")
+utils.nmap("<A-H>", ":vertical resize +2<CR>", "Make split pane wider (normal mode)")
+utils.nmap("<A-L>", ":vertical resize -2<CR>", "Make split pane thinner (normal mode)")
+utils.nmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane shorter (normal mode)")
+utils.nmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane longer (normal mode)")
+utils.vmap("<A-H>", ":vertical resize -2<CR>", "Make split pane shorter (visual mode)")
+utils.vmap("<A-L>", ":vertical resize +2<CR>", "Make split pane longer (visual mode)")
+utils.vmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
+utils.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual mode)")
 
 -- CURRENTLY HANDLED BY A PLUGIN
 --

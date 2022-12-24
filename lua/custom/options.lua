@@ -12,6 +12,7 @@ opt.cul = true -- cursor line
 opt.termguicolors = true
 opt.cmdheight = 0 -- removes the space at the bottom for commands
 opt.laststatus = 3 -- turns the statusline into a global status line (not 1 per buffer/split)
+opt.wrap = false -- disable line wrap
 
 -- Interactions
 opt.mouse = "a" -- enable mouse for all modes
