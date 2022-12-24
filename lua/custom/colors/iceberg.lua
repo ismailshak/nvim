@@ -1,20 +1,10 @@
--- General Theme Options
--- nord
-vim.g.nord_italic = false
-vim.g.nord_uniform_diff_background = 1
-vim.g.nord_bold = 0
-
--- tokyonight
-vim.g.tokyonight_style = "night" -- default "storm"
-
--- iceberg
 --[[
-  override some highlight groups
-  adding:
+  Override highlight groups
+	(only fixes dark mode)
   - fix git diff colors
-  - fidget support
   - fix some colors (virtual text, functions etc)
   - fix border
+	- fidget support
 ]]
 --
 vim.cmd([[
@@ -35,11 +25,3 @@ vim.cmd([[
       \ | hi! link FidgetTitle TSKeyword
   augroup END
 ]])
-
-local M = {}
-M.theme = "iceberg"
-
--- Set theme
-vim.cmd("colorscheme " .. M.theme)
-
-return M

@@ -59,6 +59,8 @@ M.init = function(use)
 
 	-- Themes
 	use("folke/tokyonight.nvim")
+	use("EdenEast/nightfox.nvim")
+	use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- Startup dashboard
 	use("glepnir/dashboard-nvim")
