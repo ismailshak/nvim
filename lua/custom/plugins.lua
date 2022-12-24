@@ -44,6 +44,9 @@ M.init = function(use)
 		after = "nvim-treesitter",
 	})
 
+	-- Motion
+	use("ggandor/lightspeed.nvim")
+
 	-- File tree
 	use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
 
