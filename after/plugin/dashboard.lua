@@ -38,12 +38,6 @@ dashboard.custom_center = {
 		action = "RestoreSession",
 	},
 	{
-		icon = "  ",
-		desc = "File browser                            ",
-		action = "Telescope file_browser",
-		shortcut = "SPC f b",
-	},
-	{
 		icon = "  ",
 		desc = "Find file                               ",
 		action = "Telescope find_files find_command=rg,--hidden,--files",
