@@ -14,7 +14,14 @@ M.init = function(use)
 	})
 
 	-- Linting & Formatting
-	use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			-- Bridge to auto install via Mason
+			"jayp0521/mason-null-ls.nvim",
+		},
+	})
 
 	use({ -- Autocompletion
 		"hrsh7th/nvim-cmp",

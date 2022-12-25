@@ -3,6 +3,10 @@ if not helpers.exists("mason") then
 	return
 end
 
+-----------------------
+-- LSP CONFIGURATION --
+-----------------------
+
 local servers = {
 	"tsserver",
 	"sumneko_lua",
@@ -24,49 +28,7 @@ vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Open diagnostic e
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(client, bufnr)
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = desc .. " [LSP]"
-		end
-
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-	end
-
-	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-	nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-
-	-- See `:help K` for why this keymap
-	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-	nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-
-	-- Lesser used LSP functionality
-	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	nmap("<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, "[W]orkspace [L]ist Folders")
-
-	-- Disable LSP formatting
-	client.server_capabilities.document_formatting = false
-
-	-- Create a command `:Format` local to the LSP buffer
-	--vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-	--	if vim.lsp.buf.format then
-	--		vim.lsp.buf.format()
-	--	elseif vim.lsp.buf.formatting then
-	--		vim.lsp.buf.formatting()
-	--	end
-	--end, { desc = "Format current buffer with LSP" })
-end
+local on_attach = require("lsp_settings.on-attach").on_attach
 
 -- Configure diagnostics
 local diagnosticsConfig = require("lsp_settings.diagnostics").config
@@ -92,6 +54,7 @@ require("mason-lspconfig").setup({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
+-- Setup all servers with default config
 for _, lsp in ipairs(servers) do
 	require("lspconfig")[lsp].setup({
 		on_attach = on_attach,
@@ -117,4 +80,51 @@ require("lspconfig").jsonls.setup({
 	capabilities = capabilities,
 	settings = require("lsp_settings.jsonls").settings,
 	setup = require("lsp_settings.jsonls").setup,
+})
+
+--------------------------
+-- FORMATTING & LINTING --
+--------------------------
+
+local null_ls = require("null-ls")
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
+--[[ local completion = null_ls.builtins.completion ]]
+--
+local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+
+null_ls.setup({
+	debug = false,
+	sources = {
+		formatting.prettier,
+		formatting.stylua,
+		formatting.goimports, -- fixes imports and formats the same way `gofmt` does, contrebute
+		diagnostics.eslint,
+		diagnostics.codespell,
+		code_actions.gitsigns,
+		code_actions.eslint,
+	},
+	-- Format on write
+	on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format({ bufnr = bufnr })
+				end,
+			})
+		end
+	end,
+})
+
+-- Auto install null-ls binaries via mason
+require("mason-null-ls").setup({
+	ensure_installed = nil,
+	automatic_installation = { exclude = { "prettier", "eslint" } },
+	automatic_setup = false,
 })
