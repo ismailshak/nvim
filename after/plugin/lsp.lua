@@ -101,7 +101,7 @@ null_ls.setup({
 	sources = {
 		formatting.prettier,
 		formatting.stylua,
-		formatting.goimports, -- fixes imports and formats the same way `gofmt` does, contrebute
+		formatting.goimports, -- fixes imports and formats the same way `gofmt` does
 		diagnostics.eslint,
 		diagnostics.codespell,
 		code_actions.gitsigns,

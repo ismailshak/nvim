@@ -30,37 +30,39 @@ local function dotfiles(opts)
 		})
 	end
 
-	pickers.new(opts, {
-		prompt_title = "Dotfiles",
-		sorter = conf.generic_sorter(opts),
-		finder = finders.new_table({
-			results = dotfile_list,
-			entry_maker = function(dot)
-				return {
-					ordinal = dot.name .. dot.path .. dot.description,
-					display = make_display,
+	pickers
+		.new(opts, {
+			prompt_title = "Dotfiles",
+			sorter = conf.generic_sorter(opts),
+			finder = finders.new_table({
+				results = dotfile_list,
+				entry_maker = function(dot)
+					return {
+						ordinal = dot.name .. dot.path .. dot.description,
+						display = make_display,
 
-					icon = dot.icon,
-					name = dot.name,
-					description = dot.description,
-					path = dot.path,
-				}
+						icon = dot.icon,
+						name = dot.name,
+						description = dot.description,
+						path = dot.path,
+					}
+				end,
+			}),
+			layout_strategy = "horizontal",
+			layout_config = {
+				width = 0.45,
+				height = 0.50,
+			},
+			attach_mappings = function(prompt_bufnr)
+				actions.select_default:replace(function()
+					local selected_dot = action_state.get_selected_entry()
+					actions.close(prompt_bufnr)
+					action(selected_dot)
+				end)
+				return true
 			end,
-		}),
-		layout_strategy = "horizontal",
-		layout_config = {
-			width = 0.45,
-			height = 0.50,
-		},
-		attach_mappings = function(prompt_bufnr)
-			actions.select_default:replace(function()
-				local selected_dot = action_state.get_selected_entry()
-				actions.close(prompt_bufnr)
-				action(selected_dot)
-			end)
-			return true
-		end,
-	}):find()
+		})
+		:find()
 end
 
 return require("telescope").register_extension({
