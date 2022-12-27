@@ -81,6 +81,13 @@ require("lspconfig").jsonls.setup({
 	setup = require("lsp_settings.jsonls").setup,
 })
 
+-- Elixir overrides
+require("lspconfig").elixirls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = require("lsp_settings.elixirls").settings,
+})
+
 --------------------------
 -- FORMATTING & LINTING --
 --------------------------
