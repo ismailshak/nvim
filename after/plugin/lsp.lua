@@ -18,6 +18,7 @@ local servers = {
 	"html",
 	"cssls",
 	"yamlls",
+	"elixirls",
 }
 
 -- Diagnostic keymaps
@@ -43,9 +44,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 })
 
 -- Setup mason so it can manage external tooling
-require("mason").setup()
-
--- Ensure the servers above are installed
+require("mason").setup() -- Ensure the servers above are installed
 require("mason-lspconfig").setup({
 	ensure_installed = servers,
 })
@@ -102,8 +101,10 @@ null_ls.setup({
 		formatting.prettier,
 		formatting.stylua,
 		formatting.goimports, -- fixes imports and formats the same way `gofmt` does
+		formatting.mix,
 		diagnostics.eslint,
 		diagnostics.codespell,
+		diagnostics.credo,
 		code_actions.gitsigns,
 		code_actions.eslint,
 	},
@@ -125,6 +126,6 @@ null_ls.setup({
 -- Auto install null-ls binaries via mason
 require("mason-null-ls").setup({
 	ensure_installed = nil,
-	automatic_installation = { exclude = { "prettier", "eslint" } },
+	automatic_installation = { exclude = { "prettier", "eslint", "credo", "mix" } },
 	automatic_setup = false,
 })
