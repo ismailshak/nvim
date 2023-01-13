@@ -1,17 +1,17 @@
 local helpers = require("utils.helpers")
-if not helpers.exists("fterm") then
+if not helpers.exists("Fterm") then
 	return
 end
 
 local utils = require("utils.keybindings")
 
-utils.nmap("<c-\\>", '<cmd>lua require("fterm").toggle()<cr>', "toggle terminal")
-utils.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("fterm").toggle()<cr>', "toggle when open")
+utils.nmap("<c-\\>", '<cmd>lua require("Fterm").toggle()<cr>', "toggle terminal")
+utils.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("Fterm").toggle()<cr>', "toggle when open")
 
-require("fterm").setup({
+require("Fterm").setup({
 	---Filetype of the terminal buffer
 	---@type string
-	ft = "FTerm",
+	ft = "Fterm",
 
 	---Command to run inside the terminal
 	---NOTE: if given string[], it will skip the shell and directly executes the command
