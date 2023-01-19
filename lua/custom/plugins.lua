@@ -53,6 +53,7 @@ M.init = function(use)
 
 	-- Motion
 	use("ggandor/lightspeed.nvim")
+	use("echasnovski/mini.move")
 
 	-- File tree
 	use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
@@ -102,7 +103,6 @@ M.init = function(use)
 	use("windwp/nvim-ts-autotag") -- autocloses and autorenames html-like tags
 	use("windwp/nvim-autopairs") -- autocreates bracket pairs
 	use("kylechui/nvim-surround") -- surround utility
-	use("matze/vim-move") -- move lines/characters up/down/left/right
 	use("folke/zen-mode.nvim")
 end
 
