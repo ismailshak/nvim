@@ -34,6 +34,8 @@ utils.vmap("<A-L>", ":vertical resize +2<CR>", "Make split pane longer (visual m
 utils.vmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
 utils.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual mode)")
 
+utils.vmap("<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', "Replace all occurrences of selected text")
+
 -- CURRENTLY HANDLED BY A PLUGIN
 --
 -- move current cursor line up or down
