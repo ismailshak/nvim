@@ -12,4 +12,4 @@ Requires `neovim` >= `0.8.x`
 - `node`
 - `python3`
 - `go`
-
+- `rustup`

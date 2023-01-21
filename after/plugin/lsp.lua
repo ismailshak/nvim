@@ -19,6 +19,7 @@ local servers = {
 	"cssls",
 	"yamlls",
 	"elixirls",
+	"rust_analyzer",
 }
 
 -- Diagnostic keymaps
@@ -109,6 +110,7 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.goimports, -- fixes imports and formats the same way `gofmt` does
 		formatting.mix,
+		formatting.rustfmt,
 		diagnostics.eslint,
 		diagnostics.codespell,
 		diagnostics.credo,
