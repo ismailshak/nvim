@@ -104,6 +104,16 @@ M.init = function(use)
 	use("windwp/nvim-autopairs") -- autocreates bracket pairs
 	use("kylechui/nvim-surround") -- surround utility
 	use("folke/zen-mode.nvim")
+	use({ -- uses LSP to show code context
+		"ismailshak/barbecue.nvim",
+		branch = "feature/hide-path",
+		requires = {
+			"neovim/nvim-lspconfig",
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons",
+		},
+		after = "nvim-web-devicons",
+	})
 end
 
 return M
