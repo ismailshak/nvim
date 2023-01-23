@@ -11,7 +11,7 @@ utils.nmap("<leader>ff", ":Telescope find_files <CR>", "[F]ind [f]iles [telescop
 utils.nmap("<leader>fa", ":Telescope find_files hidden=true <CR>", "[F]ind [a]ll files, including hidden [telescope]")
 utils.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
 utils.nmap("<leader>fb", ":Telescope file_browser <CR>", "[F]ile [b]rowser [telescope]")
-utils.nmap("<leader>bl", ":Telescope buffers <CR>", "[B]uffer [l]ist [telescope]")
+utils.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
 utils.nmap("<leader>fh", ":Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
 utils.nmap("<leader>?", ":Telescope keymaps <CR>", "List all active mappings [telescope]")
 utils.nmap("<leader>gb", ":Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
