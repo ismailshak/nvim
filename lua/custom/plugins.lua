@@ -105,8 +105,7 @@ M.init = function(use)
 	use("kylechui/nvim-surround") -- surround utility
 	use("folke/zen-mode.nvim")
 	use({ -- uses LSP to show code context
-		"ismailshak/barbecue.nvim",
-		branch = "feature/hide-path",
+		"utilyre/barbecue.nvim",
 		requires = {
 			"neovim/nvim-lspconfig",
 			"SmiteshP/nvim-navic",
