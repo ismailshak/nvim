@@ -70,8 +70,8 @@ M.init = function(use)
 	use("EdenEast/nightfox.nvim")
 	use({ "catppuccin/nvim", as = "catppuccin" })
 
-	-- Startup dashboard
-	use("glepnir/dashboard-nvim")
+	-- Startup dashboard (TODO: figure out new config, commit after this introduces major breaking changes)
+	use({ "glepnir/dashboard-nvim", commit = "f7d623457d6621b25a1292b24e366fae40cb79ab" })
 
 	-- Fancier statusline
 	use("nvim-lualine/lualine.nvim")

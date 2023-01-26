@@ -53,7 +53,7 @@ dashboard.custom_center = {
 		icon = "ﴳ  ",
 		desc = "Search buffers                          ",
 		action = "Telescope buffers",
-		shortcut = "SPC b l",
+		shortcut = "SPC b b",
 	},
 	{
 		icon = "  ",
