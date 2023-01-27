@@ -36,6 +36,9 @@ utils.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual 
 
 utils.vmap("<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', "Replace all occurrences of selected text")
 
+utils.nmap("<TAB>", ":bnext<CR>", "Cycle to next buffer")
+utils.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
+
 -- CURRENTLY HANDLED BY A PLUGIN
 --
 -- move current cursor line up or down
