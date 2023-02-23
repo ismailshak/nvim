@@ -16,31 +16,31 @@ end
 
 --   פּ ﯟ   some other good icons
 local kind_icons = {
-	Text = " ",
-	Method = "m ",
-	Function = " ",
-	Constructor = " ",
-	Field = " ",
-	Variable = " ",
-	Class = " ",
-	Interface = " ",
-	Module = " ",
-	Property = " ",
-	Unit = " ",
-	Value = " ",
-	Enum = " ",
-	Keyword = " ",
-	Snippet = " ",
-	Color = " ",
-	File = " ",
-	Reference = " ",
-	Folder = " ",
-	EnumMember = " ",
-	Constant = " ",
-	Struct = " ",
-	Event = " ",
-	Operator = " ",
-	TypeParameter = " ",
+	Text = "  ",
+	Method = "  ",
+	Function = "  ",
+	Constructor = "  ",
+	Field = "  ",
+	Variable = "  ",
+	Class = "  ",
+	Interface = "  ",
+	Module = "  ",
+	Property = "  ",
+	Unit = "  ",
+	Value = "  ",
+	Enum = "  ",
+	Keyword = "  ",
+	Snippet = "  ",
+	Color = "  ",
+	File = "  ",
+	Reference = "  ",
+	Folder = "  ",
+	EnumMember = "  ",
+	Constant = "  ",
+	Struct = "  ",
+	Event = "  ",
+	Operator = "  ",
+	TypeParameter = "  ",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
@@ -50,6 +50,8 @@ cmp.setup({
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
+	preselect = cmp.PreselectMode.None,
+	completion = { completeopt = "noselect" },
 	mapping = {
 		["<C-k>"] = cmp.mapping.select_prev_item(), -- move up in the completions menu
 		["<C-j>"] = cmp.mapping.select_next_item(), -- move down in the completions menu
@@ -111,8 +113,9 @@ cmp.setup({
 	-- 	end,
 	-- },
 	formatting = {
+		fields = { "kind", "abbr" },
 		format = function(_, vim_item)
-			vim_item.kind = (kind_icons[vim_item.kind] or "") .. vim_item.kind
+			vim_item.kind = kind_icons[vim_item.kind] or ""
 			return vim_item
 		end,
 	},
@@ -132,6 +135,10 @@ cmp.setup({
 	window = {
 		documentation = {
 			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+		},
+		completion = {
+			winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
 		},
 	},
 	experimental = {
