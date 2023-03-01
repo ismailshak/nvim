@@ -50,8 +50,6 @@ cmp.setup({
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
-	preselect = cmp.PreselectMode.None,
-	completion = { completeopt = "noselect" },
 	mapping = {
 		["<C-k>"] = cmp.mapping.select_prev_item(), -- move up in the completions menu
 		["<C-j>"] = cmp.mapping.select_next_item(), -- move down in the completions menu
@@ -65,7 +63,7 @@ cmp.setup({
 		}),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		-- super tab, move through menu or move through snippets
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
