@@ -32,7 +32,7 @@ require("FTerm").setup({
 
 	---Transparency of the floating window. See `:h winblend`
 	---@type integer
-	blend = 20,
+	blend = 0,
 
 	---Object containing the terminal window dimensions.
 	---The value for each field should be between `0` and `1`
