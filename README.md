@@ -13,3 +13,5 @@ Requires `neovim` >= `0.8.x`
 - `python3`
 - `go`
 - `rustup`
+- `make`
+- `gcc` or `clang`
