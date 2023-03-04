@@ -7,8 +7,7 @@ local telescope = require("telescope")
 
 -- keybings
 local utils = require("utils.keybindings")
-utils.nmap("<leader>ff", ":Telescope find_files <CR>", "[F]ind [f]iles [telescope]")
-utils.nmap("<leader>fa", ":Telescope find_files hidden=true <CR>", "[F]ind [a]ll files, including hidden [telescope]")
+utils.nmap("<leader>ff", ":Telescope find_files hidden=true no_ignore=true<CR>", "[F]ind [f]iles [telescope]")
 utils.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
 utils.nmap("<leader>fb", ":Telescope file_browser <CR>", "[F]ile [b]rowser [telescope]")
 utils.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
@@ -60,8 +59,7 @@ telescope.setup({
 			height = 0.80,
 			preview_cutoff = 120,
 		},
-		file_sorter = require("telescope.sorters").get_fuzzy_file,
-		file_ignore_patterns = { "node_modules" },
+		file_ignore_patterns = { "node_modules", ".git", "dist", ".next", "target", "build" },
 		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 		-- path_display = { "truncate" },
 		winblend = 10,
@@ -143,7 +141,7 @@ telescope.setup({
 		-- builtin picker
 		--find_files = {
 		--	hidden = true, -- enable finding dot files
-		--},
+		--}
 	},
 	extensions = {
 		media_files = {
@@ -160,13 +158,15 @@ telescope.setup({
 				height = 0.50,
 			},
 		},
-		-- Your extension configuration goes here:
-		-- extension_name = {
-		--   extension_config_key = value,
-		-- }
-		-- please take a look at the readme of the extension you want to configure
+		fzf = {
+			fuzzy = true, -- false will only do exact matching
+			override_generic_sorter = true, -- override the generic sorter
+			override_file_sorter = true, -- override the file sorter
+			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+		},
 	},
 })
 
 require("telescope").load_extension("gh")
 require("telescope").load_extension("dotfiles") -- this is my custom thing
+require("telescope").load_extension("fzf")

@@ -91,6 +91,7 @@ M.init = function(use)
 			"nvim-telescope/telescope-github.nvim",
 		},
 	})
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
 	-- Sessions
 	use("rmagatti/auto-session")
