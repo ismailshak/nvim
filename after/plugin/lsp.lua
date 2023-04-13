@@ -9,7 +9,7 @@ end
 
 local servers = {
 	"tsserver",
-	"sumneko_lua",
+	"lua_ls",
 	"gopls",
 	"jsonls",
 	"bashls",
@@ -66,13 +66,6 @@ end
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-
--- Lua overrides
-require("lspconfig").sumneko_lua.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = require("lsp_settings.sumneko_lua").settings,
-})
 
 -- JSON overrides
 require("lspconfig").jsonls.setup({
