@@ -20,4 +20,14 @@ M.exists = function(plugin)
 	return ok
 end
 
+-- Toggle background between "dark" & "light"
+M.toggle_bg = function()
+	if vim.opt.background:get() == "dark" then
+		vim.opt.background = "light"
+		return
+	end
+
+	vim.opt.background = "dark"
+end
+
 return M

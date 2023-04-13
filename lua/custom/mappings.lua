@@ -3,16 +3,21 @@ local utils = require("utils.keybindings")
 -- set the leader to space
 vim.g.mapleader = " "
 
-utils.nmap("<Esc>", "<cmd>noh<cr>", "Remove selection highlighting")
+-- Mappings for custom commands
+utils.nmap("<A-A>", ":ToggleBackground<CR>", "Toggle between dark & light background")
 
-utils.nmap("<c-h>", "<c-w>h", "Jump 1 split plane to the left")
-utils.nmap("<c-l>", "<c-w>l", "Jump 1 split plane to the right")
-utils.nmap("<c-j>", "<c-w>j", "Jump 1 split plane below")
-utils.nmap("<c-k>", "<c-w>k", "Jump 1 split plane above")
+-- General binds
+utils.nmap("<Esc>", ":noh<CR>", "Remove selection highlighting")
+utils.nmap("<C-a>", "ggVG", "Select all in buffer")
 
-utils.nmap("<leader>w", "<cmd>bd<cr>", "Close currently open buffer")
-utils.nmap("<leader>e", ":%bd|e#|bd#<cr>|'\"'", "Close all buffers except the currently open")
-utils.nmap("<leader>q", "<cmd>tabclose<cr>", "Close an open and focused tab")
+utils.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
+utils.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
+utils.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
+utils.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
+
+utils.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
+utils.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"'", "Close all buffers except the currently open")
+utils.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
 
 -- don't yank on delete
 utils.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
@@ -42,12 +47,12 @@ utils.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
 -- CURRENTLY HANDLED BY A PLUGIN
 --
 -- move current cursor line up or down
---[[ utils.nmap("<A-k>", "<cmd>m .-2<cr>==") ]]
---[[ utils.nmap("<A-j>", "<cmd>m +1<cr>==") ]]
---[[ utils.imap("<A-k>", "<Esc><cmd>m .-2<cr>==i") ]]
---[[ utils.imap("<A-j>", "<Esc><cmd>m .+1<cr>==i") ]]
---[[ utils.vmap("<A-k>", ":m '<-2<cr>gv=gv") ]]
---[[ utils.vmap("<A-j>", ":m '>+1<cr>gv=gv") ]]
+--[[ utils.nmap("<A-k>", ":m .-2<CR>==") ]]
+--[[ utils.nmap("<A-j>", ":m +1<CR>==") ]]
+--[[ utils.imap("<A-k>", "<Esc>:m .-2<CR>==i") ]]
+--[[ utils.imap("<A-j>", "<Esc>:m .+1<CR>==i") ]]
+--[[ utils.vmap("<A-k>", ":m '<-2<CR>gv=gv") ]]
+--[[ utils.vmap("<A-j>", ":m '>+1<CR>gv=gv") ]]
 
 --[[
 Move line mapping explanation

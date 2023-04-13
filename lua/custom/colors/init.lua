@@ -7,6 +7,8 @@ require("custom.colors.rose-pine")
 local M = {}
 M.theme = "iceberg"
 
+vim.opt.background = "dark"
+
 -- Set theme
 vim.cmd("colorscheme " .. M.theme)
 

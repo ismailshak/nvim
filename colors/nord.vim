@@ -14,7 +14,6 @@ endif
 
 let g:colors_name = "nord"
 let s:nord_vim_version="0.19.0"
-set background=dark
 
 let s:nord0_gui = "#2E3440"
 let s:nord1_gui = "#3B4252"
