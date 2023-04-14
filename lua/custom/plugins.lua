@@ -1,4 +1,31 @@
 local M = {
+	{
+		"nvim-tree/nvim-web-devicons",
+		config = {
+			override_by_extension = {
+				["spec.ts"] = {
+					icon = "",
+					color = "#E17833",
+					name = "SpecTs",
+				},
+				["test.ts"] = {
+					icon = "",
+					color = "#E17833",
+					name = "TestTs",
+				},
+				["spec.js"] = {
+					icon = "",
+					color = "#E17833",
+					name = "SpecJs",
+				},
+				["test.js"] = {
+					icon = "",
+					color = "#E17833",
+					name = "TestJs",
+				},
+			},
+		},
+	},
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -106,10 +133,11 @@ local M = {
 	"windwp/nvim-autopairs", -- autocreates bracket pairs
 	"kylechui/nvim-surround", -- surround utility
 	"folke/zen-mode.nvim",
-	{ -- uses LSP to show code context
+	{
 		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
 		dependencies = {
-			"neovim/nvim-lspconfig",
 			"SmiteshP/nvim-navic",
 			"nvim-tree/nvim-web-devicons",
 		},
