@@ -72,7 +72,6 @@ local M = {
 	{
 		"glepnir/dashboard-nvim",
 		event = "VimEnter",
-		commit = "f7d623457d6621b25a1292b24e366fae40cb79ab",
 		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
 	-- Fancier statusline

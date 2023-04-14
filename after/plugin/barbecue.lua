@@ -6,4 +6,5 @@ end
 require("barbecue").setup({
 	show_dirname = false,
 	show_modified = true,
+	exclude_filetypes = { "dashboard" },
 })

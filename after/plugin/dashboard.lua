@@ -4,64 +4,13 @@ if not utils.exists("dashboard") then
 end
 
 local dashboard = require("dashboard")
---
--- dashboard.preview_file_height = 12
--- dashboard.preview_file_width = 80
--- dashboard.utils.hide_statusline = true
--- dashboard.utils.hide_tabline = true
--- dashboard.header_pad = 5
--- dashboard.center_pad = 5
--- dashboard.footer_pad = 5
---
-local function make_custom_footer()
-	local default_footer = { "", "No plugins loaded" }
-	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-	default_footer[1] = " " .. dir_name
-	local count = utils.get_loaded_plugin_count()
-	if count > 0 then
-		default_footer[2] = ""
-		default_footer[3] = ""
-		default_footer[4] = "loaded " .. count .. " plugins"
-	end
-	return default_footer
-end
 
-dashboard.custom_footer = make_custom_footer
+local M = {}
 
-dashboard.custom_center = {
-	{
-		icon = "  ",
-		desc = "Load last session                       ",
-		shortcut = "SPC s l",
-		action = "RestoreSession",
-	},
-	{
-		icon = "  ",
-		desc = "Find file                               ",
-		action = "Telescope find_files find_command=rg,--hidden,--files",
-		shortcut = "SPC f f",
-	},
-	{
-		icon = "ﳳ  ",
-		desc = "Find word                               ",
-		action = "Telescope live_grep",
-		shortcut = "SPC f g",
-	},
-	{
-		icon = "ﴳ  ",
-		desc = "Search buffers                          ",
-		action = "Telescope buffers",
-		shortcut = "SPC b b",
-	},
-	{
-		icon = "  ",
-		desc = "Open doftile                            ",
-		action = "Telescope dotfiles",
-		shortcut = "SPC f c",
-	},
-}
-
-dashboard.custom_header = {
+M.custom_header = {
+	[[ ]],
+	[[ ]],
+	[[ ]],
 	[[                                                     ___'        ]],
 	[[                                                 ,o88888'        ]],
 	[[                                               ,o8888888''       ]],
@@ -83,9 +32,78 @@ dashboard.custom_header = {
 	[[         . . . ...."''                                           ]],
 	[[         .. . ."' '                                              ]],
 	[[        .'                                                       ]],
+	[[ ]],
+	[[ ]],
+	[[ ]],
 }
 
-dashboard.custom_header_disabled = {
+M.gen_custom_footer = function()
+	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+	local count = utils.get_loaded_plugin_count()
+	local dir_line = " " .. dir_name
+	local plugin_line = "No plugins loaded"
+	if count > 0 then
+		plugin_line = "loaded " .. count .. " plugins"
+	end
+	return { "", "", dir_line, "", "", plugin_line }
+end
+-- dashboard.preview_file_height = 12
+-- dashboard.preview_file_width = 80
+dashboard.setup({
+	theme = "doom",
+	hide = {
+		tabline = true,
+		winbar = true,
+		statusline = true,
+	},
+	preview = {
+		file_height = 12,
+		file_width = 80,
+	},
+	config = {
+		header = M.custom_header,
+		center = {
+			{
+				icon = "  ",
+				desc = "Load last session                       ",
+				key = "s",
+				keymap = "SPC s l",
+				action = "RestoreSession",
+				icon_hl = "DashboardIcon",
+			},
+			{
+				icon = "  ",
+				desc = "Find file                               ",
+				action = "Telescope find_files",
+				keymap = "SPC f f",
+			},
+			{
+				icon = "ﳳ  ",
+				desc = "Find word                               ",
+				action = "Telescope live_grep",
+				key = "g",
+				keymap = "SPC f g",
+			},
+			{
+				icon = "ﴳ  ",
+				desc = "Search buffers                          ",
+				action = "Telescope buffers",
+				key = "b",
+				keymap = "SPC b b",
+			},
+			{
+				icon = "  ",
+				desc = "Open doftile                            ",
+				action = "Telescope dotfiles",
+				key = "d",
+				keymap = "SPC f c",
+			},
+		},
+		footer = M.gen_custom_footer(),
+	},
+})
+
+M.custom_header_disabled = {
 	[[                               ]],
 	[[                               ]],
 	[[                               ]],
@@ -101,19 +119,3 @@ dashboard.custom_header_disabled = {
 	[[                               ]],
 	[[                               ]],
 }
-
-utils.hi("DashboardHeader", { fg = "#85a4f2", bg = "none" }) -- lua file icon blue
-utils.hi("DashboardCenter1Icon", { fg = "#85a4f2", bg = "none" })
-utils.hi("DashboardCenter3Icon", { fg = "#85a4f2", bg = "none" })
-utils.hi("DashboardCenter5Icon", { fg = "#85a4f2", bg = "none" })
-utils.hi("DashboardCenter7Icon", { fg = "#85a4f2", bg = "none" })
-utils.hi("DashboardCenter9Icon", { fg = "#85a4f2", bg = "none" })
-utils.hi("DashboardCenter11Icon", { fg = "#85a4f2", bg = "none" })
-utils.hi("DashboardShortCut", { fg = "#85a4f2", bg = "none" })
-utils.hi("DashboardFooter", { fg = "#7c7f96", bg = "none" })
-
---utils.hi("DashboardHeader", { fg = "#ebbcba", bg = "none" }) -- rose pine, rose
---utils.hi("DashboardCenter1Icon", { fg = "#696778", bg = "none" })
---utils.hi("DashboardCenter3Icon", { fg = "#696778", bg = "none" })
---utils.hi("DashboardCenter5Icon", { fg = "#696778", bg = "none" })
---utils.hi("DashboardCenter7Icon", { fg = "#696778", bg = "none" })
