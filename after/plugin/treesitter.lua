@@ -24,7 +24,7 @@ require("nvim-treesitter.configs").setup({
 		"python",
 		"bash",
 		"vim",
-		"help",
+		"vimdoc", -- https://github.com/nvim-treesitter/nvim-treesitter/issues/2293#issuecomment-1492982270
 	},
 	highlight = {
 		enable = true,

@@ -1,5 +1,5 @@
 require("custom.options")
 require("custom.commands")
 require("custom.mappings")
-require("custom.packer")
+require("custom.lazy")
 require("custom.colors")

@@ -1,26 +1,24 @@
-local helpers = require("utils.helpers")
-if not helpers.exists("dashboard") then
+local utils = require("utils.helpers")
+if not utils.exists("dashboard") then
 	return
 end
 
 local dashboard = require("dashboard")
-
---local home = os.getenv("HOME")
-
-dashboard.preview_file_height = 12
-dashboard.preview_file_width = 80
-dashboard.hide_statusline = true
-dashboard.hide_tabline = true
-dashboard.header_pad = 5
-dashboard.center_pad = 5
-dashboard.footer_pad = 5
-
+--
+-- dashboard.preview_file_height = 12
+-- dashboard.preview_file_width = 80
+-- dashboard.utils.hide_statusline = true
+-- dashboard.utils.hide_tabline = true
+-- dashboard.header_pad = 5
+-- dashboard.center_pad = 5
+-- dashboard.footer_pad = 5
+--
 local function make_custom_footer()
 	local default_footer = { "", "No plugins loaded" }
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 	default_footer[1] = " " .. dir_name
-	if packer_plugins ~= nil then
-		local count = #vim.tbl_keys(packer_plugins)
+	local count = utils.get_loaded_plugin_count()
+	if count > 0 then
 		default_footer[2] = ""
 		default_footer[3] = ""
 		default_footer[4] = "loaded " .. count .. " plugins"
@@ -104,20 +102,18 @@ dashboard.custom_header_disabled = {
 	[[                               ]],
 }
 
-local hi = vim.api.nvim_set_hl
+utils.hi("DashboardHeader", { fg = "#85a4f2", bg = "none" }) -- lua file icon blue
+utils.hi("DashboardCenter1Icon", { fg = "#85a4f2", bg = "none" })
+utils.hi("DashboardCenter3Icon", { fg = "#85a4f2", bg = "none" })
+utils.hi("DashboardCenter5Icon", { fg = "#85a4f2", bg = "none" })
+utils.hi("DashboardCenter7Icon", { fg = "#85a4f2", bg = "none" })
+utils.hi("DashboardCenter9Icon", { fg = "#85a4f2", bg = "none" })
+utils.hi("DashboardCenter11Icon", { fg = "#85a4f2", bg = "none" })
+utils.hi("DashboardShortCut", { fg = "#85a4f2", bg = "none" })
+utils.hi("DashboardFooter", { fg = "#7c7f96", bg = "none" })
 
-hi(0, "DashboardHeader", { fg = "#85a4f2", bg = "none" }) -- lua file icon blue
-hi(0, "DashboardCenter1Icon", { fg = "#85a4f2", bg = "none" })
-hi(0, "DashboardCenter3Icon", { fg = "#85a4f2", bg = "none" })
-hi(0, "DashboardCenter5Icon", { fg = "#85a4f2", bg = "none" })
-hi(0, "DashboardCenter7Icon", { fg = "#85a4f2", bg = "none" })
-hi(0, "DashboardCenter9Icon", { fg = "#85a4f2", bg = "none" })
-hi(0, "DashboardCenter11Icon", { fg = "#85a4f2", bg = "none" })
-hi(0, "DashboardShortCut", { fg = "#85a4f2", bg = "none" })
-hi(0, "DashboardFooter", { fg = "#7c7f96", bg = "none" })
-
---hi(0, "DashboardHeader", { fg = "#ebbcba", bg = "none" }) -- rose pine, rose
---hi(0, "DashboardCenter1Icon", { fg = "#696778", bg = "none" })
---hi(0, "DashboardCenter3Icon", { fg = "#696778", bg = "none" })
---hi(0, "DashboardCenter5Icon", { fg = "#696778", bg = "none" })
---hi(0, "DashboardCenter7Icon", { fg = "#696778", bg = "none" })
+--utils.hi("DashboardHeader", { fg = "#ebbcba", bg = "none" }) -- rose pine, rose
+--utils.hi("DashboardCenter1Icon", { fg = "#696778", bg = "none" })
+--utils.hi("DashboardCenter3Icon", { fg = "#696778", bg = "none" })
+--utils.hi("DashboardCenter5Icon", { fg = "#696778", bg = "none" })
+--utils.hi("DashboardCenter7Icon", { fg = "#696778", bg = "none" })
