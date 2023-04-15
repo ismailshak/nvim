@@ -7,18 +7,15 @@ local telescope = require("telescope")
 
 -- keybings
 local utils = require("utils.helpers")
-utils.nmap("<leader>ff", ":Telescope find_files hidden=true no_ignore=true<CR>", "[F]ind [f]iles [telescope]")
 utils.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
 utils.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
 utils.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
-utils.nmap("<leader>fb", ":Telescope file_browser <CR>", "[F]ile [b]rowser [telescope]")
 utils.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
 utils.nmap("<leader>fh", ":Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
 utils.nmap("<leader>?", ":Telescope keymaps <CR>", "List all active mappings [telescope]")
 utils.nmap("<leader>gb", ":Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
 utils.nmap("<leader>gc", ":Telescope git_commits <CR>", "Show [g]it [c]ommits [telescope]")
 utils.nmap("<leader>gt", ":Telescope git_status <CR>", "Run [g]it [s]tatus")
-utils.nmap("<leader>fo", ":Telescope oldfiles <CR>", "[F]ind [o]ld files [telescope]")
 utils.nmap("<leader>th", ":Telescope colorscheme <CR>", "[T]oggle [c]olorscheme [telescope]")
 utils.nmap("<leader>sc", ":Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
 utils.nmap("<leader>fc", ":Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
@@ -160,15 +157,8 @@ telescope.setup({
 				height = 0.50,
 			},
 		},
-		fzf = {
-			fuzzy = true, -- false will only do exact matching
-			override_generic_sorter = true, -- override the generic sorter
-			override_file_sorter = true, -- override the file sorter
-			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-		},
 	},
 })
 
 require("telescope").load_extension("gh")
 require("telescope").load_extension("dotfiles") -- this is my custom thing
-require("telescope").load_extension("fzf")

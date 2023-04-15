@@ -6,7 +6,7 @@ Requires `neovim` >= `0.8.x`
 
 `mason.nvim` will install LSPs, linteres & formatters. Some tools are required for it to do so.
 
-### Required Tools
+### Required
 
 - `wget`
 - `node`
@@ -15,3 +15,11 @@ Requires `neovim` >= `0.8.x`
 - `rustup`
 - `make`
 - `gcc` or `clang`
+- `fzf`
+- `fd`
+- `rg`
+
+### Optional
+
+- `bat`
+- `delta`

@@ -1,30 +1,32 @@
+local devicons_opts = {
+	override_by_extension = {
+		["spec.ts"] = {
+			icon = "",
+			color = "#E17833",
+			name = "SpecTs",
+		},
+		["test.ts"] = {
+			icon = "",
+			color = "#E17833",
+			name = "TestTs",
+		},
+		["spec.js"] = {
+			icon = "",
+			color = "#E17833",
+			name = "SpecJs",
+		},
+		["test.js"] = {
+			icon = "",
+			color = "#E17833",
+			name = "TestJs",
+		},
+	},
+}
+
 local M = {
 	{
 		"nvim-tree/nvim-web-devicons",
-		config = {
-			override_by_extension = {
-				["spec.ts"] = {
-					icon = "",
-					color = "#E17833",
-					name = "SpecTs",
-				},
-				["test.ts"] = {
-					icon = "",
-					color = "#E17833",
-					name = "TestTs",
-				},
-				["spec.js"] = {
-					icon = "",
-					color = "#E17833",
-					name = "SpecJs",
-				},
-				["test.js"] = {
-					icon = "",
-					color = "#E17833",
-					name = "TestJs",
-				},
-			},
-		},
+		opts = devicons_opts,
 	},
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
@@ -112,6 +114,10 @@ local M = {
 
 	-- Fuzzy Finder (files, lsp, etc)
 	{
+		"ibhagwan/fzf-lua",
+		requires = { "nvim-tree/nvim-web-devicons" },
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
 		dependencies = {
@@ -119,7 +125,6 @@ local M = {
 			"nvim-telescope/telescope-github.nvim",
 		},
 	},
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
 	-- Sessions
 	"rmagatti/auto-session",
