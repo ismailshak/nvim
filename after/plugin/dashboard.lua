@@ -75,6 +75,7 @@ dashboard.setup({
 				icon = "  ",
 				desc = "Find file                               ",
 				action = "Telescope find_files",
+				key = "f",
 				keymap = "SPC f f",
 			},
 			{
