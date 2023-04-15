@@ -1,9 +1,7 @@
-local helpers = require("utils.helpers")
-if not helpers.exists("gitsigns") then
+local utils = require("utils.helpers")
+if not utils.exists("gitsigns") then
 	return
 end
-
-local utils = require("utils.helpers")
 
 require("gitsigns").setup({
 	signs = {
@@ -48,15 +46,10 @@ require("gitsigns").setup({
 	},
 	on_attach = function(bufnr)
 		local gs = package.loaded.gitsigns
-
-		local function map(mode, l, r, desc, opts)
-			opts = opts or {}
-			opts.buffer = bufnr
-			utils.map(mode, l, r, desc, opts)
-		end
+		local default_opts = { buffer = bufnr }
 
 		-- Navigation
-		map("n", "]c", function()
+		utils.nmap("]c", function()
 			if vim.wo.diff then
 				return "]c"
 			end
@@ -64,9 +57,9 @@ require("gitsigns").setup({
 				gs.next_hunk()
 			end)
 			return "<Ignore>"
-		end, "Navigate to next hunk [gitsigns]", { expr = true })
+		end, "Navigate to next hunk [gitsigns]", { expr = true, buffer = bufnr })
 
-		map("n", "[c", function()
+		utils.nmap("[c", function()
 			if vim.wo.diff then
 				return "[c"
 			end
@@ -74,26 +67,40 @@ require("gitsigns").setup({
 				gs.prev_hunk()
 			end)
 			return "<Ignore>"
-		end, "Navigate to previous hunk [gitsigns]", { expr = true })
+		end, "Navigate to previous hunk [gitsigns]", { expr = true, buffer = bufnr })
 
 		-- Actions
-		map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage hunk under cursor [gitsigns]")
-		map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset hunk under cursor [gitsigns]")
-		map("n", "<leader>hS", gs.stage_buffer, "Stage the current buffer [gitsigns]")
-		map("n", "<leader>hu", gs.undo_stage_hunk, "Undo staging of hunk [gitsigns]")
-		map("n", "<leader>hR", gs.reset_buffer, "Reset the current buffer [gitsigns]")
-		map("n", "<leader>hp", gs.preview_hunk, "Previw hunk under cursor [gitsigns]")
-		map("n", "<leader>hb", function()
+		utils.map(
+			{ "n", "v" },
+			"<leader>hs",
+			":Gitsigns stage_hunk<CR>",
+			"Stage hunk under cursor [gitsigns]",
+			default_opts
+		)
+		utils.map(
+			{ "n", "v" },
+			"<leader>hr",
+			":Gitsigns reset_hunk<CR>",
+			"Reset hunk under cursor [gitsigns]",
+			default_opts
+		)
+		utils.nmap("<leader>hS", gs.stage_buffer, "Stage the current buffer [gitsigns]", default_opts)
+		utils.nmap("<leader>hu", gs.undo_stage_hunk, "Undo staging of hunk [gitsigns]", default_opts)
+		utils.nmap("<leader>hR", gs.reset_buffer, "Reset the current buffer [gitsigns]", default_opts)
+		utils.nmap("<leader>hP", gs.preview_hunk, "Previw hunk under cursor [gitsigns]", default_opts)
+		utils.nmap("<leader>hp", gs.preview_hunk_inline, "Inline previw hunk under cursor [gitsigns]", default_opts)
+		utils.nmap("<leader>hb", function()
 			gs.blame_line({ full = true })
-		end, "Show blame for line under cursor [gitsigns]")
-		map("n", "<leader>tb", gs.toggle_current_line_blame, "Toggle blame for current line [gitsigns]")
-		map("n", "<leader>hd", gs.diffthis, "Diff this [gitsigns]")
-		map("n", "<leader>hD", function()
+		end, "Show blame for line under cursor [gitsigns]", default_opts)
+		utils.nmap("<leader>tb", gs.toggle_current_line_blame, "Toggle blame for current line [gitsigns]", default_opts)
+		utils.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
+		utils.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
+		utils.nmap("<leader>hD", function()
 			gs.diffthis("~")
-		end, "Diff this ~ [gitsigns]")
-		map("n", "<leader>td", gs.toggle_deleted, "Toggle deleted [gitsigns]")
+		end, "Diff this ~ [gitsigns]", default_opts)
+		utils.nmap("<leader>hr", gs.toggle_deleted, "Toggle deleted [gitsigns]", default_opts)
 
 		-- Text object
-		map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Not sure [gitsigns]")
+		utils.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Not sure [gitsigns]", default_opts)
 	end,
 })

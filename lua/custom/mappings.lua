@@ -6,9 +6,14 @@ vim.g.mapleader = " "
 -- Mappings for custom commands
 utils.nmap("<A-A>", ":ToggleBackground<CR>", "Toggle between dark & light background")
 
+-- Mappings for plugin manager
+utils.nmap("<leader>pm", ":Lazy<CR>", "Open [p]lugin [m]anager")
+
 -- General binds
+utils.nmap("<leader>ss", ":w<CR>", "Save buffer")
 utils.nmap("<Esc>", ":noh<CR>", "Remove selection highlighting")
 utils.nmap("<C-a>", "ggVG", "Select all in buffer")
+utils.nmap("<leader>r", ":source %<CR>", "Source current buffer")
 
 utils.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
 utils.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
@@ -19,11 +24,11 @@ utils.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
 utils.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"'", "Close all buffers except the currently open")
 utils.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
 
--- don't yank on delete
+-- don't yank on delete / change
 utils.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
-utils.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode)")
--- utils.nmap("x", '"_x', "Rebinds 'x' to not yank on cut in normal mode")
--- utils.vmap("x", '"_x', "Rebinds 'd' to not yank on delete (visual mode)")
+utils.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
+utils.nmap("c", '"_c', "Rebinds 'c' to not yank on removal (normal mode)")
+utils.vmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
 
 utils.nmap("<A-Up>", "yyP", "Duplicate current line above")
 utils.nmap("<A-Down>", "yyp", "Duplicate current line below")

@@ -8,6 +8,8 @@ local telescope = require("telescope")
 -- keybings
 local utils = require("utils.helpers")
 utils.nmap("<leader>ff", ":Telescope find_files hidden=true no_ignore=true<CR>", "[F]ind [f]iles [telescope]")
+utils.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
+utils.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
 utils.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
 utils.nmap("<leader>fb", ":Telescope file_browser <CR>", "[F]ile [b]rowser [telescope]")
 utils.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
