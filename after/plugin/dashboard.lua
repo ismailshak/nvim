@@ -7,7 +7,7 @@ local dashboard = require("dashboard")
 
 local M = {}
 
-M.custom_header = {
+M.custom_header_disabled = {
 	[[ ]],
 	[[ ]],
 	[[ ]],
@@ -37,6 +37,31 @@ M.custom_header = {
 	[[ ]],
 }
 
+M.custom_header = {
+	[[ ]],
+	[[ ]],
+	[[ ]],
+	[[ ]],
+	[[                               ]],
+	[[                               ]],
+	[[                               ]],
+	[[                               ]],
+	[[                               ]],
+	[[   ▄████▄              ▒▒▒▒▒   ]],
+	[[  ███▄█▀              ▒ ▄▒ ▄▒  ]],
+	[[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒ ]],
+	[[  █████▄             ▒▒▒▒▒▒▒▒▒ ]],
+	[[   ▀████▀            ▒ ▒ ▒ ▒ ▒ ]],
+	[[                               ]],
+	[[                               ]],
+	[[                               ]],
+	[[                               ]],
+	[[]],
+	[[]],
+	[[]],
+	[[]],
+}
+
 M.gen_custom_footer = function()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 	local count = utils.get_loaded_plugin_count()
@@ -45,7 +70,7 @@ M.gen_custom_footer = function()
 	if count > 0 then
 		plugin_line = "loaded " .. count .. " plugins"
 	end
-	return { "", "", dir_line, "", "", plugin_line }
+	return { "", "", dir_line, "", plugin_line }
 end
 -- dashboard.preview_file_height = 12
 -- dashboard.preview_file_width = 80
@@ -66,10 +91,10 @@ dashboard.setup({
 			{
 				icon = "  ",
 				desc = "Load last session                       ",
-				key = "s",
-				keymap = "SPC s l",
 				action = "RestoreSession",
 				icon_hl = "DashboardIcon",
+				key = "s",
+				keymap = "SPC s l",
 			},
 			{
 				icon = "  ",
@@ -103,20 +128,3 @@ dashboard.setup({
 		footer = M.gen_custom_footer(),
 	},
 })
-
-M.custom_header_disabled = {
-	[[                               ]],
-	[[                               ]],
-	[[                               ]],
-	[[                               ]],
-	[[                               ]],
-	[[   ▄████▄              ▒▒▒▒▒   ]],
-	[[  ███▄█▀              ▒ ▄▒ ▄▒  ]],
-	[[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒ ]],
-	[[  █████▄             ▒▒▒▒▒▒▒▒▒ ]],
-	[[   ▀████▀            ▒ ▒ ▒ ▒ ▒ ]],
-	[[                               ]],
-	[[                               ]],
-	[[                               ]],
-	[[                               ]],
-}
