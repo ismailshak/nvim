@@ -15,14 +15,14 @@ M.split = function(inputstr, sep)
 	return t
 end
 
----Trim string
+---Trim whitespace characters in string
 ---@param str string
 ---@return string
 M.trim = function(str)
-	return (str:gsub("^%s*(.-)%s*$", "%1"))
+	return M.replace(str, "^%s*(.-)%s*$", "%1")
 end
 
----Checks if module exists
+---Checks if Lua module exists
 ---@param module string Name of module
 ---@return boolean
 M.exists = function(module)
@@ -30,105 +30,60 @@ M.exists = function(module)
 	return ok
 end
 
----Toggle background between "dark" & "light"
----@alias background '"dark"' | '"light"'
----@return background string Value after toggle
-M.toggle_bg = function()
-	local dark = "dark"
-	local light = "light"
-	if vim.opt.background:get() == dark then
-		vim.opt.background = light
-		return light
-	end
-
-	vim.opt.background = "dark"
-	return dark
+---String replacement function
+---@see docs https://www.lua.org/manual/5.1/manual.html#5.4.1
+---@param str string String with content to replace
+---@param pattern string The pattern to replace
+---@param replacement string The replacement string
+---@return string
+M.replace = function(str, pattern, replacement)
+	return (str:gsub(pattern, replacement))
 end
 
----Total number of recognized plugins
----@return number
-M.get_plugin_count = function()
-	if M.exists("lazy") then
-		return require("lazy").stats().count
-	end
-
-	return 0
+---Wrap a string with characters
+---@param str string
+---@param left? string The character to use for the left wrap. Default '"'
+---@param right? string The character to use for the right wrap. Default '"'
+---@return string
+M.wrap_string = function(str, left, right)
+	local l, r = left or '"', right or '"'
+	return l .. str .. r
 end
 
----Total number of plugins actually loaded
----@return number
-M.get_loaded_plugin_count = function()
-	if M.exists("lazy") then
-		return require("lazy").stats().count
-	end
-
-	return 0
-end
-
----Create a highlight group
----@param name string Highlight group
----@param value string|table Color to assign to group
----@return nil
-M.hi = function(name, value)
-	vim.api.nvim_set_hl(0, name, value)
-end
-
----Returns default options given to keymap definitions
----@param desc string
+---Merge two tables, prioratizing one over the other
+---@param priority table Table that takes precedence
+---@param base table Bast table
 ---@return table
-M.get_default_opts = function(desc)
-	return { noremap = true, desc = desc or "", silent = true }
+M.merge_tables = function(priority, base)
+	local base_t = base or {}
+	for k, v in pairs(priority or {}) do
+		base_t[k] = v
+	end -- merge priority into base
+
+	return base_t
 end
 
----Base function that creates a mapping between key and command
----@param mode string|table See :h map-listing for chars
----@param key string The key used in the mapping
----@param binding string|function The command to bind to the mapping
----@param desc string The description will be added to the mapping for context/search
----@param opts? table Any options you can pass to the underlying keymap api
-M.map = function(mode, key, binding, desc, opts)
-	local base = M.get_default_opts(desc)
-	for k, v in pairs(opts or {}) do
-		base[k] = v
-	end -- merge base with incoming opts
-
-	vim.keymap.set(mode, key, binding, base)
+---Format config module require path to an absolute path for the file
+---@param module string Lua-require module path (module in nvim config)
+---@return string
+M.module_to_path = function(module)
+	local config_root = vim.fn.stdpath("config")
+	-- TODO: handle paths better
+	return config_root .. "/lua/" .. M.replace(module, "%.", "/") .. ".lua"
 end
 
----Creates a normal-mode-only mapping
----@param key string The key used in the mapping
----@param binding string|function The command to bind to the mapping
----@param desc string The description will be added to the mapping for context/search
----@param opts? table Any options you can pass to the underlying keymap api
-M.nmap = function(key, binding, desc, opts)
-	M.map("n", key, binding, desc, opts)
-end
-
----Creates a visual-mode-only mapping
----@param key string The key used in the mapping
----@param binding string|function The command to bind to the mapping
----@param desc string The description will be added to the mapping for context/search
----@param opts? table Any options you can pass to the underlying keymap api
-M.vmap = function(key, binding, desc, opts)
-	M.map("v", key, binding, desc, opts)
-end
-
----Creates a insert-mode-only mapping
----@param key string The key used in the mapping
----@param binding string|function The command to bind to the mapping
----@param desc string The description will be added to the mapping for context/search
----@param opts? table Any options you can pass to the underlying keymap api
-M.imap = function(key, binding, desc, opts)
-	M.map("i", key, binding, desc, opts)
-end
-
----Creates a terminal-mode-only mapping
----@param key string The key used in the mapping
----@param binding string|function The command to bind to the mapping
----@param desc string The description will be added to the mapping for context/search
----@param opts? table Any options you can pass to the underlying keymap api
-M.tmap = function(key, binding, desc, opts)
-	M.map("t", key, binding, desc, opts)
+---Clone a file
+---@param path string Source path
+---@param new_path string Destination path (including rename)
+---@return string path Path to new file
+M.clone_file = function(path, new_path)
+	vim.fn.jobstart({ "cp", path, new_path }, {
+		on_stderr = function(_, data)
+			print("Error `cp`-ing file")
+			print(data)
+		end,
+	})
+	return new_path
 end
 
 return M

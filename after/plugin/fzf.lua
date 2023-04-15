@@ -1,10 +1,12 @@
 local utils = require("utils.helpers")
+local api = require("utils.api")
+
 if not utils.exists("fzf-lua") then
 	return
 end
 
-utils.nmap("<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", "Open file finder [fzf-lua]")
-utils.nmap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<CR>", "Open old files history [fzf-lua]")
+api.nmap("<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", "Open file finder [fzf-lua]")
+api.nmap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<CR>", "Open old files history [fzf-lua]")
 
 local ignore_list = { ".git", "node_modules", "dist", ".next", "target", "build", "out" }
 

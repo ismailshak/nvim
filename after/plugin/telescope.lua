@@ -1,32 +1,32 @@
-local helpers = require("utils.helpers")
-if not helpers.exists("telescope") then
+local utils = require("utils.helpers")
+local api = require("utils.api")
+
+if not utils.exists("telescope") then
 	return
 end
 
 local telescope = require("telescope")
 
 -- keybings
-local utils = require("utils.helpers")
-utils.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
-utils.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
-utils.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
-utils.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
-utils.nmap("<leader>fh", ":Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
-utils.nmap("<leader>?", ":Telescope keymaps <CR>", "List all active mappings [telescope]")
-utils.nmap("<leader>gb", ":Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
-utils.nmap("<leader>gc", ":Telescope git_commits <CR>", "Show [g]it [c]ommits [telescope]")
-utils.nmap("<leader>gt", ":Telescope git_status <CR>", "Run [g]it [s]tatus")
-utils.nmap("<leader>th", ":Telescope colorscheme <CR>", "[T]oggle [c]olorscheme [telescope]")
-utils.nmap("<leader>sc", ":Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
-utils.nmap("<leader>fc", ":Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
-utils.nmap("<leader>ghp", ":Telescope gh pull_request <CR>", "List all open [G]ithub [p]ull [r]equests [telescope]")
-utils.nmap(
+api.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
+api.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
+api.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
+api.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
+api.nmap("<leader>fh", ":Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
+api.nmap("<leader>?", ":Telescope keymaps <CR>", "List all active mappings [telescope]")
+api.nmap("<leader>gb", ":Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
+api.nmap("<leader>gc", ":Telescope git_commits <CR>", "Show [g]it [c]ommits [telescope]")
+api.nmap("<leader>gt", ":Telescope git_status <CR>", "Run [g]it [s]tatus")
+api.nmap("<leader>sc", ":Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
+api.nmap("<leader>fc", ":Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
+api.nmap("<leader>ghp", ":Telescope gh pull_request <CR>", "List all open [G]ithub [p]ull [r]equests [telescope]")
+api.nmap(
 	"<leader>ghc",
 	":Telescope gh pull_request state=closed<CR>",
 	"List all closed Github pull requests [telescope]"
 )
-utils.nmap("<leader>ghi", ":Telescope gh issues <CR>", "List all open Github issues [telescope]")
-utils.nmap("<leader>fc", function()
+api.nmap("<leader>ghi", ":Telescope gh issues <CR>", "List all open Github issues [telescope]")
+api.nmap("<leader>fc", function()
 	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 		winblend = 10,
 		previewer = false,

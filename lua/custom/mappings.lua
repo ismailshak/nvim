@@ -1,63 +1,63 @@
-local utils = require("utils.helpers")
+local api = require("utils.api")
 
 -- set the leader to space
 vim.g.mapleader = " "
 
 -- Mappings for custom commands
-utils.nmap("<A-A>", ":ToggleBackground<CR>", "Toggle between dark & light background")
+api.nmap("<A-A>", ":ToggleBackground<CR>", "Toggle between dark & light background")
 
 -- Mappings for plugin manager
-utils.nmap("<leader>pm", ":Lazy<CR>", "Open [p]lugin [m]anager")
+api.nmap("<leader>pm", ":Lazy<CR>", "Open [p]lugin [m]anager")
 
 -- General binds
-utils.nmap("<leader>ss", ":w<CR>", "Save buffer")
-utils.nmap("<Esc>", ":noh<CR>", "Remove selection highlighting")
-utils.nmap("<C-a>", "ggVG", "Select all in buffer")
-utils.nmap("<leader>r", ":source %<CR>", "Source current buffer")
+api.nmap("<leader>ss", ":w<CR>", "Save buffer")
+api.nmap("<Esc>", ":noh<CR>", "Remove selection highlighting")
+api.nmap("<C-a>", "ggVG", "Select all in buffer")
+api.nmap("<leader>r", ":source %<CR>", "Source current buffer")
 
-utils.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
-utils.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
-utils.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
-utils.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
+api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
+api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
+api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
+api.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
 
-utils.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
-utils.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"'", "Close all buffers except the currently open")
-utils.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
+api.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
+api.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"'", "Close all buffers except the currently open")
+api.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
 
 -- don't yank on delete / change
-utils.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
-utils.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
-utils.nmap("c", '"_c', "Rebinds 'c' to not yank on removal (normal mode)")
-utils.vmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
+api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
+api.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
+api.nmap("c", '"_c', "Rebinds 'c' to not yank on removal (normal mode)")
+api.vmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
 
-utils.nmap("<A-Up>", "yyP", "Duplicate current line above")
-utils.nmap("<A-Down>", "yyp", "Duplicate current line below")
-utils.vmap("<A-Up>", "yP", "Duplicate multiple lines")
-utils.vmap("<A-Down>", "yP", "Duplicate multiple lines")
+api.nmap("<A-Up>", "yyP", "Duplicate current line above")
+api.nmap("<A-Down>", "yyp", "Duplicate current line below")
+api.vmap("<A-Up>", "yP", "Duplicate multiple lines")
+api.vmap("<A-Down>", "yP", "Duplicate multiple lines")
 
-utils.nmap("<A-H>", ":vertical resize +2<CR>", "Make split pane wider (normal mode)")
-utils.nmap("<A-L>", ":vertical resize -2<CR>", "Make split pane thinner (normal mode)")
-utils.nmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane shorter (normal mode)")
-utils.nmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane longer (normal mode)")
-utils.vmap("<A-H>", ":vertical resize -2<CR>", "Make split pane shorter (visual mode)")
-utils.vmap("<A-L>", ":vertical resize +2<CR>", "Make split pane longer (visual mode)")
-utils.vmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
-utils.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual mode)")
+api.nmap("<A-H>", ":vertical resize +2<CR>", "Make split pane wider (normal mode)")
+api.nmap("<A-L>", ":vertical resize -2<CR>", "Make split pane thinner (normal mode)")
+api.nmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane shorter (normal mode)")
+api.nmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane longer (normal mode)")
+api.vmap("<A-H>", ":vertical resize -2<CR>", "Make split pane shorter (visual mode)")
+api.vmap("<A-L>", ":vertical resize +2<CR>", "Make split pane longer (visual mode)")
+api.vmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
+api.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual mode)")
 
-utils.vmap("<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', "Replace all occurrences of selected text")
+api.vmap("<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', "Replace all occurrences of selected text")
 
-utils.nmap("<TAB>", ":bnext<CR>", "Cycle to next buffer")
-utils.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
+api.nmap("<TAB>", ":bnext<CR>", "Cycle to next buffer")
+api.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
 
 -- CURRENTLY HANDLED BY A PLUGIN
 --
 -- move current cursor line up or down
---[[ utils.nmap("<A-k>", ":m .-2<CR>==") ]]
---[[ utils.nmap("<A-j>", ":m +1<CR>==") ]]
---[[ utils.imap("<A-k>", "<Esc>:m .-2<CR>==i") ]]
---[[ utils.imap("<A-j>", "<Esc>:m .+1<CR>==i") ]]
---[[ utils.vmap("<A-k>", ":m '<-2<CR>gv=gv") ]]
---[[ utils.vmap("<A-j>", ":m '>+1<CR>gv=gv") ]]
+--[[ api.nmap("<A-k>", ":m .-2<CR>==") ]]
+--[[ api.nmap("<A-j>", ":m +1<CR>==") ]]
+--[[ api.imap("<A-k>", "<Esc>:m .-2<CR>==i") ]]
+--[[ api.imap("<A-j>", "<Esc>:m .+1<CR>==i") ]]
+--[[ api.vmap("<A-k>", ":m '<-2<CR>gv=gv") ]]
+--[[ api.vmap("<A-j>", ":m '>+1<CR>gv=gv") ]]
 
 --[[
 Move line mapping explanation

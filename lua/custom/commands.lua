@@ -1,3 +1,3 @@
-local utils = require("utils.helpers")
+local api = require("utils.api")
 
-vim.api.nvim_create_user_command("ToggleBackground", utils.toggle_bg, {})
+vim.api.nvim_create_user_command("ToggleBackground", api.toggle_bg, {})

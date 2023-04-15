@@ -1,13 +1,14 @@
 local helpers = require("utils.helpers")
+local api = require("utils.api")
+
 if not helpers.exists("diffview") then
 	return
 end
 
 -- Keybinds
-local utils = require("utils.helpers")
 
-utils.nmap("<leader>dv", "<cmd>DiffviewOpen<cr>", "Open diff view")
-utils.nmap("<leader>df", "<cmd>DiffviewFileHistory %<cr>", "Open file history")
+api.nmap("<leader>dv", "<cmd>DiffviewOpen<cr>", "Open diff view")
+api.nmap("<leader>df", "<cmd>DiffviewFileHistory %<cr>", "Open file history")
 
 local actions = require("diffview.actions")
 

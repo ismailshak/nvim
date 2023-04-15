@@ -1,4 +1,6 @@
 local helpers = require("utils.helpers")
+local api = require("utils.api")
+
 if not helpers.exists("bufferline") then
 	return
 end
@@ -9,9 +11,8 @@ if true then
 end
 
 -- key mappings
-local utils = require("utils.helpers")
-utils.nmap("<TAB>", ":BufferLineCycleNext <CR>", "Cycle next open buffer")
-utils.nmap("<S-TAB>", ":BufferLineCyclePrev <CR>", "Cycle previous open buffer")
+api.nmap("<TAB>", ":BufferLineCycleNext <CR>", "Cycle next open buffer")
+api.nmap("<S-TAB>", ":BufferLineCyclePrev <CR>", "Cycle previous open buffer")
 
 require("bufferline").setup({
 	options = {

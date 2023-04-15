@@ -1,4 +1,6 @@
 local utils = require("utils.helpers")
+local api = require("utils.api")
+
 if not utils.exists("dashboard") then
 	return
 end
@@ -64,7 +66,7 @@ M.custom_header = {
 
 M.gen_custom_footer = function()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-	local count = utils.get_loaded_plugin_count()
+	local count = api.get_loaded_plugin_count()
 	local dir_line = " " .. dir_name
 	local plugin_line = "No plugins loaded"
 	if count > 0 then

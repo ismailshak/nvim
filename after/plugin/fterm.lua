@@ -1,12 +1,12 @@
-local helpers = require("utils.helpers")
-if not helpers.exists("FTerm") then
+local utils = require("utils.helpers")
+local api = require("utils.api")
+
+if not utils.exists("FTerm") then
 	return
 end
 
-local utils = require("utils.helpers")
-
-utils.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "toggle terminal")
-utils.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").toggle()<cr>', "toggle when open")
+api.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "toggle terminal")
+api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").toggle()<cr>', "toggle when open")
 
 require("FTerm").setup({
 	---Filetype of the terminal buffer

@@ -1,11 +1,12 @@
 local helpers = require("utils.helpers")
+local api = require("utils.api")
+
 if not helpers.exists("nvim-tree") then
 	return
 end
 
 -- keybindings
-local utils = require("utils.helpers")
-utils.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
+api.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
 
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
 -- nested options are documented by accessing them with `.` (eg: `:help nvim-tree.view.mappings.list`).

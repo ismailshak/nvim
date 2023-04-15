@@ -2,3 +2,6 @@
 /plugin
 
 *.luarc.json
+
+-- Persisted settings module
+lua/custom/settings/local.lua

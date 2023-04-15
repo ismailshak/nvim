@@ -1,11 +1,12 @@
 local helpers = require("utils.helpers")
+local api = require("utils.api")
+
 if not helpers.exists("zen-mode") then
 	return
 end
 
 -- mappings
-local utils = require("utils.helpers")
-utils.nmap("<leader>z", ":lua require('zen-mode').toggle()<CR>")
+api.nmap("<leader>z", ":lua require('zen-mode').toggle()<CR>", "Toggle zen mode [zen]")
 
 require("zen-mode").setup({
 	window = {

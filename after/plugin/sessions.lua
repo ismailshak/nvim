@@ -1,10 +1,11 @@
 local helpers = require("utils.helpers")
+local api = require("utils.api")
+
 if not helpers.exists("auto-session") then
 	return
 end
 
-local utils = require("utils.helpers")
-utils.nmap("<leader>sl", "<CMD>RestoreSession<CR>", "Restore last session")
+api.nmap("<leader>sl", "<CMD>RestoreSession<CR>", "Restore last session")
 
 require("auto-session").setup({
 	log_level = "error",
