@@ -105,7 +105,7 @@ local M = {
 	"nvim-lualine/lualine.nvim",
 
 	-- Bufferline
-	"akinsho/bufferline.nvim",
+	-- "akinsho/bufferline.nvim",
 
 	-- Better vim UI
 	"stevearc/dressing.nvim",
