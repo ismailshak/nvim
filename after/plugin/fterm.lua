@@ -3,7 +3,7 @@ if not helpers.exists("FTerm") then
 	return
 end
 
-local utils = require("utils.keybindings")
+local utils = require("utils.helpers")
 
 utils.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "toggle terminal")
 utils.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").toggle()<cr>', "toggle when open")

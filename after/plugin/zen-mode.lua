@@ -3,8 +3,8 @@ if not helpers.exists("zen-mode") then
 	return
 end
 
--- keybindings
-local utils = require("utils.keybindings")
+-- mappings
+local utils = require("utils.helpers")
 utils.nmap("<leader>z", ":lua require('zen-mode').toggle()<CR>")
 
 require("zen-mode").setup({

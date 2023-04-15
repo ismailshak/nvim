@@ -1,4 +1,4 @@
-local utils = require("utils.keybindings")
+local utils = require("utils.helpers")
 
 -- set the leader to space
 vim.g.mapleader = " "

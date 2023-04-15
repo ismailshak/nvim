@@ -4,7 +4,7 @@ if not helpers.exists("nvim-tree") then
 end
 
 -- keybindings
-local utils = require("utils.keybindings")
+local utils = require("utils.helpers")
 utils.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
 
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`

@@ -3,7 +3,7 @@ if not helpers.exists("gitsigns") then
 	return
 end
 
-local utils = require("utils.keybindings")
+local utils = require("utils.helpers")
 
 require("gitsigns").setup({
 	signs = {

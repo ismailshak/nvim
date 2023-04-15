@@ -3,7 +3,7 @@ if not helpers.exists("auto-session") then
 	return
 end
 
-local utils = require("utils.keybindings")
+local utils = require("utils.helpers")
 utils.nmap("<leader>sl", "<CMD>RestoreSession<CR>", "Restore last session")
 
 require("auto-session").setup({

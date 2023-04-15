@@ -8,10 +8,10 @@ if true then
 	return
 end
 
--- keybindings
-local utils = require("utils.keybindings")
+-- key mappings
+local utils = require("utils.helpers")
 utils.nmap("<TAB>", ":BufferLineCycleNext <CR>", "Cycle next open buffer")
-utils.nmap("<S-TAB>", ":BufferLineCyclePrev <CR>", "Cyle previous open buffer")
+utils.nmap("<S-TAB>", ":BufferLineCyclePrev <CR>", "Cycle previous open buffer")
 
 require("bufferline").setup({
 	options = {

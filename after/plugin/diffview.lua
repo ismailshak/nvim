@@ -4,7 +4,7 @@ if not helpers.exists("diffview") then
 end
 
 -- Keybinds
-local utils = require("utils.keybindings")
+local utils = require("utils.helpers")
 
 utils.nmap("<leader>dv", "<cmd>DiffviewOpen<cr>", "Open diff view")
 utils.nmap("<leader>df", "<cmd>DiffviewFileHistory %<cr>", "Open file history")
