@@ -50,17 +50,11 @@ M.wrap_string = function(str, left, right)
 	return l .. str .. r
 end
 
----Merge two tables, prioratizing one over the other
----@param priority table Table that takes precedence
----@param base table Bast table
----@return table
-M.merge_tables = function(priority, base)
-	local base_t = base or {}
-	for k, v in pairs(priority or {}) do
-		base_t[k] = v
-	end -- merge priority into base
-
-	return base_t
+---Merge two tables, prioratizing right most in list of params
+---@param ... table Tables to merge
+---@return table result Merged table
+function M.merge_tables(...)
+	return vim.tbl_deep_extend("force", ...)
 end
 
 ---Format config module require path to an absolute path for the file
