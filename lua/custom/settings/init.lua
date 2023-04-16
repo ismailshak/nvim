@@ -4,7 +4,7 @@ local M = {}
 
 ---Replace local settings with provided state
 ---@param settings Settings
-M.update = function(settings)
+function M.update(settings)
 	local local_path = helpers.assert_local()
 	if local_path == nil then
 		return settings
@@ -16,7 +16,7 @@ end
 
 ---Get the current state of settings
 ---@return Settings
-M.get = function()
+function M.get()
 	local local_path = helpers.assert_local()
 	local default = require("custom.settings.defaults")
 	if local_path == nil then

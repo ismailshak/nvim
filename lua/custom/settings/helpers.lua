@@ -5,7 +5,7 @@ local M = {}
 
 ---Create the local settings file (that's gitignored)
 ---@return string path Absolute path to local settings file
-M.create_local = function()
+function M.create_local()
 	local local_path = utils.module_to_path("custom.settings.local")
 	local template_path = utils.module_to_path("custom.settings.defaults")
 	if M.local_exists() then
@@ -19,7 +19,7 @@ end
 
 ---Create local settings file if it doesn't already exist
 ---@return string|nil path Absolute path to local settings file
-M.assert_local = function()
+function M.assert_local()
 	local local_path = M.create_local()
 
 	if not M.local_exists() then
@@ -32,7 +32,7 @@ end
 
 ---Checks if local settings file exists and can be required
 ---@return boolean
-M.local_exists = function()
+function M.local_exists()
 	return utils.exists("custom.settings.local")
 end
 
@@ -40,7 +40,7 @@ end
 ---@param k string Key in table
 ---@param v string Value in table
 ---@return string
-M.format_setting = function(k, v)
+function M.format_setting(k, v)
 	return TAB .. utils.wrap_string(k, '["', '"]') .. " = " .. v .. "," .. NEW_LINE
 end
 
@@ -49,7 +49,7 @@ end
 ---@param table Settings
 ---@param file_path? string Path to file
 ---@return string|nil
-M.save = function(table, file_path)
+function M.save(table, file_path)
 	local fp = file_path or utils.module_to_path("custom.settings.local")
 	local file, err = io.open(fp, "wb")
 	if err or file == nil then
@@ -82,7 +82,7 @@ end
 ---@see docs https://lua-users.org/wiki/SaveTableToFile
 ---@param file_path? string Path to file
 ---@return Settings|nil
-M.load = function(file_path)
+function M.load(file_path)
 	if file_path ~= nil then
 		local ftables, err = loadfile(file_path)
 		if err or ftables == nil then
@@ -99,11 +99,11 @@ M.load = function(file_path)
 end
 
 ---Merge local and default settings
----@param default Settings
----@param _local Settings
+---@param d Settings Default settings
+---@param l Settings Local settings
 ---@return Settings
-M.merge_settings = function(default, _local)
-	return utils.merge_tables(_local, default)
+function M.merge_settings(d, l)
+	return utils.merge_tables(d, l)
 end
 
 return M

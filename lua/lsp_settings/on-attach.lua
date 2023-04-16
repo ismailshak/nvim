@@ -1,6 +1,6 @@
 local M = {}
 
-M.on_attach = function(client, bufnr)
+function M.on_attach(client, bufnr)
 	local nmap = function(keys, func, desc)
 		if desc then
 			desc = desc .. " [LSP]"

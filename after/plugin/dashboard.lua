@@ -64,7 +64,7 @@ M.custom_header = {
 	[[]],
 }
 
-M.gen_custom_footer = function()
+function M.gen_custom_footer()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 	local count = api.get_loaded_plugin_count()
 	local dir_line = " " .. dir_name
@@ -74,8 +74,7 @@ M.gen_custom_footer = function()
 	end
 	return { "", "", dir_line, "", plugin_line }
 end
--- dashboard.preview_file_height = 12
--- dashboard.preview_file_width = 80
+
 dashboard.setup({
 	theme = "doom",
 	hide = {

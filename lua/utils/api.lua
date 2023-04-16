@@ -5,7 +5,7 @@ local M = {}
 
 ---Toggle background between "dark" & "light"
 ---@return background string Value after toggle
-M.toggle_bg = function()
+function M.toggle_bg()
 	local dark = "dark"
 	local light = "light"
 	local o = settings.get()
@@ -24,7 +24,7 @@ end
 
 ---Total number of recognized plugins
 ---@return number
-M.get_plugin_count = function()
+function M.get_plugin_count()
 	if utils.exists("lazy") then
 		return require("lazy").stats().count
 	end
@@ -34,7 +34,7 @@ end
 
 ---Total number of plugins actually loaded
 ---@return number
-M.get_loaded_plugin_count = function()
+function M.get_loaded_plugin_count()
 	if utils.exists("lazy") then
 		return require("lazy").stats().loaded
 	end
@@ -46,14 +46,14 @@ end
 ---@param name string Highlight group
 ---@param value string|table Color to assign to group
 ---@return nil
-M.hi = function(name, value)
+function M.hi(name, value)
 	vim.api.nvim_set_hl(0, name, value)
 end
 
 ---Returns default options given to keymap definitions
 ---@param desc string
 ---@return table
-M.get_default_opts = function(desc)
+function M.get_default_opts(desc)
 	return { noremap = true, desc = desc or "", silent = true }
 end
 
@@ -63,7 +63,7 @@ end
 ---@param binding string|function The command to bind to the mapping
 ---@param desc string The description will be added to the mapping for context/search
 ---@param opts? table Any options you can pass to the underlying keymap api
-M.map = function(mode, key, binding, desc, opts)
+function M.map(mode, key, binding, desc, opts)
 	local base = M.get_default_opts(desc)
 	for k, v in pairs(opts or {}) do
 		base[k] = v
@@ -77,7 +77,7 @@ end
 ---@param binding string|function The command to bind to the mapping
 ---@param desc string The description will be added to the mapping for context/search
 ---@param opts? table Any options you can pass to the underlying keymap api
-M.nmap = function(key, binding, desc, opts)
+function M.nmap(key, binding, desc, opts)
 	M.map("n", key, binding, desc, opts)
 end
 
@@ -86,7 +86,7 @@ end
 ---@param binding string|function The command to bind to the mapping
 ---@param desc string The description will be added to the mapping for context/search
 ---@param opts? table Any options you can pass to the underlying keymap api
-M.vmap = function(key, binding, desc, opts)
+function M.vmap(key, binding, desc, opts)
 	M.map("v", key, binding, desc, opts)
 end
 
@@ -95,7 +95,7 @@ end
 ---@param binding string|function The command to bind to the mapping
 ---@param desc string The description will be added to the mapping for context/search
 ---@param opts? table Any options you can pass to the underlying keymap api
-M.imap = function(key, binding, desc, opts)
+function M.imap(key, binding, desc, opts)
 	M.map("i", key, binding, desc, opts)
 end
 
@@ -104,7 +104,7 @@ end
 ---@param binding string|function The command to bind to the mapping
 ---@param desc string The description will be added to the mapping for context/search
 ---@param opts? table Any options you can pass to the underlying keymap api
-M.tmap = function(key, binding, desc, opts)
+function M.tmap(key, binding, desc, opts)
 	M.map("t", key, binding, desc, opts)
 end
 
