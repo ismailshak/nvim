@@ -80,4 +80,11 @@ function M.clone_file(path, new_path)
 	return new_path
 end
 
+---Deep clone a Lua table
+---@param table table
+---@return table
+function M.deep_clone(table)
+	return vim.deepcopy(table)
+end
+
 return M
