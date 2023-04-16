@@ -100,7 +100,7 @@ dashboard.setup({
 			{
 				icon = "  ",
 				desc = "Find file                               ",
-				action = "Telescope find_files",
+				action = "lua require('fzf-lua').files()",
 				key = "f",
 				keymap = "SPC f f",
 			},
