@@ -8,18 +8,20 @@ local M = {}
 function M.toggle_bg()
 	local dark = "dark"
 	local light = "light"
-	local o = settings.get()
-	if o.background == dark then
-		vim.opt.background = light
-		o.background = light
-		settings.update(o)
-		return light
+	local s = settings.get()
+
+	local function set_bg(value)
+		vim.opt.background = value
+		s.background = value
+		settings.update(s)
+		return value
 	end
 
-	vim.opt.background = dark
-	o.background = dark
-	settings.update(o)
-	return dark
+	if vim.opt.background:get() == dark then
+		return set_bg(light)
+	end
+
+	return set_bg(dark)
 end
 
 ---Total number of recognized plugins
