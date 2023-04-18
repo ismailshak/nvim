@@ -1,18 +1,25 @@
 local M = {}
 
+---Return the current working directory
+---@return string
+function M.cwd()
+	return vim.fn.getcwd()
+end
+
 ---Split string by delimiter
 ---@param inputstr string
 ---@param sep string
 ---@return string[]
 function M.split(inputstr, sep)
-	if sep == nil then
-		sep = "%s"
-	end
-	local t = {}
-	for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
-		table.insert(t, str)
-	end
-	return t
+	return vim.split(inputstr, sep)
+end
+
+---Join items in table into a string
+---@param tbl table
+---@param sep string
+---@return string
+function M.join(tbl, sep)
+	return tbl.concat(tbl, sep)
 end
 
 ---Trim whitespace characters in string
@@ -48,6 +55,14 @@ end
 function M.wrap_string(str, left, right)
 	local l, r = left or '"', right or '"'
 	return l .. str .. r
+end
+
+---Check if value exists in table
+---@param tbl table
+---@param value string|number
+---@return boolean
+function M.contains(tbl, value)
+	return vim.tbl_contains(tbl, value)
 end
 
 ---Merge two tables, prioratizing right most in list of params

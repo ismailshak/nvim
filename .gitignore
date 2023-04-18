@@ -3,5 +3,5 @@
 
 *.luarc.json
 
--- Persisted settings module
+# Persisted settings module
 lua/custom/settings/local.lua

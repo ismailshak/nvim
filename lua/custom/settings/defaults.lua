@@ -16,8 +16,9 @@ local M = {
 	--@type theme
 	theme = "iceberg",
 
+	---Comma-separated list of directories where formatting should be disabled
 	---@type string
-	test = "placeholder",
+	disable_format = "",
 }
 
 return M

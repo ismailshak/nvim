@@ -1,7 +1,9 @@
-local helpers = require("utils.helpers")
-if not helpers.exists("mason") then
+local utils = require("utils.helpers")
+if not utils.exists("mason") then
 	return
 end
+
+local settings = require("custom.settings")
 
 -----------------------
 -- LSP CONFIGURATION --
@@ -93,8 +95,21 @@ local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 --[[ local completion = null_ls.builtins.completion ]]
---
+
 local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+
+local function should_disable_formatting(cwd)
+	local dirs = settings.get().disable_format
+	if dirs == "" then
+		return false
+	end
+
+	for _, dir in ipairs(utils.split(dirs, ",")) do
+		if string.find(cwd, dir) then
+			return true
+		end
+	end
+end
 
 null_ls.setup({
 	debug = false,
@@ -112,7 +127,10 @@ null_ls.setup({
 	},
 	-- Format on write
 	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
+		local cwd = utils.cwd()
+		local can_format = client.supports_method("textDocument/formatting")
+		local should_format = can_format and not should_disable_formatting(cwd)
+		if should_format then
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				group = augroup,
