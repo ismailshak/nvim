@@ -24,6 +24,22 @@ require("diffview").setup({
 		fold_closed = "",
 		fold_open = "",
 	},
+	view = {
+		-- Configure the layout and behavior of different types of views.
+		-- Available layouts:
+		--  'diff1_plain'
+		--    |'diff2_horizontal'
+		--    |'diff2_vertical'
+		--    |'diff3_horizontal'
+		--    |'diff3_vertical'
+		--    |'diff3_mixed'
+		--    |'diff4_mixed'
+		-- For more info, see ':h diffview-config-view.x.layout'.
+		merge_tool = {
+			-- Config for conflicted files in diff views during a merge or rebase.
+			layout = "diff3_mixed",
+		},
+	},
 	file_panel = {
 		listing_style = "tree", -- One of 'list' or 'tree'
 		tree_options = { -- Only applies when listing_style is 'tree'
