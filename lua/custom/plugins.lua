@@ -1,33 +1,5 @@
-local devicons_opts = {
-	override_by_extension = {
-		["spec.ts"] = {
-			icon = "",
-			color = "#E17833",
-			name = "SpecTs",
-		},
-		["test.ts"] = {
-			icon = "",
-			color = "#E17833",
-			name = "TestTs",
-		},
-		["spec.js"] = {
-			icon = "",
-			color = "#E17833",
-			name = "SpecJs",
-		},
-		["test.js"] = {
-			icon = "",
-			color = "#E17833",
-			name = "TestJs",
-		},
-	},
-}
-
 local M = {
-	{
-		"nvim-tree/nvim-web-devicons",
-		opts = devicons_opts,
-	},
+	{ "nvim-tree/nvim-web-devicons" },
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -81,7 +53,7 @@ local M = {
 	"echasnovski/mini.move",
 
 	-- File tree
-	{ "kyazdani42/nvim-tree.lua", dependencies = "nvim-tree/nvim-web-devicons" },
+	{ "kyazdani42/nvim-tree.lua" },
 
 	-- Git related plugins
 	"lewis6991/gitsigns.nvim",
