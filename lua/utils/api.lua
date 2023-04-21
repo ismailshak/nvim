@@ -24,6 +24,19 @@ function M.toggle_bg()
 	return set_bg(dark)
 end
 
+---Save colorscheme to local settings
+---@param colorscheme? string Color scheme to save
+function M.save_colorscheme(colorscheme)
+	local s = settings.get()
+	local current_theme = colorscheme or vim.api.nvim_exec("color", {})
+	if s.theme == current_theme then
+		return
+	end
+
+	s.theme = current_theme
+	settings.update(s)
+end
+
 ---Total number of recognized plugins
 ---@return number
 function M.get_plugin_count()

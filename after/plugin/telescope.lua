@@ -6,8 +6,10 @@ if not utils.exists("telescope") then
 end
 
 local telescope = require("telescope")
+local actions = require("telescope.actions")
+local actions_state = require("telescope.actions.state")
 
--- keybings
+-- mappings
 api.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
 api.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
 api.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
@@ -20,12 +22,12 @@ api.nmap("<leader>gt", ":Telescope git_status <CR>", "Run [g]it [s]tatus")
 api.nmap("<leader>sc", ":Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
 api.nmap("<leader>fc", ":Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
 api.nmap("<leader>ghp", ":Telescope gh pull_request <CR>", "List all open [G]ithub [p]ull [r]equests [telescope]")
+api.nmap("<leader>ghi", ":Telescope gh issues <CR>", "List all open Github issues [telescope]")
 api.nmap(
 	"<leader>ghc",
 	":Telescope gh pull_request state=closed<CR>",
 	"List all closed Github pull requests [telescope]"
 )
-api.nmap("<leader>ghi", ":Telescope gh issues <CR>", "List all open Github issues [telescope]")
 api.nmap("<leader>fc", function()
 	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 		winblend = 10,
@@ -33,7 +35,26 @@ api.nmap("<leader>fc", function()
 	}))
 end, "[/] Search in current buffer]")
 
-local actions = require("telescope.actions")
+api.nmap("<leader>th", ":Telescope colorscheme<CR>", "Toggle colorscheme [telescope]")
+-- local persist_colorscheme = function(prompt_bufnr)
+-- 	local selected_entry = actions_state.get_selected_entry()
+-- 	api.save_colorscheme()
+-- 	vim.cmd("colorscheme " .. selected_entry[1])
+-- 	actions.close(prompt_bufnr)
+-- end
+--
+-- api.nmap("<leader>th", function()
+-- 	require("telescope.builtin").colorscheme({
+-- 		attach_mappings = function(_, map)
+-- 			map("n", "<cr>", persist_colorscheme)
+-- 			map("i", "<cr>", persist_colorscheme)
+--
+-- 			-- needs to return true if you want to map default_mappings and
+-- 			-- false if not
+-- 			return true
+-- 		end,
+-- 	})
+-- end, "Toggle colorscheme [telescope]")
 
 telescope.setup({
 	defaults = {
@@ -141,6 +162,9 @@ telescope.setup({
 		--find_files = {
 		--	hidden = true, -- enable finding dot files
 		--}
+		colorscheme = {
+			enable_preview = true,
+		},
 	},
 	extensions = {
 		media_files = {
