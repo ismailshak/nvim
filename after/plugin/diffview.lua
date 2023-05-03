@@ -47,7 +47,7 @@ require("diffview").setup({
 			folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
 		},
 		win_config = { -- See ':h diffview-config-win_config'
-			position = "left",
+			position = "right",
 			width = 30,
 		},
 	},
