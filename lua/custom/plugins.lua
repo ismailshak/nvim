@@ -77,7 +77,7 @@ local M = {
 	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "nyoom-engineering/oxocarbon.nvim" },
 
-	-- Startup dashboard (TODO: figure out new config, commit after this introduces major breaking changes)
+	-- Startup dashboard
 	{
 		"glepnir/dashboard-nvim",
 		event = "VimEnter",
