@@ -10,6 +10,7 @@ local actions = require("telescope.actions")
 local actions_state = require("telescope.actions.state")
 
 -- mappings
+api.nmap("<leader>rr", ":Telescope resume<CR>", "Open last picker [telescope]")
 api.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
 api.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
 api.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
