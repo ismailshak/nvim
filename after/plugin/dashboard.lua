@@ -67,7 +67,7 @@ M.custom_header = {
 function M.gen_custom_footer()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 	local count = api.get_loaded_plugin_count()
-	local dir_line = " " .. dir_name
+	local dir_line = "󰉖 " .. dir_name
 	local plugin_line = "No plugins loaded"
 	if count > 0 then
 		plugin_line = "loaded " .. count .. " plugins"
@@ -105,14 +105,14 @@ dashboard.setup({
 				keymap = "SPC f f",
 			},
 			{
-				icon = "ﳳ  ",
+				icon = "󰟵  ",
 				desc = "Find word                               ",
 				action = "Telescope live_grep",
 				key = "g",
 				keymap = "SPC f g",
 			},
 			{
-				icon = "ﴳ  ",
+				icon = "󰠵  ",
 				desc = "Search buffers                          ",
 				action = "Telescope buffers",
 				key = "b",

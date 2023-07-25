@@ -3,11 +3,9 @@ if not helpers.exists("lualine") then
 	return
 end
 
-local helpers = require("utils.helpers")
-
 local function dir_name()
 	local name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-	return "  " .. name .. " "
+	return " 󰉖 " .. name .. " "
 end
 
 local function diff_source()
