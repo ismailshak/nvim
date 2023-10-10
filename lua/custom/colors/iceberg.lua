@@ -37,6 +37,7 @@ vim.cmd([[
       \ | hi! link CmpItemKindProperty CmpItemKindKeyword
       \ | hi! link CmpItemKindField Keyword
       \ | hi! link CmpItemKindUnit CmpItemKindKeyword
+      \ | hi! link rustFuncCall TSFunction
   augroup END
 ]])
 
