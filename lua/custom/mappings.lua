@@ -14,7 +14,7 @@ api.nmap("<leader>ss", ":w<CR>", "Save buffer")
 api.nmap("<Esc>", ":noh<CR>", "Remove selection highlighting")
 api.nmap("<C-a>", "ggVG", "Select all in buffer")
 api.nmap("<leader>r", ":source %<CR>", "Source current buffer")
-api.imap("<C-z>", "<Esc>zzi", "Center cursor position in window while in insert mode")
+api.imap("<C-z>", "<Esc>zza", "Center cursor position in window while in insert mode")
 
 api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
 api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
