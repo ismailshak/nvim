@@ -21,6 +21,7 @@ vim.cmd([[
       \ | hi! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
       \ | hi! CmpItemAbbrMatch guibg=NONE guifg=#B78E6F
       \ | hi! CmpItemKindFunction guibg=NONE guifg=#C586C0
+      \ | hi! link Identifier TSVariable
       \ | hi! link TSConstructor TSFunction
       \ | hi! link TSProperty TSKeyword
       \ | hi! link NormalFloat Normal
@@ -38,3 +39,14 @@ vim.cmd([[
       \ | hi! link CmpItemKindUnit CmpItemKindKeyword
   augroup END
 ]])
+
+-- Disabling all semantic highlights (I didn't like how rust highlighting looked compared to default)
+-- :h lsp-semantic-highlight
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "Iceberg",
+	callback = function()
+		for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+			vim.api.nvim_set_hl(0, group, {})
+		end
+	end,
+})
