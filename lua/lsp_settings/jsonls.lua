@@ -161,6 +161,11 @@ local schemas = {
 		fileMatch = { "resume.json" },
 		url = "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	},
+	{
+		description = "Changesets config",
+		fileMatch = { ".changeset/config.json" },
+		url = "https://unpkg.com/@changesets/config/schema.json",
+	},
 }
 
 local opts = {
