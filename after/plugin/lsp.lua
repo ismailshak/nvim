@@ -11,6 +11,7 @@ local settings = require("custom.settings")
 
 local servers = {
 	"tsserver",
+	"eslint",
 	"lua_ls",
 	"gopls",
 	"jsonls",
@@ -119,11 +120,9 @@ null_ls.setup({
 		formatting.goimports, -- fixes imports and formats the same way `gofmt` does
 		formatting.mix,
 		formatting.rustfmt,
-		diagnostics.eslint,
 		diagnostics.codespell,
 		diagnostics.credo,
 		code_actions.gitsigns,
-		code_actions.eslint,
 	},
 	-- Format on write
 	on_attach = function(client, bufnr)
