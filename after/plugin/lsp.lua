@@ -70,6 +70,13 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
+-- Typescript overrides
+require("lspconfig").tsserver.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	commands = require("lsp_settings.tsserver").commands,
+})
+
 -- JSON overrides
 require("lspconfig").jsonls.setup({
 	on_attach = on_attach,
