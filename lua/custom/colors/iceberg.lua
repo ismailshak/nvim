@@ -26,6 +26,7 @@ vim.cmd([[
       \ | hi! link TSProperty TSKeyword
       \ | hi! link NormalFloat Normal
       \ | hi! link FloatBorder Normal
+      \ | hi! link DiagnosticFloatingHint Normal
       \ | hi! link FidgetTitle TSKeyword
       \ | hi! link CmpItemKind Normal
       \ | hi! link CmpItemKindKeyword CmpItemKind
