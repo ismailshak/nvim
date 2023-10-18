@@ -76,6 +76,7 @@ local M = {
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "nyoom-engineering/oxocarbon.nvim" },
+	{ "kvrohit/substrata.nvim" },
 
 	-- Startup dashboard
 	{

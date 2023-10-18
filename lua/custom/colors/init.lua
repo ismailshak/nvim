@@ -5,6 +5,7 @@ require("custom.colors.nord")
 require("custom.colors.tokyonight")
 require("custom.colors.iceberg")
 require("custom.colors.rose-pine")
+require("custom.colors.substrata")
 
 vim.opt.background = settings.get().background
 vim.cmd("colorscheme " .. settings.get().theme)
