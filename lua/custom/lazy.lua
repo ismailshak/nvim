@@ -10,6 +10,24 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
+
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("custom.plugins")
+require("lazy").setup("plugins", {
+	defaults = { lazy = true },
+	ui = { border = "rounded" },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				-- "gzip",
+				-- "matchit",
+				-- "matchparen",
+				"netrwPlugin",
+				-- "tarPlugin",
+				"tohtml",
+				"tutor",
+				-- "zipPlugin",
+			},
+		},
+	},
+})

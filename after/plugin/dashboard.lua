@@ -66,11 +66,11 @@ M.custom_header = {
 
 function M.gen_custom_footer()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-	local count = api.get_loaded_plugin_count()
+	local count = api.get_plugin_count()
 	local dir_line = "󰉖 " .. dir_name
-	local plugin_line = "No plugins loaded"
+	local plugin_line = "No plugins"
 	if count > 0 then
-		plugin_line = "loaded " .. count .. " plugins"
+		plugin_line = count .. " plugins"
 	end
 	return { "", "", dir_line, "", plugin_line }
 end
