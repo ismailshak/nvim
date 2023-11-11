@@ -47,7 +47,6 @@ api.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual mo
 
 api.vmap("<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', "Replace all occurrences of selected text")
 
-api.nmap("<TAB>", ":bnext<CR>", "Cycle to next buffer")
 api.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
 
 -- CURRENTLY HANDLED BY A PLUGIN
