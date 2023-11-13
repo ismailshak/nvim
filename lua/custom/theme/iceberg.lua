@@ -39,6 +39,12 @@ vim.cmd([[
       \ | hi! link CmpItemKindField Keyword
       \ | hi! link CmpItemKindUnit CmpItemKindKeyword
       \ | hi! link rustFuncCall TSFunction
+      \ | if &background == 'light'
+      \ |   hi DiffAdd guibg=#cbd6bb guifg=NONE
+      \ |   hi DiffChange guibg=#cfd7ca guifg=NONE
+      \ |   hi DiffDelete guibg=#edbabd guifg=NONE
+      \ |   hi DiffText guibg=#c1cdb8 guifg=NONE
+      \ | endif
   augroup END
 ]])
 
