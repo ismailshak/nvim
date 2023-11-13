@@ -3,25 +3,24 @@ local utils = require("utils.helpers")
 
 local M = {}
 
+---Set background to "dark" or "light"
+---@param value background
+function M.set_bg(value)
+	local s = settings.get()
+	vim.opt.background = value
+	s.background = value
+	settings.update(s)
+	return value
+end
+
 ---Toggle background between "dark" & "light"
 ---@return background string Value after toggle
 function M.toggle_bg()
-	local dark = "dark"
-	local light = "light"
-	local s = settings.get()
-
-	local function set_bg(value)
-		vim.opt.background = value
-		s.background = value
-		settings.update(s)
-		return value
+	if vim.opt.background:get() == "dark" then
+		return M.set_bg("light")
 	end
 
-	if vim.opt.background:get() == dark then
-		return set_bg(light)
-	end
-
-	return set_bg(dark)
+	return M.set_bg("dark")
 end
 
 ---Save colorscheme to local settings
@@ -55,6 +54,17 @@ function M.get_loaded_plugin_count()
 	end
 
 	return 0
+end
+
+---Get the current system background
+---@return background
+function M.get_system_background()
+	local output = vim.fn.system("defaults read -g AppleInterfaceStyle")
+	if output == "on\n" then
+		return "dark"
+	end
+
+	return "light"
 end
 
 ---Create a highlight group

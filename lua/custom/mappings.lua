@@ -3,9 +3,6 @@ local api = require("utils.api")
 -- set the leader to space
 vim.g.mapleader = " "
 
--- Mappings for custom commands
-api.nmap("<A-A>", ":ToggleBackground<CR>", "Toggle between dark & light background")
-
 -- Mappings for plugin manager
 api.nmap("<leader>pm", ":Lazy<CR>", "Open [p]lugin [m]anager")
 
