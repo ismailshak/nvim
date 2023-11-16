@@ -9,7 +9,8 @@ function M.set_bg(value)
 	local s = settings.get()
 	vim.opt.background = value
 	s.background = value
-	settings.update(s)
+	-- Disable persistent background because we read system background on startup
+	-- settings.update(s)
 	return value
 end
 
@@ -60,7 +61,7 @@ end
 ---@return background
 function M.get_system_background()
 	local output = vim.fn.system("defaults read -g AppleInterfaceStyle")
-	if output == "on\n" then
+	if utils.includes(output, "Dark") then
 		return "dark"
 	end
 

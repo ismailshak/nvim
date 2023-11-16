@@ -113,7 +113,7 @@ local function should_disable_formatting(cwd)
 	end
 
 	for _, dir in ipairs(utils.split(dirs, ",")) do
-		if string.find(cwd, dir) then
+		if utils.includes(cwd, dir) then
 			return true
 		end
 	end

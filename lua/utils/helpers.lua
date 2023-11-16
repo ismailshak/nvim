@@ -102,4 +102,12 @@ function M.deep_clone(table)
 	return vim.deepcopy(table)
 end
 
+---Check if string includes substring
+---@param str string
+---@param substr string
+---@return boolean
+function M.includes(str, substr)
+	return string.find(str, substr) ~= nil
+end
+
 return M
