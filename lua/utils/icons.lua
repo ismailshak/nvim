@@ -1,0 +1,6 @@
+return {
+	files = {
+		typescript = "",
+		javascript = "",
+	},
+}
