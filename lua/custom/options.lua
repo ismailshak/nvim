@@ -1,6 +1,13 @@
+local api = require("utils.api")
+local settings = require("custom.settings")
+
 local opt = vim.opt
 
 -- enter :help <option> for more info
+
+-- Colorscheme
+vim.opt.background = api.get_system_background()
+vim.cmd("colorscheme " .. settings.get().theme)
 
 -- UI
 opt.title = true -- set window title
