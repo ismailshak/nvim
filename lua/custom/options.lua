@@ -36,6 +36,9 @@ opt.shiftwidth = 2
 opt.ignorecase = true -- ignored case when matching
 opt.smartcase = true -- ignore case until a capital letter is used?
 
+-- Persist undo
+opt.undofile = true
+
 -- disables the line number column from bouncing whenever
 -- the LSP adds an icon to the column - god bless
 vim.wo.signcolumn = "yes"
