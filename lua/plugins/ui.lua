@@ -85,7 +85,7 @@ return {
 	{
 		"f-person/auto-dark-mode.nvim",
 		event = "VimEnter",
-		config = {
+		opts = {
 			update_interval = 1000,
 			set_dark_mode = function()
 				api.set_bg("dark")
@@ -331,7 +331,7 @@ return {
 	{
 		"sindrets/diffview.nvim",
 		dependencies = "nvim-lua/plenary.nvim",
-		LazyPlugincmd = {
+		cmd = {
 			"DiffviewOpen",
 			"DiffviewLog",
 			"DiffviewFileHistory",

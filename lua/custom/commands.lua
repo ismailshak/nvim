@@ -71,7 +71,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		---------------------------------
 
 		if settings.get().background == "dark" then
-			print("dark")
 			-- Override syntax colors
 			api.hi("NoneText", { fg = "#3f4660" }) -- Virtual text
 			api.hi("Type", { ctermfg = 110, fg = "#a093c7" })

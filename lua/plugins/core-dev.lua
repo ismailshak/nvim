@@ -1,6 +1,6 @@
 local api = require("utils.api")
 
--- Core plugins used when actually typing
+-- Core plugins used when actually typing/navigating
 
 return {
 	-- Detect tabstop and shiftwidth automatically
@@ -40,6 +40,7 @@ return {
 	-- Moving code around
 	{
 		"echasnovski/mini.move",
+		event = "BufReadPost",
 		opts = {
 			-- Module mappings. Use `''` (empty string) to disable one.
 			mappings = {
@@ -62,7 +63,7 @@ return {
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		config = {
+		opts = {
 			check_ts = true,
 			ts_config = {
 				lua = { "string", "source" },
