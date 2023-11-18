@@ -13,14 +13,12 @@ api.nmap("<C-a>", "ggVG", "Select all in buffer")
 api.nmap("<leader>r", ":source %<CR>", "Source current buffer")
 api.imap("<C-z>", "<Esc>zza", "Center cursor position in window while in insert mode")
 
-api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
-api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
-api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
-api.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
-
 api.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
 api.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"'", "Close all buffers except the currently open")
 api.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
+
+api.nmap("+", "<C-a>", "Increment number under cursor")
+api.nmap("-", "<C-x>", "Decrement number under cursor")
 
 -- Don't yank on delete / change
 api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
@@ -37,6 +35,16 @@ api.nmap("<A-Up>", "yyP", "Duplicate current line above")
 api.nmap("<A-Down>", "yyp", "Duplicate current line below")
 api.vmap("<A-Up>", "yP", "Duplicate multiple lines")
 api.vmap("<A-Down>", "yP", "Duplicate multiple lines")
+
+-- Splits
+
+api.nmap("ss", ":split<CR>", "Split window horizontally")
+api.nmap("sv", ":vsplit<CR>", "Split window vertically")
+
+api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
+api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
+api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
+api.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
 
 api.nmap("<A-H>", ":vertical resize +2<CR>", "Make split pane wider (normal mode)")
 api.nmap("<A-L>", ":vertical resize -2<CR>", "Make split pane thinner (normal mode)")
