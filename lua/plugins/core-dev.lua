@@ -24,7 +24,15 @@ return {
 			},
 			suggestion = {
 				auto_trigger = true,
-				accept = false, -- TAB mapping is defined inside `cmp`s "SUPER TAB" mapping
+				accept = true, -- TAB mapping is defined inside `cmp`s "SUPER TAB" mapping
+				keymap = {
+					accept = "<M-a>",
+					accept_word = "<M-w>",
+					accept_line = "<M-l>",
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>",
+				},
 			},
 		},
 	},
@@ -258,9 +266,7 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = false }),
 					-- super tab, move through menu or move through snippets
 					["<Tab>"] = cmp.mapping(function(fallback)
-						if require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").accept()
-						elseif cmp.visible() then
+						if cmp.visible() then
 							cmp.select_next_item()
 						elseif luasnip.expandable() then
 							luasnip.expand()
