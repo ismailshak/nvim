@@ -9,8 +9,7 @@ function M.set_bg(value)
 	local s = settings.get()
 	vim.opt.background = value
 	s.background = value
-	-- Disable persistent background because we read system background on startup
-	-- settings.update(s)
+	settings.update(s)
 	return value
 end
 
@@ -70,7 +69,7 @@ end
 
 ---Create a highlight group
 ---@param name string Highlight group
----@param value string|table Color to assign to group
+---@param value table Color to assign to group
 ---@return nil
 function M.hi(name, value)
 	vim.api.nvim_set_hl(0, name, value)
