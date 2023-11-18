@@ -5,7 +5,15 @@ end
 
 local settings = require("custom.settings")
 
------------------------
+--------------------------
+-- NEODEV CONFIGURATION --
+---------------------------
+
+require("neodev").setup({
+	-- https://github.com/folke/neodev.nvim/issues/158#issuecomment-1682565350
+	pathStrict = true,
+})
+
 -- LSP CONFIGURATION --
 -----------------------
 
