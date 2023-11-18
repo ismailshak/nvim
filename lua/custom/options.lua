@@ -32,6 +32,7 @@ opt.splitbelow = true
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
+opt.confirm = true -- confirm before closing unsaved buffers
 
 -- Indentation
 opt.expandtab = true -- replace tab with spaces
