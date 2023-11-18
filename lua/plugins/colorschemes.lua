@@ -1,4 +1,7 @@
 return {
+	{ "EdenEast/nightfox.nvim" },
+	{ "nyoom-engineering/oxocarbon.nvim" },
+	{ "kvrohit/substrata.nvim" },
 	{
 		"folke/tokyonight.nvim",
 		opts = {
@@ -40,7 +43,4 @@ return {
 			},
 		},
 	},
-	{ "EdenEast/nightfox.nvim" },
-	{ "nyoom-engineering/oxocarbon.nvim" },
-	{ "kvrohit/substrata.nvim" },
 }
