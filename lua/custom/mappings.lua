@@ -22,11 +22,16 @@ api.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
 api.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"'", "Close all buffers except the currently open")
 api.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
 
--- don't yank on delete / change
+-- Don't yank on delete / change
 api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
 api.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
 api.nmap("c", '"_c', "Rebinds 'c' to not yank on removal (normal mode)")
 api.vmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
+
+-- LSP
+api.nmap("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic errors")
+api.nmap("]d", vim.diagnostic.goto_next, "Go to next diagnostic errors")
+api.nmap("gl", vim.diagnostic.open_float, "Open diagnostic error window")
 
 api.nmap("<A-Up>", "yyP", "Duplicate current line above")
 api.nmap("<A-Down>", "yyp", "Duplicate current line below")
