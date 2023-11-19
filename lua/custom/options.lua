@@ -20,6 +20,9 @@ opt.termguicolors = true
 opt.cmdheight = 0 -- removes the space at the bottom for commands
 opt.laststatus = 3 -- turns the statusline into a global status line (not 1 per buffer/split)
 opt.wrap = false -- disable line wrap
+opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevelstart = 99 -- Don't close any folds on load
+opt.foldenable = false
 
 -- Interactions
 opt.mouse = "a" -- enable mouse for all modes

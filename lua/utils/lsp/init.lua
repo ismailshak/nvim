@@ -60,6 +60,12 @@ M.configure_floating_window = function()
 end
 
 M.setup_lsps = function()
+	-- Configure folding
+	M.capabilities.textDocument.foldingRange = {
+		dynamicRegistration = false,
+		lineFoldingOnly = true,
+	}
+
 	-- Setup all servers with default config
 	for _, lsp in ipairs(M.servers) do
 		require("lspconfig")[lsp].setup({
@@ -86,6 +92,13 @@ M.setup_lsps = function()
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
 		settings = require("utils.lsp.settings.elixirls").settings,
+	})
+
+	-- Calling setup here so that ufo attaches at the right time
+	require("ufo").setup({
+		provider_selector = function()
+			return { "lsp", "indent" }
+		end,
 	})
 end
 

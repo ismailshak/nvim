@@ -96,6 +96,29 @@ return {
 		},
 	},
 
+	-- Folds
+	-- (this plugin's setup is called by lsp's setup)
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = "kevinhwang91/promise-async",
+		-- opts = {
+		-- 	provider_selector = function(bufnr, filetype, buftype)
+		-- 		return { "lsp", "indent" }
+		-- 	end,
+		-- },
+		config = function()
+			-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+			api.nmap("zR", require("ufo").openAllFolds, "Open all fold [ufo]")
+			api.nmap("zM", require("ufo").closeAllFolds, "Close all fold [ufo]")
+			api.nmap("zK", function()
+				local winid = require("ufo").peekFoldedLinesUnderCursor()
+				if not winid then
+					vim.lsp.buf.hover()
+				end
+			end, "Peek fold under cursor [ufo]")
+		end,
+	},
+
 	{
 		-- Terminal
 		"numToStr/FTerm.nvim",
