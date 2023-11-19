@@ -80,6 +80,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 			api.hi("TSConstructor", { link = "TSFunction" })
 			api.hi("TSProperty", { link = "TSKeyword" })
 
+			api.hi("FloatBorder", { fg = "#4c4d54" })
+
 			-- Override diagnostic colors
 			api.hi("DiagnosticFloatingHint", { link = "Normal" })
 
