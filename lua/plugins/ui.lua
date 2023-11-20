@@ -18,27 +18,32 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "BufEnter",
-		opts = {
-			options = {
-				icons_enabled = true,
-				theme = "auto",
-				component_separators = "|",
-				section_separators = "",
-				disabled_filetypes = {
-					statusline = { "dashboard" },
-					winbar = {},
-					DiffviewFiles = {},
+		opts = function()
+			local branch_color = vim.api.nvim_get_hl(0, { name = "String" })
+			branch_color.fg = ui.convert_decimal_color(branch_color.fg)
+
+			return {
+				options = {
+					icons_enabled = true,
+					theme = "auto",
+					component_separators = "|",
+					section_separators = "",
+					disabled_filetypes = {
+						statusline = { "dashboard" },
+						winbar = {},
+						DiffviewFiles = {},
+					},
 				},
-			},
-			sections = {
-				lualine_a = { "mode" },
-				lualine_b = { ui.build_dir_name_icon },
-				lualine_c = { { "filename", path = 1 }, ui.build_diff_opts() },
-				lualine_x = { ui.gen_mix_indent_symbol, "diagnostics", "searchcount", "filetype" },
-				lualine_y = { "branch" },
-				lualine_z = { { "location", fmt = utils.trim } },
-			},
-		},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { ui.build_dir_name_icon },
+					lualine_c = { { "filename", path = 1 }, ui.build_diff_opts() },
+					lualine_x = { ui.gen_mix_indent_symbol, "diagnostics", "searchcount", "filetype" },
+					lualine_y = { { "branch", icon = { "", align = "left", color = branch_color } } },
+					lualine_z = { { "location", fmt = utils.trim } },
+				},
+			}
+		end,
 	},
 
 	-- Add indentation guides even on blank lines
