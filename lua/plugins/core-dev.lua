@@ -8,9 +8,11 @@ return {
 
 	-- Move around the buffer with ease
 	{
-		"ggandor/lightspeed.nvim",
-		event = "VeryLazy",
-		keys = { "s", "S", "f", "F", "t", "T" },
+		"ggandor/leap.nvim",
+		lazy = false,
+		config = function()
+			require("leap").add_default_mappings()
+		end,
 	},
 
 	-- GitHub Copilot

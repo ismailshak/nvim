@@ -38,9 +38,6 @@ api.vmap("<A-Down>", "yP", "Duplicate multiple lines")
 
 -- Splits
 
-api.nmap("ss", ":split<CR>", "Split window horizontally")
-api.nmap("sv", ":vsplit<CR>", "Split window vertically")
-
 api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
 api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
 api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")

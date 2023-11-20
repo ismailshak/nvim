@@ -2,7 +2,7 @@ local M = {}
 
 local api = require("utils.api")
 
-M.set_custom_highlights = function()
+function M.set_custom_highlights()
 	-- nvim-dashboard highlights
 	api.hi("DashboardHeader", { fg = "#85A4F2", bg = "none" }) -- lua file icon blue
 	api.hi("DashboardIcon", { fg = "#85A4F2", bg = "none" })
