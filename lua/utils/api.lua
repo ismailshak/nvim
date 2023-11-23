@@ -67,6 +67,12 @@ function M.get_system_background()
 	return "light"
 end
 
+---Get current git branch
+---@return string
+function M.get_git_branch()
+	return vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+end
+
 ---Create a highlight group
 ---@param name string Highlight group
 ---@param value table Color to assign to group

@@ -10,13 +10,13 @@ end
 
 function M.gen_dashboard_footer()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-	local count = api.get_plugin_count()
+	local branch = api.get_git_branch()
 	local dir_line = "󰉖 " .. dir_name
-	local plugin_line = "No plugins"
-	if count > 0 then
-		plugin_line = count .. " plugins"
+	local branch_line = ""
+	if branch ~= "" then
+		branch_line = " " .. branch
 	end
-	return { "", "", dir_line, "", plugin_line }
+	return { "", "", dir_line, "", branch_line }
 end
 
 function M.gen_mix_indent_symbol()
@@ -46,6 +46,7 @@ function M.gen_mix_indent_symbol()
 end
 
 function M.gen_diff_symbols()
+	---@diagnostic disable-next-line: undefined-field
 	local gitsigns = vim.b.gitsigns_status_dict
 	if gitsigns then
 		return {
