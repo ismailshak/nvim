@@ -11,7 +11,7 @@ return {
 
 	-- Formatting, linting, and code actions
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			-- Bridge to auto install via Mason
@@ -27,7 +27,7 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"folke/neodev.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
+			"nvimtools/none-ls.nvim",
 			"hrsh7th/nvim-cmp",
 			"j-hui/fidget.nvim",
 		},
