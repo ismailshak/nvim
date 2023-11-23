@@ -6,6 +6,7 @@ local lsp_utils = require("utils.lsp")
 --
 
 return {
+	-- Configures lua_ls to support neovim config/plugin development
 	{ "folke/neodev.nvim", opts = {} },
 
 	-- Formatting, linting, and code actions
@@ -184,6 +185,7 @@ return {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
 				-- autotag is enabled by https://github.com/windwp/nvim-ts-autotag
 				autotag = {
@@ -195,6 +197,7 @@ return {
 					"css",
 					"javascript",
 					"typescript",
+					"jsdoc",
 					"tsx",
 					"markdown",
 					"markdown_inline",
@@ -206,6 +209,7 @@ return {
 					"python",
 					"bash",
 					"regex",
+					"rust",
 					"vim",
 					"vimdoc", -- https://github.com/nvim-treesitter/nvim-treesitter/issues/2293#issuecomment-1492982270
 				},
