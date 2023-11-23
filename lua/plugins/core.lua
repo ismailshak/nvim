@@ -168,7 +168,13 @@ return {
 					api.nmap("<leader>hr", gs.toggle_deleted, "Toggle deleted [gitsigns]", default_opts)
 
 					-- Text object
-					api.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Not sure [gitsigns]", default_opts)
+					api.map(
+						{ "o", "x" },
+						"ih",
+						":<C-U>Gitsigns select_hunk<CR>",
+						"Motion for inside git hunk [gitsigns]",
+						default_opts
+					)
 				end,
 			})
 		end,
@@ -187,10 +193,6 @@ return {
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
-				-- autotag is enabled by https://github.com/windwp/nvim-ts-autotag
-				autotag = {
-					enable = true,
-				},
 				ensure_installed = {
 					"lua",
 					"html",
@@ -220,6 +222,12 @@ return {
 				indent = {
 					enable = true,
 				},
+				-- autotag is enabled by https://github.com/windwp/nvim-ts-autotag
+				autotag = {
+					enable = true,
+				},
+				-- smart comments are enabled by JoosepAlviste/nvim-ts-context-commentstring
+				-- (and integrated with numToStr/Comment.nvim )
 				context_commentstring = {
 					enable = true,
 					enable_autocmd = false,
@@ -229,14 +237,68 @@ return {
 						enable = true,
 						lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
 						keymaps = {
-							-- You can use the capture groups defined in textobjects.scm
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
+							["aa"] = { query = "@parameter.outer", desc = "Select around parameter" },
+							["ia"] = { query = "@parameter.inner", desc = "Select inside parameter" },
+							["af"] = { query = "@function.outer", desc = "Select around function" },
+							["if"] = { query = "@function.inner", desc = "Select inside function" },
+							["ac"] = { query = "@class.outer", desc = "Select around class" },
+							["ic"] = { query = "@class.inner", desc = "Select inside class" },
+							["ai"] = { query = "@conditional.outer", desc = "Select around conditional" },
+							["ii"] = { query = "@conditional.inner", desc = "Select inside conditional" },
+							["al"] = { query = "@loop.outer", desc = "Select around loop" },
+							["il"] = { query = "@loop.inner", desc = "Select inside loop" },
+							["ab"] = { query = "@block.outer", desc = "Select around block" },
+							["ib"] = { query = "@block.inner", desc = "Select inside block" },
+							["am"] = { query = "@call.outer", desc = "Select around method" },
+							["im"] = { query = "@call.inner", desc = "Select inside method" },
+							["as"] = { query = "@statement.outer", desc = "Select around statement" },
+							["is"] = { query = "@statement.inner", desc = "Select inside statement" },
 						},
+					},
+					move = {
+						enable = true,
+						set_jumps = true, -- Whether to set jumps in the jumplist
+						goto_next_start = {
+							["]m"] = { query = "@function.outer", desc = "Move to the next function" },
+							["]]"] = { query = "@class.outer", desc = "Move to the next class" },
+							["]a"] = { query = "@parameter.outer", desc = "Move to the next parameter" },
+							["]f"] = { query = "@call.outer", desc = "Move to the next method" },
+							["]i"] = { query = "@conditional.outer", desc = "Move to the next conditional" },
+							["]l"] = { query = "@loop.outer", desc = "Move to the next loop" },
+							["]b"] = { query = "@block.outer", desc = "Move to the next block" },
+							["]s"] = { query = "@statement.outer", desc = "Move to the next statement" },
+						},
+						goto_previous_start = {
+							["[m"] = { query = "@function.outer", desc = "Move to the previous function" },
+							["[["] = { query = "@class.outer", desc = "Move to the previous class" },
+							["[a"] = { query = "@parameter.outer", desc = "Move to the previous parameter" },
+							["[f"] = { query = "@call.outer", desc = "Move to the previous method" },
+							["[i"] = "@conditional.outer",
+							["[l"] = { query = "@loop.outer", desc = "Move to the previous loop" },
+							["[b"] = { query = "@block.outer", desc = "Move to the previous block" },
+							["[s"] = { query = "@statement.outer", desc = "Move to the previous statement" },
+						},
+					},
+					swap = {
+						enable = true,
+						swap_next = {
+							["<leader>sa"] = { query = "@parameter.inner", desc = "Swap current parameter with next" },
+						},
+						swap_previous = {
+							["<leader>sA"] = {
+								query = "@parameter.inner",
+								desc = "Swap current parameter with previous",
+							},
+						},
+					},
+				},
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<C-Space>",
+						node_incremental = "<C-Space>",
+						scope_incremental = false,
+						node_decremental = "<BS>",
 					},
 				},
 				playground = {
