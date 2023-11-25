@@ -1,7 +1,24 @@
+---@diagnostic disable: inject-field
 local settings = require("custom.settings")
 local utils = require("utils.helpers")
 
 local M = {}
+
+---Get OS name
+---@alias os 'macos'|'linux'|'windows'
+---@return os
+function M.get_os()
+	local os = vim.loop.os_uname().sysname
+	if os == "Darwin" then
+		return "macos"
+	elseif os == "Linux" then
+		return "linux"
+	elseif os == "Windows" then
+		return "windows"
+	end
+
+	error("Unsupported OS: " .. os)
+end
 
 ---Set background to "dark" or "light"
 ---@param value background
@@ -59,6 +76,10 @@ end
 ---Get the current system background
 ---@return background
 function M.get_system_background()
+	if M.get_os() ~= "macos" then
+		return "dark"
+	end
+
 	local output = vim.fn.system("defaults read -g AppleInterfaceStyle")
 	if utils.includes(output, "Dark") then
 		return "dark"
