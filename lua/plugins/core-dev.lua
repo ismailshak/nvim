@@ -11,6 +11,7 @@ return {
 		"ggandor/leap.nvim",
 		lazy = false,
 		config = function()
+			api.vmap("x", "x", "Default x mapping") -- Prevents leap from overriding the default x mapping
 			require("leap").add_default_mappings()
 		end,
 	},
