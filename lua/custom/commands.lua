@@ -63,9 +63,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		api.hi("NormalFloat", { link = "Normal" })
 		api.hi("FloatBorder", { link = "Normal" })
 
-		-- Add fidget.nvim support
-		api.hi("FidgetTitle", { link = "TSKeyword" })
-
 		-- Override rust's function syntax highlighting
 		api.hi("@function.rust", { link = "Title" })
 

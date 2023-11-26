@@ -80,8 +80,25 @@ return {
 		lazy = false,
 
 		opts = {
-			text = {
-				spinner = "dots",
+			progress = {
+				display = {
+					done_icon = "",
+					done_style = "TSKeyword",
+					group_style = "Type",
+					progress_style = "Comment",
+				},
+			},
+			notification = {
+				override_vim_notify = true,
+				configs = {
+					default = utils.merge_tables(require("fidget.notification").default_config, {
+						name = "",
+						icon = "",
+					}),
+				},
+				view = {
+					group_separator = "",
+				},
 			},
 		},
 	},
@@ -106,11 +123,6 @@ return {
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = "kevinhwang91/promise-async",
-		-- opts = {
-		-- 	provider_selector = function(bufnr, filetype, buftype)
-		-- 		return { "lsp", "indent" }
-		-- 	end,
-		-- },
 		config = function()
 			-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 			api.nmap("zR", require("ufo").openAllFolds, "Open all fold [ufo]")
