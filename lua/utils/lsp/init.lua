@@ -95,11 +95,7 @@ M.setup_lsps = function()
 	})
 
 	-- Calling setup here so that ufo attaches at the right time
-	require("ufo").setup({
-		provider_selector = function()
-			return { "lsp", "indent" }
-		end,
-	})
+	require("ufo").setup()
 end
 
 M.setup_null_ls = function()
