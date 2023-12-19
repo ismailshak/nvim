@@ -1,5 +1,10 @@
 local M = {}
 
+---Return the current neovim version
+function M.nvim_version()
+	return vim.fn.execute("version"):match("v(%d+%.%d+%.%d+)")
+end
+
 ---Return the current working directory
 ---@return string
 function M.cwd()
