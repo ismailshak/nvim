@@ -78,6 +78,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 			api.hi("TSProperty", { link = "TSKeyword" })
 
 			api.hi("FloatBorder", { fg = "#4c4d54" })
+			api.hi("VertSplit", { bg = "NONE", fg = "#0f1117" })
 
 			-- Override diagnostic colors
 			api.hi("DiagnosticFloatingHint", { link = "Normal" })
@@ -108,6 +109,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 			api.hi("DiffChange", { bg = "#cfd7ca", fg = "NONE" })
 			api.hi("DiffDelete", { bg = "#edbabd", fg = "NONE" })
 			api.hi("DiffText", { bg = "#c1cdb8", fg = "NONE" })
+
+			api.hi("VertSplit", { bg = "NONE", fg = "#cad0de" })
 		end
 	end,
 })
