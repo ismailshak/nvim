@@ -191,6 +191,20 @@ return {
 		},
 	},
 
+	-- A more powerful undo mechanism
+	{
+		"mbbill/undotree",
+		cmd = "UndotreeToggle",
+		event = "BufReadPost",
+		keys = "<leader>uu",
+		config = function()
+			api.nmap("<leader>uu", "<CMD>UndotreeToggle<CR>", "Toggle undo tree")
+
+			vim.g.undotree_WindowLayout = 4
+			vim.g.undotree_SetFocusWhenToggle = 1
+		end,
+	},
+
 	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",
