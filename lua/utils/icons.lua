@@ -1,6 +1,9 @@
 return {
 	files = {
-		typescript = "",
+		env = "",
 		javascript = "",
+		javascriptreact = "",
+		typescript = "",
+		typescriptreact = "",
 	},
 }

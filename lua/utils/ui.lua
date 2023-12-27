@@ -76,39 +76,62 @@ function M.build_dir_name_icon()
 	return " 󰉖 " .. dir_name .. " "
 end
 
-function M.get_ft_icon_overrides()
+function M.pick_color(is_dark, dark_color, light_color)
+	if is_dark then
+		return dark_color
+	else
+		return light_color
+	end
+end
+
+function M.get_ft_icon_overrides(background)
+	local is_dark = background == "dark"
 	return {
-		-- Original settings for these commented out below
-		-- ["ts"] = {
-		-- 	icon = ts_icon,
-		-- 	color = "#4D93B1",
-		-- 	name = "Ts",
-		-- },
-		-- ["js"] = {
-		-- 	icon = js_icon,
-		-- 	color = "#C7CC4F",
-		-- 	cterm_color = "58",
-		-- 	name = "Js",
-		-- },
+		[".env-defaults"] = {
+			icon = icons.files.env,
+			color = M.pick_color(is_dark, "#faf743", "#faf743"),
+			cterm_color = "227",
+			name = "Env",
+		},
 		["spec.ts"] = {
 			icon = icons.files.typescript,
-			color = "#E17833",
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
 			name = "SpecTs",
 		},
 		["test.ts"] = {
 			icon = icons.files.typescript,
-			color = "#E17833",
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
 			name = "TestTs",
 		},
 		["spec.js"] = {
 			icon = icons.files.javascript,
-			color = "#E17833",
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
 			name = "SpecJs",
 		},
 		["test.js"] = {
 			icon = icons.files.javascript,
-			color = "#E17833",
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
 			name = "TestJs",
+		},
+		["spec.jsx"] = {
+			icon = icons.files.javascriptreact,
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
+			name = "JavaScriptReactSpec",
+		},
+		["test.jsx"] = {
+			icon = icons.files.javascriptreact,
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
+			name = "JavaScriptReactSpec",
+		},
+		["spec.tsx"] = {
+			icon = icons.files.typescriptreact,
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
+			name = "TypeScriptReactSpec",
+		},
+		["test.tsx"] = {
+			icon = icons.files.typescriptreact,
+			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
+			name = "TypeScriptReactSpec",
 		},
 	}
 end
