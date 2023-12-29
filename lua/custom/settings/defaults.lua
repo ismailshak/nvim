@@ -13,6 +13,7 @@ local M = {
 	---| 'nightfox'
 	---| 'dayfox'
 	---| 'catppuccin'
+	---| 'substrata'
 	--@type theme
 	theme = "iceberg",
 
