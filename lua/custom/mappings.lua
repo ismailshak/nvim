@@ -37,7 +37,6 @@ api.vmap("<A-Up>", "yP", "Duplicate multiple lines")
 api.vmap("<A-Down>", "yP", "Duplicate multiple lines")
 
 -- Splits
-
 api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
 api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
 api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
@@ -52,7 +51,9 @@ api.vmap("<A-L>", ":vertical resize +2<CR>", "Make split pane longer (visual mod
 api.vmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
 api.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual mode)")
 
-api.vmap("<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', "Replace all occurrences of selected text")
+-- Replacing text
+api.vmap("<C-f>", '"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of selected text")
+api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of word under cursor")
 
 api.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
 
