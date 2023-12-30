@@ -62,6 +62,9 @@ function M.iceberg(is_dark)
 	api.hi("NormalFloat", { link = "Normal" })
 	api.hi("FloatBorder", { link = "Normal" })
 
+	-- JSX highlighting
+	api.hi("htmlTagName", { link = "Statement" })
+
 	---------------------------------
 	-- Dynamic highlight overrides --
 	---------------------------------
