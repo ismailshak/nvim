@@ -23,10 +23,7 @@ end
 ---Set background to "dark" or "light"
 ---@param value background
 function M.set_bg(value)
-	local s = settings.get()
 	vim.opt.background = value
-	s.background = value
-	settings.update(s)
 	return value
 end
 
