@@ -599,6 +599,15 @@ return {
 					expand_all = {
 						max_folder_discovery = 300,
 					},
+					file_popup = {
+						open_win_config = {
+							col = 1,
+							row = 1,
+							relative = "cursor",
+							border = "rounded",
+							style = "minimal",
+						},
+					},
 					open_file = {
 						quit_on_open = true,
 						resize_window = true,
