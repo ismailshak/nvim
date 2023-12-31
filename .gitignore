@@ -5,3 +5,6 @@
 
 # Persisted settings module
 lua/custom/settings/local.lua
+
+# Git author mapping file
+.mailmap
