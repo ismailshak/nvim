@@ -51,7 +51,7 @@ function M.iceberg(is_dark)
 	-- (I didn't like how rust highlighting looked compared to default)
 	-- :h lsp-semantic-highlight
 	for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-		vim.api.nvim_set_hl(0, group, {})
+		api.hi(group, {})
 	end
 
 	--------------------------------
@@ -107,6 +107,7 @@ function M.iceberg(is_dark)
 		api.hi("DiffText", { bg = "#4c5340", fg = "NONE" })
 	else
 		-- if background == "light"
+		api.hi("TSFunction", { ctermfg = 252, fg = "#668e3d" })
 		api.hi("NonText", { fg = "#c6c8d1" }) -- Virtual text
 		api.hi("DiffAdd", { bg = "#d4dbd1", fg = "NONE" })
 		api.hi("DiffChange", { bg = "#cfd7ca", fg = "NONE" })
