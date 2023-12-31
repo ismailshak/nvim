@@ -94,6 +94,12 @@ M.setup_lsps = function()
 		settings = require("utils.lsp.settings.elixirls").settings,
 	})
 
+	require("lspconfig").rust_analyzer.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities,
+		settings = require("utils.lsp.settings.rust-analyzer").settings,
+	})
+
 	-- Calling setup here so that ufo attaches at the right time
 	require("ufo").setup()
 end
