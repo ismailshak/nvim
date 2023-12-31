@@ -58,6 +58,8 @@ function M.iceberg(is_dark)
 	-- Global highlight overrides --
 	--------------------------------
 
+	api.hi("Type", { link = "Constant" })
+
 	-- Override floating window colors
 	api.hi("NormalFloat", { link = "Normal" })
 	api.hi("FloatBorder", { link = "Normal" })
@@ -72,7 +74,6 @@ function M.iceberg(is_dark)
 	if is_dark then
 		-- Override syntax colors
 		api.hi("NonText", { fg = "#3f4660" }) -- Virtual text
-		api.hi("Type", { ctermfg = 110, fg = "#a093c7" })
 		api.hi("Keyword", { ctermfg = 110, fg = "#84a0c6" })
 		api.hi("TSFunction", { ctermfg = 252, fg = "#b4be82" })
 		api.hi("Identifier", { link = "TSVariable" })
