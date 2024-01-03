@@ -192,4 +192,14 @@ return {
 			"MunifTanjim/nui.nvim",
 		},
 	},
+
+	-- Dumb but fun buffer animations
+	{
+		"eandrju/cellular-automaton.nvim",
+		cmd = "CellularAutomaton",
+		keys = "<leader>fml",
+		config = function()
+			api.nmap("<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", "Make it rain")
+		end,
+	},
 }
