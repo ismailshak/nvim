@@ -17,6 +17,7 @@ M.servers = {
 	"yamlls",
 	"elixirls",
 	"rust_analyzer",
+	"clangd",
 }
 
 M.setup_neodev = function()
@@ -135,6 +136,7 @@ M.setup_null_ls = function()
 			formatting.goimports, -- fixes imports and formats the same way `gofmt` does
 			formatting.mix,
 			formatting.rustfmt,
+			formatting.clang_format,
 			diagnostics.codespell,
 			diagnostics.credo,
 			code_actions.gitsigns,
@@ -160,7 +162,7 @@ M.setup_null_ls = function()
 	-- Auto install null-ls binaries via mason
 	require("mason-null-ls").setup({
 		ensure_installed = nil,
-		automatic_installation = { exclude = { "prettier", "eslint", "credo", "mix" } },
+		automatic_installation = { exclude = { "prettier", "eslint", "credo", "mix", "clangd-format" } },
 		automatic_setup = false,
 	})
 end
