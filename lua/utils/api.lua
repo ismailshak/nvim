@@ -92,6 +92,12 @@ function M.get_git_branch()
 	return vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 end
 
+---Detects if Neovim is embedded in VSCode
+---@return boolean
+function M.is_vscode()
+	return vim.g.vscode
+end
+
 ---Create a highlight group
 ---@param name string Highlight group
 ---@param value table Color to assign to group
