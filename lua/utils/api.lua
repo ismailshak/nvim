@@ -22,6 +22,7 @@ end
 
 ---Set background to "dark" or "light"
 ---@param value background
+---@return background
 function M.set_bg(value)
 	vim.opt.background = value
 	return value
@@ -41,7 +42,7 @@ end
 ---@param colorscheme? string Color scheme to save
 function M.save_colorscheme(colorscheme)
 	local s = settings.get()
-	local current_theme = colorscheme or vim.api.nvim_exec("color", {})
+	local current_theme = colorscheme or vim.cmd("colorscheme")
 	if s.theme == current_theme then
 		return
 	end
@@ -94,7 +95,6 @@ end
 ---Create a highlight group
 ---@param name string Highlight group
 ---@param value table Color to assign to group
----@return nil
 function M.hi(name, value)
 	vim.api.nvim_set_hl(0, name, value)
 end

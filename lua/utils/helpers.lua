@@ -1,6 +1,7 @@
 local M = {}
 
 ---Return the current neovim version
+---@return string version in the form of X.X.X
 function M.nvim_version()
 	return vim.fn.execute("version"):match("v(%d+%.%d+%.%d+)")
 end
