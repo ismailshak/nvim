@@ -56,3 +56,8 @@ vim.wo.signcolumn = "yes"
 
 -- Set the diff fill characters to '/', default is '-'
 vim.cmd("set fillchars+=diff:╱")
+
+-- Abbreviations
+api.cabbr("W", "w")
+api.cabbr("wf", "w")
+api.cabbr("Q", "q")

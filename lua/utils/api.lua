@@ -112,6 +112,20 @@ function M.get_default_opts(desc)
 	return { noremap = true, desc = desc or "", silent = true }
 end
 
+---Define an abbreviation for insert mode
+---@param lhs string The abbreviation
+---@param rhs string The expansion
+function M.iabbr(lhs, rhs)
+	vim.cmd("iabbrev " .. lhs .. " " .. rhs)
+end
+
+---Define an abbreviation for command mode
+---@param lhs string The abbreviation
+---@param rhs string The expansion
+function M.cabbr(lhs, rhs)
+	vim.cmd("cabbrev " .. lhs .. " " .. rhs)
+end
+
 ---Base function that creates a mapping between key and command
 ---@param mode string|table See :h map-listing for chars
 ---@param key string The key used in the mapping
