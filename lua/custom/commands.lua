@@ -10,6 +10,21 @@ vim.api.nvim_create_user_command("ToggleBackground", api.toggle_bg, {})
 
 -- AUTOCOMMANDS --
 
+-- Trim trailing whitespace on save and keep cursor position intact
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	group = CUSTOM_GROUP_ID,
+	callback = function()
+		if vim.bo.filetype == "diff" then
+			return
+		end
+
+		local view = vim.fn.winsaveview()
+		vim.cmd([[%s/\s\+$//e]])
+		vim.fn.winrestview(view)
+	end,
+})
+
 vim.api.nvim_create_autocmd("OptionSet", {
 	pattern = "background",
 	group = CUSTOM_GROUP_ID,
