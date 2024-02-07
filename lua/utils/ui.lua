@@ -64,9 +64,9 @@ function M.build_diff_opts()
 		source = M.gen_diff_symbols,
 		colored = true,
 		symbols = {
-			added = icons.statusline.git_added .. " ",
-			modified = icons.statusline.git_modified .. " ",
-			removed = icons.statusline.git_removed .. " ",
+			added = icons.statusline.git_added,
+			modified = icons.statusline.git_modified,
+			removed = icons.statusline.git_removed,
 		},
 	}
 end
