@@ -42,14 +42,11 @@ return {
 		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-github.nvim",
-			"folke/trouble.nvim",
 		},
 
 		config = function()
 			local telescope = require("telescope")
 			local actions = require("telescope.actions")
-			local trouble = require("trouble.providers.telescope")
 
 			mappings.telescope()
 
@@ -112,7 +109,6 @@ return {
 							["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 							["<C-l>"] = actions.complete_tag,
 							["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
-							["<C-t>"] = trouble.open_with_trouble,
 						},
 
 						n = {
@@ -144,7 +140,6 @@ return {
 							["<PageDown>"] = actions.results_scrolling_down,
 
 							["?"] = actions.which_key,
-							["<C-t>"] = trouble.open_with_trouble,
 						},
 					},
 				},
@@ -181,7 +176,6 @@ return {
 				},
 			})
 
-			require("telescope").load_extension("gh")
 			require("telescope").load_extension("dotfiles") -- this is my custom thing
 		end,
 	},

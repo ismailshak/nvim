@@ -4,12 +4,12 @@ local mappings = require("custom.mappings")
 
 return {
 	-- Detect tabstop and shiftwidth automatically
-	{ "tpope/vim-sleuth", lazy = false },
+	{ "tpope/vim-sleuth", event = "InsertEnter" },
 
 	-- Move around the buffer with ease
 	{
 		"ggandor/leap.nvim",
-		lazy = false,
+		lazy = false, -- Handled by plugin
 		config = function()
 			mappings.leap()
 			require("leap").add_default_mappings()
@@ -73,7 +73,7 @@ return {
 				javascript = { "string", "template_string" },
 				java = false,
 			},
-			disable_filetype = { "TelescopePrompt", "spectre_panel" },
+			disable_filetype = { "TelescopePrompt", "spectre_panel", "dashboard", "NvimTree", "Fterm" },
 			fast_wrap = {
 				map = "<M-e>",
 				chars = { "{", "[", "(", '"', "'" },
@@ -311,22 +311,6 @@ return {
 						"s",
 					}),
 				},
-				-- formatting = {
-				-- 	fields = { "kind", "abbr", "menu" },
-				-- 	format = function(entry, vim_item)
-				-- 		-- Kind icons
-				-- 		vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-				-- 		-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
-				-- 		vim_item.menu = ({
-				-- 			nvim_lsp = "[LSP]",
-				-- 			nvim_lua = "[Lua]",
-				-- 			luasnip = "[Snippet]",
-				-- 			buffer = "[Buffer]",
-				-- 			path = "[Path]",
-				-- 		})[entry.source.name]
-				-- 		return vim_item
-				-- 	end,
-				-- },
 				formatting = {
 					fields = { "kind", "abbr" },
 					format = function(_, vim_item)
@@ -336,7 +320,6 @@ return {
 				},
 				-- order matters, it will appear in that order in the completion menu (using its own custom weighting system)
 				sources = {
-					-- { name = "nvim_lsp_signature_help" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
 					{ name = "buffer" },

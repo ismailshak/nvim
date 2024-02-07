@@ -72,7 +72,7 @@ return {
 		opts = {
 			show_dirname = false,
 			show_modified = true,
-			exclude_filetypes = { "dashboard", "Trouble" },
+			exclude_filetypes = { "dashboard", "Trouble", "NvimTree", "Fterm" },
 		},
 	},
 

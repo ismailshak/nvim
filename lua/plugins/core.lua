@@ -7,7 +7,7 @@ local mappings = require("custom.mappings")
 
 return {
 	-- Configures lua_ls to support neovim config/plugin development
-	{ "folke/neodev.nvim", opts = {} },
+	"folke/neodev.nvim",
 
 	-- Formatting, linting, and code actions
 	{
