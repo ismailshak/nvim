@@ -1,5 +1,5 @@
-local api = require("utils.api")
 local lsp_utils = require("utils.lsp")
+local mappings = require("custom.mappings")
 
 --
 -- Core functionality
@@ -102,79 +102,7 @@ return {
 					enable = false,
 				},
 				on_attach = function(bufnr)
-					local gs = package.loaded.gitsigns
-					local default_opts = { buffer = bufnr }
-
-					-- Navigation
-					api.nmap("]c", function()
-						if vim.wo.diff then
-							return "]c"
-						end
-						vim.schedule(function()
-							gs.next_hunk()
-						end)
-						return "<Ignore>"
-					end, "Navigate to next hunk [gitsigns]", { expr = true, buffer = bufnr })
-
-					api.nmap("[c", function()
-						if vim.wo.diff then
-							return "[c"
-						end
-						vim.schedule(function()
-							gs.prev_hunk()
-						end)
-						return "<Ignore>"
-					end, "Navigate to previous hunk [gitsigns]", { expr = true, buffer = bufnr })
-
-					-- Actions
-					api.map(
-						{ "n", "v" },
-						"<leader>hs",
-						":Gitsigns stage_hunk<CR>",
-						"Stage hunk under cursor [gitsigns]",
-						default_opts
-					)
-					api.map(
-						{ "n", "v" },
-						"<leader>hr",
-						":Gitsigns reset_hunk<CR>",
-						"Reset hunk under cursor [gitsigns]",
-						default_opts
-					)
-					api.nmap("<leader>hS", gs.stage_buffer, "Stage the current buffer [gitsigns]", default_opts)
-					api.nmap("<leader>hu", gs.undo_stage_hunk, "Undo staging of hunk [gitsigns]", default_opts)
-					api.nmap("<leader>hR", gs.reset_buffer, "Reset the current buffer [gitsigns]", default_opts)
-					api.nmap("<leader>hP", gs.preview_hunk, "Previw hunk under cursor [gitsigns]", default_opts)
-					api.nmap(
-						"<leader>hp",
-						gs.preview_hunk_inline,
-						"Inline previw hunk under cursor [gitsigns]",
-						default_opts
-					)
-					api.nmap("<leader>hb", function()
-						gs.blame_line({ full = true })
-					end, "Show blame for line under cursor [gitsigns]", default_opts)
-					api.nmap(
-						"<leader>tb",
-						gs.toggle_current_line_blame,
-						"Toggle blame for current line [gitsigns]",
-						default_opts
-					)
-					api.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
-					api.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
-					api.nmap("<leader>hD", function()
-						gs.diffthis("~")
-					end, "Diff this ~ [gitsigns]", default_opts)
-					api.nmap("<leader>hr", gs.toggle_deleted, "Toggle deleted [gitsigns]", default_opts)
-
-					-- Text object
-					api.map(
-						{ "o", "x" },
-						"ih",
-						":<C-U>Gitsigns select_hunk<CR>",
-						"Motion for inside git hunk [gitsigns]",
-						default_opts
-					)
+					mappings.gitsigns(bufnr)
 				end,
 			})
 		end,

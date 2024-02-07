@@ -1,5 +1,6 @@
-local utils = require("utils.helpers")
+local mappings = require("custom.mappings")
 local api = require("utils.api")
+local utils = require("utils.helpers")
 local ui = require("utils.ui")
 
 return {
@@ -125,15 +126,7 @@ return {
 		"kevinhwang91/nvim-ufo",
 		dependencies = "kevinhwang91/promise-async",
 		config = function()
-			-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-			api.nmap("zR", require("ufo").openAllFolds, "Open all fold [ufo]")
-			api.nmap("zM", require("ufo").closeAllFolds, "Close all fold [ufo]")
-			api.nmap("zK", function()
-				local winid = require("ufo").peekFoldedLinesUnderCursor()
-				if not winid then
-					vim.lsp.buf.hover()
-				end
-			end, "Peek fold under cursor [ufo]")
+			mappings.ufo()
 		end,
 	},
 
@@ -142,8 +135,7 @@ return {
 		"numToStr/FTerm.nvim",
 		keys = { "<c-\\>", { "c-\\", mode = "t" } },
 		config = function()
-			api.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "toggle terminal")
-			api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").toggle()<cr>', "toggle when open")
+			mappings.fterm()
 
 			require("FTerm").setup({
 				---Filetype of the terminal buffer
@@ -384,8 +376,7 @@ return {
 			{ "<leader>df" },
 		},
 		config = function()
-			api.nmap("<leader>dv", "<cmd>DiffviewOpen<cr>", "Open diff view")
-			api.nmap("<leader>df", "<cmd>DiffviewFileHistory %<cr>", "Open file history")
+			mappings.diffview()
 
 			local actions = require("diffview.actions")
 
@@ -464,7 +455,7 @@ return {
 		cmd = "NvimTreeFindFileToggle",
 		keys = "<C-n>",
 		config = function()
-			api.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
+			mappings.nvim_tree()
 
 			-- each of these are documented in `:help nvim-tree.OPTION_NAME`
 			-- nested options are documented by accessing them with `.` (eg: `:help nvim-tree.view.mappings.list`).

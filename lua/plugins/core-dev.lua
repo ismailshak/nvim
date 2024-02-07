@@ -1,4 +1,4 @@
-local api = require("utils.api")
+local mappings = require("custom.mappings")
 
 -- Core plugins used when actually typing/navigating
 
@@ -11,7 +11,7 @@ return {
 		"ggandor/leap.nvim",
 		lazy = false,
 		config = function()
-			api.vmap("x", "x", "Default x mapping") -- Prevents leap from overriding the default x mapping
+			mappings.leap()
 			require("leap").add_default_mappings()
 		end,
 	},
@@ -124,8 +124,7 @@ return {
 			{ "nvim-treesitter/nvim-treesitter" },
 		},
 		config = function()
-			api.nmap("gp", "<CMD>Lspsaga peek_definition<CR>", "Peek definition in floating window")
-			api.nmap("go", "<CMD>Lspsaga outline<CR>", "Open buffer symbol outline in a panel")
+			mappings.lspsaga()
 
 			require("lspsaga").setup({
 				ui = {
@@ -198,7 +197,7 @@ return {
 		event = "BufReadPost",
 		keys = "<leader>uu",
 		config = function()
-			api.nmap("<leader>uu", "<CMD>UndotreeToggle<CR>", "Toggle undo tree")
+			mappings.undotree()
 
 			vim.g.undotree_WindowLayout = 4
 			vim.g.undotree_SetFocusWhenToggle = 1

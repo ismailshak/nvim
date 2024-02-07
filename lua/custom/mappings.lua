@@ -57,27 +57,199 @@ api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of
 
 api.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
 
--- CURRENTLY HANDLED BY A PLUGIN
---
--- move current cursor line up or down
---[[ api.nmap("<A-k>", ":m .-2<CR>==") ]]
---[[ api.nmap("<A-j>", ":m +1<CR>==") ]]
---[[ api.imap("<A-k>", "<Esc>:m .-2<CR>==i") ]]
---[[ api.imap("<A-j>", "<Esc>:m .+1<CR>==i") ]]
---[[ api.vmap("<A-k>", ":m '<-2<CR>gv=gv") ]]
---[[ api.vmap("<A-j>", ":m '>+1<CR>gv=gv") ]]
+------------------------------
+-- PLUGIN SPECIFIC MAPPINGS --
+------------------------------
 
---[[
-Move line mapping explanation
+local M = {}
 
-The command :m .+1 (which can be abbreviated to :m+) moves the current line to after line number .+1 (current line number + 1).
-That is, the current line is moved down one line.
+function M.lsp(bufnr)
+	local function gen_desc(desc)
+		return desc .. " (LSP)"
+	end
 
-The command :m .-2 (which can be abbreviated to :m-2) moves the current line to after line number .-2 (current line number − 2).
-That is, the current line is moved up one line.
+	local opts = { buffer = bufnr }
+	api.nmap("<leader>rn", vim.lsp.buf.rename, gen_desc("[R]e[n]ame"), opts)
+	api.nmap("<leader>ca", vim.lsp.buf.code_action, gen_desc("[C]ode [A]ction"), opts)
+	api.vmap("<leader>ca", vim.lsp.buf.code_action, gen_desc("Selected range [C]ode [A]ction"), opts)
 
-After visually selecting some lines, entering :m '>+1 moves the selected lines to after line number '>+1 (one line after the last selected line; '>
-is a mark assigned by Vim to identify the selection end). That is, the block of selected lines is moved down one line.
+	api.nmap("gd", vim.lsp.buf.definition, gen_desc("[G]oto [D]efinition"), opts)
+	api.nmap("gr", require("telescope.builtin").lsp_references, gen_desc("[G]oto [R]eferences"), opts)
+	api.nmap("gI", vim.lsp.buf.implementation, gen_desc("[G]oto [I]mplementation"), opts)
+	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type [D]efinition"), opts)
+	api.nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, gen_desc("[D]ocument [S]ymbols"), opts)
+	api.nmap(
+		"<leader>ws",
+		require("telescope.builtin").lsp_dynamic_workspace_symbols,
+		gen_desc("[W]orkspace [S]ymbols"),
+		opts
+	)
 
-The == re-indents the line to suit its new position. For the visual-mode mappings, gv reselects the last visual block and = re-indents that block.
---]]
+	-- See `:help K` for why this keymap
+	api.nmap("K", vim.lsp.buf.hover, gen_desc("Hover Documentation"), opts)
+	api.nmap("<C-i>", vim.lsp.buf.signature_help, gen_desc("Signature Documentation"), opts)
+
+	-- Lesser used LSP functionality
+	api.nmap("gD", vim.lsp.buf.declaration, gen_desc("[G]oto [D]eclaration"), opts)
+	api.nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, gen_desc("[W]orkspace [A]dd Folder"), opts)
+	api.nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, gen_desc("[W]orkspace [R]emove Folder"), opts)
+	api.nmap("<leader>wl", function()
+		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	end, gen_desc("[W]orkspace [L]ist Folders"), opts)
+end
+
+function M.leap()
+	-- Prevents leap from overriding the default x mapping
+	api.vmap("x", "x", "Default x mapping")
+end
+
+function M.lspsaga()
+	api.nmap("gp", "<CMD>Lspsaga peek_definition<CR>", "Peek definition in floating window")
+	api.nmap("go", "<CMD>Lspsaga outline<CR>", "Open buffer symbol outline in a panel")
+end
+
+function M.undotree()
+	api.nmap("<leader>uu", "<CMD>UndotreeToggle<CR>", "Toggle undo tree")
+end
+
+function M.gitsigns(bufnr)
+	local gs = require("gitsigns")
+	local default_opts = { buffer = bufnr }
+
+	-- Navigation
+	api.nmap("]c", function()
+		if vim.wo.diff then
+			return "]c"
+		end
+		vim.schedule(function()
+			gs.next_hunk()
+		end)
+		return "<Ignore>"
+	end, "Navigate to next hunk [gitsigns]", { expr = true, buffer = bufnr })
+
+	api.nmap("[c", function()
+		if vim.wo.diff then
+			return "[c"
+		end
+		vim.schedule(function()
+			gs.prev_hunk()
+		end)
+		return "<Ignore>"
+	end, "Navigate to previous hunk [gitsigns]", { expr = true, buffer = bufnr })
+
+	-- Actions
+	api.map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage hunk under cursor [gitsigns]", default_opts)
+	api.map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset hunk under cursor [gitsigns]", default_opts)
+	api.nmap("<leader>hS", gs.stage_buffer, "Stage the current buffer [gitsigns]", default_opts)
+	api.nmap("<leader>hu", gs.undo_stage_hunk, "Undo staging of hunk [gitsigns]", default_opts)
+	api.nmap("<leader>hR", gs.reset_buffer, "Reset the current buffer [gitsigns]", default_opts)
+	api.nmap("<leader>hP", gs.preview_hunk, "Previw hunk under cursor [gitsigns]", default_opts)
+	api.nmap("<leader>hp", gs.preview_hunk_inline, "Inline previw hunk under cursor [gitsigns]", default_opts)
+	api.nmap("<leader>hb", function()
+		gs.blame_line({ full = true })
+	end, "Show blame for line under cursor [gitsigns]", default_opts)
+	api.nmap("<leader>tb", gs.toggle_current_line_blame, "Toggle blame for current line [gitsigns]", default_opts)
+	api.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
+	api.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
+	api.nmap("<leader>hD", function()
+		gs.diffthis("~")
+	end, "Diff this ~ [gitsigns]", default_opts)
+	api.nmap("<leader>hr", gs.toggle_deleted, "Toggle deleted [gitsigns]", default_opts)
+
+	-- Text object
+	api.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Motion for inside git hunk [gitsigns]", default_opts)
+end
+
+function M.trouble()
+	local trouble = require("trouble")
+
+	api.nmap("<leader>tt", function()
+		trouble.toggle()
+	end, "Open default Trouble mode")
+	api.nmap("<leader>tw", function()
+		trouble.toggle("workspace_diagnostics")
+	end, "Open workspace diagnostics in Trouble")
+	api.nmap("<leader>td", function()
+		trouble.toggle("document_diagnostics")
+	end, "Open document diagnostics in Trouble")
+	api.nmap("<leader>tq", function()
+		trouble.toggle("quickfix")
+	end, "Open quickfix in Trouble")
+	api.nmap("<leader>tl", function()
+		trouble.toggle("loclist")
+	end, "Open loclist in Trouble")
+	api.nmap("tr", function()
+		trouble.toggle("lsp_references")
+	end, "Open LSP references in Trouble")
+end
+
+function M.zen_mode()
+	api.nmap("<leader>z", ":lua require('zen-mode').toggle()<CR>", "Toggle zen mode [zen]")
+end
+
+function M.cellular_automation()
+	api.nmap("<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", "Make it rain")
+end
+
+function M.fzf()
+	api.nmap("<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", "Open file finder [fzf-lua]")
+	api.nmap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<CR>", "Open old files history [fzf-lua]")
+end
+
+function M.telescope()
+	api.nmap("<leader>rr", ":Telescope resume<CR>", "Open last picker [telescope]")
+	api.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
+	api.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
+	api.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
+	api.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
+	api.nmap("<leader>fh", ":Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
+	api.nmap("<leader>?", ":Telescope keymaps <CR>", "List all active mappings [telescope]")
+	api.nmap("<leader>gb", ":Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
+	api.nmap("<leader>gc", ":Telescope git_commits <CR>", "Show [g]it [c]ommits [telescope]")
+	api.nmap("<leader>gt", ":Telescope git_status <CR>", "Run [g]it [s]tatus")
+	api.nmap("<leader>sc", ":Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
+	api.nmap("<leader>fc", ":Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
+	api.nmap("<leader>ghp", ":Telescope gh pull_request <CR>", "List all open [G]ithub [p]ull [r]equests [telescope]")
+	api.nmap("<leader>ghi", ":Telescope gh issues <CR>", "List all open Github issues [telescope]")
+	api.nmap(
+		"<leader>ghc",
+		":Telescope gh pull_request state=closed<CR>",
+		"List all closed Github pull requests [telescope]"
+	)
+	api.nmap("<leader>fc", function()
+		require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+			winblend = 10,
+			previewer = false,
+		}))
+	end, "[/] Search in current buffer]")
+
+	api.nmap("<leader>th", ":Telescope colorscheme<CR>", "Toggle colorscheme [telescope]")
+end
+
+function M.ufo()
+	-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+	api.nmap("zR", require("ufo").openAllFolds, "Open all fold [ufo]")
+	api.nmap("zM", require("ufo").closeAllFolds, "Close all fold [ufo]")
+	api.nmap("zK", function()
+		local winid = require("ufo").peekFoldedLinesUnderCursor()
+		if not winid then
+			vim.lsp.buf.hover()
+		end
+	end, "Peek fold under cursor [ufo]")
+end
+
+function M.fterm()
+	api.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "toggle terminal")
+	api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").toggle()<cr>', "toggle when open")
+end
+
+function M.diffview()
+	api.nmap("<leader>dv", "<cmd>DiffviewOpen<cr>", "Open diff view")
+	api.nmap("<leader>df", "<cmd>DiffviewFileHistory %<cr>", "Open file history")
+end
+
+function M.nvim_tree()
+	api.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
+end
+
+return M

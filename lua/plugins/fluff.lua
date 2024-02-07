@@ -1,5 +1,5 @@
-local api = require("utils.api")
 local ui = require("utils.ui")
+local mappings = require("custom.mappings")
 
 return {
 	-- Startup dashboard
@@ -68,24 +68,7 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			local trouble = require("trouble")
-			api.nmap("<leader>tt", function()
-				trouble.toggle()
-			end, "Open default Trouble mode")
-			api.nmap("<leader>tw", function()
-				trouble.toggle("workspace_diagnostics")
-			end, "Open workspace diagnostics in Trouble")
-			api.nmap("<leader>td", function()
-				trouble.toggle("document_diagnostics")
-			end, "Open document diagnostics in Trouble")
-			api.nmap("<leader>tq", function()
-				trouble.toggle("quickfix")
-			end, "Open quickfix in Trouble")
-			api.nmap("<leader>tl", function()
-				trouble.toggle("loclist")
-			end, "Open loclist in Trouble")
-			api.nmap("tr", function()
-				trouble.toggle("lsp_references")
-			end, "Open LSP references in Trouble")
+			mappings.trouble()
 
 			trouble.setup({
 				severity = nil, -- nil (ALL) or vim.diagnostic.severity.ERROR | WARN | INFO | HINT
@@ -106,7 +89,7 @@ return {
 		cmd = "ZenMode",
 		keys = "<leader>z",
 		config = function()
-			api.nmap("<leader>z", ":lua require('zen-mode').toggle()<CR>", "Toggle zen mode [zen]")
+			mappings.zen_mode()
 
 			require("zen-mode").setup({
 				window = {
@@ -199,7 +182,7 @@ return {
 		cmd = "CellularAutomaton",
 		keys = "<leader>fml",
 		config = function()
-			api.nmap("<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", "Make it rain")
+			mappings.cellular_automation()
 		end,
 	},
 }
