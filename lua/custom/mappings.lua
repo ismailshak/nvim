@@ -160,33 +160,6 @@ function M.gitsigns(bufnr)
 	api.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Motion for inside git hunk [gitsigns]", default_opts)
 end
 
-function M.trouble()
-	local trouble = require("trouble")
-
-	api.nmap("<leader>tt", function()
-		trouble.toggle()
-	end, "Open default Trouble mode")
-	api.nmap("<leader>tw", function()
-		trouble.toggle("workspace_diagnostics")
-	end, "Open workspace diagnostics in Trouble")
-	api.nmap("<leader>td", function()
-		trouble.toggle("document_diagnostics")
-	end, "Open document diagnostics in Trouble")
-	api.nmap("<leader>tq", function()
-		trouble.toggle("quickfix")
-	end, "Open quickfix in Trouble")
-	api.nmap("<leader>tl", function()
-		trouble.toggle("loclist")
-	end, "Open loclist in Trouble")
-	api.nmap("tr", function()
-		trouble.toggle("lsp_references")
-	end, "Open LSP references in Trouble")
-end
-
-function M.zen_mode()
-	api.nmap("<leader>z", ":lua require('zen-mode').toggle()<CR>", "Toggle zen mode [zen]")
-end
-
 function M.cellular_automation()
 	api.nmap("<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", "Make it rain")
 end
