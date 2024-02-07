@@ -1,5 +1,6 @@
-local lsp_utils = require("utils.lsp")
 local mappings = require("custom.mappings")
+local icons = require("utils.icons")
+local lsp_utils = require("utils.lsp")
 
 --
 -- Core functionality
@@ -61,12 +62,12 @@ return {
 		config = function()
 			require("gitsigns").setup({
 				signs = {
-					add = { text = "|" },
-					change = { text = "|" },
-					delete = { text = "_" },
-					topdelete = { text = "‾" },
-					changedelete = { text = "~" },
-					untracked = { text = "┃" },
+					add = { text = icons.gutter.added },
+					change = { text = icons.gutter.changed },
+					delete = { text = icons.gutter.deleted },
+					topdelete = { text = icons.gutter.topdelete },
+					changedelete = { text = icons.gutter.changedelete },
+					untracked = { text = icons.gutter.untracked },
 				},
 				signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 				numhl = false, -- Toggle with `:Gitsigns toggle_numhl`

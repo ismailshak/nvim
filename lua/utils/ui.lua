@@ -12,10 +12,10 @@ end
 function M.gen_dashboard_footer()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 	local branch = api.get_git_branch()
-	local dir_line = "󰉖 " .. dir_name
+	local dir_line = icons.statusline.dir .. " " .. dir_name
 	local branch_line = ""
 	if branch ~= "" then
-		branch_line = " " .. branch
+		branch_line = icons.statusline.git_branch .. " " .. branch
 	end
 	return { "", "", dir_line, "", branch_line }
 end
@@ -64,16 +64,16 @@ function M.build_diff_opts()
 		source = M.gen_diff_symbols,
 		colored = true,
 		symbols = {
-			added = " ",
-			modified = " ",
-			removed = " ",
+			added = icons.statusline.git_added .. " ",
+			modified = icons.statusline.git_modified .. " ",
+			removed = icons.statusline.git_removed .. " ",
 		},
 	}
 end
 
 function M.build_dir_name_icon()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-	return " 󰉖 " .. dir_name .. " "
+	return " " .. icons.statusline.dir .. " " .. dir_name .. " "
 end
 
 function M.pick_color(is_dark, dark_color, light_color)

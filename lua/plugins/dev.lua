@@ -1,4 +1,5 @@
 local mappings = require("custom.mappings")
+local icons = require("utils.icons")
 
 -- Core plugins used when actually typing/navigating
 
@@ -232,35 +233,6 @@ return {
 				return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 			end
 
-			local kind_icons = {
-				Text = "  ",
-				Method = "  ",
-				Function = "  ",
-				Constructor = "  ",
-				Field = "  ",
-				Variable = "  ",
-				Class = "  ",
-				Interface = "  ",
-				Module = "  ",
-				Property = "  ",
-				Unit = "  ",
-				Value = "  ",
-				Enum = "  ",
-				Keyword = "  ",
-				Snippet = "󰃐  ",
-				Color = "  ",
-				File = "  ",
-				Reference = "  ",
-				Folder = "  ",
-				EnumMember = "  ",
-				Constant = "  ",
-				Struct = "  ",
-				Event = "  ",
-				Operator = "  ",
-				TypeParameter = "  ",
-			}
-			-- find more here: https://www.nerdfonts.com/cheat-sheet
-
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -314,7 +286,7 @@ return {
 				formatting = {
 					fields = { "kind", "abbr" },
 					format = function(_, vim_item)
-						vim_item.kind = kind_icons[vim_item.kind] or ""
+						vim_item.kind = icons.kinds[vim_item.kind] or ""
 						return vim_item
 					end,
 				},

@@ -1,10 +1,12 @@
+local icons = require("utils.icons")
+
 local M = {}
 
 local signs = {
-	{ name = "DiagnosticSignError", text = "" },
-	{ name = "DiagnosticSignWarn", text = "" },
-	{ name = "DiagnosticSignHint", text = "" },
-	{ name = "DiagnosticSignInfo", text = "" },
+	{ name = "DiagnosticSignError", text = icons.diagnostics.error },
+	{ name = "DiagnosticSignWarn", text = icons.diagnostics.warn },
+	{ name = "DiagnosticSignInfo", text = icons.diagnostics.info },
+	{ name = "DiagnosticSignHint", text = icons.diagnostics.hint },
 }
 
 for _, sign in ipairs(signs) do
