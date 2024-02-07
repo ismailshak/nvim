@@ -93,6 +93,16 @@ function M.get_ft_icon_overrides(background)
 			cterm_color = "227",
 			name = "Env",
 		},
+		["ts"] = {
+			icon = icons.files.typescript,
+			color = "#519aba",
+			name = "Ts",
+		},
+		["js"] = {
+			icon = icons.files.javascript,
+			color = M.pick_color(is_dark, "#b7b780", "#bcbc6b"),
+			name = "Js",
+		},
 		["spec.ts"] = {
 			icon = icons.files.typescript,
 			color = M.pick_color(is_dark, "#e17833", "#e2a478"),
