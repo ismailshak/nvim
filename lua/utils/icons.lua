@@ -6,11 +6,14 @@ return {
 		hint = "",
 	},
 	files = {
+		config = "",
 		env = "",
 		javascript = "",
 		javascriptreact = "",
+		json = "",
 		typescript = "",
 		typescriptreact = "",
+		yaml = "",
 	},
 	gutter = {
 		added = "|",
