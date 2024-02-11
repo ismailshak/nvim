@@ -3,17 +3,15 @@ local settings = require("custom.settings")
 
 local opt = vim.opt
 
--- enter :help <option> for more info
-
 -- Colorscheme
-vim.opt.background = api.get_system_background()
-vim.cmd("colorscheme " .. settings.get().theme)
+opt.background = api.get_system_background()
+vim.cmd("silent colorscheme " .. settings.get().theme)
 
 -- UI
 opt.title = true -- set window title
 opt.number = true -- line numbers
 opt.numberwidth = 2 -- reduces column width (default 4)
-opt.fillchars = { eob = " " } -- remove tildas from empty lines
+opt.fillchars = { eob = " ", diff = "╱" } -- remove tildas from empty lines & replace diff with a better character
 opt.ruler = false -- the cursor position [column,row] in the bottom rowi
 opt.cul = true -- cursor line
 opt.termguicolors = true
@@ -23,15 +21,14 @@ opt.wrap = false -- disable line wrap
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 opt.foldlevelstart = 99 -- Don't close any folds on load
 opt.foldenable = false
+opt.signcolumn = "yes" -- always display so icons don't move the text
 
 -- Interactions
 opt.mouse = "a" -- enable mouse for all modes
 opt.clipboard = "unnamedplus" -- use system clipboard for all operations
 opt.timeoutlen = 400 -- time to wait for mapping input to complete (ms)
---opt.updatetime = 250 -- interval for writing swap file to disk (ms)
 opt.splitright = true
 opt.splitbelow = true
---opt.mapleader = " ", -- the leader in keybinds (space bar)
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
@@ -49,13 +46,6 @@ opt.smartcase = true -- ignore case until a capital letter is used?
 
 -- Persist undo
 opt.undofile = true
-
--- disables the line number column from bouncing whenever
--- the LSP adds an icon to the column - god bless
-vim.wo.signcolumn = "yes"
-
--- Set the diff fill characters to '/', default is '-'
-vim.cmd("set fillchars+=diff:╱")
 
 -- Abbreviations
 api.cabbr("W", "w")
