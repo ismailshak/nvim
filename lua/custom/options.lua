@@ -33,6 +33,7 @@ opt.splitbelow = true
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
 opt.confirm = true -- confirm before closing unsaved buffers
+opt.scrolloff = 5 -- minimum number of lines to keep above and below the cursor
 
 -- Indentation
 opt.expandtab = true -- replace tab with spaces
