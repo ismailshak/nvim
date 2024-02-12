@@ -39,7 +39,7 @@ return {
 				sections = {
 					lualine_a = { "mode" },
 					lualine_b = { ui.build_dir_name_icon },
-					lualine_c = { { "filename", path = 1 }, ui.build_diff_opts() },
+					lualine_c = { { "filename", path = 1, shorting_target = 100 }, ui.build_diff_opts() },
 					lualine_x = { "diagnostics", "searchcount", "filetype" },
 					lualine_y = { { "branch", icon = { "", align = "left", color = branch_color } } },
 					lualine_z = { { "location", fmt = utils.trim } },
