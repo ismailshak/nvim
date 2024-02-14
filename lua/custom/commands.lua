@@ -8,6 +8,11 @@ local CUSTOM_GROUP_ID = vim.api.nvim_create_augroup("ShakCommands", { clear = tr
 
 vim.api.nvim_create_user_command("ToggleBackground", api.toggle_bg, {})
 
+vim.api.nvim_create_user_command("DeleteAllMarks", function()
+	vim.cmd("delmarks!") -- Delete all lowercase marks
+	vim.cmd("delmarks A-Z0-9") -- Delete remaining marks
+end, {})
+
 -- AUTOCOMMANDS --
 
 -- Trim trailing whitespace on save and keep cursor position intact
