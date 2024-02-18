@@ -61,9 +61,9 @@ return {
 
 	-- Context breadcrumbs at the top of the window
 	{
-		"utilyre/barbecue.nvim",
+		"ismailshak/barbecue.nvim",
 		name = "barbecue",
-		version = "*",
+		branch = "bugfix/nested-extensions",
 		event = "VeryLazy",
 		dependencies = {
 			"SmiteshP/nvim-navic",
