@@ -106,9 +106,6 @@ M.setup_lsps = function()
 		capabilities = M.capabilities,
 		settings = require("utils.lsp.settings.rust-analyzer").settings,
 	})
-
-	-- Calling setup here so that ufo attaches at the right time
-	require("ufo").setup()
 end
 
 M.setup_null_ls = function()

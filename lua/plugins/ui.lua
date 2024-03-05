@@ -134,7 +134,21 @@ return {
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = "kevinhwang91/promise-async",
-		config = function()
+		event = "VimEnter", -- needed for folds to load in time and comments closed
+		opts = {
+			provider_selector = function(_, ft, _)
+				-- INFO some filetypes only allow indent, some only LSP, some only
+				-- treesitter. However, ufo only accepts two kinds as priority,
+				-- therefore making this function necessary :/
+				local lspWithOutFolding = { "markdown", "sh", "css", "html", "python" }
+				if vim.tbl_contains(lspWithOutFolding, ft) then
+					return { "treesitter", "indent" }
+				end
+				return { "lsp", "indent" }
+			end,
+		},
+		config = function(_, opts)
+			require("ufo").setup(opts)
 			mappings.ufo()
 		end,
 	},
