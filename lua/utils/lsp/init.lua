@@ -3,11 +3,11 @@ local M = {}
 local utils = require("utils.helpers")
 local settings = require("custom.settings")
 
-M.servers = {
+-- Tools Mason should automatically install if not found
+M.auto_install = {
 	"tsserver",
 	"eslint",
 	"lua_ls",
-	"gopls",
 	"jsonls",
 	"bashls",
 	"marksman",
@@ -16,9 +16,17 @@ M.servers = {
 	"cssls",
 	"yamlls",
 	"elixirls",
+}
+
+-- Tools that should be installed by the system if needed
+M.system_servers = {
+	"gopls",
 	"rust_analyzer",
 	"clangd",
+	"ocamllsp",
 }
+
+M.servers = utils.merge_tables(M.auto_install, M.system_servers)
 
 M.setup_neodev = function()
 	require("neodev").setup({
@@ -29,9 +37,9 @@ end
 
 ---Setup mason so it can manage external tooling
 M.configure_mason = function()
-	require("mason").setup() -- Ensure the servers above are installed
+	require("mason").setup({ PATH = "append" })
 	require("mason-lspconfig").setup({
-		ensure_installed = M.servers,
+		ensure_installed = M.auto_install,
 	})
 end
 
@@ -137,6 +145,7 @@ M.setup_null_ls = function()
 			formatting.mix,
 			formatting.rustfmt,
 			formatting.clang_format,
+			formatting.ocamlformat,
 			diagnostics.codespell,
 			diagnostics.credo,
 			code_actions.gitsigns,
@@ -162,7 +171,9 @@ M.setup_null_ls = function()
 	-- Auto install null-ls binaries via mason
 	require("mason-null-ls").setup({
 		ensure_installed = nil,
-		automatic_installation = { exclude = { "prettier", "eslint", "credo", "mix", "clangd-format" } },
+		automatic_installation = {
+			exclude = { "prettier", "eslint", "credo", "mix", "clang-format", "ocamlformat", "rustfmt", "goimports" },
+		},
 		automatic_setup = false,
 	})
 end
