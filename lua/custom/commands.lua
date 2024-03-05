@@ -46,8 +46,8 @@ vim.api.nvim_create_autocmd("OptionSet", {
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
 	group = CUSTOM_GROUP_ID,
-	callback = function()
-		api.save_colorscheme()
+	callback = function(arg)
+		api.save_colorscheme(arg.match)
 		highlight.plugins()
 	end,
 })
