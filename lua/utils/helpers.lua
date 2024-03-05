@@ -78,6 +78,15 @@ function M.merge_tables(...)
 	return vim.tbl_deep_extend("force", ...)
 end
 
+---Concatenate two tables without mutating the original
+---@param t1 table Original table
+---@param t2 table Table to concatenate
+---@return table result Concatenated table
+function M.concat_tables(t1, t2)
+	local cloned = M.deep_clone(t1)
+	return vim.list_extend(cloned, t2)
+end
+
 ---Format config module require path to an absolute path for the file
 ---@param module string Lua-require module path (module in nvim config)
 ---@return string
@@ -102,10 +111,10 @@ function M.clone_file(path, new_path)
 end
 
 ---Deep clone a Lua table
----@param table table
+---@param t table
 ---@return table
-function M.deep_clone(table)
-	return vim.deepcopy(table)
+function M.deep_clone(t)
+	return vim.deepcopy(t)
 end
 
 ---Check if string includes substring

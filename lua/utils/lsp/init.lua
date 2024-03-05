@@ -3,8 +3,7 @@ local M = {}
 local utils = require("utils.helpers")
 local settings = require("custom.settings")
 
--- Tools Mason should automatically install if not found
-M.auto_install = {
+M.installable_servers = {
 	"tsserver",
 	"eslint",
 	"lua_ls",
@@ -15,10 +14,9 @@ M.auto_install = {
 	"html",
 	"cssls",
 	"yamlls",
-	"elixirls",
 }
 
--- Tools that should be installed by the system if needed
+-- LSPs that should be installed and controlled by the system
 M.system_servers = {
 	"gopls",
 	"rust_analyzer",
@@ -26,7 +24,7 @@ M.system_servers = {
 	"ocamllsp",
 }
 
-M.servers = utils.merge_tables(M.auto_install, M.system_servers)
+M.servers = utils.concat_tables(M.installable_servers, M.system_servers)
 
 M.setup_neodev = function()
 	require("neodev").setup({
@@ -39,7 +37,7 @@ end
 M.configure_mason = function()
 	require("mason").setup({ PATH = "append" })
 	require("mason-lspconfig").setup({
-		ensure_installed = M.auto_install,
+		ensure_installed = M.installable_servers,
 	})
 end
 
@@ -139,15 +137,14 @@ M.setup_null_ls = function()
 	null_ls.setup({
 		debug = false,
 		sources = {
-			formatting.prettier,
-			formatting.stylua,
-			formatting.goimports, -- fixes imports and formats the same way `gofmt` does
-			formatting.mix,
-			formatting.rustfmt,
 			formatting.clang_format,
+			formatting.goimports, -- fixes imports and formats the same way `gofmt` does
 			formatting.ocamlformat,
+			formatting.prettier,
+			formatting.rustfmt,
+			formatting.shfmt,
+			formatting.stylua,
 			diagnostics.codespell,
-			diagnostics.credo,
 			code_actions.gitsigns,
 		},
 		-- Format on write
@@ -168,11 +165,10 @@ M.setup_null_ls = function()
 		end,
 	})
 
-	-- Auto install null-ls binaries via mason
 	require("mason-null-ls").setup({
 		ensure_installed = nil,
 		automatic_installation = {
-			exclude = { "prettier", "eslint", "credo", "mix", "clang-format", "ocamlformat", "rustfmt", "goimports" },
+			exclude = { "prettier", "eslint", "clang-format", "ocamlformat", "rustfmt", "goimports" },
 		},
 		automatic_setup = false,
 	})
