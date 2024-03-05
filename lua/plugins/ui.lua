@@ -112,9 +112,17 @@ return {
 		opts = {
 			update_interval = 1000,
 			set_dark_mode = function()
+				if api.get_os() ~= "macos" then
+					return
+				end
+
 				api.set_bg("dark")
 			end,
 			set_light_mode = function()
+				if api.get_os() ~= "macos" then
+					return
+				end
+
 				api.set_bg("light")
 			end,
 		},
@@ -381,8 +389,8 @@ return {
 			require("diffview").setup({
 				diff_binaries = false, -- Show diffs for binaries
 				enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-				use_icons = true, -- Requires nvim-web-devicons
-				icons = { -- Only applies when use_icons is true.
+				use_icons = true,    -- Requires nvim-web-devicons
+				icons = {            -- Only applies when use_icons is true.
 					folder_closed = "",
 					folder_open = "",
 				},
@@ -407,12 +415,12 @@ return {
 					},
 				},
 				file_panel = {
-					listing_style = "tree", -- One of 'list' or 'tree'
-					tree_options = { -- Only applies when listing_style is 'tree'
-						flatten_dirs = true, -- Flatten dirs that only contain one single dir
+					listing_style = "tree",      -- One of 'list' or 'tree'
+					tree_options = {             -- Only applies when listing_style is 'tree'
+						flatten_dirs = true,       -- Flatten dirs that only contain one single dir
 						folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
 					},
-					win_config = { -- See ':h diffview-config-win_config'
+					win_config = {               -- See ':h diffview-config-win_config'
 						position = "right",
 						width = 30,
 					},
@@ -440,7 +448,7 @@ return {
 					DiffviewOpen = {},
 					DiffviewFileHistory = {},
 				},
-				hooks = {}, -- See ':h diffview-config-hooks'
+				hooks = {},            -- See ':h diffview-config-hooks'
 				keymaps = {
 					disable_defaults = false, -- Disable the default keymaps
 				},
