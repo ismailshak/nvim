@@ -165,7 +165,7 @@ M.setup_null_ls = function()
 	require("mason-null-ls").setup({
 		ensure_installed = nil,
 		automatic_installation = {
-			exclude = { "prettier", "eslint", "clang-format", "ocamlformat", "rustfmt", "goimports" },
+			exclude = { "prettier", "eslint", "clang_format", "ocamlformat", "rustfmt", "goimports" },
 		},
 		automatic_setup = false,
 	})
