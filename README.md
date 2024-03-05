@@ -54,12 +54,10 @@ asdf global neovim $(cat .tool-versions | awk '/neovim/ {print $2}')
 
 - `fzf`
 - `gcc` or `clang`
-- `go`
 - `make`
 - `node`
 - `python3`
 - `rg`
-- `stylua`
 - `wget`
 
 ### Optional
@@ -68,3 +66,96 @@ asdf global neovim $(cat .tool-versions | awk '/neovim/ {print $2}')
 - `delta`
 - `fd`
 
+## Language Support
+
+By default, the following languages and file types will work out of the box
+
+- Bash
+- Dockerfile
+- JavaScript/TypeScript (+ HTML/CSS)
+- JSON
+- Lua
+- Markdown
+- YAML
+
+Below is a list of expandable sections detailing what's needed in order to enable other supported languages
+
+<details>
+<summary>C/C++</summary>
+
+Using your system's package manager, install the following and make sure they're on your `$PATH`:
+
+- `clangd`
+- `clang-format`
+
+</details>
+
+
+<details>
+<summary>Go</summary>
+
+Install go using your method of choice. Then you'll need to install the following:
+
+- `gopls` (language server)
+
+```bash
+go install golang.org/x/tools/gopls@latest
+```
+
+- `goimports` (formatter, same as `gofmt` but also organizes imports)
+
+```bash
+go install golang.org/x/tools/cmd/goimports@latest
+```
+
+Since `$GOPATH` should already be on your `$PATH`, no more configuration is needed
+
+</details>
+
+<details>
+<summary>OCaml</summary>
+
+Using your system's package manager, install [`opam`](https://opam.ocaml.org/). Then run the following commands:
+
+- Initialize internals
+
+```bash
+opam init
+```
+
+- Install LSP and formatter
+
+```bash
+opam install -y ocaml-lsp-server ocamlformat
+```
+
+The path to packages should be automatically added to your `$PATH`, so no more configuration needed
+
+</details>
+
+<details>
+<summary>Rust</summary>
+
+Install [`rustup`](https://www.rust-lang.org/tools/install) using the method of your choosing. Then run the following commands:
+
+- Add `rust_analyzer` (language server)
+
+```bash
+rustup component add rust-analyzer
+```
+
+- Add `rustfmt` (formatter)
+
+```bash
+rustup component add rustfmt
+```
+
+- Add `clippy` (linter)
+
+```bash
+rustup component add clippy
+```
+
+The `rustup` installation should automatically handle updating your `$PATH`, so no more configuration needed
+
+</details>
