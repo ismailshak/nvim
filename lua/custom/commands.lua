@@ -15,6 +15,13 @@ end, {})
 
 -- AUTOCOMMANDS --
 
+-- Set a filetype for terminal buffers
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function()
+		vim.cmd.set("filetype=term")
+	end,
+})
+
 -- Trim trailing whitespace on save and keep cursor position intact
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
