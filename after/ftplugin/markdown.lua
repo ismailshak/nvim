@@ -1,5 +1,5 @@
 -- Wrap lines when they go off screen
-vim.opt.wrap = true
+vim.opt_local.wrap = true
 
 -- Wrap should break at words, not letters
-vim.opt.linebreak = true
+vim.opt_local.linebreak = true
