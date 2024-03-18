@@ -213,7 +213,7 @@ end
 
 function M.fterm()
 	api.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "toggle terminal")
-	api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").toggle()<cr>', "toggle when open")
+	api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").close()<cr>', "toggle when open")
 end
 
 function M.diffview()
