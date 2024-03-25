@@ -110,20 +110,13 @@ return {
 	{
 		"f-person/auto-dark-mode.nvim",
 		event = "VimEnter",
+		enabled = api.get_os() == "macos",
 		opts = {
 			update_interval = 1000,
 			set_dark_mode = function()
-				if api.get_os() ~= "macos" then
-					return
-				end
-
 				api.set_bg("dark")
 			end,
 			set_light_mode = function()
-				if api.get_os() ~= "macos" then
-					return
-				end
-
 				api.set_bg("light")
 			end,
 		},
