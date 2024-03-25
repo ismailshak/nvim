@@ -116,6 +116,10 @@ function M.iceberg(is_dark)
 		api.hi("DiffText", { bg = "#c1cdb8", fg = "NONE" })
 
 		api.hi("VertSplit", { bg = "NONE", fg = "#cad0de" })
+
+		-- OCaml highlighting
+		api.hi("@constructor.ocaml", { link = "TSFunction" }) -- default dark highlighting
+		api.hi("@property.ocaml", { link = "Statement" }) -- default dark highlighting
 	end
 end
 
