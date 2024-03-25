@@ -1,6 +1,6 @@
 local mappings = require("custom.mappings")
 local icons = require("utils.icons")
-local lsp_utils = require("utils.lsp")
+local tools_utils = require("utils.tools")
 
 --
 -- Core functionality
@@ -32,13 +32,13 @@ return {
 			"j-hui/fidget.nvim",
 		},
 		config = function()
-			lsp_utils.setup_neodev()
-			lsp_utils.configure_diagnostics()
-			lsp_utils.configure_floating_window()
-			lsp_utils.configure_mason()
-			lsp_utils.configure_cmp()
-			lsp_utils.setup_lsps()
-			lsp_utils.setup_null_ls()
+			tools_utils.setup_neodev()
+			tools_utils.configure_diagnostics()
+			tools_utils.configure_floating_window()
+			tools_utils.configure_mason()
+			tools_utils.configure_cmp()
+			tools_utils.setup_lsps()
+			tools_utils.setup_null_ls()
 		end,
 	},
 

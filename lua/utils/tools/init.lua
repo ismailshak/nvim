@@ -2,7 +2,7 @@ local M = {}
 
 local utils = require("utils.helpers")
 local settings = require("custom.settings")
-local tools = require("utils.lsp.tools")
+local tools = require("utils.tools.spec")
 
 M.servers = utils.concat_tables(tools.auto_install_lsp, tools.system_lsp)
 
@@ -26,7 +26,7 @@ end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
-M.on_attach = require("utils.lsp.settings.on-attach").on_attach
+M.on_attach = require("utils.tools.settings.on-attach").on_attach
 
 ---nvim-cmp supports additional completion capabilities
 M.configure_cmp = function()
@@ -35,7 +35,7 @@ end
 
 M.configure_diagnostics = function()
 	-- Configure diagnostics
-	local diagnosticsConfig = require("utils.lsp.settings.diagnostics").config
+	local diagnosticsConfig = require("utils.tools.settings.diagnostics").config
 	vim.diagnostic.config(diagnosticsConfig)
 end
 
@@ -68,26 +68,26 @@ M.setup_lsps = function()
 	require("lspconfig").tsserver.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
-		commands = require("utils.lsp.settings.tsserver").commands,
+		commands = require("utils.tools.settings.tsserver").commands,
 	})
 
 	require("lspconfig").jsonls.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
-		settings = require("utils.lsp.settings.jsonls").settings,
-		setup = require("utils.lsp.settings.jsonls").setup,
+		settings = require("utils.tools.settings.jsonls").settings,
+		setup = require("utils.tools.settings.jsonls").setup,
 	})
 
 	require("lspconfig").elixirls.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
-		settings = require("utils.lsp.settings.elixirls").settings,
+		settings = require("utils.tools.settings.elixirls").settings,
 	})
 
 	require("lspconfig").rust_analyzer.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
-		settings = require("utils.lsp.settings.rust-analyzer").settings,
+		settings = require("utils.tools.settings.rust-analyzer").settings,
 	})
 end
 
