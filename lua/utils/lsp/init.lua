@@ -2,29 +2,9 @@ local M = {}
 
 local utils = require("utils.helpers")
 local settings = require("custom.settings")
+local tools = require("utils.lsp.tools")
 
-M.installable_servers = {
-	"tsserver",
-	"eslint",
-	"lua_ls",
-	"jsonls",
-	"bashls",
-	"marksman",
-	"dockerls",
-	"html",
-	"cssls",
-	"yamlls",
-}
-
--- LSPs that should be installed and controlled by the system
-M.system_servers = {
-	"gopls",
-	"rust_analyzer",
-	"clangd",
-	"ocamllsp",
-}
-
-M.servers = utils.concat_tables(M.installable_servers, M.system_servers)
+M.servers = utils.concat_tables(tools.auto_install_lsp, tools.system_lsp)
 
 M.setup_neodev = function()
 	require("neodev").setup({
@@ -36,8 +16,11 @@ end
 ---Setup mason so it can manage external tooling
 M.configure_mason = function()
 	require("mason").setup({ PATH = "append" })
-	require("mason-lspconfig").setup({
-		ensure_installed = M.installable_servers,
+	require("mason-lspconfig").setup()
+
+	-- Auto install tools
+	require("mason-tool-installer").setup({
+		ensure_installed = utils.concat_tables(tools.auto_install_tools, tools.auto_install_lsp),
 	})
 end
 
@@ -160,14 +143,6 @@ M.setup_null_ls = function()
 				})
 			end
 		end,
-	})
-
-	require("mason-null-ls").setup({
-		ensure_installed = nil,
-		automatic_installation = {
-			exclude = { "prettier", "eslint", "clang_format", "ocamlformat", "rustfmt", "goimports" },
-		},
-		automatic_setup = false,
 	})
 end
 

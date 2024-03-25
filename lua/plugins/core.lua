@@ -15,8 +15,6 @@ return {
 		"nvimtools/none-ls.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			-- Bridge to auto install via Mason
-			"jayp0521/mason-null-ls.nvim",
 		},
 	},
 
@@ -27,6 +25,7 @@ return {
 			-- Automatically install LSPs to stdpath for neovim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"folke/neodev.nvim",
 			"nvimtools/none-ls.nvim",
 			"hrsh7th/nvim-cmp",
