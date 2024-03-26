@@ -1,4 +1,11 @@
 return {
+	dap = {
+		Stopped = "󰁕",
+		Breakpoint = "",
+		BreakpointCondition = "󰼇",
+		BreakpointRejected = "󱈸",
+		LogPoint = "󰣏",
+	},
 	diagnostics = {
 		error = "",
 		warn = "",

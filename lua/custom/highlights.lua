@@ -1,11 +1,13 @@
 local M = {}
 
 local api = require("utils.api")
+local ui = require("utils.ui")
 
 ---Runs all non-colorscheme highlight overrides
 function M.plugins()
 	M.dashboard()
 	M.nvim_tree()
+	M.dap_ui()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -22,6 +24,49 @@ end
 ---Overrides highlights for 'kyazdani42/nvim-tree.lua'
 function M.nvim_tree()
 	api.hi("NvimTreeSpecialFile", { bold = true })
+end
+
+---Overrides highlights for 'rcarriga/nvim-dap-ui'
+function M.dap_ui()
+	-- TODO: Surely there's a way to just link a vim.fn.sign_define to a highlight group
+	-- and have it use the correct background highlight. Then I can remove all of this
+	local diagnostic_error = vim.api.nvim_get_hl(0, { name = "DiagnosticError" })
+	local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+	local sign_colmn = vim.api.nvim_get_hl(0, { name = "SignColumn" })
+	local cursos_line_nr = vim.api.nvim_get_hl(0, { name = "CursorLineNr" })
+	local sign_colmn_bg = ui.convert_decimal_color(sign_colmn.bg)
+	local diagnostic_red_fg = ui.convert_decimal_color(diagnostic_error.fg)
+	local normal_fg = ui.convert_decimal_color(normal.fg)
+	local cursor_line_nr_bg = ui.convert_decimal_color(cursos_line_nr.bg)
+	-- End TODO
+
+	api.hi("DapUIScope", { link = "Statement" })
+	api.hi("DapUIType", { link = "Type" })
+	api.hi("DapUIDecoration", { link = "Type" })
+	api.hi("DapUIThread", { link = "TSFunction" })
+	api.hi("DapUIStoppedThread", { link = "String" })
+	api.hi("DapUIWatchesEmpty", { link = "DiagnosticWarn" })
+	api.hi("DapUIWatchesValue", { link = "DiagnosticInfo" })
+	api.hi("DapUIWatchesError", { link = "DiagnosticError" })
+	api.hi("DapUIBreakpointsPath", { link = "DapUIScope" })
+	api.hi("DapUIBreakpointsInfo", { link = "TSFunction" })
+	api.hi("DapUILineNumber", { link = "Statement" })
+	api.hi("DapUIStepOver", { link = "DiagnosticInfo" })
+	api.hi("DapUIStepInto", { link = "DiagnosticInfo" })
+	api.hi("DapUIStepOut", { link = "DiagnosticInfo" })
+	api.hi("DapUIStepBack", { link = "DiagnosticInfo" })
+	api.hi("DapUIStop", { link = "DiagnosticError" })
+	api.hi("DapUIRestart", { link = "TSFunction" })
+	api.hi("DapUIPlayPause", { link = "TSFunction" })
+	api.hi("DapUIBreakpointsCurrentLine", { link = "TSFunction" })
+	api.hi("DapUISource", { link = "Type" })
+	api.hi("DapUIModifiedValue", { link = "Statement" })
+	api.hi("DapStoppedLine", { link = "Visual" })
+	api.hi("DapBreakpoint", { fg = diagnostic_red_fg, bg = sign_colmn_bg })
+	api.hi("DapStopped", { fg = normal_fg, bg = cursor_line_nr_bg })
+	api.hi("DapLogPoint", { link = "DapBreakpoint" })
+	api.hi("DapBreakpointRejected", { link = "DapBreakpoint" })
+	api.hi("DapBreakpointCondition", { link = "DapBreakpoint" })
 end
 
 ---Overrides highlights for the provided colorscheme

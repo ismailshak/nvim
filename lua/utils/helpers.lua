@@ -125,4 +125,11 @@ function M.includes(str, substr)
 	return string.find(str, substr) ~= nil
 end
 
+---Checks if string is an integer
+---@param str string
+---@return boolean
+function M.is_integer(str)
+	return string.match(str, "^[1-9]%d*$") ~= nil
+end
+
 return M

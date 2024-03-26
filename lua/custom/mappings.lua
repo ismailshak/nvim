@@ -1,4 +1,5 @@
 local api = require("utils.api")
+local utils = require("utils.helpers")
 
 -- set the leader to space
 vim.g.mapleader = " "
@@ -171,8 +172,7 @@ end
 
 function M.telescope()
 	api.nmap("<leader>rr", ":Telescope resume<CR>", "Open last picker [telescope]")
-	api.nmap("<leader>dd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
-	api.nmap("<leader>dD", ":Telescope diagnostics<CR>", "Find buffer diagnostics [telescope]")
+	api.nmap("<leader>fd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
 	api.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
 	api.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
 	api.nmap("<leader>fh", ":Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
@@ -223,6 +223,86 @@ end
 
 function M.nvim_tree()
 	api.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
+end
+
+function M.dap_ui()
+	api.nmap("<leader>du", require("dapui").toggle, "Toggle DAP UI [nvim-dap-ui]")
+end
+
+function M.dap_go()
+	api.nmap("<leader>dt", require("dap-go").debug_test, "Debug test under cursor [nvim-dap-go]")
+	api.nmap("<leader>dT", require("dap-go").debug_last_test, "Debug last test [nvim-dap-go]")
+end
+
+function M.dap()
+	api.nmap("<leader>dd", require("dap").continue, "Debugger continue [nvim-dap]")
+	api.nmap("<leader>dx", require("dap").disconnect, "Debugger disconnect [nvim-dap]")
+	api.nmap("<leader>db", require("dap").toggle_breakpoint, "Toggle breakpoint [nvim-dap]")
+	api.nmap("<leader>dB", require("dap").clear_breakpoints, "Clear all breakpoints [nvim-dap]")
+	api.nmap("<leader>dr", require("dap").restart, "Toggle repl [nvim-dap]")
+	api.nmap("<leader>do", require("dap").step_over, "Step over [nvim-dap]")
+	api.nmap("<leader>dO", require("dap").step_out, "Step out [nvim-dap]")
+	api.nmap("<leader>di", require("dap").step_into, "Step into [nvim-dap]")
+	api.nmap("<leader>dk", require("dap.ui.widgets").hover, "View value under cursor [nvim-dap]")
+
+	api.nmap("<leader>de", function()
+		vim.ui.input({
+			prompt = "Expression: ",
+		}, function(expression)
+			if not expression or expression == "" then
+				return
+			end
+
+			require("dap").toggle_breakpoint(expression, nil, nil)
+		end)
+	end, "Toggle conditional breakpoint [nvim-dap]")
+
+	api.nmap("<leader>dc", function()
+		vim.ui.input({
+			prompt = "Hit Count: ",
+		}, function(count)
+			if not count or count == "" then
+				return
+			end
+
+			if not utils.is_integer(count) then
+				vim.notify("Hit count must be a valid integer", vim.log.levels.ERROR)
+				return
+			end
+
+			require("dap").toggle_breakpoint(nil, count, nil)
+		end)
+	end, "Toggle hit count breakpoint [nvim-dap]")
+
+	api.nmap("<leader>dl", function()
+		vim.ui.input({
+			prompt = "Logpoint message: ",
+			-- Highlight interpolated variables
+			highlight = function(input)
+				local s, e = string.find(input, "{.-}")
+				if s then
+					return { { s - 1, e, "Comment" } }
+				end
+				return {}
+			end,
+		}, function(message)
+			if not message or message == "" then
+				return
+			end
+
+			require("dap").toggle_breakpoint(nil, nil, message)
+		end)
+	end, "Toggle logpoint [nvim-dap]")
+
+	if vim.bo.filetype == "go" then
+		M.dap_go()
+	end
+
+	-- These should be in commands.lua, but since I'm just adding mappings I'm gonna look the other way
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "dap-float",
+		command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
+	})
 end
 
 return M

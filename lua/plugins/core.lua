@@ -1,6 +1,7 @@
 local mappings = require("custom.mappings")
 local icons = require("utils.icons")
 local tools_utils = require("utils.tools")
+local dap_utils = require("utils.tools.dap")
 
 --
 -- Core functionality
@@ -39,6 +40,37 @@ return {
 			tools_utils.configure_cmp()
 			tools_utils.setup_lsps()
 			tools_utils.setup_null_ls()
+		end,
+	},
+
+	-- Debugging
+	{
+		"mfussenegger/nvim-dap",
+		keys = {
+			"<leader>du",
+			"<leader>dd",
+			"<leader>dt",
+			"<leader>db",
+			"<leader>dc",
+			"<leader>dl",
+		},
+		dependencies = {
+			{
+				"rcarriga/nvim-dap-ui",
+				dependencies = { "nvim-neotest/nvim-nio" },
+			},
+			{
+				"leoluz/nvim-dap-go",
+				ft = "go",
+			},
+			"theHamsta/nvim-dap-virtual-text",
+		},
+		config = function()
+			dap_utils.setup_dap()
+			mappings.dap()
+
+			dap_utils.setup_dap_ui()
+			mappings.dap_ui()
 		end,
 	},
 

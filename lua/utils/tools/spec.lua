@@ -15,6 +15,7 @@ return {
 		"shfmt",
 		"codespell",
 		"stylua",
+		"js-debug-adapter",
 	},
 	system_lsp = {
 		"gopls",
@@ -29,5 +30,6 @@ return {
 		"ocamlformat",
 		"rustfmt",
 		"goimports",
+		"delve",
 	},
 }
