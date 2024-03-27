@@ -28,18 +28,6 @@ end
 
 ---Overrides highlights for 'rcarriga/nvim-dap-ui'
 function M.dap_ui()
-	-- TODO: Surely there's a way to just link a vim.fn.sign_define to a highlight group
-	-- and have it use the correct background highlight. Then I can remove all of this
-	local diagnostic_error = vim.api.nvim_get_hl(0, { name = "DiagnosticError" })
-	local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
-	local sign_colmn = vim.api.nvim_get_hl(0, { name = "SignColumn" })
-	local cursos_line_nr = vim.api.nvim_get_hl(0, { name = "CursorLineNr" })
-	local sign_colmn_bg = ui.convert_decimal_color(sign_colmn.bg)
-	local diagnostic_red_fg = ui.convert_decimal_color(diagnostic_error.fg)
-	local normal_fg = ui.convert_decimal_color(normal.fg)
-	local cursor_line_nr_bg = ui.convert_decimal_color(cursos_line_nr.bg)
-	-- End TODO
-
 	api.hi("DapUIScope", { link = "Statement" })
 	api.hi("DapUIType", { link = "Type" })
 	api.hi("DapUIDecoration", { link = "Type" })
@@ -62,11 +50,6 @@ function M.dap_ui()
 	api.hi("DapUISource", { link = "Type" })
 	api.hi("DapUIModifiedValue", { link = "Statement" })
 	api.hi("DapStoppedLine", { link = "Visual" })
-	api.hi("DapBreakpoint", { fg = diagnostic_red_fg, bg = sign_colmn_bg })
-	api.hi("DapStopped", { fg = normal_fg, bg = cursor_line_nr_bg })
-	api.hi("DapLogPoint", { link = "DapBreakpoint" })
-	api.hi("DapBreakpointRejected", { link = "DapBreakpoint" })
-	api.hi("DapBreakpointCondition", { link = "DapBreakpoint" })
 end
 
 ---Overrides highlights for the provided colorscheme

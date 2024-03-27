@@ -8,10 +8,22 @@ M.debuggers = {
 	["delve"] = require("utils.tools.settings.delve"),
 }
 
+function M.configure_icons()
+	for name, icon in pairs(icons.dap) do
+		print(name, icon)
+		local sign = "Dap" .. name
+		local texthl = sign == "DapStopped" and "CursorLineNr" or "DiagnosticSignError"
+		local linehl = sign == "DapStopped" and "Visual" or ""
+		local numhl = sign == "DapStopped" and "CursorLineNr" or ""
+		vim.fn.sign_define(sign, { text = icon, texthl = texthl, linehl = linehl, numhl = numhl })
+	end
+end
+
 function M.setup_dap_ui()
 	local dap, dapui = require("dap"), require("dapui")
 
 	dapui.setup()
+	M.configure_icons()
 
 	dap.listeners.after.event_initialized["dapui_config"] = function()
 		dapui.open({})
@@ -21,13 +33,6 @@ function M.setup_dap_ui()
 	end
 	dap.listeners.before.event_exited["dapui_config"] = function()
 		dapui.close({})
-	end
-
-	for name, icon in pairs(icons.dap) do
-		local sign = "Dap" .. name
-		local linehl = sign == "DapStopped" and "Visual" or ""
-		local numhl = sign == "DapStopped" and "CursorLineNr" or ""
-		vim.fn.sign_define(sign, { text = icon, texthl = sign, linehl = linehl, numhl = numhl })
 	end
 
 	require("nvim-dap-virtual-text").setup({
