@@ -1,7 +1,8 @@
 local mappings = require("custom.mappings")
 local icons = require("utils.icons")
-local tools_utils = require("utils.tools")
-local dap_utils = require("utils.tools.dap")
+local dap = require("utils.tools.dap")
+local installer = require("utils.tools.installer")
+local lsp = require("utils.tools.lsp")
 
 --
 -- Core functionality
@@ -33,13 +34,8 @@ return {
 			"j-hui/fidget.nvim",
 		},
 		config = function()
-			tools_utils.setup_neodev()
-			tools_utils.configure_diagnostics()
-			tools_utils.configure_floating_window()
-			tools_utils.configure_mason()
-			tools_utils.configure_cmp()
-			tools_utils.setup_lsps()
-			tools_utils.setup_null_ls()
+			installer.setup_mason()
+			lsp.setup_lsp()
 		end,
 	},
 
@@ -66,10 +62,10 @@ return {
 			"theHamsta/nvim-dap-virtual-text",
 		},
 		config = function()
-			dap_utils.setup_dap()
+			dap.setup_dap()
 			mappings.dap()
 
-			dap_utils.setup_dap_ui()
+			dap.setup_dap_ui()
 			mappings.dap_ui()
 		end,
 	},

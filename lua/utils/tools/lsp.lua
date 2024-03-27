@@ -1,45 +1,42 @@
 local M = {}
 
-local utils = require("utils.helpers")
+local mappings = require("custom.mappings")
 local settings = require("custom.settings")
+local utils = require("utils.helpers")
 local tools = require("utils.tools.spec")
+
+function M.setup_lsp()
+	M.setup_neodev()
+	M.setup_diagnostics()
+	M.configure_floating_window()
+	M.configure_cmp()
+	M.configure_servers()
+	M.setup_null_ls()
+end
 
 M.servers = utils.concat_tables(tools.auto_install_lsp, tools.system_lsp)
 
-M.setup_neodev = function()
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+
+function M.setup_neodev()
 	require("neodev").setup({
 		-- https://github.com/folke/neodev.nvim/issues/158#issuecomment-1682565350
 		pathStrict = true,
 	})
 end
 
----Setup mason so it can manage external tooling
-M.configure_mason = function()
-	require("mason").setup({ PATH = "append" })
-	require("mason-lspconfig").setup()
-
-	-- Auto install tools
-	require("mason-tool-installer").setup({
-		ensure_installed = utils.concat_tables(tools.auto_install_tools, tools.auto_install_lsp),
-	})
-end
-
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-
-M.on_attach = require("utils.tools.settings.on-attach").on_attach
-
 ---nvim-cmp supports additional completion capabilities
-M.configure_cmp = function()
+function M.configure_cmp()
 	M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
 end
 
-M.configure_diagnostics = function()
+function M.setup_diagnostics()
 	-- Configure diagnostics
 	local diagnosticsConfig = require("utils.tools.settings.diagnostics").config
 	vim.diagnostic.config(diagnosticsConfig)
 end
 
-M.configure_floating_window = function()
+function M.configure_floating_window()
 	-- Fix floating window styles
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 		border = "rounded",
@@ -49,7 +46,17 @@ M.configure_floating_window = function()
 	})
 end
 
-M.setup_lsps = function()
+function M.on_attach(client, bufnr)
+	mappings.lsp(bufnr)
+
+	-- Disable LSP formatting
+	client.server_capabilities.document_formatting = false
+end
+
+function M.configure_servers()
+	-- Translates LSP names between both tools
+	require("mason-lspconfig").setup()
+
 	-- Configure folding
 	M.capabilities.textDocument.foldingRange = {
 		dynamicRegistration = false,
@@ -91,7 +98,7 @@ M.setup_lsps = function()
 	})
 end
 
-M.setup_null_ls = function()
+function M.setup_null_ls()
 	local null_ls = require("null-ls")
 
 	-- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
