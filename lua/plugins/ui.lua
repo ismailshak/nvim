@@ -64,7 +64,7 @@ return {
 	{
 		"ismailshak/barbecue.nvim",
 		name = "barbecue",
-		branch = "bugfix/nested-extensions",
+		branch = "cherry-picked", -- Combines 2 open PRs on upstream
 		event = "VeryLazy",
 		dependencies = {
 			"SmiteshP/nvim-navic",
