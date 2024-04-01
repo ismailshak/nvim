@@ -58,6 +58,8 @@ api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of
 
 api.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
 
+api.tmap("<Esc>", "<C-\\><C-n>", "Escape terminal mode")
+
 ------------------------------
 -- PLUGIN SPECIFIC MAPPINGS --
 ------------------------------
@@ -212,8 +214,8 @@ function M.ufo()
 end
 
 function M.fterm()
-	api.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "toggle terminal")
-	api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").close()<cr>', "toggle when open")
+	api.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "Toggle terminal float [Fterm]")
+	api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").close()<cr>', "Close terminal float [Fterm]")
 end
 
 function M.diffview()
