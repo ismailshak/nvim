@@ -85,7 +85,7 @@ function M.pick_color(is_dark, dark_color, light_color)
 end
 
 function M.get_ft_icon_overrides(background)
-	local is_dark = background == "dark"
+	local is_dark = (background or vim.opt.background:get()) == "dark"
 	return {
 		[".tool-versions"] = {
 			icon = icons.files.config,
@@ -95,75 +95,75 @@ function M.get_ft_icon_overrides(background)
 		},
 		[".env-defaults"] = {
 			icon = icons.files.env,
-			color = M.pick_color(is_dark, "#faf743", "#faf743"),
+			color = M.pick_color(is_dark, "#faf743", "#32310d"),
 			cterm_color = "227",
 			name = "Env",
 		},
 		["yml"] = {
 			icon = icons.files.yaml,
-			color = "#9976bf",
+			color = M.pick_color(is_dark, "#9976bf", "#7e43bc"),
 			name = "Yaml",
 		},
 		["yaml"] = {
 			icon = icons.files.yaml,
-			color = "#9976bf",
+			color = M.pick_color(is_dark, "#9976bf", "#7e43bc"),
 			name = "Yaml",
 		},
 		["tsconfig.json"] = {
 			icon = icons.files.json,
-			color = "#519aba",
+			color = M.pick_color(is_dark, "#519aba", "#36677c"),
 			cterm_color = "74",
 			name = "TSConfig",
 		},
 		["ts"] = {
 			icon = icons.files.typescript,
-			color = "#519aba",
+			color = M.pick_color(is_dark, "#519aba", "#36677c"),
 			cterm_color = "74",
 			name = "Ts",
 		},
 		["js"] = {
 			icon = icons.files.javascript,
-			color = "#cbcb5a",
+			color = M.pick_color(is_dark, "#cbcb5a", "#666620"),
 			name = "Js",
 		},
 		["spec.ts"] = {
 			icon = icons.files.typescript,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "SpecTs",
 		},
 		["test.ts"] = {
 			icon = icons.files.typescript,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "TestTs",
 		},
 		["spec.js"] = {
 			icon = icons.files.javascript,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "SpecJs",
 		},
 		["test.js"] = {
 			icon = icons.files.javascript,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "TestJs",
 		},
 		["spec.jsx"] = {
 			icon = icons.files.javascriptreact,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "JavaScriptReactSpec",
 		},
 		["test.jsx"] = {
 			icon = icons.files.javascriptreact,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "JavaScriptReactSpec",
 		},
 		["spec.tsx"] = {
 			icon = icons.files.typescriptreact,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "TypeScriptReactSpec",
 		},
 		["test.tsx"] = {
 			icon = icons.files.typescriptreact,
-			color = "#d47d44",
+			color = M.pick_color(is_dark, "#d47d44", "#bf723d"),
 			name = "TypeScriptReactSpec",
 		},
 	}
