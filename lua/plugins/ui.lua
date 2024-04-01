@@ -10,7 +10,6 @@ return {
 		priority = 1000,
 		lazy = false,
 		opts = {
-			-- https://github.com/nvim-tree/nvim-web-devicons/blob/defb7da4d3d313bf31982c52fd78e414f02840c9/lua/nvim-web-devicons-light.lua
 			override_by_extension = ui.get_ft_icon_overrides(),
 		},
 	},
