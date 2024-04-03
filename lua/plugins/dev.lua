@@ -294,6 +294,7 @@ return {
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
+					{ name = "git" },
 					{ name = "buffer" },
 					{ name = "luasnip" },
 					{ name = "path" },

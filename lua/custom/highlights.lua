@@ -8,6 +8,7 @@ function M.plugins()
 	M.dashboard()
 	M.nvim_tree()
 	M.dap_ui()
+	M.octo()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -50,6 +51,12 @@ function M.dap_ui()
 	api.hi("DapUISource", { link = "Type" })
 	api.hi("DapUIModifiedValue", { link = "Statement" })
 	api.hi("DapStoppedLine", { link = "Visual" })
+end
+
+---Overrides highlights for 'pwntester/octo.nvim'
+function M.octo()
+	local hi = api.get_highlight("TabLine")
+	api.hi("OctoEditable", { bg = hi.bg })
 end
 
 ---Overrides highlights for the provided colorscheme
