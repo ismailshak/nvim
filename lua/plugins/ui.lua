@@ -19,8 +19,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		event = "BufEnter",
 		opts = function()
-			local branch_color = vim.api.nvim_get_hl(0, { name = "String" })
-			branch_color.fg = ui.convert_decimal_color(branch_color.fg)
+			local branch_color = api.get_highlight("String")
 
 			return {
 				options = {

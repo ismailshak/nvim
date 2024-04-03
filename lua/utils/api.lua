@@ -98,6 +98,24 @@ function M.is_vscode()
 	return vim.g.vscode
 end
 
+---Get the components of a highlight group by highlignt name
+---@param highlight string
+function M.get_highlight(highlight)
+	local hi = vim.api.nvim_get_hl(0, { name = highlight })
+
+	local f = {}
+
+	if hi.fg then
+		f.fg = string.format("#%06x", hi.fg)
+	end
+
+	if hi.bg then
+		f.bg = string.format("#%06x", hi.bg)
+	end
+
+	return f
+end
+
 ---Create a highlight group
 ---@param name string Highlight group
 ---@param value table Color to assign to group

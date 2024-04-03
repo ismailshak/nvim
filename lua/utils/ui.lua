@@ -4,11 +4,6 @@ local utils = require("utils.helpers")
 local api = require("utils.api")
 local icons = require("utils.icons")
 
-function M.convert_decimal_color(color)
-	local hex = string.format("%x", color)
-	return "#" .. hex
-end
-
 function M.gen_dashboard_footer()
 	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 	local branch = api.get_git_branch()
