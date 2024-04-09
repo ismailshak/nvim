@@ -18,6 +18,10 @@ end, {})
 usercmd("T", "sp | term", {}) -- Open a terminal in a horizontal split
 usercmd("TT", "vsp | term", {}) -- Open a terminal in a vertical split
 
+usercmd("Grep", function(args)
+	vim.cmd(string.format("silent! grep %s | copen", args.args))
+end, { nargs = "*" })
+
 -- AUTOCOMMANDS --
 
 local autocmd = vim.api.nvim_create_autocmd

@@ -52,3 +52,9 @@ opt.undofile = true
 api.cabbr("W", "w")
 api.cabbr("wf", "w")
 api.cabbr("Q", "q")
+
+opt.grepformat = "%f:%l:%c:%m"
+
+if vim.fn.executable("rg") then
+	opt.grepprg = "rg --vimgrep --no-heading" .. (opt.smartcase and " --smart-case" or "") .. " --"
+end

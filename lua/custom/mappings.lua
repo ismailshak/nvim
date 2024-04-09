@@ -23,6 +23,10 @@ api.nmap("-", "<C-x>", "Decrement number under cursor")
 
 api.nmap("<C-d>", "<C-d>zz", "scroll down")
 api.nmap("<C-u>", "<C-u>zz", "scroll up")
+
+api.nmap("]q", vim.cmd.cnext, "Next Quickfix Item")
+api.nmap("[q", vim.cmd.cprev, "Previous Quickfix Item")
+
 -- Don't yank on delete / change
 api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
 api.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
