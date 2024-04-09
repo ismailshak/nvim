@@ -6,24 +6,28 @@ local CUSTOM_GROUP_ID = vim.api.nvim_create_augroup("ShakCommands", { clear = tr
 
 -- USER COMMANDS --
 
-vim.api.nvim_create_user_command("ToggleBackground", api.toggle_bg, {})
+local usercmd = vim.api.nvim_create_user_command
 
-vim.api.nvim_create_user_command("DeleteAllMarks", function()
+usercmd("ToggleBackground", api.toggle_bg, {})
+
+usercmd("DeleteAllMarks", function()
 	vim.cmd("delmarks!") -- Delete all lowercase marks
 	vim.cmd("delmarks A-Z0-9") -- Delete remaining marks
 end, {})
 
 -- AUTOCOMMANDS --
 
+local autocmd = vim.api.nvim_create_autocmd
+
 -- Set a filetype for terminal buffers
-vim.api.nvim_create_autocmd("TermOpen", {
+autocmd("TermOpen", {
 	callback = function()
 		vim.cmd.set("filetype=term")
 	end,
 })
 
 -- Trim trailing whitespace on save and keep cursor position intact
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
 	pattern = "*",
 	group = CUSTOM_GROUP_ID,
 	callback = function()
@@ -37,7 +41,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("OptionSet", {
+autocmd("OptionSet", {
 	pattern = "background",
 	group = CUSTOM_GROUP_ID,
 	callback = function()
@@ -50,7 +54,7 @@ vim.api.nvim_create_autocmd("OptionSet", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("ColorScheme", {
+autocmd("ColorScheme", {
 	pattern = "*",
 	group = CUSTOM_GROUP_ID,
 	callback = function(arg)
@@ -60,7 +64,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 -- Override highlight groups for substrata (installed via plugin manager
-vim.api.nvim_create_autocmd("ColorScheme", {
+autocmd("ColorScheme", {
 	pattern = "substrata",
 	group = CUSTOM_GROUP_ID,
 	callback = function()
@@ -70,7 +74,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 -- Override highlight groups for nord (/colors/nord.vim)
-vim.api.nvim_create_autocmd("ColorScheme", {
+autocmd("ColorScheme", {
 	pattern = "nord",
 	group = CUSTOM_GROUP_ID,
 	callback = function()
@@ -81,7 +85,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 -- Override highlight groups for iceberg (/colors/iceberg.vim)
-vim.api.nvim_create_autocmd("ColorScheme", {
+autocmd("ColorScheme", {
 	pattern = "iceberg",
 	group = CUSTOM_GROUP_ID,
 	callback = function()
