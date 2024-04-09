@@ -15,6 +15,9 @@ usercmd("DeleteAllMarks", function()
 	vim.cmd("delmarks A-Z0-9") -- Delete remaining marks
 end, {})
 
+usercmd("T", "sp | term", {}) -- Open a terminal in a horizontal split
+usercmd("TT", "vsp | term", {}) -- Open a terminal in a vertical split
+
 -- AUTOCOMMANDS --
 
 local autocmd = vim.api.nvim_create_autocmd
