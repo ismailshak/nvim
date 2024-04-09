@@ -21,6 +21,8 @@ api.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
 api.nmap("+", "<C-a>", "Increment number under cursor")
 api.nmap("-", "<C-x>", "Decrement number under cursor")
 
+api.nmap("<C-d>", "<C-d>zz", "scroll down")
+api.nmap("<C-u>", "<C-u>zz", "scroll up")
 -- Don't yank on delete / change
 api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
 api.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
