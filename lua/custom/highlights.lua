@@ -102,6 +102,9 @@ function M.iceberg(is_dark)
 	-- JSX highlighting
 	api.hi("htmlTagName", { link = "Statement" })
 
+	-- OCaml highlighting
+	api.hi("@constructor.ocaml", { link = "TSType" })
+
 	---------------------------------
 	-- Dynamic highlight overrides --
 	---------------------------------

@@ -12,7 +12,7 @@ return {
 		config = function()
 			mappings.fzf()
 
-			local ignore_list = { ".git", "node_modules", "dist", ".next", "target", "build", "out" }
+			local ignore_list = { ".git", "node_modules", "dist", ".next", "target", "build", "out", "_build", "_opam" }
 
 			local gen_ignore_list = function()
 				local args = ""
