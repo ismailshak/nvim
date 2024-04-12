@@ -40,6 +40,38 @@ return {
 			},
 		},
 	},
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		branch = "canary",
+		keys = { "<leader>cc", "<leader>ct", "<leader>ch", "<leader>cv" },
+		dependencies = {
+			{ "zbirenbaum/copilot.lua" },
+			{ "nvim-lua/plenary.nvim" },
+		},
+		opts = {
+			question_header = icons.copilot.prompt,
+			answer_header = icons.copilot.response,
+			error_header = icons.copilot.error,
+			separator = "  ━━━━━━━━",
+			show_help = false,
+			show_folds = false,
+			auto_insert_mode = true,
+			window = {
+				layout = "vertical",
+			},
+			mappings = {
+				reset = {
+					normal = "<C-r>",
+					insert = "<C-r>",
+				},
+			},
+		},
+		config = function(_, opts)
+			mappings.copilot_chat()
+
+			require("CopilotChat").setup(opts)
+		end,
+	},
 
 	-- Moving code around
 	{

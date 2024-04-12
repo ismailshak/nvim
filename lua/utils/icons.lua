@@ -1,4 +1,9 @@
 return {
+	copilot = {
+		response = "",
+		error = " ",
+		prompt = "",
+	},
 	dap = {
 		Stopped = "󰁕",
 		Breakpoint = "",

@@ -233,6 +233,32 @@ function M.nvim_tree()
 	api.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
 end
 
+function M.copilot_chat()
+	local chat = require("CopilotChat")
+
+	api.nmap("<leader>cv", ":CopilotChatToggle<CR>", "Toggle copilot chat in a vertical split [CopilotChat]")
+
+	api.nmap("<leader>cc", function()
+		chat.toggle({
+			window = {
+				layout = "float",
+				title = "",
+				width = 0.8,
+				height = 0.8,
+				border = "rounded",
+			},
+		})
+	end, "Toggle copilot chat in a floating window [CopilotChat]")
+
+	api.nmap("<leader>ch", function()
+		chat.toggle({
+			window = {
+				layout = "horizontal",
+			},
+		})
+	end, "Toggle copilot chat in a horizontal split [CopilotChat]")
+end
+
 function M.dap_ui()
 	api.nmap("<leader>du", require("dapui").toggle, "Toggle DAP UI [nvim-dap-ui]")
 end

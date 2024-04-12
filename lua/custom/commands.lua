@@ -33,6 +33,17 @@ autocmd("TermOpen", {
 	end,
 })
 
+-- Customize copilot chat buffer
+-- since after/ftplugin gets overwritten by the plugin
+autocmd("BufEnter", {
+	pattern = "copilot-*",
+	group = CUSTOM_GROUP_ID,
+	callback = function()
+		vim.opt_local.number = false
+		vim.opt_local.signcolumn = "no"
+	end,
+})
+
 -- Trim trailing whitespace on save and keep cursor position intact
 autocmd("BufWritePre", {
 	pattern = "*",
