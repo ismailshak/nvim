@@ -12,6 +12,12 @@ function M.cwd()
 	return vim.fn.getcwd()
 end
 
+---Return the absolute path of the current file
+---@return string
+function M.full_path()
+	return vim.fn.expand("%:p")
+end
+
 ---Split string by delimiter
 ---@param inputstr string
 ---@param sep string
@@ -122,7 +128,7 @@ end
 ---@param substr string
 ---@return boolean
 function M.includes(str, substr)
-	return string.find(str, substr) ~= nil
+	return str:match(substr) ~= nil
 end
 
 ---Checks if string is an integer

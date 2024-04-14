@@ -3,6 +3,7 @@ local icons = require("utils.icons")
 local dap = require("utils.tools.dap")
 local installer = require("utils.tools.installer")
 local lsp = require("utils.tools.lsp")
+local formatting = require("utils.tools.formatting")
 
 --
 -- Core functionality
@@ -18,6 +19,38 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
+	},
+
+	{
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		dependencies = {
+			"j-hui/fidget.nvim",
+		},
+		opts = {
+			formatters_by_ft = {
+				c = { "clang_format" },
+				cpp = { "clang_format" },
+				css = { "prettier" },
+				go = { "goimports" },
+				html = { "prettier" },
+				javascript = { "prettier" },
+				javascriptreact = { "prettier" },
+				json = { "prettier" },
+				less = { "prettier" },
+				lua = { "stylua" },
+				markdown = { "prettier" },
+				ocaml = { "ocamlformat" },
+				rust = { "rustfmt" },
+				sh = { "shfmt" },
+				typescript = { "prettier" },
+				typescriptreact = { "prettier" },
+				yaml = { "prettier" },
+			},
+			format_on_save = formatting.format_on_save,
+		},
+		init = formatting.init,
 	},
 
 	{ -- LSP Configuration & Plugins

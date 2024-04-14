@@ -1,6 +1,7 @@
 local api = require("utils.api")
 local settings = require("custom.settings")
 local highlight = require("custom.highlights")
+local formatting = require("utils.tools.formatting")
 
 local CUSTOM_GROUP_ID = vim.api.nvim_create_augroup("ShakCommands", { clear = true })
 
@@ -21,6 +22,23 @@ usercmd("TT", "vsp | term", {}) -- Open a terminal in a vertical split
 usercmd("Grep", function(args)
 	vim.cmd(string.format("silent! grep %s | copen", args.args))
 end, { nargs = "*" })
+
+usercmd("Format", function(args)
+	local range = nil
+	if args.count ~= -1 then
+		local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+		range = {
+			start = { args.line1, 0 },
+			["end"] = { args.line2, end_line:len() },
+		}
+	end
+
+	local progress = formatting.format_progress_handler()
+	require("conform").format(
+		{ async = true, lsp_fallback = false, range = range },
+		formatting.format_callback(progress)
+	)
+end, { range = true })
 
 -- AUTOCOMMANDS --
 

@@ -102,54 +102,15 @@ function M.setup_null_ls()
 	local null_ls = require("null-ls")
 
 	-- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
-	local formatting = null_ls.builtins.formatting
 	local diagnostics = null_ls.builtins.diagnostics
 	local code_actions = null_ls.builtins.code_actions
-
-	local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
-
-	local function should_disable_formatting(cwd)
-		local dirs = settings.get().disable_format
-		if dirs == "" then
-			return false
-		end
-
-		for _, dir in ipairs(utils.split(dirs, ",")) do
-			if utils.includes(cwd, dir) then
-				return true
-			end
-		end
-	end
 
 	null_ls.setup({
 		debug = false,
 		sources = {
-			formatting.clang_format,
-			formatting.goimports, -- fixes imports and formats the same way `gofmt` does
-			formatting.ocamlformat,
-			formatting.prettier,
-			formatting.rustfmt,
-			formatting.shfmt,
-			formatting.stylua,
 			diagnostics.codespell,
 			code_actions.gitsigns,
 		},
-		-- Format on write
-		on_attach = function(client, bufnr)
-			local cwd = utils.cwd()
-			local can_format = client.supports_method("textDocument/formatting")
-			local should_format = can_format and not should_disable_formatting(cwd)
-			if should_format then
-				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					group = augroup,
-					buffer = bufnr,
-					callback = function()
-						vim.lsp.buf.format({ bufnr = bufnr })
-					end,
-				})
-			end
-		end,
 	})
 end
 
