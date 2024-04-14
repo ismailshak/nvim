@@ -12,10 +12,12 @@ return {
 		"yamlls",
 	},
 	auto_install_tools = {
-		"shfmt",
 		"codespell",
-		"stylua",
 		"js-debug-adapter",
+		"markdownlint",
+		"shellcheck",
+		"shfmt",
+		"stylua",
 	},
 	system_lsp = {
 		"gopls",

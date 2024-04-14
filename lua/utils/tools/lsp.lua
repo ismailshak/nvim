@@ -1,7 +1,6 @@
 local M = {}
 
 local mappings = require("custom.mappings")
-local settings = require("custom.settings")
 local utils = require("utils.helpers")
 local tools = require("utils.tools.spec")
 
@@ -11,7 +10,6 @@ function M.setup_lsp()
 	M.configure_floating_window()
 	M.configure_cmp()
 	M.configure_servers()
-	M.setup_null_ls()
 end
 
 M.servers = utils.concat_tables(tools.auto_install_lsp, tools.system_lsp)
@@ -95,22 +93,6 @@ function M.configure_servers()
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
 		settings = require("utils.tools.settings.rust-analyzer").settings,
-	})
-end
-
-function M.setup_null_ls()
-	local null_ls = require("null-ls")
-
-	-- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
-	local diagnostics = null_ls.builtins.diagnostics
-	local code_actions = null_ls.builtins.code_actions
-
-	null_ls.setup({
-		debug = false,
-		sources = {
-			diagnostics.codespell,
-			code_actions.gitsigns,
-		},
 	})
 end
 

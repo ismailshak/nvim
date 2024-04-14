@@ -1,9 +1,10 @@
 local mappings = require("custom.mappings")
-local icons = require("utils.icons")
 local dap = require("utils.tools.dap")
-local installer = require("utils.tools.installer")
-local lsp = require("utils.tools.lsp")
+local icons = require("utils.icons")
 local formatting = require("utils.tools.formatting")
+local installer = require("utils.tools.installer")
+local lint = require("utils.tools.lint")
+local lsp = require("utils.tools.lsp")
 
 --
 -- Core functionality
@@ -19,6 +20,28 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		event = { "BufWritePost", "BufReadPost", "InsertLeave", "BufEnter" },
+		opts = {
+			linters_by_ft = {
+				markdown = { "markdownlint" },
+				sh = { "shellcheck" },
+				["*"] = { "codespell" },
+			},
+			linters = {
+				markdownlint = {
+					args = { "--disable", "MD013", "--" },
+				},
+				codespell = function(diagnostic)
+					diagnostic.severity = vim.diagnostic.severity.WARN
+					return diagnostic
+				end,
+			},
+		},
+		config = lint.config,
 	},
 
 	{
