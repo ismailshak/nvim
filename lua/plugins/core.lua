@@ -14,14 +14,6 @@ return {
 	-- Configures lua_ls to support neovim config/plugin development
 	"folke/neodev.nvim",
 
-	-- Formatting, linting, and code actions
-	{
-		"nvimtools/none-ls.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-	},
-
 	{
 		"mfussenegger/nvim-lint",
 		event = { "BufWritePost", "BufReadPost", "InsertLeave", "BufEnter" },
@@ -85,7 +77,6 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"folke/neodev.nvim",
-			"nvimtools/none-ls.nvim",
 			"hrsh7th/nvim-cmp",
 			"j-hui/fidget.nvim",
 		},
