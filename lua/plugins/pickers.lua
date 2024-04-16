@@ -52,7 +52,7 @@ return {
 
 			telescope.setup({
 				defaults = {
-					prompt_prefix = " ",
+					prompt_prefix = "  ",
 					selection_caret = " ",
 					entry_prefix = " ",
 					path_display = { "smart" },
@@ -76,9 +76,7 @@ return {
 					file_ignore_patterns = { "node_modules", ".git", "dist", ".next", "target", "build" },
 					generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 					-- path_display = { "truncate" },
-					winblend = 10,
 					border = {},
-					borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
 					color_devicons = true,
 					mappings = {
 						i = {

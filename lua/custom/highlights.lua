@@ -1,7 +1,6 @@
 local M = {}
 
 local api = require("utils.api")
-local ui = require("utils.ui")
 
 ---Runs all non-colorscheme highlight overrides
 function M.plugins()
@@ -109,6 +108,8 @@ function M.iceberg(is_dark)
 	-- Dynamic highlight overrides --
 	---------------------------------
 
+	M.icberg_telescope(is_dark)
+
 	if is_dark then
 		-- Override syntax colors
 		api.hi("NonText", { fg = "#3f4660" }) -- Virtual text
@@ -158,6 +159,48 @@ function M.iceberg(is_dark)
 		-- OCaml highlighting
 		api.hi("@constructor.ocaml", { link = "TSFunction" }) -- default dark highlighting
 		api.hi("@property.ocaml", { link = "Statement" }) -- default dark highlighting
+	end
+end
+
+---Overrides highlights for 'nvim-telescope/telescope.nvim' just for iceberg
+function M.icberg_telescope(is_dark)
+	local normal_hg = api.get_highlight("Normal")
+	local pmenu_hg = api.get_highlight("Pmenu")
+
+	if is_dark then
+		local telescope_bg = "#0f1117"
+		local telescope_prompt_bg = "#1e2132"
+
+		api.hi("TelescopePromptTitle", { fg = normal_hg.fg })
+		api.hi("TelescopePromptNormal", { bg = telescope_prompt_bg, fg = pmenu_hg.fg })
+		api.hi("TelescopePromptBorder", { bg = telescope_prompt_bg, fg = telescope_prompt_bg })
+		api.hi("TelescopePromptPrefix", { bg = telescope_prompt_bg, fg = pmenu_hg.fg })
+		api.hi("TelescopePromptCounter", { fg = pmenu_hg.fg })
+
+		api.hi("TelescopeResultsTitle", {})
+		api.hi("TelescopeResultsNormal", { bg = telescope_bg })
+		api.hi("TelescopeResultsBorder", { fg = telescope_bg, bg = telescope_bg })
+
+		api.hi("TelescopePreviewTitle", {})
+		api.hi("TelescopePreviewNormal", { bg = telescope_bg })
+		api.hi("TelescopePreviewBorder", { fg = telescope_bg, bg = telescope_bg })
+	else
+		local telescope_bg = "#e0e2e6"
+		local telescope_prompt_bg = "#d3d8e4"
+
+		api.hi("TelescopePromptTitle", { fg = normal_hg.fg })
+		api.hi("TelescopePromptNormal", { bg = telescope_prompt_bg, fg = pmenu_hg.fg })
+		api.hi("TelescopePromptBorder", { bg = telescope_prompt_bg, fg = telescope_prompt_bg })
+		api.hi("TelescopePromptPrefix", { bg = telescope_prompt_bg, fg = pmenu_hg.fg })
+		api.hi("TelescopePromptCounter", { fg = pmenu_hg.fg })
+
+		api.hi("TelescopeResultsTitle", {})
+		api.hi("TelescopeResultsNormal", { bg = telescope_bg })
+		api.hi("TelescopeResultsBorder", { fg = telescope_bg, bg = telescope_bg })
+
+		api.hi("TelescopePreviewTitle", {})
+		api.hi("TelescopePreviewNormal", { bg = telescope_bg })
+		api.hi("TelescopePreviewBorder", { fg = telescope_bg, bg = telescope_bg })
 	end
 end
 
