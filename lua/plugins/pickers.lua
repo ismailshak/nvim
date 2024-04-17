@@ -1,4 +1,5 @@
 local mappings = require("custom.mappings")
+local icons = require("utils.icons")
 
 return {
 	-- File picker
@@ -24,13 +25,42 @@ return {
 			end
 
 			require("fzf-lua").setup({
-				"telescope",
+				"borderless_full",
 				files = {
-					prompt = " ",
+					prompt = icons.pickers.search .. "  ",
+					cwd_prompt = false,
 					git_icons = true,
 					file_icons = true,
 					color_icons = true,
 					fd_opts = "--no-ignore --color=never --type f --hidden --follow" .. gen_ignore_list(),
+					fzf_opts = {
+						["--no-bold"] = "",
+						["--margin"] = "1,0",
+						["--header"] = "\t",
+						["--info"] = "inline-right",
+						["--no-separator"] = "",
+					},
+				},
+				winopts = {
+					preview = {
+						winopts = {
+							number = false,
+						},
+					},
+				},
+				hls = {
+					preview_border = "TelescopePreviewBorder",
+					preview_normal = "TelescopePreviewNormal",
+					normal = "TelescopePromptNormal",
+					border = "TelescopePromptNormal",
+					title = "TelescopePromptNormal",
+				},
+				fzf_colors = {
+					["gutter"] = { "bg", "TelescopePromptNormal" },
+					["bg"] = { "bg", "TelescopePromptNormal" },
+					["prompt"] = { "fg", "TelescopePromptNormal" },
+					["pointer"] = { "fg", "TelescopePromptNormal" },
+					["info"] = { "fg", "Comment" },
 				},
 			})
 		end,
@@ -52,7 +82,7 @@ return {
 
 			telescope.setup({
 				defaults = {
-					prompt_prefix = "  ",
+					prompt_prefix = icons.pickers.search .. "  ",
 					selection_caret = " ",
 					entry_prefix = " ",
 					path_display = { "smart" },

@@ -62,6 +62,9 @@ return {
 		Operator = "  ",
 		TypeParameter = "  ",
 	},
+	pickers = {
+		search = "",
+	},
 	statusline = {
 		dir = "󰉖",
 		git_added = " ",
