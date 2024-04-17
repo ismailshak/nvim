@@ -1,7 +1,8 @@
-local api = require("utils.api")
 local settings = require("custom.settings")
 local highlight = require("custom.highlights")
 local formatting = require("utils.tools.formatting")
+local api = require("utils.api")
+local utils = require("utils.helpers")
 
 local CUSTOM_GROUP_ID = vim.api.nvim_create_augroup("ShakCommands", { clear = true })
 
@@ -22,6 +23,20 @@ usercmd("TT", "vsp | term", {}) -- Open a terminal in a vertical split
 usercmd("Grep", function(args)
 	vim.cmd(string.format("silent! grep %s | copen", args.args))
 end, { nargs = "*" })
+
+usercmd("BlamePR", function()
+	local line = vim.fn.line(".")
+	local path = vim.fn.expand("%:p")
+
+	local commit_sha = vim.fn.system(string.format("git blame -s -L %d,%d %s | awk '{print $1}'", line, line, path))
+	local repo = vim.fn.system("gh repo view --json nameWithOwner --jq .nameWithOwner")
+
+	local pr_number = vim.fn.system(
+		string.format("gh api /repos/%s/commits/%s/pulls --jq '.[0].number'", utils.trim(repo), utils.trim(commit_sha))
+	)
+
+	vim.fn.system(string.format("gh pr view --web %s", utils.trim(pr_number)))
+end, { nargs = 0 })
 
 usercmd("Format", function(args)
 	local range = nil

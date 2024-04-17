@@ -59,6 +59,7 @@ asdf global neovim $(cat .tool-versions | awk '/neovim/ {print $2}')
 - `python3`
 - `rg`
 - `wget`
+- `gh`
 
 ### Optional
 
