@@ -24,11 +24,17 @@ usercmd("Grep", function(args)
 	vim.cmd(string.format("silent grep! %s | copen", args.args))
 end, { nargs = "*" })
 
-usercmd("BlamePR", function()
+usercmd("BlamePR", function(args)
+	local commit_sha
 	local line = vim.fn.line(".")
 	local path = vim.fn.expand("%:p")
 
-	local commit_sha = vim.fn.system(string.format("git blame -s -L %d,%d %s | awk '{print $1}'", line, line, path))
+	if args.args ~= "" then
+		commit_sha = args.args
+	else
+		commit_sha = vim.fn.system(string.format("git blame -s -L %d,%d %s | awk '{print $1}'", line, line, path))
+	end
+
 	local repo = vim.fn.system("gh repo view --json nameWithOwner --jq .nameWithOwner")
 
 	local pr_number = vim.fn.system(
@@ -36,7 +42,7 @@ usercmd("BlamePR", function()
 	)
 
 	vim.fn.system(string.format("gh pr view --web %s", utils.trim(pr_number)))
-end, { nargs = 0 })
+end, { nargs = "?" })
 
 usercmd("Format", function(args)
 	local range = nil
