@@ -55,4 +55,4 @@ api.cabbr("Q", "q")
 
 -- Grep
 opt.grepformat = "%f:%l:%c:%m"
-opt.grepprg = "rg --vimgrep --smart-case --hidden"
+opt.grepprg = "rg --vimgrep --smart-case --hidden --follow"
