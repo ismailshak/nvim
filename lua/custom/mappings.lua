@@ -15,7 +15,7 @@ api.nmap("<leader>r", ":source %<CR>", "Source current buffer")
 api.imap("<C-z>", "<Esc>zza", "Center cursor position in window while in insert mode")
 
 api.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
-api.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"'", "Close all buffers except the currently open")
+api.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"", "Close all buffers except the currently open")
 api.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
 
 api.nmap("+", "<C-a>", "Increment number under cursor")
