@@ -237,6 +237,16 @@ return {
 		end,
 	},
 
+	-- `gx` to open links in the browser (since I have netrw disabled)
+	{
+		"chrishrb/gx.nvim",
+		keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+		cmd = { "Browse" },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		submodules = false, -- repo has git submodules that are only used for tests
+		opts = {},
+	},
+
 	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",
