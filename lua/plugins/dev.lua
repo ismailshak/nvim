@@ -43,7 +43,11 @@ return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		branch = "canary",
-		keys = { "<leader>cc", "<leader>ct", "<leader>ch", "<leader>cv" },
+		keys = {
+			{ "<leader>cc", mode = { "n", "x" } },
+			{ "<leader>ch", mode = { "n", "x" } },
+			{ "<leader>cv", mode = { "n", "x" } },
+		},
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" },
 			{ "nvim-lua/plenary.nvim" },

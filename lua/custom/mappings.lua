@@ -236,9 +236,14 @@ end
 function M.copilot_chat()
 	local chat = require("CopilotChat")
 
-	api.nmap("<leader>cv", ":CopilotChatToggle<CR>", "Toggle copilot chat in a vertical split [CopilotChat]")
+	api.map(
+		{ "n", "x" },
+		"<leader>cv",
+		":CopilotChatToggle<CR>",
+		"Toggle copilot chat in a vertical split [CopilotChat]"
+	)
 
-	api.nmap("<leader>cc", function()
+	api.map({ "n", "x" }, "<leader>cc", function()
 		chat.toggle({
 			window = {
 				layout = "float",
@@ -250,7 +255,7 @@ function M.copilot_chat()
 		})
 	end, "Toggle copilot chat in a floating window [CopilotChat]")
 
-	api.nmap("<leader>ch", function()
+	api.map({ "n", "x" }, "<leader>ch", function()
 		chat.toggle({
 			window = {
 				layout = "horizontal",
