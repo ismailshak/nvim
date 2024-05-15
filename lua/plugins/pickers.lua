@@ -69,7 +69,6 @@ return {
 	-- Everything else picker
 	{
 		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
@@ -85,7 +84,7 @@ return {
 					prompt_prefix = icons.pickers.search .. "  ",
 					selection_caret = " ",
 					entry_prefix = " ",
-					path_display = { "smart" },
+					path_display = { "filename_first" },
 					initial_mode = "insert",
 					selection_strategy = "reset",
 					sorting_strategy = "ascending",
@@ -105,7 +104,6 @@ return {
 					},
 					file_ignore_patterns = { "node_modules", ".git", "dist", ".next", "target", "build" },
 					generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-					-- path_display = { "truncate" },
 					border = {},
 					color_devicons = true,
 					mappings = {
