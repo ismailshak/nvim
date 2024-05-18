@@ -32,6 +32,7 @@ return {
 					git_icons = true,
 					file_icons = true,
 					color_icons = true,
+					formatter = "path.filename_first",
 					fd_opts = "--no-ignore --color=never --type f --hidden --follow" .. gen_ignore_list(),
 					fzf_opts = {
 						["--no-bold"] = "",
@@ -39,6 +40,9 @@ return {
 						["--header"] = "\t",
 						["--info"] = "inline-right",
 						["--no-separator"] = "",
+					},
+					actions = {
+						["ctrl-g"] = false,
 					},
 				},
 				winopts = {
