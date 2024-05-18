@@ -93,6 +93,9 @@ function M.iceberg(is_dark)
 	-- Global highlight overrides --
 	--------------------------------
 
+	-- v0.10.0 changed this to link to Normal, I'm reverting it for iceberg
+	api.hi("WinSeparator", { link = "VertSplit" })
+
 	api.hi("Type", { link = "Constant" })
 
 	-- Override floating window colors
