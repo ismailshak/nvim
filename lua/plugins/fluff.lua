@@ -24,7 +24,7 @@ return {
 					{
 						icon = "  ",
 						desc = "Load last session                       ",
-						action = "RestoreSession",
+						action = "SessionRestore",
 						icon_hl = "DashboardIcon",
 						key = "s",
 						keymap = "SPC s l",
