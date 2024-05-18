@@ -24,6 +24,7 @@ end
 ---Overrides highlights for 'kyazdani42/nvim-tree.lua'
 function M.nvim_tree()
 	api.hi("NvimTreeSpecialFile", { bold = true })
+	api.hi("NvimTreeRootFolder", { link = "Constant" })
 end
 
 ---Overrides highlights for 'rcarriga/nvim-dap-ui'
