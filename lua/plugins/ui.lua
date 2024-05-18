@@ -44,6 +44,13 @@ return {
 				},
 			}
 		end,
+		config = function(_, opts)
+			local iceberg = require("lualine.themes.iceberg_dark")
+			-- Change the normal fg because they made it "vibrant"
+			-- https://github.com/nvim-lualine/lualine.nvim/pull/1162
+			iceberg.normal.c.fg = "#6b7089"
+			require("lualine").setup(opts)
+		end,
 	},
 
 	-- Add indentation guides even on blank lines
