@@ -195,6 +195,11 @@ return {
 		},
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
+			require("ts_context_commentstring").setup({
+				enable_autocmd = false,
+			})
+
+			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"bash",
@@ -229,12 +234,6 @@ return {
 				-- autotag is enabled by https://github.com/windwp/nvim-ts-autotag
 				autotag = {
 					enable = true,
-				},
-				-- smart comments are enabled by JoosepAlviste/nvim-ts-context-commentstring
-				-- (and integrated with numToStr/Comment.nvim )
-				context_commentstring = {
-					enable = true,
-					enable_autocmd = false,
 				},
 				textobjects = {
 					select = {
