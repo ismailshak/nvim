@@ -47,6 +47,7 @@ return {
 				},
 				winopts = {
 					preview = {
+						layout = "vertical",
 						winopts = {
 							number = false,
 						},
@@ -65,6 +66,8 @@ return {
 					["prompt"] = { "fg", "TelescopePromptNormal" },
 					["pointer"] = { "fg", "TelescopePromptNormal" },
 					["info"] = { "fg", "Comment" },
+					["bg+"] = { "bg", "Visual" },
+					["fg+"] = { "fg", "Visual" },
 				},
 			})
 		end,
