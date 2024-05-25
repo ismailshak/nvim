@@ -248,7 +248,11 @@ return {
 		cmd = { "Browse" },
 		dependencies = { "nvim-lua/plenary.nvim" },
 		submodules = false, -- repo has git submodules that are only used for tests
-		opts = {},
+		opts = {
+			handler_options = {
+				search_engine = "duckduckgo",
+			},
+		},
 	},
 
 	-- Autocompletion
