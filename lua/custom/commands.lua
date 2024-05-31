@@ -111,15 +111,6 @@ autocmd("OptionSet", {
 	end,
 })
 
-autocmd("ColorScheme", {
-	pattern = "*",
-	group = CUSTOM_GROUP_ID,
-	callback = function(arg)
-		api.save_colorscheme(arg.match)
-		highlight.plugins()
-	end,
-})
-
 -- Override highlight groups for substrata (installed via plugin manager
 autocmd("ColorScheme", {
 	pattern = "substrata",
@@ -148,5 +139,14 @@ autocmd("ColorScheme", {
 	callback = function()
 		local is_dark = settings.get().background == "dark"
 		highlight.iceberg(is_dark)
+	end,
+})
+
+autocmd("ColorScheme", {
+	pattern = "*",
+	group = CUSTOM_GROUP_ID,
+	callback = function(arg)
+		api.save_colorscheme(arg.match)
+		highlight.plugins()
 	end,
 })
