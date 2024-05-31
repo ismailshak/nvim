@@ -1,6 +1,20 @@
 local mappings = require("custom.mappings")
 local icons = require("utils.icons")
 
+local ignore_list = {
+	".git",
+	".next",
+	".nx",
+	"_build",
+	"_opam",
+	"build",
+	"coverage",
+	"dist",
+	"node_modules",
+	"out",
+	"target",
+}
+
 return {
 	-- File picker
 	{
@@ -12,8 +26,6 @@ return {
 		},
 		config = function()
 			mappings.fzf()
-
-			local ignore_list = { ".git", "node_modules", "dist", ".next", "target", "build", "out", "_build", "_opam" }
 
 			local gen_ignore_list = function()
 				local args = ""
@@ -67,7 +79,8 @@ return {
 					["pointer"] = { "fg", "TelescopePromptNormal" },
 					["info"] = { "fg", "Comment" },
 					["bg+"] = { "bg", "Visual" },
-					["fg+"] = { "fg", "Visual" },
+					["fg+"] = { "fg", "Normal" },
+					["hl+"] = { "fg", "Question" },
 				},
 			})
 		end,
