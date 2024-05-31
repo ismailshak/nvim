@@ -29,6 +29,11 @@ end
 
 ---Overrides highlights for 'rcarriga/nvim-dap-ui'
 function M.dap_ui()
+	local winbar = api.get_highlight("WinBar")
+	local diagnostic_info = api.get_highlight("DiagnosticInfo")
+	local diagnostic_error = api.get_highlight("DiagnosticError")
+	local ts_function = api.get_highlight("TSFunction")
+
 	api.hi("DapUIScope", { link = "Statement" })
 	api.hi("DapUIType", { link = "Type" })
 	api.hi("DapUIDecoration", { link = "Type" })
@@ -40,17 +45,19 @@ function M.dap_ui()
 	api.hi("DapUIBreakpointsPath", { link = "DapUIScope" })
 	api.hi("DapUIBreakpointsInfo", { link = "TSFunction" })
 	api.hi("DapUILineNumber", { link = "Statement" })
-	api.hi("DapUIStepOver", { link = "DiagnosticInfo" })
-	api.hi("DapUIStepInto", { link = "DiagnosticInfo" })
-	api.hi("DapUIStepOut", { link = "DiagnosticInfo" })
-	api.hi("DapUIStepBack", { link = "DiagnosticInfo" })
-	api.hi("DapUIStop", { link = "DiagnosticError" })
-	api.hi("DapUIRestart", { link = "TSFunction" })
-	api.hi("DapUIPlayPause", { link = "TSFunction" })
 	api.hi("DapUIBreakpointsCurrentLine", { link = "TSFunction" })
 	api.hi("DapUISource", { link = "Type" })
 	api.hi("DapUIModifiedValue", { link = "Statement" })
 	api.hi("DapStoppedLine", { link = "Visual" })
+
+	-- Control bar buttons
+	api.hi("DapUIPlayPause", { bg = winbar.bg, fg = ts_function.fg })
+	api.hi("DapUIStepInto", { bg = winbar.bg, fg = diagnostic_info.fg })
+	api.hi("DapUIStepOver", { bg = winbar.bg, fg = diagnostic_info.fg })
+	api.hi("DapUIStepOut", { bg = winbar.bg, fg = diagnostic_info.fg })
+	api.hi("DapUIStepBack", { bg = winbar.bg, fg = diagnostic_info.fg })
+	api.hi("DapUIRestart", { bg = winbar.bg, fg = ts_function.fg })
+	api.hi("DapUIStop", { bg = winbar.bg, fg = diagnostic_error.fg })
 end
 
 ---Overrides highlights for 'pwntester/octo.nvim'

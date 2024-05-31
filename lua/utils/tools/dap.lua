@@ -10,7 +10,6 @@ M.debuggers = {
 
 function M.configure_icons()
 	for name, icon in pairs(icons.dap) do
-		print(name, icon)
 		local sign = "Dap" .. name
 		local texthl = sign == "DapStopped" and "CursorLineNr" or "DiagnosticSignError"
 		local linehl = sign == "DapStopped" and "Visual" or ""
