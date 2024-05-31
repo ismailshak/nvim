@@ -27,6 +27,8 @@ api.nmap("<C-u>", "<C-u>zz", "scroll up")
 api.nmap("]q", vim.cmd.cnext, "Next Quickfix Item")
 api.nmap("[q", vim.cmd.cprev, "Previous Quickfix Item")
 
+api.nmap("<leader>tw", "<CMD>set wrap!<CR>", "Toggle text wrap")
+
 -- Don't yank on delete / change
 api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
 api.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
