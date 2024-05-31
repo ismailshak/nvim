@@ -5,18 +5,18 @@ local utils = require("utils.helpers")
 vim.g.mapleader = " "
 
 -- Mappings for plugin manager
-api.nmap("<leader>pm", ":Lazy<CR>", "Open [p]lugin [m]anager")
+api.nmap("<leader>pm", "<CMD>Lazy<CR>", "Open [p]lugin [m]anager")
 
 -- General binds
-api.nmap("<leader>ss", ":w<CR>", "Save buffer")
-api.nmap("<Esc>", ":noh<CR>", "Remove selection highlighting")
+api.nmap("<leader>ss", "<CMD>w<CR>", "Save buffer")
+api.nmap("<Esc>", "<CMD>noh<CR>", "Remove selection highlighting")
 api.nmap("<C-a>", "ggVG", "Select all in buffer")
-api.nmap("<leader>r", ":source %<CR>", "Source current buffer")
+api.nmap("<leader>r", "<CMD>source %<CR>", "Source current buffer")
 api.imap("<C-z>", "<Esc>zza", "Center cursor position in window while in insert mode")
 
-api.nmap("<leader>w", ":bd<CR>", "Close currently open buffer")
-api.nmap("<leader>e", ":%bd|e#|bd#<CR>|'\"", "Close all buffers except the currently open")
-api.nmap("<leader>q", ":tabclose<CR>", "Close an open and focused tab")
+api.nmap("<leader>w", "<CMD>bd<CR>", "Close currently open buffer")
+api.nmap("<leader>e", "<CMD>%bd|e#|bd#<CR>|'\"", "Close all buffers except the currently open")
+api.nmap("<leader>q", "<CMD>tabclose<CR>", "Close an open and focused tab")
 
 api.nmap("+", "<C-a>", "Increment number under cursor")
 api.nmap("-", "<C-x>", "Decrement number under cursor")
@@ -51,20 +51,20 @@ api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
 api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
 api.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
 
-api.nmap("<A-H>", ":vertical resize +2<CR>", "Make split pane wider (normal mode)")
-api.nmap("<A-L>", ":vertical resize -2<CR>", "Make split pane thinner (normal mode)")
-api.nmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane shorter (normal mode)")
-api.nmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane longer (normal mode)")
-api.vmap("<A-H>", ":vertical resize -2<CR>", "Make split pane shorter (visual mode)")
-api.vmap("<A-L>", ":vertical resize +2<CR>", "Make split pane longer (visual mode)")
-api.vmap("<A-J>", ":horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
-api.vmap("<A-K>", ":horizontal resize +2<CR>", "Make split pane wider (visual mode)")
+api.nmap("<A-H>", "<CMD>vertical resize +2<CR>", "Make split pane wider (normal mode)")
+api.nmap("<A-L>", "<CMD>vertical resize -2<CR>", "Make split pane thinner (normal mode)")
+api.nmap("<A-J>", "<CMD>horizontal resize -2<CR>", "Make split pane shorter (normal mode)")
+api.nmap("<A-K>", "<CMD>horizontal resize +2<CR>", "Make split pane longer (normal mode)")
+api.vmap("<A-H>", "<CMD>vertical resize -2<CR>", "Make split pane shorter (visual mode)")
+api.vmap("<A-L>", "<CMD>vertical resize +2<CR>", "Make split pane longer (visual mode)")
+api.vmap("<A-J>", "<CMD>horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
+api.vmap("<A-K>", "<CMD>horizontal resize +2<CR>", "Make split pane wider (visual mode)")
 
 -- Replacing text
 api.vmap("<C-f>", '"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of selected text")
 api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of word under cursor")
 
-api.nmap("<S-TAB>", ":bprevious<CR>", "Cycle to previous buffer")
+api.nmap("<S-TAB>", "<CMD>bprevious<CR>", "Cycle to previous buffer")
 
 api.tmap("<Esc>", "<C-\\><C-n>", "Escape terminal mode")
 
@@ -149,8 +149,20 @@ function M.gitsigns(bufnr)
 	end, "Navigate to previous hunk [gitsigns]", { expr = true, buffer = bufnr })
 
 	-- Actions
-	api.map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage hunk under cursor [gitsigns]", default_opts)
-	api.map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset hunk under cursor [gitsigns]", default_opts)
+	api.map(
+		{ "n", "v" },
+		"<leader>hs",
+		"<CMD>Gitsigns stage_hunk<CR>",
+		"Stage hunk under cursor [gitsigns]",
+		default_opts
+	)
+	api.map(
+		{ "n", "v" },
+		"<leader>hr",
+		"<CMD>Gitsigns reset_hunk<CR>",
+		"Reset hunk under cursor [gitsigns]",
+		default_opts
+	)
 	api.nmap("<leader>hS", gs.stage_buffer, "Stage the current buffer [gitsigns]", default_opts)
 	api.nmap("<leader>hu", gs.undo_stage_hunk, "Undo staging of hunk [gitsigns]", default_opts)
 	api.nmap("<leader>hR", gs.reset_buffer, "Reset the current buffer [gitsigns]", default_opts)
@@ -168,7 +180,13 @@ function M.gitsigns(bufnr)
 	api.nmap("<leader>hr", gs.toggle_deleted, "Toggle deleted [gitsigns]", default_opts)
 
 	-- Text object
-	api.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Motion for inside git hunk [gitsigns]", default_opts)
+	api.map(
+		{ "o", "x" },
+		"ih",
+		"<CMD><C-U>Gitsigns select_hunk<CR>",
+		"Motion for inside git hunk [gitsigns]",
+		default_opts
+	)
 end
 
 function M.cellular_automation()
@@ -181,22 +199,26 @@ function M.fzf()
 end
 
 function M.telescope()
-	api.nmap("<leader>rr", ":Telescope resume<CR>", "Open last picker [telescope]")
-	api.nmap("<leader>fd", ":Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
-	api.nmap("<leader>fg", ":Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
-	api.nmap("<leader>bb", ":Telescope buffers <CR>", "[B]uffer list [telescope]")
-	api.nmap("<leader>fh", ":Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
-	api.nmap("<leader>?", ":Telescope keymaps <CR>", "List all active mappings [telescope]")
-	api.nmap("<leader>gb", ":Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
-	api.nmap("<leader>gc", ":Telescope git_commits <CR>", "Show [g]it [c]ommits [telescope]")
-	api.nmap("<leader>gt", ":Telescope git_status <CR>", "Run [g]it [s]tatus")
-	api.nmap("<leader>sc", ":Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
-	api.nmap("<leader>fc", ":Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
-	api.nmap("<leader>ghp", ":Telescope gh pull_request <CR>", "List all open [G]ithub [p]ull [r]equests [telescope]")
-	api.nmap("<leader>ghi", ":Telescope gh issues <CR>", "List all open Github issues [telescope]")
+	api.nmap("<leader>rr", "<CMD>Telescope resume<CR>", "Open last picker [telescope]")
+	api.nmap("<leader>fd", "<CMD>Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
+	api.nmap("<leader>fg", "<CMD>Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
+	api.nmap("<leader>bb", "<CMD>Telescope buffers <CR>", "[B]uffer list [telescope]")
+	api.nmap("<leader>fh", "<CMD>Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
+	api.nmap("<leader>?", "<CMD>Telescope keymaps <CR>", "List all active mappings [telescope]")
+	api.nmap("<leader>gb", "<CMD>Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
+	api.nmap("<leader>gc", "<CMD>Telescope git_commits <CR>", "Show [g]it [c]ommits [telescope]")
+	api.nmap("<leader>gt", "<CMD>Telescope git_status <CR>", "Run [g]it [s]tatus")
+	api.nmap("<leader>sc", "<CMD>Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
+	api.nmap("<leader>fc", "<CMD>Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
+	api.nmap(
+		"<leader>ghp",
+		"<CMD>Telescope gh pull_request <CR>",
+		"List all open [G]ithub [p]ull [r]equests [telescope]"
+	)
+	api.nmap("<leader>ghi", "<CMD>Telescope gh issues <CR>", "List all open Github issues [telescope]")
 	api.nmap(
 		"<leader>ghc",
-		":Telescope gh pull_request state=closed<CR>",
+		"<CMD>Telescope gh pull_request state=closed<CR>",
 		"List all closed Github pull requests [telescope]"
 	)
 	api.nmap("<leader>fc", function()
@@ -206,7 +228,7 @@ function M.telescope()
 		}))
 	end, "[/] Search in current buffer]")
 
-	api.nmap("<leader>th", ":Telescope colorscheme<CR>", "Toggle colorscheme [telescope]")
+	api.nmap("<leader>th", "<CMD>Telescope colorscheme<CR>", "Toggle colorscheme [telescope]")
 end
 
 function M.ufo()
@@ -232,7 +254,7 @@ function M.diffview()
 end
 
 function M.nvim_tree()
-	api.nmap("<c-n>", ":NvimTreeFindFileToggle <CR>", "Toggle file tree")
+	api.nmap("<c-n>", "<CMD>NvimTreeFindFileToggle <CR>", "Toggle file tree")
 end
 
 function M.copilot_chat()
@@ -241,7 +263,7 @@ function M.copilot_chat()
 	api.map(
 		{ "n", "x" },
 		"<leader>cv",
-		":CopilotChatToggle<CR>",
+		"<CMD>CopilotChatToggle<CR>",
 		"Toggle copilot chat in a vertical split [CopilotChat]"
 	)
 
