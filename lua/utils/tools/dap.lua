@@ -21,7 +21,29 @@ end
 function M.setup_dap_ui()
 	local dap, dapui = require("dap"), require("dapui")
 
-	dapui.setup()
+	dapui.setup({
+		layouts = {
+			{
+				elements = {
+					{ id = "scopes", size = 0.4 },
+					{ id = "watches", size = 0.3 },
+					{ id = "stacks", size = 0.2 },
+					{ id = "breakpoints", size = 0.1 },
+				},
+				position = "right",
+				size = 40,
+			},
+			{
+				elements = {
+					{ id = "console", size = 0.25 },
+					{ id = "repl", size = 0.75 },
+				},
+				position = "bottom",
+				size = 10,
+			},
+		},
+	})
+
 	M.configure_icons()
 
 	dap.listeners.after.event_initialized["dapui_config"] = function()

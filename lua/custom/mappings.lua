@@ -88,9 +88,9 @@ function M.lsp(bufnr)
 	api.nmap("gr", require("telescope.builtin").lsp_references, gen_desc("[G]oto [R]eferences"), opts)
 	api.nmap("gI", vim.lsp.buf.implementation, gen_desc("[G]oto [I]mplementation"), opts)
 	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type [D]efinition"), opts)
-	api.nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, gen_desc("[D]ocument [S]ymbols"), opts)
+	api.nmap("<leader>fs", require("telescope.builtin").lsp_document_symbols, gen_desc("Document [S]ymbols"), opts)
 	api.nmap(
-		"<leader>ws",
+		"<leader>fS",
 		require("telescope.builtin").lsp_dynamic_workspace_symbols,
 		gen_desc("[W]orkspace [S]ymbols"),
 		opts
@@ -302,7 +302,8 @@ function M.dap()
 	api.nmap("<leader>dx", require("dap").disconnect, "Debugger disconnect [nvim-dap]")
 	api.nmap("<leader>db", require("dap").toggle_breakpoint, "Toggle breakpoint [nvim-dap]")
 	api.nmap("<leader>dB", require("dap").clear_breakpoints, "Clear all breakpoints [nvim-dap]")
-	api.nmap("<leader>dr", require("dap").restart, "Toggle repl [nvim-dap]")
+	api.nmap("<leader>dr", require("dap").restart, "Debugger restart [nvim-dap]")
+	api.nmap("<leader>ds", require("dap").terminate, "Debugger terminate [nvim-dap]")
 	api.nmap("<leader>do", require("dap").step_over, "Step over [nvim-dap]")
 	api.nmap("<leader>dO", require("dap").step_out, "Step out [nvim-dap]")
 	api.nmap("<leader>di", require("dap").step_into, "Step into [nvim-dap]")
