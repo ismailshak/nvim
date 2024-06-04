@@ -21,6 +21,7 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
+		keys = { "<leader>cd", "<leader>ce" },
 		event = "InsertEnter",
 		opts = {
 			panel = {
@@ -39,6 +40,10 @@ return {
 				},
 			},
 		},
+		config = function(_, opts)
+			mappings.copilot()
+			require("copilot").setup(opts)
+		end,
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",

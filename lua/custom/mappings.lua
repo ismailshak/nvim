@@ -257,6 +257,11 @@ function M.nvim_tree()
 	api.nmap("<c-n>", "<CMD>NvimTreeFindFileToggle <CR>", "Toggle file tree")
 end
 
+function M.copilot()
+	api.nmap("<leader>ce", "<CMD>Copilot enable<CR>", "Enable copilot autocomplete [copilot]")
+	api.nmap("<leader>cd", "<CMD>Copilot disable<CR>", "Disable copilot autocomplete [copilot]")
+end
+
 function M.copilot_chat()
 	local chat = require("CopilotChat")
 
