@@ -31,7 +31,6 @@ return {
 					disabled_filetypes = {
 						statusline = { "dashboard" },
 						winbar = {},
-						DiffviewFiles = {},
 					},
 				},
 				sections = {

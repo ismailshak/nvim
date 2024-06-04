@@ -1,4 +1,5 @@
 local ui = require("utils.ui")
+local icons = require("utils.icons")
 local mappings = require("custom.mappings")
 
 return {
@@ -49,6 +50,23 @@ return {
 						action = "DiffviewOpen",
 						key = "d",
 						keymap = "SPC d v",
+					},
+					{
+						icon = icons.copilot.response .. "  ",
+						desc = "Open copilot",
+						key = "c",
+						keymap = "SPC c c",
+						action = function()
+							require("CopilotChat").toggle({
+								window = {
+									layout = "float",
+									title = "",
+									width = 0.8,
+									height = 0.8,
+									border = "rounded",
+								},
+							})
+						end,
 					},
 					{
 						icon = "  ",
