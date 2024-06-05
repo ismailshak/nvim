@@ -280,7 +280,7 @@ return {
 			local luasnip = require("luasnip")
 
 			require("luasnip/loaders/from_vscode").lazy_load()
-			require("luasnip.loaders.from_snipmate").lazy_load({ paths = vim.fn.stdpath("config") .. "/snippets" })
+			require("luasnip.loaders.from_snipmate").lazy_load()
 
 			-- for "super tab" below
 			local check_backspace = function()
@@ -334,6 +334,7 @@ return {
 					}),
 				},
 				formatting = {
+					expandable_indicator = true,
 					fields = { "kind", "abbr" },
 					format = function(_, vim_item)
 						vim_item.kind = icons.kinds[vim_item.kind] or ""
@@ -348,6 +349,10 @@ return {
 					{ name = "buffer" },
 					{ name = "luasnip" },
 					{ name = "path" },
+					{
+						name = "lazydev",
+						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+					},
 				},
 				confirm_opts = {
 					behavior = cmp.ConfirmBehavior.Replace,

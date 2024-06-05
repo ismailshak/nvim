@@ -4,20 +4,21 @@ local utils = require("utils.helpers")
 
 local M = {}
 
----Get OS name
 ---@alias os 'macos'|'linux'|'windows'
+
+---Get OS name
 ---@return os
 function M.get_os()
-	local os = vim.loop.os_uname().sysname
-	if os == "Darwin" then
+	local os_id = vim.loop.os_uname().sysname
+	if os_id == "Darwin" then
 		return "macos"
-	elseif os == "Linux" then
+	elseif os_id == "Linux" then
 		return "linux"
-	elseif os == "Windows" then
+	elseif os_id == "Windows" then
 		return "windows"
 	end
 
-	error("Unsupported OS: " .. os)
+	error("Unsupported OS: " .. os_id)
 end
 
 ---Set background to "dark" or "light"
@@ -47,7 +48,7 @@ function M.save_colorscheme(colorscheme)
 		return
 	end
 
-	s.theme = current_theme
+	s.theme = current_theme or ""
 	settings.update(s)
 end
 

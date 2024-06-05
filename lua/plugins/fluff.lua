@@ -113,14 +113,12 @@ return {
 						throttle = 50, -- Debounce lsp signature help request by 50ms
 					},
 					view = nil, -- when nil, use defaults from documentation
-					---@type NoiceViewOptions
 					opts = {}, -- merged with defaults from documentation
 				},
 				message = { enabled = false },
 				-- defaults for hover and signature help
 				documentation = {
 					view = "hover",
-					---@type NoiceViewOptions
 					opts = {
 						lang = "markdown",
 						replace = true,

@@ -12,7 +12,13 @@ local lsp = require("utils.tools.lsp")
 
 return {
 	-- Configures lua_ls to support neovim config/plugin development
-	"folke/neodev.nvim",
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		dependencies = {
+			{ "Bilal2453/luvit-meta", lazy = true }, -- `vim.uv` typings
+		},
+	},
 
 	{
 		"mfussenegger/nvim-lint",
