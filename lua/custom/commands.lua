@@ -61,6 +61,20 @@ usercmd("Format", function(args)
 	)
 end, { range = true })
 
+-- Trim trailing whitespace on save and keep cursor position intact
+usercmd("TrimTrailingWhitespace", function(args)
+	if vim.bo.filetype == "diff" then
+		return
+	end
+
+	local start_line = args.line1 or 1
+	local end_line = args.line2 or vim.fn.line("$")
+
+	local view = vim.fn.winsaveview()
+	vim.cmd(string.format(":%d,%ds/\\s\\+$//ge", start_line, end_line))
+	vim.fn.winrestview(view)
+end, { range = true })
+
 -- AUTOCOMMANDS --
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -80,21 +94,6 @@ autocmd("BufEnter", {
 	callback = function()
 		vim.opt_local.number = false
 		vim.opt_local.signcolumn = "no"
-	end,
-})
-
--- Trim trailing whitespace on save and keep cursor position intact
-autocmd("BufWritePre", {
-	pattern = "*",
-	group = CUSTOM_GROUP_ID,
-	callback = function()
-		if vim.bo.filetype == "diff" then
-			return
-		end
-
-		local view = vim.fn.winsaveview()
-		vim.cmd([[%s/\s\+$//e]])
-		vim.fn.winrestview(view)
 	end,
 })
 
