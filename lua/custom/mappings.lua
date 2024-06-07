@@ -80,9 +80,9 @@ function M.lsp(bufnr)
 	end
 
 	local opts = { buffer = bufnr }
-	api.nmap("<leader>rn", vim.lsp.buf.rename, gen_desc("[R]e[n]ame"), opts)
-	api.nmap("<leader>ca", vim.lsp.buf.code_action, gen_desc("[C]ode [A]ction"), opts)
-	api.vmap("<leader>ca", vim.lsp.buf.code_action, gen_desc("Selected range [C]ode [A]ction"), opts)
+	api.nmap("grr", vim.lsp.buf.rename, gen_desc("[R]e[n]ame"), opts)
+	api.nmap("gra", vim.lsp.buf.code_action, gen_desc("[C]ode [A]ction"), opts)
+	api.vmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range [C]ode [A]ction"), opts)
 
 	api.nmap("gd", vim.lsp.buf.definition, gen_desc("[G]oto [D]efinition"), opts)
 	api.nmap("gr", require("telescope.builtin").lsp_references, gen_desc("[G]oto [R]eferences"), opts)

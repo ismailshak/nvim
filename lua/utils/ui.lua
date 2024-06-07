@@ -80,7 +80,7 @@ function M.pick_color(is_dark, dark_color, light_color)
 end
 
 function M.get_ft_icon_overrides(background)
-	local is_dark = (background or vim.opt.background:get()) == "dark"
+	local is_dark = (background or vim.o.background) == "dark"
 	return {
 		[".tool-versions"] = {
 			icon = icons.files.config,

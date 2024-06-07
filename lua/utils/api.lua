@@ -32,7 +32,7 @@ end
 ---Toggle background between "dark" & "light"
 ---@return background string Value after toggle
 function M.toggle_bg()
-	if vim.opt.background:get() == "dark" then
+	if vim.o.background == "dark" then
 		return M.set_bg("light")
 	end
 

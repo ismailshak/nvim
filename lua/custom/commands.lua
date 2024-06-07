@@ -103,7 +103,7 @@ autocmd("OptionSet", {
 	callback = function()
 		local s = settings.get()
 		---@diagnostic disable-next-line: inject-field
-		s.background = vim.opt.background:get()
+		s.background = vim.o.background
 		settings.update(s)
 
 		highlight.colorscheme(s.theme, s.background == "dark")
