@@ -19,6 +19,7 @@ end, {})
 
 usercmd("T", "sp | term", {}) -- Open a terminal in a horizontal split
 usercmd("TT", "vsp | term", {}) -- Open a terminal in a vertical split
+usercmd("TTT", "tabnew | term", {}) -- Open a terminal in a new tab
 
 usercmd("Grep", function(args)
 	vim.cmd(string.format("silent grep! %s | copen", args.args))
