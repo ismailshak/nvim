@@ -15,10 +15,15 @@ return {
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",
-		dependencies = {
-			{ "Bilal2453/luvit-meta", lazy = true }, -- `vim.uv` typings
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
 		},
 	},
+	{ "Bilal2453/luvit-meta" }, -- `vim.uv` typings
 
 	{
 		"mfussenegger/nvim-lint",
@@ -83,7 +88,6 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"folke/neodev.nvim",
 			"hrsh7th/nvim-cmp",
 			"j-hui/fidget.nvim",
 		},

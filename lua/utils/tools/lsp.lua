@@ -5,7 +5,6 @@ local utils = require("utils.helpers")
 local tools = require("utils.tools.spec")
 
 function M.setup_lsp()
-	M.setup_neodev()
 	M.setup_diagnostics()
 	M.configure_floating_window()
 	M.configure_cmp()
@@ -15,13 +14,6 @@ end
 M.servers = utils.concat_tables(tools.auto_install_lsp, tools.system_lsp)
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
-
-function M.setup_neodev()
-	require("neodev").setup({
-		-- https://github.com/folke/neodev.nvim/issues/158#issuecomment-1682565350
-		pathStrict = true,
-	})
-end
 
 ---nvim-cmp supports additional completion capabilities
 function M.configure_cmp()
