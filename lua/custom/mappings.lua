@@ -243,9 +243,11 @@ function M.ufo()
 	end, "Peek fold under cursor [ufo]")
 end
 
-function M.fterm()
-	api.nmap("<c-\\>", '<cmd>lua require("FTerm").toggle()<cr>', "Toggle terminal float [Fterm]")
-	api.tmap("<c-\\>", '<c-\\><c-n><cmd>lua require("FTerm").close()<cr>', "Close terminal float [Fterm]")
+function M.toggleterm()
+	api.nmap("<c-\\>", "<CMD>ToggleTerm direction=float<CR>", "Toggle terminal float [ToggleTerm]")
+	api.tmap("<c-\\>", function()
+		require("toggleterm").toggle()
+	end, "Close terminal float [ToggleTerm]")
 end
 
 function M.diffview()
