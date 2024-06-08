@@ -9,7 +9,7 @@ function M.setup_mason()
 
 	-- Auto install tools
 	require("mason-tool-installer").setup({
-		ensure_installed = utils.concat_tables(tools.auto_install_tools, tools.auto_install_lsp),
+		ensure_installed = utils.concat_tables(tools.default_tools, tools.default_servers),
 	})
 end
 

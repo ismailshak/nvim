@@ -11,7 +11,7 @@ function M.setup_lsp()
 	M.configure_servers()
 end
 
-M.servers = utils.concat_tables(tools.auto_install_lsp, tools.system_lsp)
+M.servers = utils.concat_tables(tools.default_servers, tools.optional_servers)
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 

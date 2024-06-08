@@ -1,5 +1,6 @@
 return {
-	auto_install_lsp = {
+	---Language servers that will be automatically installed
+	default_servers = {
 		"bashls",
 		"cssls",
 		"dockerls",
@@ -8,11 +9,11 @@ return {
 		"jsonls",
 		"lua_ls",
 		"marksman",
-		"svelte",
 		"tsserver",
 		"yamlls",
 	},
-	auto_install_tools = {
+	---Tools that will be automatically installed (linters/formatters/debuggers)
+	default_tools = {
 		"codespell",
 		"js-debug-adapter",
 		"markdownlint",
@@ -20,16 +21,18 @@ return {
 		"shfmt",
 		"stylua",
 	},
-	system_lsp = {
+	---Language servers that will be configured if found on system $PATH
+	optional_servers = {
 		"clangd",
 		"gopls",
 		"ocamllsp",
 		"rust_analyzer",
+		"svelte",
 	},
-	system_tools = {
+	---Tools that will be hooked up if found on system $PATH (linters/formatters/debuggers)
+	optional_tools = {
 		"clang_format",
 		"delve",
-		"eslint",
 		"goimports",
 		"ocamlformat",
 		"prettier",
