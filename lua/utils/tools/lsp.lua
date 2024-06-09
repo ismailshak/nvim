@@ -61,7 +61,8 @@ function M.configure_servers()
 		})
 	end
 
-	-- Override specific server configs
+	-- Overriding specific server configs below
+
 	require("lspconfig").tsserver.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
@@ -85,6 +86,10 @@ function M.configure_servers()
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
 		settings = require("utils.tools.settings.rust-analyzer").settings,
+	})
+
+	require("lspconfig").typos_lsp.setup({
+		init_options = require("utils.tools.settings.typos_lsp").init_options,
 	})
 end
 

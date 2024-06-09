@@ -10,11 +10,11 @@ return {
 		"lua_ls",
 		"marksman",
 		"tsserver",
+		"typos_lsp",
 		"yamlls",
 	},
 	---Tools that will be automatically installed (linters/formatters/debuggers)
 	default_tools = {
-		"codespell",
 		"js-debug-adapter",
 		"markdownlint",
 		"shellcheck",

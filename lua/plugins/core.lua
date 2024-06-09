@@ -32,16 +32,11 @@ return {
 			linters_by_ft = {
 				markdown = { "markdownlint" },
 				sh = { "shellcheck" },
-				["*"] = { "codespell" },
 			},
 			linters = {
 				markdownlint = {
 					args = { "--disable", "MD013", "MD033", "--" },
 				},
-				codespell = function(diagnostic)
-					diagnostic.severity = vim.diagnostic.severity.WARN
-					return diagnostic
-				end,
 			},
 		},
 		config = lint.config,

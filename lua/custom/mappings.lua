@@ -85,18 +85,18 @@ function M.lsp(bufnr)
 	api.vmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range [C]ode [A]ction"), opts)
 
 	api.nmap("gd", vim.lsp.buf.definition, gen_desc("[G]oto [D]efinition"), opts)
-	api.nmap("gr", require("telescope.builtin").lsp_references, gen_desc("[G]oto [R]eferences"), opts)
+	api.nmap("gr", require("telescope.builtin").lsp_references, gen_desc("Goto references"), opts)
 	api.nmap("gI", vim.lsp.buf.implementation, gen_desc("[G]oto [I]mplementation"), opts)
 	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type [D]efinition"), opts)
-	api.nmap("<leader>fs", require("telescope.builtin").lsp_document_symbols, gen_desc("Document [S]ymbols"), opts)
+	api.nmap("<leader>fs", require("telescope.builtin").lsp_document_symbols, gen_desc("Document symbols"), opts)
 	api.nmap(
 		"<leader>fS",
 		require("telescope.builtin").lsp_dynamic_workspace_symbols,
-		gen_desc("[W]orkspace [S]ymbols"),
+		gen_desc("Workspace symbols"),
 		opts
 	)
 
-	-- See `:help K` for why this keymap
+	-- See `:help K` for why tis keymap
 	api.nmap("K", vim.lsp.buf.hover, gen_desc("Hover Documentation"), opts)
 	api.nmap("<C-i>", vim.lsp.buf.signature_help, gen_desc("Signature Documentation"), opts)
 
@@ -106,7 +106,7 @@ function M.lsp(bufnr)
 	api.nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, gen_desc("[W]orkspace [R]emove Folder"), opts)
 	api.nmap("<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, gen_desc("[W]orkspace [L]ist Folders"), opts)
+	end, gen_desc("Workspace list folders"), opts)
 end
 
 function M.leap()
@@ -173,7 +173,6 @@ function M.gitsigns(bufnr)
 	end, "Show blame for line under cursor [gitsigns]", default_opts)
 	api.nmap("<leader>tb", gs.toggle_current_line_blame, "Toggle blame for current line [gitsigns]", default_opts)
 	api.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
-	api.nmap("<leader>hd", gs.diffthis, "Diff this [gitsigns]", default_opts)
 	api.nmap("<leader>hD", function()
 		gs.diffthis("~")
 	end, "Diff this ~ [gitsigns]", default_opts)
@@ -202,11 +201,11 @@ function M.telescope()
 	api.nmap("<leader>rr", "<CMD>Telescope resume<CR>", "Open last picker [telescope]")
 	api.nmap("<leader>fd", "<CMD>Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
 	api.nmap("<leader>fg", "<CMD>Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
-	api.nmap("<leader>bb", "<CMD>Telescope buffers <CR>", "[B]uffer list [telescope]")
+	api.nmap("<leader>bb", "<CMD>Telescope buffers <CR>", "Buffer list [telescope]")
 	api.nmap("<leader>fh", "<CMD>Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
 	api.nmap("<leader>?", "<CMD>Telescope keymaps <CR>", "List all active mappings [telescope]")
 	api.nmap("<leader>gb", "<CMD>Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
-	api.nmap("<leader>gc", "<CMD>Telescope git_commits <CR>", "Show [g]it [c]ommits [telescope]")
+	api.nmap("<leader>gc", "<CMD>Telescope git_commits <CR>", "Show git commits [telescope]")
 	api.nmap("<leader>gt", "<CMD>Telescope git_status <CR>", "Run [g]it [s]tatus")
 	api.nmap("<leader>sc", "<CMD>Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
 	api.nmap("<leader>fc", "<CMD>Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension

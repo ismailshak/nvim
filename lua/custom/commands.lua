@@ -150,3 +150,22 @@ autocmd("ColorScheme", {
 		highlight.plugins()
 	end,
 })
+
+-- Filetypes that should not have typos_lsp attached
+local DISABLED_TYPOS_FT = { "dashboard", "term", "toggleterm" }
+
+autocmd("LspAttach", {
+	pattern = "*",
+	group = CUSTOM_GROUP_ID,
+	callback = function(opts)
+		local id = opts.data.client_id
+		local client = vim.lsp.get_client_by_id(id) or {}
+
+		-- Detach typos_lsp from certain filetypes
+		if client.name == "typos_lsp" and utils.contains(DISABLED_TYPOS_FT, vim.bo.filetype) then
+			vim.schedule(function()
+				vim.lsp.buf_detach_client(opts.buf, id)
+			end)
+		end
+	end,
+})
