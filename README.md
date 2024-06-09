@@ -1,12 +1,10 @@
 # nvim
 
 <p align="center">
-<img width="812" alt="Neovim dashboard" src="https://github.com/ismailshak/nvim/assets/23173408/bdd6c244-a663-438f-83fe-c9c0dfdf5d65">
+  <img width="812" alt="Neovim dashboard" src="https://github.com/ismailshak/nvim/assets/23173408/bdd6c244-a663-438f-83fe-c9c0dfdf5d65">
 </p>
 
-
-<details><summary>Expand for more pics</summary>
-
+<details><summary>More pics</summary>
   <p><sub>Customized <a href="https://wezfurlong.org/wezterm/index.html">Wezterm</a> - Modified <a href="https://cocopon.github.io/iceberg.vim/">Iceberg</a> - Modified & nerd-font-patched <a href="https://commitmono.com/">Commit Mono</a></sub></p>
 
   <p align="center">
@@ -15,7 +13,6 @@
     <img width="812" alt="Autocomplete and diagnostics" src="https://github.com/ismailshak/nvim/assets/23173408/75ee8ee1-673f-4d76-bb50-35b5cdae6987">
     <img width="812" alt="Terminal" src="https://github.com/ismailshak/nvim/assets/23173408/1380ab8e-6b4b-49e8-9a74-44dd71914006">
   </p>
-
 </details>
 
 <br />
@@ -30,19 +27,19 @@ Following is executed from this repo's root directory.
 
 Install the plugin
 
-```shell
+```bash
 asdf plugin add https://github.com/richin13/asdf-neovim
 ```
 
 Install the version in the file
 
-```
+```bash
 asdf install
 ```
 
 Set the version globally
 
-```
+```bash
 asdf global neovim $(cat .tool-versions | awk '/neovim/ {print $2}')
 ```
 
@@ -90,7 +87,6 @@ Using your system's package manager, install the following and make sure they're
 - `clang-format`
 
 </details>
-
 
 <details>
 <summary>Go</summary>

@@ -36,7 +36,7 @@ return {
 			},
 			linters = {
 				markdownlint = {
-					args = { "--disable", "MD013", "--" },
+					args = { "--disable", "MD013", "MD033", "--" },
 				},
 				codespell = function(diagnostic)
 					diagnostic.severity = vim.diagnostic.severity.WARN
