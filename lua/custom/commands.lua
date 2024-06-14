@@ -25,6 +25,9 @@ usercmd("Grep", function(args)
 	vim.cmd(string.format("silent grep! %s | copen", args.args))
 end, { nargs = "*" })
 
+usercmd("YankRelativePath", "let @+=expand('%:~:.')", {})
+usercmd("YankAbsolutePath", "let @+=expand('%:p')", {})
+
 usercmd("BlamePR", function(args)
 	local commit_sha
 	local line = vim.fn.line(".")
