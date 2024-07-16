@@ -13,7 +13,7 @@ function M.create_local()
 	end
 
 	utils.clone_file(template_path, local_path)
-	print("Local settings created")
+	vim.notify("Local settings created")
 	return local_path
 end
 
@@ -44,11 +44,37 @@ function M.format_setting(k, v)
 	return TAB .. utils.wrap_string(k, '["', '"]') .. " = " .. v .. "," .. NEW_LINE
 end
 
+---Converts an in-memory table (with nested tables) into a string
+---@param tbl table Table to convert
+---@param indent string Current indentation level
+---@return string
+function M.table_to_string(tbl, indent)
+	local str = ""
+	local is_array = tbl[1] ~= nil
+	for k, v in pairs(tbl) do
+		local formatting = indent .. (is_array and "" or '["' .. k .. '"]' .. " = ")
+		if type(v) == "table" then
+			str = str
+				.. formatting
+				.. "{"
+				.. NEW_LINE
+				.. M.table_to_string(v, indent .. TAB)
+				.. indent
+				.. "},"
+				.. NEW_LINE
+		else
+			local quote = type(v) == "string" and '"' or ""
+			str = str .. formatting .. quote .. tostring(v) .. quote .. "," .. NEW_LINE
+		end
+	end
+	return str
+end
+
 ---Save an in-memory settings table into a file
 ---@see docs https://lua-users.org/wiki/SaveTableToFile
 ---@param table Settings
 ---@param file_path? string Path to file
----@return string|nil
+---@return nil
 function M.save(table, file_path)
 	local fp = file_path or utils.module_to_path("custom.settings.local")
 	local file, err = io.open(fp, "wb")
@@ -60,18 +86,7 @@ function M.save(table, file_path)
 
 	file:write("---@type Settings" .. NEW_LINE)
 	file:write("local M = {" .. NEW_LINE)
-
-	for k, v in pairs(table) do
-		local stype = type(v)
-		if stype == "table" then
-			print("WARNING: nested settings aren't supported yet:", k)
-		elseif stype == "string" then
-			file:write(M.format_setting(k, utils.wrap_string(v)))
-		elseif stype == "number" then
-			file:write(M.format_setting(k, tostring(v)))
-		end
-	end
-
+	file:write(M.table_to_string(table, TAB))
 	file:write("}" .. NEW_LINE)
 	file:write(NEW_LINE)
 	file:write("return M")
