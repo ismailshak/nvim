@@ -107,12 +107,16 @@ end
 ---@param new_path string Destination path (including rename)
 ---@return string path Path to new file
 function M.clone_file(path, new_path)
-	vim.fn.jobstart({ "cp", path, new_path }, {
+	local job_id = vim.fn.jobstart({ "cp", path, new_path }, {
 		on_stderr = function(_, data)
-			print("Error `cp`-ing file")
-			print(data)
+			if data[1] ~= "" then
+				print("Error cloning file")
+				print(vim.inspect(data))
+			end
 		end,
 	})
+
+	vim.fn.jobwait({ job_id })
 	return new_path
 end
 
