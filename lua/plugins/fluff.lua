@@ -69,6 +69,13 @@ return {
 						end,
 					},
 					{
+						icon = "  ",
+						desc = "Open database",
+						action = "DBUIToggle",
+						key = "b",
+						keymap = "SPC b d",
+					},
+					{
 						icon = "  ",
 						desc = "Open doftile                            ",
 						action = "Telescope dotfiles",

@@ -1,5 +1,6 @@
 local mappings = require("custom.mappings")
 local icons = require("utils.icons")
+local settings = require("custom.settings")
 
 -- Core plugins used when actually typing/navigating
 
@@ -260,6 +261,31 @@ return {
 		},
 	},
 
+	-- Database client
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		dependencies = {
+			{ "tpope/vim-dadbod" },
+			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" } },
+		},
+		cmd = {
+			"DBUI",
+			"DBUIToggle",
+			"DBUIAddConnection",
+			"DBUIFindBuffer",
+		},
+		keys = { "<leader>bd" },
+		init = function()
+			-- Your DBUI configuration
+			vim.g.db_ui_use_nerd_fonts = 1
+		end,
+		config = function()
+			mappings.dadbod()
+			vim.g.dbs = settings.get().db_connections
+			vim.g.db_ui_use_nerd_fonts = 1
+		end,
+	},
+
 	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",
@@ -344,6 +370,7 @@ return {
 				-- order matters, it will appear in that order in the completion menu (using its own custom weighting system)
 				sources = {
 					{ name = "nvim_lsp" },
+					{ name = "vim-dadbod-completion" },
 					{ name = "nvim_lua" },
 					{ name = "git" },
 					{ name = "buffer" },

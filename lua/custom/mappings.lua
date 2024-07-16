@@ -375,4 +375,8 @@ function M.dap()
 	})
 end
 
+function M.dadbod()
+	api.nmap("<leader>bd", "<CMD>DBUIToggle<CR>", "Toggle database client [dadbod]")
+end
+
 return M

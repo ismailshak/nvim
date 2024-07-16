@@ -37,5 +37,6 @@ return {
 		"ocamlformat",
 		"prettier",
 		"rustfmt",
+		"sql-formatter",
 	},
 }

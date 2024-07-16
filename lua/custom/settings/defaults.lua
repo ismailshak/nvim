@@ -26,6 +26,7 @@ local M = {
 	background = "dark",
 	theme = "iceberg",
 	disable_format = "",
+	db_connections = {},
 }
 
 return M
