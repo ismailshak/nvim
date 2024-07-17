@@ -13,7 +13,7 @@ function M.create_local()
 	end
 
 	utils.clone_file(template_path, local_path)
-	vim.notify("Local settings created")
+	vim.notify("Local settings created", vim.log.levels.INFO)
 	return local_path
 end
 
