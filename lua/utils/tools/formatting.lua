@@ -63,7 +63,7 @@ function M.format_on_save(bufnr)
 		return
 	end
 
-	for _, dir in ipairs(utils.split(disabled_dirs, ",")) do
+	for _, dir in ipairs(disabled_dirs) do
 		if utils.includes(path, dir) then
 			if vim.g.conform_disabled_notify then
 				vim.notify("Formatting disabled for this directory", vim.log.levels.INFO)

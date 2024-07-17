@@ -18,14 +18,14 @@
 ---@class Settings
 ---@field public background background
 ---@field public theme theme
----@field public disable_format string: Comma-separated list of directories where formatting should be disabled
+---@field public disable_format string[]: List of directories where formatting will not run on save (e.g. {"node_modules", "my_folder/dist"})
 ---@field public db_connections DBConnection[]: List of database connections
 
 ---@type Settings
 local M = {
 	background = "dark",
 	theme = "iceberg",
-	disable_format = "",
+	disable_format = {},
 	db_connections = {},
 }
 
