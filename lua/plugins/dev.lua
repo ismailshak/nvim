@@ -275,12 +275,9 @@ return {
 			"DBUIFindBuffer",
 		},
 		keys = { "<leader>bd" },
-		init = function()
-			-- Your DBUI configuration
-			vim.g.db_ui_use_nerd_fonts = 1
-		end,
 		config = function()
 			mappings.dadbod()
+
 			vim.g.dbs = settings.get().db_connections
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,

@@ -53,6 +53,8 @@ function M.configure_servers()
 		lineFoldingOnly = true,
 	}
 
+	utils.merge_tables(M.capabilities, require("lsp-file-operations").default_capabilities())
+
 	-- Setup all servers with default config
 	for _, lsp in ipairs(M.servers) do
 		require("lspconfig")[lsp].setup({
