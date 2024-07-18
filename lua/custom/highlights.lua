@@ -8,6 +8,7 @@ function M.plugins()
 	M.nvim_tree()
 	M.dap_ui()
 	M.octo()
+	M.dadbod()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -25,6 +26,13 @@ end
 function M.nvim_tree()
 	api.hi("NvimTreeSpecialFile", { bold = true })
 	api.hi("NvimTreeRootFolder", { link = "Constant" })
+end
+
+---Overrides highlights for 'kristijanhusak/vim-dadbod-ui'
+function M.dadbod()
+	api.hi("NotificationInfo", { link = "Normal" })
+	api.hi("NotificationWarning", { link = "Normal" })
+	api.hi("NotificationError", { link = "Normal" })
 end
 
 ---Overrides highlights for 'rcarriga/nvim-dap-ui'
