@@ -79,6 +79,33 @@ usercmd("TrimTrailingWhitespace", function(args)
 	vim.fn.winrestview(view)
 end, { range = true })
 
+local dotfiles = {
+	[" zsh"] = "~/.zshrc",
+	[" zshenv"] = "~/.zshenv",
+	[" git"] = "~/.gitconfig",
+	[" tmux"] = "~/.tmux.conf",
+	[" AWS config"] = "~/.aws/config",
+	[" AWS credentials"] = "~/.aws/credentials",
+}
+
+usercmd("Dotfiles", function()
+	local items = {}
+	for name, _ in pairs(dotfiles) do
+		table.insert(items, name)
+	end
+
+	require("fzf-lua").fzf_exec(items, {
+		prompt = "Dotfiles> ",
+		winopts = { height = 0.3, width = 0.3 },
+		actions = {
+			["default"] = function(selected)
+				local path = dotfiles[selected[1]]
+				vim.cmd(string.format("edit %s", path))
+			end,
+		},
+	})
+end, { nargs = 0 })
+
 -- AUTOCOMMANDS --
 
 local autocmd = vim.api.nvim_create_autocmd

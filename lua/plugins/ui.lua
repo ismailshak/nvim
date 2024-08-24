@@ -1,7 +1,22 @@
 local mappings = require("custom.mappings")
 local api = require("utils.api")
 local utils = require("utils.helpers")
+local icons = require("utils.icons")
 local ui = require("utils.ui")
+
+local ignore_list = {
+	".git",
+	".next",
+	".nx",
+	"_build",
+	"_opam",
+	"build",
+	"coverage",
+	"dist",
+	"node_modules",
+	"out",
+	"target",
+}
 
 return {
 	-- All the dev icons that render
@@ -462,6 +477,90 @@ return {
 						profile = false,
 						watcher = false,
 					},
+				},
+			})
+		end,
+	},
+
+	-- Picker
+	-- File picker
+	{
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		keys = {
+			"<leader>ff",
+			"<leader>fo",
+			"<leader>fd",
+			"<leader>fg",
+			"<leader>bb",
+			"<leader>?",
+			"<leader>fc",
+			"<leader>sc",
+		},
+		cmd = "FzfLua",
+		config = function()
+			mappings.fzf()
+
+			local gen_ignore_list = function()
+				local args = ""
+				for _, dir in ipairs(ignore_list) do
+					args = args .. " --exclude " .. dir
+				end
+
+				return args
+			end
+
+			require("fzf-lua").setup({
+				"borderless_full",
+				fzf_opts = {
+					["--no-bold"] = "",
+					["--margin"] = "1,0",
+					["--info"] = "inline-right",
+					["--no-separator"] = "",
+					["--header"] = "\t",
+				},
+				files = {
+					prompt = icons.pickers.search .. "  ",
+					cwd_prompt = false,
+					git_icons = true,
+					file_icons = true,
+					color_icons = true,
+					formatter = "path.filename_first",
+					fd_opts = "--no-ignore --type f --hidden --follow" .. gen_ignore_list(),
+					actions = {
+						["ctrl-g"] = false,
+					},
+				},
+				grep = {
+					prompt = icons.pickers.search .. "  ",
+					formatter = "path.filename_first",
+					header = "\t",
+				},
+				winopts = {
+					preview = {
+						layout = "vertical",
+						winopts = {
+							number = false,
+						},
+					},
+				},
+				hls = {
+					preview_border = "TelescopePreviewBorder",
+					preview_normal = "TelescopePreviewNormal",
+					normal = "TelescopePromptNormal",
+					border = "TelescopePromptNormal",
+					title = "TelescopePromptNormal",
+					header_text = "TelescopePromptNormal",
+				},
+				fzf_colors = {
+					["gutter"] = { "bg", "TelescopePromptNormal" },
+					["bg"] = { "bg", "TelescopePromptNormal" },
+					["prompt"] = { "fg", "TelescopePromptNormal" },
+					["pointer"] = { "fg", "TelescopePromptNormal" },
+					["info"] = { "fg", "Comment" },
+					["bg+"] = { "bg", "Visual" },
+					["fg+"] = { "fg", "Normal" },
+					["hl+"] = { "fg", "Question" },
 				},
 			})
 		end,

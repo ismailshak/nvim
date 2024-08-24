@@ -80,21 +80,16 @@ function M.lsp(bufnr)
 	end
 
 	local opts = { buffer = bufnr }
-	api.nmap("grr", vim.lsp.buf.rename, gen_desc("[R]e[n]ame"), opts)
-	api.nmap("gra", vim.lsp.buf.code_action, gen_desc("[C]ode [A]ction"), opts)
-	api.vmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range [C]ode [A]ction"), opts)
+	api.nmap("grr", vim.lsp.buf.rename, gen_desc("Rename"), opts)
+	api.nmap("gra", vim.lsp.buf.code_action, gen_desc("Code Action"), opts)
+	api.vmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range Code Action"), opts)
 
-	api.nmap("gd", vim.lsp.buf.definition, gen_desc("[G]oto [D]efinition"), opts)
-	api.nmap("gr", require("telescope.builtin").lsp_references, gen_desc("Goto references"), opts)
-	api.nmap("gI", vim.lsp.buf.implementation, gen_desc("[G]oto [I]mplementation"), opts)
-	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type [D]efinition"), opts)
-	api.nmap("<leader>fs", require("telescope.builtin").lsp_document_symbols, gen_desc("Document symbols"), opts)
-	api.nmap(
-		"<leader>fS",
-		require("telescope.builtin").lsp_dynamic_workspace_symbols,
-		gen_desc("Workspace symbols"),
-		opts
-	)
+	api.nmap("gd", vim.lsp.buf.definition, gen_desc("Goto Definition"), opts)
+	api.nmap("gr", "<CMD>FzfLua lsp_references<CR>", gen_desc("Goto references"), opts)
+	api.nmap("gI", vim.lsp.buf.implementation, gen_desc("Goto Implementation"), opts)
+	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type Definition"), opts)
+	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CMD>", gen_desc("Document symbols"), opts)
+	api.nmap("<leader>fS", "CMD>FzfLua lsp_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
 
 	-- See `:help K` for why tis keymap
 	api.nmap("K", vim.lsp.buf.hover, gen_desc("Hover Documentation"), opts)
@@ -193,41 +188,20 @@ function M.cellular_automation()
 end
 
 function M.fzf()
-	api.nmap("<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", "Open file finder [fzf-lua]")
-	api.nmap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<CR>", "Open old files history [fzf-lua]")
-end
-
-function M.telescope()
-	api.nmap("<leader>rr", "<CMD>Telescope resume<CR>", "Open last picker [telescope]")
-	api.nmap("<leader>fd", "<CMD>Telescope diagnostics<CR>", "Find project [d]iagnostics [telescope]")
-	api.nmap("<leader>fg", "<CMD>Telescope live_grep <CR>", "[F]ind by [g]rep pattern [telescope]")
-	api.nmap("<leader>bb", "<CMD>Telescope buffers <CR>", "Buffer list [telescope]")
-	api.nmap("<leader>fh", "<CMD>Telescope help_tags <CR>", "[F]ind [h]elp tags [telescope]")
-	api.nmap("<leader>?", "<CMD>Telescope keymaps <CR>", "List all active mappings [telescope]")
-	api.nmap("<leader>gb", "<CMD>Telescope git_branches <CR>", "Show [g]it [b]ranches [telescope]")
-	api.nmap("<leader>gc", "<CMD>Telescope git_commits <CR>", "Show git commits [telescope]")
-	api.nmap("<leader>gt", "<CMD>Telescope git_status <CR>", "Run [g]it [s]tatus")
-	api.nmap("<leader>sc", "<CMD>Telescope spell_suggest <CR>", "Suggest spelling [telescope]")
-	api.nmap("<leader>fc", "<CMD>Telescope dotfiles <CR>", "List all dotfiles [telescope]") -- custom extension
-	api.nmap(
-		"<leader>ghp",
-		"<CMD>Telescope gh pull_request <CR>",
-		"List all open [G]ithub [p]ull [r]equests [telescope]"
-	)
-	api.nmap("<leader>ghi", "<CMD>Telescope gh issues <CR>", "List all open Github issues [telescope]")
-	api.nmap(
-		"<leader>ghc",
-		"<CMD>Telescope gh pull_request state=closed<CR>",
-		"List all closed Github pull requests [telescope]"
-	)
-	api.nmap("<leader>fc", function()
-		require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-			winblend = 10,
-			previewer = false,
-		}))
-	end, "[/] Search in current buffer]")
-
-	api.nmap("<leader>th", "<CMD>Telescope colorscheme<CR>", "Toggle colorscheme [telescope]")
+	api.nmap("<leader>ff", "<CMD>FzfLua files<CR>", "Open file finder [fzf-lua]")
+	api.nmap("<leader>fo", "<cmd>FzfLua oldfiles<CR>", "Open old files history [fzf-lua]")
+	api.nmap("<leader>rr", "<CMD>FzfLua resume<CR>", "Open last picker [fzf-lua]")
+	api.nmap("<leader>fd", "<CMD>FzfLua diagnostics_workspace<CR>", "Find project diagnostics [fzf-lua]")
+	api.nmap("<leader>fg", "<CMD>FzfLua live_grep <CR>", "Find by grep pattern [fzf-lua]")
+	api.nmap("<leader>bb", "<CMD>FzfLua buffers <CR>", "Buffer list [fzf-lua]")
+	api.nmap("<leader>fh", "<CMD>FzfLua helptags <CR>", "Find help tags [fzf-lua]")
+	api.nmap("<leader>?", "<CMD>FzfLua keymaps<CR>", "List all active mappings [fzf-lua]")
+	api.nmap("<leader>gb", "<CMD>FzfLua git_branches <CR>", "Show git branches [fzf-lua]")
+	api.nmap("<leader>gc", "<CMD>FzfLua git_commits <CR>", "Show git commits [fzf-lua]")
+	api.nmap("<leader>gt", "<CMD>FzfLua git_status <CR>", "Run git status [fzf-lua]")
+	api.nmap("<leader>sc", "<CMD>FzfLua spell_suggest <CR>", "Suggest spelling [fzf-lua]")
+	api.nmap("<leader>fc", "<CMD>FzfLua grep_curbuf<CR>", "Fuzzy find in buffer [fzf-lua]")
+	api.nmap("<leader>th", "<CMD>FzfLua colorscheme<CR>", "Colorscheme picker [fzf-lua]")
 end
 
 function M.ufo()

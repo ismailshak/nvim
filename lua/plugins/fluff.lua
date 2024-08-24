@@ -33,14 +33,14 @@ return {
 					{
 						icon = "  ",
 						desc = "Find file                               ",
-						action = "lua require('fzf-lua').files()",
+						action = "FzfLua files",
 						key = "f",
 						keymap = "SPC f f",
 					},
 					{
 						icon = "󰟵  ",
 						desc = "Find word                               ",
-						action = "Telescope live_grep",
+						action = "FzfLua live_grep",
 						key = "g",
 						keymap = "SPC f g",
 					},
@@ -78,7 +78,7 @@ return {
 					{
 						icon = "  ",
 						desc = "Open doftile                            ",
-						action = "Telescope dotfiles",
+						action = "Dotfiles",
 						key = "o",
 					},
 				},
