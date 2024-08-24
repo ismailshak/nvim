@@ -80,12 +80,12 @@ function M.lsp(bufnr)
 	end
 
 	local opts = { buffer = bufnr }
-	api.nmap("grr", vim.lsp.buf.rename, gen_desc("Rename"), opts)
+	api.nmap("grn", vim.lsp.buf.rename, gen_desc("Rename"), opts)
 	api.nmap("gra", vim.lsp.buf.code_action, gen_desc("Code Action"), opts)
 	api.vmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range Code Action"), opts)
+	api.nmap("grr", "<CMD>FzfLua lsp_references<CR>", gen_desc("Goto references"), opts)
 
 	api.nmap("gd", vim.lsp.buf.definition, gen_desc("Goto Definition"), opts)
-	api.nmap("gr", "<CMD>FzfLua lsp_references<CR>", gen_desc("Goto references"), opts)
 	api.nmap("gI", vim.lsp.buf.implementation, gen_desc("Goto Implementation"), opts)
 	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type Definition"), opts)
 	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CMD>", gen_desc("Document symbols"), opts)
