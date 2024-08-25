@@ -492,6 +492,7 @@ return {
 			"<leader>fo",
 			"<leader>fd",
 			"<leader>fg",
+			"<leader>fh",
 			"<leader>bb",
 			"<leader>?",
 			"<leader>fc",
