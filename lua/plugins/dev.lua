@@ -361,6 +361,7 @@ return {
 					fields = { "kind", "abbr" },
 					format = function(_, vim_item)
 						vim_item.kind = icons.kinds[vim_item.kind] or ""
+						vim_item.menu = ""
 						return vim_item
 					end,
 				},
