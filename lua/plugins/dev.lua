@@ -283,6 +283,20 @@ return {
 		end,
 	},
 
+	-- CircleCI integration
+	{
+		"ismailshak/circleci.nvim",
+		lazy = false,
+		---@type circleci.Config
+		opts = {
+			api_token = "CIRCLECI_TOKEN",
+		},
+		config = function(_, opts)
+			vim.keymap.set("n", "<leader>ci", "<cmd>CircleCI panel toggle<cr>", { noremap = true, silent = true })
+			require("circleci").setup(opts)
+		end,
+	},
+
 	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",

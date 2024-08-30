@@ -9,6 +9,7 @@ function M.plugins()
 	M.dap_ui()
 	M.octo()
 	M.dadbod()
+	M.circleci()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -72,6 +73,13 @@ end
 function M.octo()
 	local hi = api.get_highlight("TabLine")
 	api.hi("OctoEditable", { bg = hi.bg })
+end
+
+---Overrides highlights for 'ismailshak/circleci.nvim'
+function M.circleci()
+	local constant = api.get_highlight("Constant")
+	api.hi("CircleCIPanelWinBar", { fg = constant.fg, bold = true })
+	api.hi("CircleCIPanelWinBarNC", { fg = constant.fg })
 end
 
 ---Overrides highlights for the provided colorscheme
