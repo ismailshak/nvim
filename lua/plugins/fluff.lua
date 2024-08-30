@@ -92,6 +92,9 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
 		opts = {
 			cmdline = { enabled = false },
 			messages = { enabled = false },
@@ -101,11 +104,11 @@ return {
 				progress = { enabled = false },
 				override = {
 					-- override the default lsp markdown formatter with Noice
-					["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 					-- override the lsp markdown formatter with Noice
-					["vim.lsp.util.stylize_markdown"] = false,
+					["vim.lsp.util.stylize_markdown"] = true,
 					-- override cmp documentation with Noice (needs the other options to work)
-					["cmp.entry.get_documentation"] = false,
+					["cmp.entry.get_documentation"] = true,
 				},
 				hover = {
 					enabled = true,
@@ -135,13 +138,16 @@ return {
 					},
 				},
 			},
+			views = {
+				hover = {
+					size = {
+						max_width = 80,
+					},
+				},
+			},
 			presets = {
 				lsp_doc_border = true, -- add a border to hover docs and signature help
 			},
-		},
-		dependencies = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-			"MunifTanjim/nui.nvim",
 		},
 	},
 
