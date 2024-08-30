@@ -95,6 +95,7 @@ return {
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 		},
+		tag = "v4.4.7",
 		opts = {
 			cmdline = { enabled = false },
 			messages = { enabled = false },
