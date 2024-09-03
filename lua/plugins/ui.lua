@@ -502,14 +502,15 @@ return {
 		config = function()
 			mappings.fzf()
 
-			local gen_ignore_list = function()
-				local args = ""
-				for _, dir in ipairs(ignore_list) do
-					args = args .. " --exclude " .. dir
-				end
+			local fd_ignore = ""
+			local rg_ignore = "";
 
-				return args
-			end
+			(function()
+				for _, dir in ipairs(ignore_list) do
+					fd_ignore = fd_ignore .. " --exclude " .. dir
+					rg_ignore = rg_ignore .. " --glob '!" .. dir .. "'"
+				end
+			end)()
 
 			require("fzf-lua").setup({
 				"borderless_full",
@@ -527,7 +528,7 @@ return {
 					file_icons = true,
 					color_icons = true,
 					formatter = "path.filename_first",
-					fd_opts = "--no-ignore --type f --hidden --follow" .. gen_ignore_list(),
+					fd_opts = require("fzf-lua").defaults.files.fd_opts .. fd_ignore,
 					actions = {
 						["ctrl-g"] = false,
 					},
@@ -536,6 +537,7 @@ return {
 					prompt = icons.pickers.search .. "  ",
 					formatter = "path.filename_first",
 					header = "\t",
+					rg_opts = rg_ignore .. require("fzf-lua.defaults").defaults.grep.rg_opts,
 				},
 				winopts = {
 					preview = {
