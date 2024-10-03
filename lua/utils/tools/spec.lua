@@ -5,6 +5,7 @@ return {
 		"cssls",
 		"dockerls",
 		"eslint",
+		"graphql",
 		"html",
 		"jsonls",
 		"lua_ls",

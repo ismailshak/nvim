@@ -71,6 +71,13 @@ function M.configure_servers()
 		commands = require("utils.tools.settings.tsserver").commands,
 	})
 
+	require("lspconfig").eslint.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities,
+		filetypes = require("utils.tools.settings.eslint").filetypes,
+		settings = require("utils.tools.settings.eslint").settings,
+	})
+
 	require("lspconfig").jsonls.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,

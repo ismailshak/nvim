@@ -112,6 +112,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 -- Set a filetype for terminal buffers
 autocmd("TermOpen", {
+	group = CUSTOM_GROUP_ID,
 	callback = function()
 		vim.cmd.set("filetype=term")
 	end,
