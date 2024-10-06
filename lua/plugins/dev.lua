@@ -373,10 +373,18 @@ return {
 				formatting = {
 					expandable_indicator = true,
 					fields = { "kind", "abbr" },
-					format = function(_, vim_item)
-						vim_item.kind = icons.kinds[vim_item.kind] or ""
-						vim_item.menu = ""
-						return vim_item
+					format = function(entry, item)
+						local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+
+						item.kind = icons.kinds[item.kind] or ""
+						item.menu = ""
+
+						if color_item.abbr_hl_group then
+							item.kind_hl_group = color_item.abbr_hl_group
+							item.kind = color_item.abbr
+						end
+
+						return item
 					end,
 				},
 				-- order matters, it will appear in that order in the completion menu (using its own custom weighting system)

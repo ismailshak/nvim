@@ -298,6 +298,26 @@ return {
 		end,
 	},
 
+	-- Color editing modal
+	{ "nvchad/minty", dependencies = { { "nvchad/volt" } } },
+
+	-- Highlight colors in the buffer
+	{
+		"brenoprata10/nvim-highlight-colors",
+		event = "BufEnter",
+		opts = {
+			render = "virtual",
+			virtual_symbol = "󱓻",
+			virtual_symbol_prefix = "",
+			virtual_symbol_suffix = " ",
+			virtual_symbol_position = "inline",
+			enable_named_colors = true,
+			enable_tailwind = true,
+			exclude_filetypes = {},
+			exclude_buftypes = {},
+		},
+	},
+
 	{
 		"kyazdani42/nvim-tree.lua",
 		cmd = "NvimTreeFindFileToggle",
