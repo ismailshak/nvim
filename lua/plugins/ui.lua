@@ -16,6 +16,8 @@ local ignore_list = {
 	"node_modules",
 	"out",
 	"target",
+	"*.bundle.js",
+	"*.bundle.js.map",
 }
 
 return {
@@ -522,12 +524,13 @@ return {
 		config = function()
 			mappings.fzf()
 
-			local fd_flags = ""
-			local rg_flags = "--no-ignore --hidden"
+			local fd_opts = "--color=never --type f --no-ignore --hidden --follow"
+			local rg_opts =
+				"--column --line-number --no-heading --color=always --smart-case --hidden --no-ignore --follow"
 
 			for _, dir in ipairs(ignore_list) do
-				fd_flags = fd_flags .. " --exclude " .. dir
-				rg_flags = rg_flags .. " --glob '!" .. dir .. "'"
+				fd_opts = fd_opts .. " --exclude " .. dir
+				rg_opts = rg_opts .. " -g '!" .. dir .. "'"
 			end
 
 			require("fzf-lua").setup({
@@ -546,7 +549,7 @@ return {
 					file_icons = true,
 					color_icons = true,
 					formatter = "path.filename_first",
-					fd_opts = require("fzf-lua").defaults.files.fd_opts .. fd_flags,
+					fd_opts = fd_opts,
 					actions = {
 						["ctrl-g"] = false,
 					},
@@ -555,11 +558,12 @@ return {
 					prompt = icons.pickers.search .. "  ",
 					formatter = "path.filename_first",
 					header = "\t",
-					rg_opts = rg_flags .. require("fzf-lua.defaults").defaults.grep.rg_opts,
+					rg_opts = rg_opts,
 				},
 				winopts = {
 					preview = {
 						layout = "vertical",
+						vertical = "down:60%",
 						winopts = {
 							number = false,
 						},
