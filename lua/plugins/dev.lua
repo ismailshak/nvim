@@ -300,7 +300,7 @@ return {
 	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",
-		lazy = false,
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp", -- lsp completions
 			"hrsh7th/cmp-buffer", -- buffer completions

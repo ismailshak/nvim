@@ -80,14 +80,14 @@ return {
 
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
-		lazy = false,
+		event = "BufReadPost",
 		dependencies = {
-			-- Automatically install LSPs to stdpath for neovim
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"hrsh7th/nvim-cmp",
-			"j-hui/fidget.nvim",
+			-- Exposing cmd so that it can be triggered by a new installation to grab all required tooling
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim", cmd = "MasonToolsInstallSync" },
+
+			"williamboman/mason.nvim", -- Install LSPs and tools to neovim's stdpath
+			"williamboman/mason-lspconfig.nvim", -- Closes gap between mason.nvim and lspconfig
+			"j-hui/fidget.nvim", -- Notification UI for LSP messages
 		},
 		config = function()
 			installer.setup_mason()
@@ -113,6 +113,14 @@ return {
 			},
 			{
 				"leoluz/nvim-dap-go",
+				keys = {
+					"<leader>du",
+					"<leader>dd",
+					"<leader>dt",
+					"<leader>db",
+					"<leader>dc",
+					"<leader>dl",
+				},
 				ft = "go",
 			},
 			"theHamsta/nvim-dap-virtual-text",

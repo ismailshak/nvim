@@ -22,8 +22,8 @@ return {
 	-- All the dev icons that render
 	{
 		"nvim-tree/nvim-web-devicons",
-		priority = 1000,
-		lazy = false,
+		priority = 1000, -- Load this first since it's used by a ton of things
+		event = "VeryLazy", -- Not needed right away though
 		opts = {
 			override_by_extension = ui.get_ft_icon_overrides(),
 		},
@@ -84,7 +84,7 @@ return {
 		"ismailshak/barbecue.nvim",
 		name = "barbecue",
 		branch = "cherry-picked", -- Combines 2 open PRs on upstream
-		event = "VeryLazy",
+		event = "BufReadPost",
 		dependencies = {
 			"SmiteshP/nvim-navic",
 			"nvim-tree/nvim-web-devicons",
@@ -99,8 +99,6 @@ return {
 	-- Useful UI for LSP progress
 	{
 		"j-hui/fidget.nvim",
-		lazy = false,
-
 		opts = {
 			progress = {
 				display = {
@@ -313,7 +311,7 @@ return {
 			virtual_symbol_position = "inline",
 			enable_named_colors = true,
 			enable_tailwind = true,
-			exclude_filetypes = {},
+			exclude_filetypes = { "lazy" },
 			exclude_buftypes = {},
 		},
 	},

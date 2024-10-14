@@ -142,4 +142,16 @@ function M.is_integer(str)
 	return string.match(str, "^[1-9]%d*$") ~= nil
 end
 
+---Converts a screen percentage to a width in columns
+---@param percentage number The percentage of the screen horizontally
+function M.percentage_as_width(percentage)
+	return math.floor(vim.o.columns * (percentage / 100))
+end
+
+---Converts a screen percentage to a height in lines
+---@param percentage number The percentage of the screen vertically
+function M.percentage_as_height(percentage)
+	return math.floor(vim.o.lines * (percentage / 100))
+end
+
 return M

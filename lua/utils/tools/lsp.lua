@@ -6,7 +6,6 @@ local tools = require("utils.tools.spec")
 
 function M.setup_lsp()
 	M.setup_diagnostics()
-	M.configure_floating_window()
 	M.configure_cmp()
 	M.configure_servers()
 end
@@ -26,13 +25,18 @@ function M.setup_diagnostics()
 	vim.diagnostic.config(diagnosticsConfig)
 end
 
+-- Not used and float handling is done by noice.nvim
 function M.configure_floating_window()
 	-- Fix floating window styles
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 		border = "rounded",
+		max_width = utils.percentage_as_width(60),
+		max_height = utils.percentage_as_width(40),
 	})
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "rounded",
+		max_width = utils.percentage_as_width(50),
+		max_height = utils.percentage_as_width(40),
 	})
 end
 
