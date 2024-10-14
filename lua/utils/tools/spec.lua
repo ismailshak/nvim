@@ -10,7 +10,6 @@ return {
 		"jsonls",
 		"lua_ls",
 		"marksman",
-		"tsserver",
 		"typos_lsp",
 		"yamlls",
 	},

@@ -78,6 +78,17 @@ return {
 		init = formatting.init,
 	},
 
+	-- Lua-based Typescript LSP
+	{
+		"pmizio/typescript-tools.nvim",
+		event = "BufReadPost",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {
+			publish_diagnostic_on = "change",
+			expose_as_code_action = "all",
+		},
+	},
+
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		event = "BufReadPost",

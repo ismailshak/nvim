@@ -69,12 +69,6 @@ function M.configure_servers()
 
 	-- Overriding specific server configs below
 
-	require("lspconfig").tsserver.setup({
-		on_attach = M.on_attach,
-		capabilities = M.capabilities,
-		commands = require("utils.tools.settings.tsserver").commands,
-	})
-
 	require("lspconfig").eslint.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
