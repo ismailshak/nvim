@@ -193,7 +193,9 @@ return {
 			"nvim-lua/plenary.nvim",
 			{ "petertriho/cmp-git", opts = {} }, -- Mainly for user and PR number auto complete
 		},
-		opts = {},
+		opts = {
+			picker = "fzf-lua",
+		},
 	},
 
 	-- Better diff view
