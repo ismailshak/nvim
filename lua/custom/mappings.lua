@@ -66,6 +66,12 @@ api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of
 
 api.tmap("<Esc>", "<C-\\><C-n>", "Escape terminal mode")
 
+-- Convenient mouse handling
+api.nmap("<RightMouse>", "<LeftMouse><CMD>lua vim.lsp.buf.hover()<CR>", "Open hover documentation [mouse]")
+api.nmap("<2-LeftMouse>", "<LeftMouse><CMD>lua vim.lsp.buf.definition()<CR>", "Go to definition [mouse]")
+api.nmap("<M-ScrollWheelUp>", "<C-i>", "Go forward in jump list [mouse]")
+api.nmap("<M-ScrollWheelDown>", "<C-o>", "Go back in jump list [mouse]")
+
 ------------------------------
 -- PLUGIN SPECIFIC MAPPINGS --
 ------------------------------
