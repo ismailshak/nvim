@@ -10,6 +10,7 @@ function M.plugins()
 	M.octo()
 	M.dadbod()
 	M.circleci()
+	M.copilot_chat()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -80,6 +81,12 @@ function M.circleci()
 	local constant = api.get_highlight("Constant")
 	api.hi("CircleCIPanelWinBar", { fg = constant.fg, bold = true })
 	api.hi("CircleCIPanelWinBarNC", { fg = constant.fg })
+end
+
+function M.copilot_chat()
+	api.hi("CopilotChatHeader", { link = "Function" })
+	api.hi("CopilotChatHelp", { link = "Comment" })
+	api.hi("CopilotChatSeparator", { link = "Comment" })
 end
 
 ---Overrides highlights for the provided colorscheme

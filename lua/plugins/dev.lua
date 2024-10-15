@@ -53,21 +53,27 @@ return {
 			{ "<leader>cc", mode = { "n", "x" } },
 			{ "<leader>ch", mode = { "n", "x" } },
 			{ "<leader>cv", mode = { "n", "x" } },
+			{ "<leader>C", mode = { "n", "x" } },
+			{ "<leader>cq", mode = { "n", "x" } },
+			{ "<leader>cfh", mode = { "n", "x" } },
+			{ "<leader>cfp", mode = { "n", "x" } },
 		},
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" },
 			{ "nvim-lua/plenary.nvim" },
 		},
 		opts = {
-			question_header = icons.copilot.prompt,
-			answer_header = icons.copilot.response,
-			error_header = icons.copilot.error,
-			separator = "  ━━━━━━━━",
+			question_header = icons.copilot.prompt .. "  ",
+			answer_header = icons.copilot.response .. "  ",
+			error_header = icons.copilot.error .. "  ",
+			separator = "⎯⎯⎯⎯⎯⎯⎯⎯⎯",
 			show_help = false,
 			show_folds = false,
 			auto_insert_mode = true,
+			insert_at_end = true,
 			window = {
 				layout = "vertical",
+				width = 0.35,
 			},
 			mappings = {
 				reset = {
@@ -319,6 +325,8 @@ return {
 			require("luasnip/loaders/from_vscode").lazy_load()
 			require("luasnip.loaders.from_snipmate").lazy_load()
 
+			require("CopilotChat.integrations.cmp").setup()
+
 			-- for "super tab" below
 			local check_backspace = function()
 				local col = vim.fn.col(".") - 1
@@ -375,6 +383,10 @@ return {
 					fields = { "kind", "abbr" },
 					format = function(entry, item)
 						local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+
+						if entry.source.name == "copilot-chat" then
+							item.kind = "Copilot"
+						end
 
 						item.kind = icons.kinds[item.kind] or ""
 						item.menu = ""

@@ -61,6 +61,7 @@ return {
 		Event = "  ",
 		Operator = "  ",
 		TypeParameter = "  ",
+		Copilot = " ",
 	},
 	pickers = {
 		search = "",
