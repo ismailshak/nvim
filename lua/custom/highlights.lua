@@ -219,6 +219,8 @@ function M.icberg_telescope(is_dark)
 		api.hi("TelescopePreviewNormal", { bg = telescope_bg })
 		api.hi("TelescopePreviewBorder", { fg = telescope_bg, bg = telescope_bg })
 	else
+		api.hi("CurSearch", { bg = "#d07f47", fg = "#6c3c1b" })
+
 		local telescope_bg = "#e0e2e6"
 		local telescope_prompt_bg = "#d3d8e4"
 
