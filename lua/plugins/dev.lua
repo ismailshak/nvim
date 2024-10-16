@@ -1,5 +1,6 @@
 local mappings = require("custom.mappings")
 local icons = require("utils.icons")
+local utils = require("utils.helpers")
 local settings = require("custom.settings")
 
 -- Core plugins used when actually typing/navigating
@@ -429,6 +430,119 @@ return {
 				experimental = {
 					ghost_text = false, -- virtual text that spells out the remaining chars for a completion
 					native_menu = false,
+				},
+			})
+		end,
+	},
+
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+
+			-- adapters
+			"thenbe/neotest-playwright",
+		},
+		lazy = false,
+		keys = {
+			"<leader>t",
+			"<leader>tt",
+			"<leader>tT",
+			"<leader>tr",
+			"<leader>tl",
+			"<leader>ts",
+			"<leader>to",
+			"<leader>tO",
+			"<leader>tS",
+			"<leader>tw",
+		},
+		config = function()
+			mappings.neotest()
+
+			---@diagnostic disable-next-line: missing-fields
+			require("neotest").setup({
+				status = { virtual_text = true },
+				output = { open_on_run = true, enabled = true },
+				output_panel = { open = "botright split | resize 30", enabled = true },
+				watch = {
+					enabled = true,
+					symbol_queries = {
+						go = "        ;query\n        ;Captures imported types\n        (qualified_type name: (type_identifier) @symbol)\n        ;Captures package-local and built-in types\n        (type_identifier)@symbol\n        ;Captures imported function calls and variables/constants\n        (selector_expression field: (field_identifier) @symbol)\n        ;Captures package-local functions calls\n        (call_expression function: (identifier) @symbol)\n      ",
+						javascript = '  ;query\n  ;Captures named imports\n  (import_specifier name: (identifier) @symbol)\n  ;Captures default import\n  (import_clause (identifier) @symbol)\n  ;Capture require statements\n  (variable_declarator \n  name: (identifier) @symbol\n  value: (call_expression (identifier) @function  (#eq? @function "require")))\n  ;Capture namespace imports\n  (namespace_import (identifier) @symbol)\n',
+						lua = '        ;query\n        ;Captures module names in require calls\n        (function_call\n          name: ((identifier) @function (#eq? @function "require"))\n          arguments: (arguments (string) @symbol))\n      ',
+						rust = "        ;query\n        ;submodule import\n        (mod_item\n          name: (identifier) @symbol)\n        ;single import\n        (use_declaration\n          argument: (scoped_identifier\n            name: (identifier) @symbol))\n        ;import list\n        (use_declaration\n          argument: (scoped_use_list\n            list: (use_list\n                [(scoped_identifier\n                   path: (identifier)\n                   name: (identifier) @symbol)\n                 ((identifier) @symbol)])))\n        ;wildcard import\n        (use_declaration\n          argument: (scoped_use_list\n            path: (identifier)\n            [(use_list\n              [(scoped_identifier\n                path: (identifier)\n                name: (identifier) @symbol)\n                ((identifier) @symbol)\n              ])]))\n      ",
+						tsx = '  ;query\n  ;Captures named imports\n  (import_specifier name: (identifier) @symbol)\n  ;Captures default import\n  (import_clause (identifier) @symbol)\n  ;Capture require statements\n  (variable_declarator \n  name: (identifier) @symbol\n  value: (call_expression (identifier) @function  (#eq? @function "require")))\n  ;Capture namespace imports\n  (namespace_import (identifier) @symbol)\n',
+						typescript = '  ;query\n  ;Captures named imports\n  (import_specifier name: (identifier) @symbol)\n  ;Captures default import\n  (import_clause (identifier) @symbol)\n  ;Capture require statements\n  (variable_declarator \n  name: (identifier) @symbol\n  value: (call_expression (identifier) @function  (#eq? @function "require")))\n  ;Capture namespace imports\n  (namespace_import (identifier) @symbol)\n',
+					},
+				},
+				adapters = {
+					require("neotest-playwright").adapter({
+						options = {
+							persist_project_selection = true,
+							enable_dynamic_test_discovery = true,
+							get_cwd = function()
+								print("GETTING CWD")
+								local cwd = utils.cwd()
+
+								if vim.fn.filereadable(cwd .. "/pnpm-workspace.yaml") == 1 then
+									local bin = utils.find_up("playwright.config.ts")
+									if bin then
+										local wd = utils.dirname(bin)
+										vim.notify(
+											"Spawning playwrigh at: " .. utils.shorten_path(wd, 100),
+											vim.log.levels.INFO
+										)
+										return wd
+									end
+								end
+
+								vim.notify("Spawning playwright at cwd", vim.log.levels.INFO)
+								return cwd
+							end,
+							get_playwright_binary = function()
+								print("GETTING BIN")
+								if utils.which("playwright") == 1 then
+									vim.notify("Using pnpm on PATH", vim.log.levels.INFO)
+									return "playwright"
+								end
+
+								local cwd = utils.cwd()
+								if vim.fn.filereadable(cwd .. "/pnpm-workspace.yaml") == 1 then
+									local bin = utils.find_up("node_modules/.bin/playwright")
+									if bin then
+										vim.notify(
+											"Using pnpm from: " .. utils.shorten_path(bin, 100),
+											vim.log.levels.INFO
+										)
+										return bin
+									end
+								end
+
+								vim.notify("Using playwright from cwd node_modules", vim.log.levels.INFO)
+								return cwd .. "/node_modules/.bin/playwright"
+							end,
+							get_playwright_config = function()
+								print("GETTING CONFIG")
+								local config = utils.find_up("playwright.config.ts")
+								if config then
+									vim.notify(
+										"Found playwright config: " .. utils.shorten_path(config, 100),
+										vim.log.levels.INFO
+									)
+
+									return config
+								end
+
+								return vim.loop.cwd() .. "/playwright.config.ts"
+							end,
+						},
+					}),
+				},
+				consumers = {
+					playwright = require("neotest-playwright.consumers").consumers,
 				},
 			})
 		end,

@@ -12,6 +12,13 @@ function M.cwd()
 	return vim.fn.getcwd()
 end
 
+---Returns true if the executable was found on the system
+---@param executable string
+---@return boolean
+function M.which(executable)
+	return vim.fn.executable(executable) == 1
+end
+
 ---Return the absolute path of the current file
 ---@return string
 function M.full_path()
@@ -67,6 +74,45 @@ end
 function M.wrap_string(str, left, right)
 	local l, r = left or '"', right or '"'
 	return l .. str .. r
+end
+
+---Shorten a path to n characters and add ellipsis at the beginning/end
+---@param path string The path to shorten
+---@param n? number The length to shorten the path to. (default 20)
+---@param side? string The side to shorten from. (default 'end')
+function M.shorten_path(path, n, side)
+	if n == nil or n < 0 then
+		n = 20
+	end
+
+	side = M.trim(side or "")
+	if side == nil or side == "" then
+		side = "end"
+	end
+
+	if #path <= n then
+		return path
+	end
+
+	local ellipsis = "..."
+	if side == "end" then
+		return ellipsis .. path:sub(#path - n + #ellipsis + 1)
+	else
+		return path:sub(1, n - #ellipsis) .. ellipsis
+	end
+end
+
+--- Returns the directory path of a given file path
+--- @param path string The file path
+--- @return string The directory path
+function M.dirname(path)
+	if path == nil or path == "" then
+		return ""
+	end
+
+	local path_sep = package.config:sub(1, 1)
+	local dir = path:match("^(.*" .. path_sep .. ")")
+	return dir or ""
 end
 
 ---Check if value exists in table
@@ -152,6 +198,63 @@ end
 ---@param percentage number The percentage of the screen vertically
 function M.percentage_as_height(percentage)
 	return math.floor(vim.o.lines * (percentage / 100))
+end
+
+---Checks if a file or directory exists at path
+---@param path string The path to check
+---@return boolean True if the file or directory exists
+function M.file_exists(path)
+	local stat = vim.uv.fs_stat(path)
+	return stat and (stat.type == "file" or stat.type == "directory") or false
+end
+
+---Check if a file or directory exists in the current directory or any parent directory.
+---
+---This will start from the open buffer's directory and search upwards.
+---@param filename string
+---@param stop_dir? string The directory to stop searching at (defaults to '.git')
+---@return string|nil The path to the file or nil if not found
+function M.find_up(filename, stop_dir)
+	stop_dir = M.trim(stop_dir or "")
+	if not stop_dir or stop_dir == "" then
+		stop_dir = ".git"
+	end
+
+	local uv = vim.uv or vim.loop
+	local cwd = vim.fn.expand("%:p:h")
+	local path_sep = package.config:sub(1, 1)
+
+	-- Join path segments using the system's path separator
+	local function path_join(...)
+		return table.concat({ ... }, path_sep)
+	end
+
+	-- Recursively search upwards for the file or directory
+	local function search_upwards(dir)
+		if vim.fs.basename(dir) == stop_dir then
+			return dir
+		end
+
+		local file_path = path_join(dir, filename)
+		if M.file_exists(file_path) then
+			return file_path
+		end
+
+		if dir == vim.fn.expand("$HOME") then
+			return nil
+		end
+
+		if M.includes(dir, stop_dir) then
+			return nil
+		end
+
+		local parent_dir = uv.fs_realpath(path_join(dir, ".."))
+		if parent_dir and parent_dir ~= dir then
+			return search_upwards(parent_dir)
+		end
+	end
+
+	return search_upwards(cwd)
 end
 
 return M
