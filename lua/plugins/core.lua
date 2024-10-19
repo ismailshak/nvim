@@ -91,7 +91,7 @@ return {
 
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
-		event = "BufReadPost",
+		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
 			-- Exposing cmd so that it can be triggered by a new installation to grab all required tooling
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim", cmd = "MasonToolsInstallSync" },
