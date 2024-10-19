@@ -15,10 +15,6 @@ end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
 function M.dashboard()
-	-- Override floating window colors
-	api.hi("NormalFloat", { link = "Normal" })
-	api.hi("FloatBorder", { link = "Normal" })
-	-- nvim-dashboard highlights
 	api.hi("DashboardIcon", { fg = "#85A4F2", bg = "none" })
 	api.hi("DashboardShortCut", { fg = "#85A4F2", bg = "none" })
 	api.hi("DashboardFooter", { fg = "#7C7F96", bg = "none" })
@@ -130,7 +126,6 @@ function M.iceberg(is_dark)
 
 	-- Override floating window colors
 	api.hi("NormalFloat", { link = "Normal" })
-	api.hi("FloatBorder", { link = "Normal" })
 
 	-- JSX highlighting
 	api.hi("htmlTagName", { link = "Statement" })
