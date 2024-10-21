@@ -4,8 +4,9 @@ local icons = require("utils.icons")
 local M = {}
 
 M.debuggers = {
-	["js-debug-adapter"] = require("utils.tools.settings.js-debug-adapter"),
 	["delve"] = require("utils.tools.settings.delve"),
+	["js-debug-adapter"] = require("utils.tools.settings.js-debug-adapter"),
+	["codelldb"] = require("utils.tools.settings.codelldb"),
 }
 
 function M.configure_icons()

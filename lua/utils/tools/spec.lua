@@ -32,6 +32,7 @@ return {
 	---Tools that will be hooked up if found on system $PATH (linters/formatters/debuggers)
 	optional_tools = {
 		"clang_format",
+		"codelldb",
 		"delve",
 		"goimports",
 		"ocamlformat",
