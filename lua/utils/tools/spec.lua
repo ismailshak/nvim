@@ -5,7 +5,6 @@ return {
 		"cssls",
 		"dockerls",
 		"eslint",
-		"graphql",
 		"html",
 		"jsonls",
 		"lua_ls",
@@ -25,6 +24,7 @@ return {
 	optional_servers = {
 		"clangd",
 		"gopls",
+		"graphql",
 		"ocamllsp",
 		"rust_analyzer",
 		"svelte",

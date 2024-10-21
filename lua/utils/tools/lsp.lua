@@ -96,7 +96,14 @@ function M.configure_servers()
 	})
 
 	require("lspconfig").typos_lsp.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities,
 		init_options = require("utils.tools.settings.typos_lsp").init_options,
+	})
+
+	require("lspconfig").clangd.setup({
+		on_attach = M.on_attach,
+		capabilities = utils.merge_tables(M.capabilities, { offsetEncoding = { "utf-16" } }),
 	})
 end
 
