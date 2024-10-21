@@ -81,17 +81,30 @@ Below is a list of expandable sections detailing what's needed in order to enabl
 <details>
 <summary>C/C++</summary>
 
-Using your system's package manager, install the following and make sure they're on your `$PATH`:
+<h3>Installer</h3>
+
+Using mason.nvim, you can run the command `:MasonInstall clangd clang-format codelldb`.
+
+<h3>Manual</h3>
+
+Or using your system's package manager, install the following and make sure they're on your `$PATH`:
 
 - `clangd`
 - `clang-format`
+- `codelldb` (debugger, optional)
 
 </details>
 
 <details>
 <summary>Go</summary>
 
-Install go using your method of choice. Then you'll need to install the following:
+<h3>Installer</h3>
+
+Using mason.nvim, you can run the command `:MasonInstall gopls goimports delve`
+
+<h3>Manual</h3>
+
+Or install go using your method of choice. Then you'll need to install the following:
 
 - `gopls` (language server)
 
@@ -105,6 +118,12 @@ go install golang.org/x/tools/gopls@latest
 go install golang.org/x/tools/cmd/goimports@latest
 ```
 
+- `delve` (debugger, optional)
+
+```bash
+go install github.com/go-delve/delve/cmd/dlv@latest
+  ```
+
 Since `$GOPATH` should already be on your `$PATH`, no more configuration is needed
 
 </details>
@@ -112,7 +131,13 @@ Since `$GOPATH` should already be on your `$PATH`, no more configuration is need
 <details>
 <summary>OCaml</summary>
 
-Using your system's package manager, install [`opam`](https://opam.ocaml.org/). Then run the following commands:
+<h3>Installer</h3>
+
+Using mason.nvim, you can run the command `:MasonInstall ocaml-lsp ocamlformat`
+
+<h3>Manual</h3>
+
+Or using your system's package manager, install [`opam`](https://opam.ocaml.org/). Then run the following commands:
 
 - Initialize internals
 
@@ -132,6 +157,12 @@ The path to packages should be automatically added to your `$PATH`, so no more c
 
 <details>
 <summary>Rust</summary>
+
+<h3>Installer</h3>
+
+Using mason.nvim, you'll just install a debugger (optional). `:MasonInstall codelldb`
+
+<h3>Manual</h3>
 
 Install [`rustup`](https://www.rust-lang.org/tools/install) using the method of your choosing. Then run the following commands:
 
