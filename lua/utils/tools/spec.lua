@@ -26,7 +26,7 @@ return {
 		"gopls",
 		"graphql",
 		"ocamllsp",
-		"rust_analyzer",
+		-- "rust_analyzer", -- Handled by 'mrcjkb/rustaceanvim'
 		"svelte",
 	},
 	---Tools that will be hooked up if found on system $PATH (linters/formatters/debuggers)

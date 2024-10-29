@@ -89,12 +89,6 @@ function M.configure_servers()
 		settings = require("utils.tools.settings.elixirls").settings,
 	})
 
-	require("lspconfig").rust_analyzer.setup({
-		on_attach = M.on_attach,
-		capabilities = M.capabilities,
-		settings = require("utils.tools.settings.rust-analyzer").settings,
-	})
-
 	require("lspconfig").typos_lsp.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,

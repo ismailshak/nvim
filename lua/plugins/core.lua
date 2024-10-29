@@ -1,5 +1,6 @@
 local mappings = require("custom.mappings")
 local dap = require("utils.tools.dap")
+local utils = require("utils.helpers")
 local icons = require("utils.icons")
 local formatting = require("utils.tools.formatting")
 local installer = require("utils.tools.installer")
@@ -87,6 +88,32 @@ return {
 			publish_diagnostic_on = "change",
 			expose_as_code_action = "all",
 		},
+	},
+
+	-- Rust tools
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5",
+		lazy = false,
+		opts = {
+			tools = {
+				float_win_config = {
+					border = "rounded",
+					max_width = utils.percentage_as_width(70),
+					max_height = utils.percentage_as_width(20),
+				},
+				hover_actions = {
+					replace_builtin_hover = false,
+				},
+			},
+			server = {
+				default_settings = require("utils.tools.settings.rust-analyzer").settings,
+				on_attach = require("utils.tools.lsp").on_attach,
+			},
+		},
+		config = function(_, opts)
+			vim.g.rustaceanvim = opts
+		end,
 	},
 
 	{ -- LSP Configuration & Plugins
