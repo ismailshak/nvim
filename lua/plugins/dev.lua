@@ -1,6 +1,7 @@
 local mappings = require("custom.mappings")
-local icons = require("utils.icons")
 local settings = require("custom.settings")
+local icons = require("utils.icons")
+local ui = require("utils.ui")
 
 -- Core plugins used when actually typing/navigating
 
@@ -305,132 +306,111 @@ return {
 
 	-- Autocompletion
 	{
-		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter", "CmdlineEnter" },
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp", -- lsp completions
-			"hrsh7th/cmp-buffer", -- buffer completions
-			"hrsh7th/cmp-path", -- path completions
-			"hrsh7th/cmp-cmdline", -- cmdline completions
-			"hrsh7th/cmp-nvim-lua", -- lua completions (helps when working in this dir)
-			-- "hrsh7th/cmp-nvim-lsp-signature-help", -- function signature hints plugin
-			{ "L3MON4D3/LuaSnip", submodules = false }, -- snippet engine
-			"saadparwaiz1/cmp_luasnip", -- snippet completions
-			"rafamadriz/friendly-snippets", -- bunch of snippets to use
+		"saghen/blink.cmp",
+		lazy = false, -- handled by plugin
+		-- version = "v0.*", -- release tags to download pre-built binaries
+		build = "cargo build --release", -- temporarily build from source until draw support is released
+		dependencies = "rafamadriz/friendly-snippets",
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			nerd_font_variant = "mono",
+			kind_icons = icons.kinds,
+			trigger = {
+				completion = {
+					show_on_insert_on_trigger_character = false,
+				},
+			},
+			sources = {
+				providers = {
+					snippets = {
+						name = "Snippets",
+						opts = {
+							extended_filetypes = {
+								javascriptreact = { "javascript" },
+								typescriptreact = { "typescript" },
+							},
+						},
+					},
+				},
+			},
+			windows = {
+				documentation = {
+					min_width = 10,
+					max_width = 60,
+					max_height = 20,
+					border = "rounded",
+					-- note that the gutter will be disabled when border ~= 'none'
+					scrollbar = true,
+					auto_show = true,
+					auto_show_delay_ms = 200,
+				},
+				autocomplete = {
+					min_width = 15,
+					max_height = 10,
+					border = "rounded",
+					selection = "auto_insert",
+					draw = {
+						padding = 1,
+						gap = 1,
+						columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
+						components = {
+							kind_icon = {
+								text = ui.kind_text,
+								highlight = ui.kind_highlight,
+							},
+							label = {
+								width = { fill = true, max = 60 },
+								text = ui.label_text,
+								highlight = ui.label_highlight,
+							},
+
+							label_description = {
+								ellipsis = true,
+								width = { fill = false, max = 30 },
+								text = ui.label_description_text,
+								highlight = "BlinkCmpLabelDescription",
+							},
+						},
+					},
+				},
+			},
+			keymap = {
+				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+				["<C-e>"] = { "hide", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				["<Tab>"] = {
+					function(cmp)
+						if cmp.is_in_snippet() then
+							return cmp.snippet_forward()
+						else
+							return cmp.select_next()
+						end
+					end,
+					"fallback",
+				},
+				["<S-Tab>"] = {
+					function(cmp)
+						if cmp.is_in_snippet() then
+							return cmp.snippet_backward()
+						else
+							return cmp.select_prev()
+						end
+					end,
+					"fallback",
+				},
+				["<C-p>"] = { "select_prev", "fallback" },
+				["<C-n>"] = { "select_next", "fallback" },
+				["<C-b>"] = { "scroll_documentation_up", "fallback" },
+				["<C-f>"] = { "scroll_documentation_down", "fallback" },
+			},
+			-- experimental auto-brackets support
+			-- accept = { auto_brackets = { enabled = true } }
+			-- experimental signature help support
+			-- trigger = { signature_help = { enabled = true } },
 		},
-		config = function()
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-
-			require("luasnip/loaders/from_vscode").lazy_load()
-			require("luasnip.loaders.from_snipmate").lazy_load()
-
-			require("CopilotChat.integrations.cmp").setup()
-
-			-- for "super tab" below
-			local check_backspace = function()
-				local col = vim.fn.col(".") - 1
-				return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-			end
-
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body) -- For `luasnip` users.
-					end,
-				},
-				mapping = {
-					["<C-k>"] = cmp.mapping.select_prev_item(), -- move up in the completions menu
-					["<C-j>"] = cmp.mapping.select_next_item(), -- move down in the completions menu
-					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }), -- scroll up in the snippet screen
-					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }), -- scroll down in the snippets screen
-					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }), -- launch completions menu without typing
-					["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-					["<C-e>"] = cmp.mapping({ -- exit the completions menu
-						i = cmp.mapping.abort(),
-						c = cmp.mapping.close(),
-					}),
-					-- Accept currently selected item. If none selected, `select` first item.
-					-- Set `select` to `false` to only confirm explicitly selected items.
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
-					-- super tab, move through menu or move through snippets
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.expand_or_locally_jumpable() then
-							luasnip.expand_or_jump()
-						elseif check_backspace() then
-							fallback()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, {
-						"i",
-						"s",
-					}),
-				},
-				formatting = {
-					expandable_indicator = true,
-					fields = { "kind", "abbr" },
-					format = function(entry, item)
-						local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
-
-						if entry.source.name == "copilot-chat" then
-							item.kind = "Copilot"
-						end
-
-						item.kind = icons.kinds[item.kind] or ""
-						item.menu = ""
-
-						if color_item.abbr_hl_group then
-							item.kind_hl_group = color_item.abbr_hl_group
-							item.kind = color_item.abbr
-						end
-
-						return item
-					end,
-				},
-				-- order matters, it will appear in that order in the completion menu (using its own custom weighting system)
-				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "vim-dadbod-completion" },
-					{ name = "nvim_lua" },
-					{ name = "git" },
-					{ name = "buffer" },
-					{ name = "luasnip" },
-					{ name = "path" },
-					{
-						name = "lazydev",
-						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-					},
-				},
-				confirm_opts = {
-					behavior = cmp.ConfirmBehavior.Replace,
-					select = false,
-				},
-				window = {
-					documentation = {
-						border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-						winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-					},
-					completion = {
-						winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-					},
-				},
-				experimental = {
-					ghost_text = false, -- virtual text that spells out the remaining chars for a completion
-					native_menu = false,
-				},
-			})
-		end,
+		-- allows extending the enabled_providers array elsewhere in config
+		-- without having to redefine it
+		opts_extend = { "sources.completion.enabled_providers" },
 	},
 }

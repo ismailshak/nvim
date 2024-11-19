@@ -108,7 +108,7 @@ return {
 					-- override the lsp markdown formatter with Noice
 					["vim.lsp.util.stylize_markdown"] = true,
 					-- override cmp documentation with Noice (needs the other options to work)
-					["cmp.entry.get_documentation"] = true,
+					-- ["cmp.entry.get_documentation"] = true, -- TODO: Look into blink.cmp integration later
 				},
 				hover = {
 					enabled = true,

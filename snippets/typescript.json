@@ -1,0 +1,23 @@
+{
+	"(global) console log": {
+		"prefix": "gcl",
+		"body": "global.console.log($1);"
+	},
+	"Doc string": {
+		"prefix": "/**",
+		"body": [
+			"/**",
+			" * ${1:description}",
+			" *",
+			" */"
+		]
+	},
+	"Doc string param": {
+		"prefix": "@param",
+		"body": "@param ${1:name} - ${2:description}"
+	},
+	"Doc string return": {
+		"prefix": "@return",
+		"body": "@return ${1:description}"
+	}
+}

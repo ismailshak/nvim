@@ -187,4 +187,86 @@ M.dashboard_header = {
 	[[]],
 }
 
+---@param ctx blink.cmp.DrawItemContext
+function M.split_label(ctx)
+	local words = utils.split(ctx.label, " ")
+	return words
+end
+
+---@param ctx blink.cmp.DrawItemContext
+function M.should_split(ctx)
+	return ctx.kind ~= "Snippet" or ctx.kind ~= "Keyword"
+end
+
+---@param ctx blink.cmp.DrawItemContext
+function M.label_text(ctx)
+	if not M.should_split(ctx) then
+		return ctx.label
+	end
+
+	local words = M.split_label(ctx)
+	if #words == 1 then
+		return ctx.label
+	end
+
+	return words[1] .. "~"
+end
+
+---@param ctx blink.cmp.DrawItemContext
+function M.label_highlight(ctx)
+	local length = #ctx.label
+	if M.should_split(ctx) then
+		local words = M.split_label(ctx)
+		length = (#words > 1 and #words[1] + 1) or #words[1]
+	end
+
+	local highlights = {
+		{
+			0,
+			length,
+			group = ctx.deprecated and "BlinkCmpLabelDeprecated" or "BlinkCmpLabel",
+		},
+	}
+
+	for _, idx in ipairs(ctx.label_matched_indices) do
+		table.insert(highlights, { idx, idx + 1, group = "BlinkCmpLabelMatch" })
+	end
+
+	return highlights
+end
+
+---@param ctx blink.cmp.DrawItemContext
+function M.label_description_text(ctx)
+	if ctx.kind == "Snippet" or ctx.kind == "Keyword" then
+		return ctx.label_description
+	end
+
+	if ctx.label_description ~= "" then
+		return ctx.label_description
+	end
+
+	local words = M.split_label(ctx)
+	if #words == 1 then
+		return nil
+	end
+
+	table.remove(words, 1)
+	return table.concat(words, " ")
+end
+
+---@param ctx blink.cmp.DrawItemContext
+function M.kind_text(ctx)
+	if ctx.kind ~= "Color" then
+		return ctx.kind_icon .. ctx.icon_gap
+	end
+
+	-- TODO: Integrate with brenoprata10/nvim-highlight-colors
+	return ctx.kind_icon .. ctx.icon_gap
+end
+
+---@param ctx blink.cmp.DrawItemContext
+function M.kind_highlight(ctx)
+	return "BlinkCmpKind" .. ctx.kind
+end
+
 return M

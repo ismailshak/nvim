@@ -1,0 +1,23 @@
+{
+	"Console log using the global namespace": {
+		"prefix": "gcl",
+		"body": "global.console.log($1);"
+	},
+	"Doc string": {
+		"prefix": "/**",
+		"body": [
+			"/**",
+			" * ${1:description}",
+			" *",
+			" */"
+		]
+	},
+	"Doc string param": {
+		"prefix": "@param",
+		"body": "@param {${1:type}} ${2:name} - ${3:description}"
+	},
+	"Doc string return": {
+		"prefix": "@return",
+		"body": "@return {${1:type}} ${2:description}"
+	}
+}

@@ -6,7 +6,7 @@ local tools = require("utils.tools.spec")
 
 function M.setup_lsp()
 	M.setup_diagnostics()
-	M.configure_cmp()
+	M.configure_completion()
 	M.configure_servers()
 end
 
@@ -14,9 +14,9 @@ M.servers = utils.concat_tables(tools.default_servers, tools.optional_servers)
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
----nvim-cmp supports additional completion capabilities
-function M.configure_cmp()
-	M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
+---Wires up LSP completion capabilities with completion plugin
+function M.configure_completion()
+	M.capabilities = require("blink.cmp").get_lsp_capabilities(M.capabilities)
 end
 
 function M.setup_diagnostics()
@@ -93,6 +93,14 @@ function M.configure_servers()
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
 		init_options = require("utils.tools.settings.typos_lsp").init_options,
+	})
+
+	require("lspconfig").cssls.setup({
+		on_attach = M.on_attach,
+		capabilities = utils.merge_tables(
+			M.capabilities,
+			{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
+		),
 	})
 
 	require("lspconfig").clangd.setup({

@@ -193,7 +193,6 @@ return {
 		cmd = "Octo",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			{ "petertriho/cmp-git", opts = {} }, -- Mainly for user and PR number auto complete
 		},
 		opts = {
 			picker = "fzf-lua",

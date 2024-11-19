@@ -11,6 +11,7 @@ function M.plugins()
 	M.dadbod()
 	M.circleci()
 	M.copilot_chat()
+	M.blink()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -85,6 +86,11 @@ function M.copilot_chat()
 	api.hi("CopilotChatSeparator", { link = "Comment" })
 end
 
+---Overrides highlights for 'saghen/blink.cmp'
+function M.blink()
+	api.hi("BlinkCmpDocBorder", { link = "FloatBorder" })
+end
+
 ---Overrides highlights for the provided colorscheme
 ---@param colorscheme theme
 ---@param is_dark boolean
@@ -115,6 +121,13 @@ function M.iceberg(is_dark)
 		api.hi(group, {})
 	end
 
+	----------------------
+	-- Plugin overrides --
+	---------------------------
+
+	M.iceberg_blink()
+	M.icberg_telescope(is_dark)
+
 	--------------------------------
 	-- Global highlight overrides --
 	--------------------------------
@@ -137,8 +150,6 @@ function M.iceberg(is_dark)
 	-- Dynamic highlight overrides --
 	---------------------------------
 
-	M.icberg_telescope(is_dark)
-
 	if is_dark then
 		-- Override syntax colors
 		api.hi("NonText", { fg = "#3f4660" }) -- Virtual text
@@ -153,21 +164,6 @@ function M.iceberg(is_dark)
 
 		-- Override diagnostic colors
 		api.hi("DiagnosticFloatingHint", { link = "Normal" })
-
-		-- Better completion menu coloring
-		api.hi("CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
-		api.hi("CmpItemAbbrMatch", { bg = "NONE", fg = "#B78E6F" })
-		api.hi("CmpItemKindFunction", { bg = "NONE", fg = "#C586C0" })
-		api.hi("CmpItemKind", { link = "Normal" })
-		api.hi("CmpItemKindKeyword", { link = "CmpItemKind" })
-		api.hi("CmpItemKindVariable", { link = "CmpItemKind" })
-		api.hi("CmpItemAbbrMatchFuzzy", { link = "CmpItemAbbrMatch" })
-		api.hi("CmpItemKindInterface", { link = "CmpItemKindAbbrMatch" })
-		api.hi("CmpItemKindText", { link = "CmpItemKindVariable" })
-		api.hi("CmpItemKindMethod", { link = "CmpItemKindFunction" })
-		api.hi("CmpItemKindProperty", { link = "CmpItemKindKeyword" })
-		api.hi("CmpItemKindField", { link = "Keyword" })
-		api.hi("CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 
 		--- Override diff colors
 		api.hi("DiffAdd", { bg = "#4c5340", fg = "NONE" })
@@ -189,6 +185,37 @@ function M.iceberg(is_dark)
 		api.hi("@constructor.ocaml", { link = "TSFunction" }) -- default dark highlighting
 		api.hi("@property.ocaml", { link = "Statement" }) -- default dark highlighting
 	end
+end
+
+-- Iceberg specific integration with `saghen/blink.cmp`
+function M.iceberg_blink()
+	api.hi("BlinkCmpKind", { bg = "NONE" })
+	api.hi("BlinkCmpLabel", { bg = "NONE" })
+
+	api.hi("BlinkCmpKindEnum", { link = "Title" })
+
+	api.hi("BlinkCmpLabelDescription", { link = "Comment" })
+
+	api.hi("BlinkCmpKindClass", { link = "Function" })
+	api.hi("BlinkCmpKindStruct", { link = "BlinkCmpKindClass" })
+	api.hi("BlinkCmpKindInterface", { link = "BlinkCmpKindClass" })
+
+	api.hi("BlinkCmpKindKeyword", { link = "Keyword" })
+	api.hi("BlinkCmpKindField", { link = "BlinkCmpKindKeyword" })
+	api.hi("BlinkCmpKindProperty", { link = "BlinkCmpKindKeyword" })
+	api.hi("BlinkCmpKindUnit", { link = "BlinkCmpKindKeyword" })
+
+	api.hi("BlinkCmpKindFunction", { link = "Constant" })
+	api.hi("BlinkCmpKindConstructor", { link = "BlinkCmpKindFunction" })
+	api.hi("BlinkCmpKindMethod", { link = "BlinkCmpKindFunction" })
+
+	api.hi("BlinkCmpLabelMatch", { bg = "NONE", fg = "#B78E6F" })
+
+	api.hi("BlinkCmpLabelDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
+
+	api.hi("BlinkCmpMenu", { link = "NormalFloat" })
+	api.hi("BlinkCmpMenuBorder", { link = "FloatBorder" })
+	api.hi("BlinkCmpMenuSelection", { link = "Visual" })
 end
 
 ---Overrides highlights for 'nvim-telescope/telescope.nvim' just for iceberg
