@@ -107,6 +107,12 @@ function M.configure_servers()
 		on_attach = M.on_attach,
 		capabilities = utils.merge_tables(M.capabilities, { offsetEncoding = { "utf-16" } }),
 	})
+
+	require("lspconfig").tailwindCSS.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities,
+		settings = require("utils.tools.settings.tailwindcss").settings,
+	})
 end
 
 return M

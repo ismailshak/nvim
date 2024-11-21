@@ -28,6 +28,7 @@ return {
 		"ocamllsp",
 		-- "rust_analyzer", -- Handled by 'mrcjkb/rustaceanvim'
 		"svelte",
+		"tailwindcss",
 	},
 	---Tools that will be hooked up if found on system $PATH (linters/formatters/debuggers)
 	optional_tools = {
