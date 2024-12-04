@@ -24,7 +24,9 @@ return {
 					{
 						icon = "  ",
 						desc = "Load last session                       ",
-						action = "SessionRestore",
+						action = function()
+							require("persistence").load({ last = true })
+						end,
 						icon_hl = "DashboardIcon",
 						key = "s",
 						keymap = "SPC s l",

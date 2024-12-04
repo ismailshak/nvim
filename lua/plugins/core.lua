@@ -174,13 +174,11 @@ return {
 
 	-- Save sessions
 	{
-		"rmagatti/auto-session",
-		lazy = false,
+		"folke/persistence.nvim",
+		event = "BufReadPre",
 		opts = {
-			log_level = "error",
-			auto_restore_enabled = false, -- Use dashboard or keymap to restore
-			auto_session_suppress_dirs = { "~/" },
-			bypass_session_save_file_types = { "dashboard" }, -- Don't overwrite session when these file types are focused
+			need = 1,
+			branch = true,
 		},
 	},
 

@@ -49,6 +49,9 @@ opt.smartcase = true -- ignore case until a capital letter is used?
 -- Persist undo
 opt.undofile = true
 
+-- Session options
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+
 -- Abbreviations
 api.cabbr("W", "w")
 api.cabbr("wf", "w")
