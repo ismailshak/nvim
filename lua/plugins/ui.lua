@@ -321,7 +321,7 @@ return {
 
 	{
 		"kyazdani42/nvim-tree.lua",
-		cmd = "NvimTreeFindFileToggle",
+		cmd = "NvimTreeToggle",
 		keys = "<C-n>",
 		config = function()
 			mappings.nvim_tree()
