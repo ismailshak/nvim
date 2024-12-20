@@ -256,6 +256,10 @@ end
 
 ---@param ctx blink.cmp.DrawItemContext
 function M.kind_text(ctx)
+	if ctx.source_id == "cmdline" then
+		return ""
+	end
+
 	if ctx.kind ~= "Color" then
 		return ctx.kind_icon .. ctx.icon_gap
 	end

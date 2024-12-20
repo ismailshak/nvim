@@ -108,11 +108,6 @@ function M.lsp(bufnr)
 	end, gen_desc("Workspace list folders"), opts)
 end
 
-function M.leap()
-	-- Prevents leap from overriding the default x mapping
-	api.vmap("x", "x", "Default x mapping")
-end
-
 function M.lspsaga()
 	api.nmap("gp", "<CMD>Lspsaga peek_definition<CR>", "Peek definition in floating window")
 	api.nmap("go", "<CMD>Lspsaga outline<CR>", "Open buffer symbol outline in a panel")

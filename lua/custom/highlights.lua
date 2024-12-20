@@ -12,6 +12,7 @@ function M.plugins()
 	M.circleci()
 	M.copilot_chat()
 	M.blink()
+	M.leap()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -89,6 +90,11 @@ end
 ---Overrides highlights for 'saghen/blink.cmp'
 function M.blink()
 	api.hi("BlinkCmpDocBorder", { link = "FloatBorder" })
+end
+
+---Overrides highlights for 'ggandor/leap.vim'
+function M.leap()
+	api.hi("LeapLabel", {}) -- Without this labels don't highlight
 end
 
 ---Overrides highlights for the provided colorscheme
@@ -189,6 +195,8 @@ end
 
 -- Iceberg specific integration with `saghen/blink.cmp`
 function M.iceberg_blink()
+	local normal_hg = api.get_highlight("Normal")
+
 	api.hi("BlinkCmpKind", { bg = "NONE" })
 	api.hi("BlinkCmpLabel", { bg = "NONE" })
 
@@ -208,6 +216,10 @@ function M.iceberg_blink()
 	api.hi("BlinkCmpKindFunction", { link = "Constant" })
 	api.hi("BlinkCmpKindConstructor", { link = "BlinkCmpKindFunction" })
 	api.hi("BlinkCmpKindMethod", { link = "BlinkCmpKindFunction" })
+
+	api.hi("BlinkCmpKindVariable", { bg = "NONE", fg = normal_hg.fg })
+	api.hi("BlinkCmpKindText", { link = "BlinkCmpKindVariable" })
+	api.hi("BlinkCmpKindSnippet", { link = "BlinkCmpKindVariable" })
 
 	api.hi("BlinkCmpLabelMatch", { bg = "NONE", fg = "#B78E6F" })
 

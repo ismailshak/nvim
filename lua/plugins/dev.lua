@@ -9,13 +9,13 @@ return {
 	-- Detect tabstop and shiftwidth automatically
 	{ "tpope/vim-sleuth", event = "InsertEnter" },
 
-	-- Move around the buffer with ease
+	-- Move around the buffers
 	{
 		"ggandor/leap.nvim",
 		lazy = false, -- Handled by plugin
 		config = function()
-			mappings.leap()
-			require("leap").add_default_mappings()
+			require("leap").create_default_mappings()
+			require("leap").init_highlight(true)
 		end,
 	},
 
@@ -31,7 +31,7 @@ return {
 			},
 			suggestion = {
 				auto_trigger = true,
-				accept = true, -- TAB mapping is defined inside `cmp`s "SUPER TAB" mapping
+				accept = true, -- TAB mapping is defined inside `cmp`s "Tab" mapping
 				keymap = {
 					accept = "<M-a>",
 					accept_word = "<M-w>",
@@ -49,7 +49,7 @@ return {
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "canary",
+		branch = "main",
 		keys = {
 			{ "<leader>cc", mode = { "n", "x" } },
 			{ "<leader>ch", mode = { "n", "x" } },
@@ -167,7 +167,7 @@ return {
 
 	-- Peek definition but does more
 	{
-		"glepnir/lspsaga.nvim",
+		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons" },
@@ -308,54 +308,32 @@ return {
 	{
 		"saghen/blink.cmp",
 		lazy = false, -- handled by plugin
-		-- version = "v0.*", -- release tags to download pre-built binaries
-		build = "cargo build --release", -- temporarily build from source until draw support is released
+		version = "v0.*", -- release tags to download pre-built binaries
+		-- build = "cargo build --release", -- temporarily build from source until draw support is released
 		dependencies = "rafamadriz/friendly-snippets",
-		---@module 'blink.cmp'
-		---@type blink.cmp.Config
 		opts = {
-			nerd_font_variant = "mono",
-			kind_icons = icons.kinds,
-			trigger = {
-				completion = {
+			appearance = {
+				nerd_font_variant = "mono",
+				kind_icons = icons.kinds,
+			},
+			completion = {
+				trigger = {
 					show_on_insert_on_trigger_character = false,
 				},
-			},
-			sources = {
-				providers = {
-					snippets = {
-						name = "Snippets",
-						opts = {
-							extended_filetypes = {
-								javascriptreact = { "javascript" },
-								typescriptreact = { "typescript" },
-							},
-						},
-					},
+				list = {
+					selection = "auto_insert",
 				},
-			},
-			windows = {
-				documentation = {
-					min_width = 10,
-					max_width = 60,
-					max_height = 20,
-					border = "rounded",
-					-- note that the gutter will be disabled when border ~= 'none'
-					scrollbar = true,
-					auto_show = true,
-					auto_show_delay_ms = 200,
-				},
-				autocomplete = {
+				menu = {
 					min_width = 15,
 					max_height = 10,
 					border = "rounded",
-					selection = "auto_insert",
 					draw = {
 						padding = 1,
 						gap = 1,
 						columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
 						components = {
 							kind_icon = {
+								ellipsis = false,
 								text = ui.kind_text,
 								highlight = ui.kind_highlight,
 							},
@@ -374,6 +352,30 @@ return {
 						},
 					},
 				},
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 200,
+					window = {
+						min_width = 10,
+						max_width = 60,
+						max_height = 20,
+						border = "rounded", -- gutter will be disabled when border ~= 'none'
+						scrollbar = true,
+					},
+				},
+			},
+			sources = {
+				providers = {
+					snippets = {
+						name = "Snippets",
+						opts = {
+							extended_filetypes = {
+								javascriptreact = { "javascript" },
+								typescriptreact = { "typescript" },
+							},
+						},
+					},
+				},
 			},
 			keymap = {
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -381,7 +383,7 @@ return {
 				["<CR>"] = { "accept", "fallback" },
 				["<Tab>"] = {
 					function(cmp)
-						if cmp.is_in_snippet() then
+						if cmp.snippet_active() then
 							return cmp.snippet_forward()
 						else
 							return cmp.select_next()
@@ -391,7 +393,7 @@ return {
 				},
 				["<S-Tab>"] = {
 					function(cmp)
-						if cmp.is_in_snippet() then
+						if cmp.snippet_active() then
 							return cmp.snippet_backward()
 						else
 							return cmp.select_prev()
@@ -404,13 +406,7 @@ return {
 				["<C-b>"] = { "scroll_documentation_up", "fallback" },
 				["<C-f>"] = { "scroll_documentation_down", "fallback" },
 			},
-			-- experimental auto-brackets support
-			-- accept = { auto_brackets = { enabled = true } }
-			-- experimental signature help support
-			-- trigger = { signature_help = { enabled = true } },
 		},
-		-- allows extending the enabled_providers array elsewhere in config
-		-- without having to redefine it
-		opts_extend = { "sources.completion.enabled_providers" },
+		opts_extend = { "sources.default" },
 	},
 }
