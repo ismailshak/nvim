@@ -6,7 +6,7 @@
 	"Doc string": {
 		"prefix": "/**",
 		"body": [
-			"/**",
+			"**",
 			" * ${1:description}",
 			" *",
 			" */"
