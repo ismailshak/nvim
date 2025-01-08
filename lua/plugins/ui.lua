@@ -5,6 +5,8 @@ local icons = require("utils.icons")
 local ui = require("utils.ui")
 
 local ignore_list = {
+	"*.bundle.js",
+	"*.bundle.js.map",
 	".git",
 	".next",
 	".nx",
@@ -15,9 +17,9 @@ local ignore_list = {
 	"dist",
 	"node_modules",
 	"out",
+	"public",
+	"report",
 	"target",
-	"*.bundle.js",
-	"*.bundle.js.map",
 }
 
 return {
