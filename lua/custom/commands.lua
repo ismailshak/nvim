@@ -217,3 +217,23 @@ autocmd("LspAttach", {
 		end
 	end,
 })
+
+-- Enable cursor line on active window
+autocmd("WinEnter", {
+	callback = function()
+		if vim.w.auto_cursorline then
+			vim.wo.cursorline = true
+			vim.w.auto_cursorline = false
+		end
+	end,
+})
+
+-- Disable cursor line on inactive window
+autocmd("WinLeave", {
+	callback = function()
+		if vim.wo.cursorline then
+			vim.w.auto_cursorline = true
+			vim.wo.cursorline = false
+		end
+	end,
+})
