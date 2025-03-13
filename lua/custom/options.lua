@@ -23,6 +23,15 @@ opt.foldlevelstart = 99 -- Don't close any folds on load
 opt.foldenable = true
 opt.signcolumn = "yes" -- always display so icons don't move the text
 opt.winfixwidth = true -- don't resize windows when splitting
+opt.diffopt = {
+	"internal",
+	"filler",
+	"closeoff",
+	"context:12",
+	"algorithm:histogram",
+	"linematch:60",
+	"indent-heuristic",
+}
 
 -- Interactions
 opt.mouse = "a" -- enable mouse for all modes
