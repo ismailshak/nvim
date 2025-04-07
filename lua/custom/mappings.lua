@@ -64,7 +64,7 @@ api.vmap("<A-K>", "<CMD>horizontal resize +2<CR>", "Make split pane wider (visua
 api.vmap("<C-f>", '"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of selected text")
 api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of word under cursor")
 
-api.tmap("<Esc>", "<C-\\><C-n>", "Escape terminal mode")
+api.tmap("<Esc><Esc>", "<C-\\><C-n>", "Escape terminal mode")
 
 -- Convenient mouse handling
 api.nmap("<RightMouse>", "<LeftMouse><CMD>lua vim.lsp.buf.hover()<CR>", "Open hover documentation [mouse]")
