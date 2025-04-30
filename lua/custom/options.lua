@@ -1,5 +1,6 @@
-local api = require("utils.api")
 local settings = require("custom.settings")
+local api = require("utils.api")
+local icons = require("utils.icons")
 
 local opt = vim.opt
 
@@ -23,6 +24,7 @@ opt.foldlevelstart = 99 -- Don't close any folds on load
 opt.foldenable = true
 opt.signcolumn = "yes" -- always display so icons don't move the text
 opt.winfixwidth = true -- don't resize windows when splitting
+opt.winborder = "rounded"
 opt.diffopt = {
 	"internal",
 	"filler",
@@ -76,5 +78,35 @@ vim.filetype.add({
 		-- Map `.env.*` to `conf` so that shell-specific LSPs don't start (default is `.env ft=sh`)
 		-- and extend it any sub-env files so we get highlighting (e.g. `.env.local`)
 		[".env.*"] = "conf",
+	},
+})
+
+-- Diagnostics
+local signs = {
+	{ name = "DiagnosticSignError", text = icons.diagnostics.error },
+	{ name = "DiagnosticSignWarn", text = icons.diagnostics.warn },
+	{ name = "DiagnosticSignInfo", text = icons.diagnostics.info },
+	{ name = "DiagnosticSignHint", text = icons.diagnostics.hint },
+}
+
+for _, sign in ipairs(signs) do
+	vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
+
+vim.diagnostic.config({
+	virtual_text = {
+		severity = vim.diagnostic.severity.ERROR,
+	},
+	-- show signs
+	signs = {
+		active = signs,
+	},
+	update_in_insert = true,
+	underline = true,
+	severity_sort = true,
+	float = {
+		source = "if_many",
+		header = "",
+		prefix = "",
 	},
 })

@@ -24,9 +24,6 @@ api.nmap("-", "<C-x>", "Decrement number under cursor")
 api.nmap("<C-d>", "<C-d>zz", "scroll down")
 api.nmap("<C-u>", "<C-u>zz", "scroll up")
 
-api.nmap("]q", vim.cmd.cnext, "Next Quickfix Item")
-api.nmap("[q", vim.cmd.cprev, "Previous Quickfix Item")
-
 api.nmap("<leader>tw", "<CMD>set wrap!<CR>", "Toggle text wrap")
 
 -- Don't yank on delete / change
@@ -34,11 +31,6 @@ api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
 api.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
 api.nmap("c", '"_c', "Rebinds 'c' to not yank on removal (normal mode)")
 api.vmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
-
--- LSP
-api.nmap("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic errors")
-api.nmap("]d", vim.diagnostic.goto_next, "Go to next diagnostic errors")
-api.nmap("gl", vim.diagnostic.open_float, "Open diagnostic error window")
 
 api.nmap("<A-Up>", "yyP", "Duplicate current line above")
 api.nmap("<A-Down>", "yyp", "Duplicate current line below")
@@ -67,8 +59,6 @@ api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of
 api.tmap("<Esc><Esc>", "<C-\\><C-n>", "Escape terminal mode")
 
 -- Convenient mouse handling
-api.nmap("<RightMouse>", "<LeftMouse><CMD>lua vim.lsp.buf.hover()<CR>", "Open hover documentation [mouse]")
-api.nmap("<2-LeftMouse>", "<LeftMouse><CMD>lua vim.lsp.buf.definition()<CR>", "Go to definition [mouse]")
 api.nmap("<M-ScrollWheelUp>", "<C-i>", "Go forward in jump list [mouse]")
 api.nmap("<M-ScrollWheelDown>", "<C-o>", "Go back in jump list [mouse]")
 
@@ -95,9 +85,8 @@ function M.lsp(bufnr)
 	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CMD>", gen_desc("Document symbols"), opts)
 	api.nmap("<leader>fS", "CMD>FzfLua lsp_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
 
-	-- See `:help K` for why tis keymap
 	api.nmap("K", vim.lsp.buf.hover, gen_desc("Hover Documentation"), opts)
-	api.nmap("<C-i>", vim.lsp.buf.signature_help, gen_desc("Signature Documentation"), opts)
+	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"))
 
 	-- Lesser used LSP functionality
 	api.nmap("gD", vim.lsp.buf.declaration, gen_desc("[G]oto [D]eclaration"), opts)

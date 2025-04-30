@@ -5,7 +5,6 @@ local utils = require("utils.helpers")
 local tools = require("utils.tools.spec")
 
 function M.setup_lsp()
-	M.setup_diagnostics()
 	M.configure_completion()
 	M.configure_servers()
 end
@@ -17,12 +16,6 @@ M.capabilities = vim.lsp.protocol.make_client_capabilities()
 ---Wires up LSP completion capabilities with completion plugin
 function M.configure_completion()
 	M.capabilities = require("blink.cmp").get_lsp_capabilities(M.capabilities)
-end
-
-function M.setup_diagnostics()
-	-- Configure diagnostics
-	local diagnosticsConfig = require("utils.tools.settings.diagnostics").config
-	vim.diagnostic.config(diagnosticsConfig)
 end
 
 -- Not used and float handling is done by noice.nvim
