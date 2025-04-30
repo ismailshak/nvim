@@ -1,7 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "CopilotChat.nvim": { "branch": "main", "commit": "62b1249aa4a4fc7afe11c7e647cba0cef743826f" },
-  "auto-dark-mode.nvim": { "branch": "master", "commit": "4531f8b2b09ed8f0b8875a706419f9cecda1d969" },
+  "auto-dark-mode.nvim": { "branch": "master", "commit": "c31de126963ffe9403901b4b0990dde0e6999cc6" },
   "barbecue": { "branch": "cherry-picked", "commit": "6c8187c877a6bcad704c784f6c709fc2819b6402" },
   "blink.cmp": { "branch": "main", "commit": "ca05bb33eb071d916d33af08cae8034c3d8002b5" },
   "cellular-automaton.nvim": { "branch": "main", "commit": "11aea08aa084f9d523b0142c2cd9441b8ede09ed" },
