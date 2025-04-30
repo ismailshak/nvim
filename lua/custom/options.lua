@@ -24,7 +24,6 @@ opt.foldlevelstart = 99 -- Don't close any folds on load
 opt.foldenable = true
 opt.signcolumn = "yes" -- always display so icons don't move the text
 opt.winfixwidth = true -- don't resize windows when splitting
-opt.winborder = "rounded"
 opt.diffopt = {
 	"internal",
 	"filler",
