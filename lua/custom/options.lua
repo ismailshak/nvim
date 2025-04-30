@@ -16,6 +16,7 @@ opt.fillchars = { eob = " ", diff = "╱" } -- remove tildas from empty lines & 
 opt.ruler = false -- the cursor position [column,row] in the bottom rowi
 opt.cul = true -- cursor line
 opt.termguicolors = true
+opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- removes blinking from defaults
 opt.cmdheight = 0 -- removes the space at the bottom for commands
 opt.laststatus = 3 -- turns the statusline into a global status line (not 1 per buffer/split)
 opt.wrap = false -- disable line wrap
