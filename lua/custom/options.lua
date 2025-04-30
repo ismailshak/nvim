@@ -67,6 +67,7 @@ opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "glob
 api.cabbr("W", "w")
 api.cabbr("wf", "w")
 api.cabbr("Q", "q")
+api.cabbr("Wq", "wq")
 
 -- Grep
 opt.grepformat = "%f:%l:%c:%m"
