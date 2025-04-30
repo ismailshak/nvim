@@ -308,7 +308,7 @@ return {
 	{
 		"saghen/blink.cmp",
 		lazy = false, -- handled by plugin
-		version = "v0.*", -- release tags to download pre-built binaries
+		version = "1.*", -- release tags to download pre-built binaries
 		-- build = "cargo build --release", -- temporarily build from source until draw support is released
 		dependencies = "rafamadriz/friendly-snippets",
 		opts = {
@@ -321,7 +321,7 @@ return {
 					show_on_insert_on_trigger_character = false,
 				},
 				list = {
-					selection = "auto_insert",
+					selection = { preselect = false, auto_insert = true },
 				},
 				menu = {
 					min_width = 15,
@@ -334,7 +334,6 @@ return {
 						components = {
 							kind_icon = {
 								ellipsis = false,
-								text = ui.kind_text,
 								highlight = ui.kind_highlight,
 							},
 							label = {
@@ -342,7 +341,6 @@ return {
 								text = ui.label_text,
 								highlight = ui.label_highlight,
 							},
-
 							label_description = {
 								ellipsis = true,
 								width = { fill = false, max = 30 },

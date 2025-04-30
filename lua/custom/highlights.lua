@@ -220,6 +220,7 @@ function M.iceberg_blink()
 	api.hi("BlinkCmpKindVariable", { bg = "NONE", fg = normal_hg.fg })
 	api.hi("BlinkCmpKindText", { link = "BlinkCmpKindVariable" })
 	api.hi("BlinkCmpKindSnippet", { link = "BlinkCmpKindVariable" })
+	api.hi("BlinkCmpKindColor", { link = "BlinkCmpKindVariable" })
 
 	api.hi("BlinkCmpLabelMatch", { bg = "NONE", fg = "#B78E6F" })
 
