@@ -83,24 +83,17 @@ vim.filetype.add({
 })
 
 -- Diagnostics
-local signs = {
-	{ name = "DiagnosticSignError", text = icons.diagnostics.error },
-	{ name = "DiagnosticSignWarn", text = icons.diagnostics.warn },
-	{ name = "DiagnosticSignInfo", text = icons.diagnostics.info },
-	{ name = "DiagnosticSignHint", text = icons.diagnostics.hint },
-}
-
-for _, sign in ipairs(signs) do
-	vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-end
-
 vim.diagnostic.config({
 	virtual_text = {
 		severity = vim.diagnostic.severity.ERROR,
 	},
-	-- show signs
 	signs = {
-		active = signs,
+		text = {
+			[vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
+			[vim.diagnostic.severity.WARN] = icons.diagnostics.warn,
+			[vim.diagnostic.severity.INFO] = icons.diagnostics.info,
+			[vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
+		},
 	},
 	update_in_insert = true,
 	underline = true,
@@ -111,3 +104,10 @@ vim.diagnostic.config({
 		prefix = "",
 	},
 })
+
+-- Disable these provider warnings
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
