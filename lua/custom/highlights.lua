@@ -129,7 +129,7 @@ function M.iceberg(is_dark)
 
 	----------------------
 	-- Plugin overrides --
-	---------------------------
+	----------------------
 
 	M.iceberg_blink()
 	M.icberg_telescope(is_dark)
@@ -151,6 +151,11 @@ function M.iceberg(is_dark)
 
 	-- OCaml highlighting
 	api.hi("@constructor.ocaml", { link = "TSType" })
+
+	-- Completion menu
+	api.hi("Pmenu", { bg = "NONE" })
+	api.hi("PmenuSel", { link = "Visual" })
+	api.hi("PmenuExtra", { link = "Comment" })
 
 	---------------------------------
 	-- Dynamic highlight overrides --
@@ -197,40 +202,29 @@ end
 function M.iceberg_blink()
 	local normal_hg = api.get_highlight("Normal")
 
-	api.hi("BlinkCmpKind", { bg = "NONE" })
-	api.hi("BlinkCmpLabel", { bg = "NONE" })
+	api.hi("BlinkCmpLabelMatch", { link = "PmenuMatch" })
+	api.hi("BlinkCmpLabelDeprecated", { link = "DiagnosticDeprecated" })
+	api.hi("BlinkCmpMenu", { link = "NormalFloat" })
+	api.hi("BlinkCmpMenuBorder", { link = "FloatBorder" })
 
 	api.hi("BlinkCmpKindEnum", { link = "Title" })
-
 	api.hi("BlinkCmpLabelDescription", { link = "Comment" })
-
 	api.hi("BlinkCmpKindClass", { link = "Function" })
 	api.hi("BlinkCmpKindStruct", { link = "BlinkCmpKindClass" })
 	api.hi("BlinkCmpKindInterface", { link = "BlinkCmpKindClass" })
-
 	api.hi("BlinkCmpKindKeyword", { link = "Keyword" })
 	api.hi("BlinkCmpKindField", { link = "BlinkCmpKindKeyword" })
 	api.hi("BlinkCmpKindUnit", { link = "BlinkCmpKindKeyword" })
 	api.hi("BlinkCmpKindConstant", { link = "BlinkCmpKindKeyword" })
 	api.hi("BlinkCmpKindVariable", { link = "BlinkCmpKindKeyword" })
-
 	api.hi("BlinkCmpKindFunction", { link = "Constant" })
 	api.hi("BlinkCmpKindConstructor", { link = "BlinkCmpKindFunction" })
 	api.hi("BlinkCmpKindMethod", { link = "BlinkCmpKindFunction" })
 	api.hi("BlinkCmpKindProperty", { link = "BlinkCmpKindKeyword" })
-
 	api.hi("BlinkCmpKindVariable", { bg = "NONE", fg = normal_hg.fg })
 	api.hi("BlinkCmpKindText", { link = "BlinkCmpKindVariable" })
 	api.hi("BlinkCmpKindSnippet", { link = "BlinkCmpKindVariable" })
 	api.hi("BlinkCmpKindColor", { link = "BlinkCmpKindVariable" })
-
-	api.hi("BlinkCmpLabelMatch", { bg = "NONE", fg = "#B78E6F" })
-
-	api.hi("BlinkCmpLabelDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
-
-	api.hi("BlinkCmpMenu", { link = "NormalFloat" })
-	api.hi("BlinkCmpMenuBorder", { link = "FloatBorder" })
-	api.hi("BlinkCmpMenuSelection", { link = "Visual" })
 end
 
 ---Overrides highlights for 'nvim-telescope/telescope.nvim' just for iceberg
