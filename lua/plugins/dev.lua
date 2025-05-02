@@ -334,7 +334,8 @@ return {
 						components = {
 							kind_icon = {
 								ellipsis = false,
-								highlight = ui.kind_highlight,
+								text = ui.kind_icon_text,
+								highlight = ui.kind_icon_highlight,
 							},
 							label = {
 								width = { fill = true, max = 60 },

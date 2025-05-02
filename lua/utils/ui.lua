@@ -260,17 +260,32 @@ function M.kind_text(ctx)
 		return ""
 	end
 
-	if ctx.kind ~= "Color" then
-		return ctx.kind_icon .. ctx.icon_gap
-	end
-
-	-- TODO: Integrate with brenoprata10/nvim-highlight-colors
 	return ctx.kind_icon .. ctx.icon_gap
 end
 
+function M.kind_icon_text(ctx)
+	local default_icon = ctx.kind_icon
+	-- if LSP source, check for color derived from documentation
+	if ctx.item.source_name == "LSP" then
+		local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+		if color_item and color_item.abbr ~= "" then
+			default_icon = color_item.abbr
+		end
+	end
+	return default_icon .. ctx.icon_gap
+end
+
 ---@param ctx blink.cmp.DrawItemContext
-function M.kind_highlight(ctx)
-	return "BlinkCmpKind" .. ctx.kind
+function M.kind_icon_highlight(ctx)
+	local default_highlight = "BlinkCmpKind" .. ctx.kind
+	-- if LSP source, check for color derived from documentation
+	if ctx.item.source_name == "LSP" then
+		local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+		if color_item and color_item.abbr_hl_group then
+			default_highlight = color_item.abbr_hl_group
+		end
+	end
+	return default_highlight
 end
 
 return M
