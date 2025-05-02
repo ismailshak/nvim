@@ -85,10 +85,11 @@ function M.lsp(bufnr)
 	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CMD>", gen_desc("Document symbols"), opts)
 	api.nmap("<leader>fS", "CMD>FzfLua lsp_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
 
-	api.nmap("K", vim.lsp.buf.hover, gen_desc("Hover Documentation"), opts)
 	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"))
+	api.nmap("K", function()
+		vim.lsp.buf.hover({ border = "rounded" })
+	end, gen_desc("Hover Documentation"), opts)
 
-	-- Lesser used LSP functionality
 	api.nmap("gD", vim.lsp.buf.declaration, gen_desc("[G]oto [D]eclaration"), opts)
 	api.nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, gen_desc("[W]orkspace [A]dd Folder"), opts)
 	api.nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, gen_desc("[W]orkspace [R]emove Folder"), opts)
