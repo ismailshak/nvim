@@ -24,7 +24,7 @@ return {
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
 		keys = { "<leader>cd", "<leader>ce" },
-		event = "InsertEnter",
+		event = "VeryLazy",
 		opts = {
 			panel = {
 				auto_refresh = true,
@@ -157,12 +157,23 @@ return {
 	},
 
 	-- Better code commenting
-	{ "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPost" },
 	{
-		"numToStr/Comment.nvim", -- "gc" to comment visual regions/lines
+		"JoosepAlviste/nvim-ts-context-commentstring",
 		event = "BufReadPost",
-		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
-		opts = { pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook() },
+		opts = {
+			enable_autocmd = false,
+		},
+		config = function(_, opts)
+			require("ts_context_commentstring").setup(opts)
+
+			local original_get_option = vim.filetype.get_option
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.filetype.get_option = function(filetype, option)
+				return option == "commentstring"
+						and require("ts_context_commentstring.internal").calculate_commentstring()
+					or original_get_option(filetype, option)
+			end
+		end,
 	},
 
 	-- Peek definition but does more

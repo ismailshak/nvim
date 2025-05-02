@@ -1,5 +1,4 @@
 {
-  "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "CopilotChat.nvim": { "branch": "main", "commit": "75653259442a8eb895abfc70d7064e07aeb7134c" },
   "auto-dark-mode.nvim": { "branch": "master", "commit": "c31de126963ffe9403901b4b0990dde0e6999cc6" },
   "barbecue": { "branch": "cherry-picked", "commit": "6c8187c877a6bcad704c784f6c709fc2819b6402" },
