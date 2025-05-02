@@ -199,40 +199,8 @@ function M.should_split(ctx)
 end
 
 ---@param ctx blink.cmp.DrawItemContext
-function M.label_text(ctx)
-	if not M.should_split(ctx) then
-		return ctx.label
-	end
-
-	local words = M.split_label(ctx)
-	if #words == 1 then
-		return ctx.label
-	end
-
-	return words[1] .. "~"
-end
-
----@param ctx blink.cmp.DrawItemContext
 function M.label_highlight(ctx)
-	local length = #ctx.label
-	if M.should_split(ctx) then
-		local words = M.split_label(ctx)
-		length = (#words > 1 and #words[1] + 1) or #words[1]
-	end
-
-	local highlights = {
-		{
-			0,
-			length,
-			group = ctx.deprecated and "BlinkCmpLabelDeprecated" or "BlinkCmpLabel",
-		},
-	}
-
-	for _, idx in ipairs(ctx.label_matched_indices) do
-		table.insert(highlights, { idx, idx + 1, group = "BlinkCmpLabelMatch" })
-	end
-
-	return highlights
+	return ctx.deprecated and "BlinkCmpLabelDeprecated" or "BlinkCmpLabel"
 end
 
 ---@param ctx blink.cmp.DrawItemContext

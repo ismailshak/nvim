@@ -339,13 +339,10 @@ return {
 							},
 							label = {
 								width = { fill = true, max = 60 },
-								text = ui.label_text,
-								highlight = ui.label_highlight,
 							},
 							label_description = {
 								ellipsis = true,
 								width = { fill = false, max = 30 },
-								text = ui.label_description_text,
 								highlight = "BlinkCmpLabelDescription",
 							},
 						},

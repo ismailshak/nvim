@@ -210,12 +210,14 @@ function M.iceberg_blink()
 
 	api.hi("BlinkCmpKindKeyword", { link = "Keyword" })
 	api.hi("BlinkCmpKindField", { link = "BlinkCmpKindKeyword" })
-	api.hi("BlinkCmpKindProperty", { link = "BlinkCmpKindKeyword" })
 	api.hi("BlinkCmpKindUnit", { link = "BlinkCmpKindKeyword" })
+	api.hi("BlinkCmpKindConstant", { link = "BlinkCmpKindKeyword" })
+	api.hi("BlinkCmpKindVariable", { link = "BlinkCmpKindKeyword" })
 
 	api.hi("BlinkCmpKindFunction", { link = "Constant" })
 	api.hi("BlinkCmpKindConstructor", { link = "BlinkCmpKindFunction" })
 	api.hi("BlinkCmpKindMethod", { link = "BlinkCmpKindFunction" })
+	api.hi("BlinkCmpKindProperty", { link = "BlinkCmpKindKeyword" })
 
 	api.hi("BlinkCmpKindVariable", { bg = "NONE", fg = normal_hg.fg })
 	api.hi("BlinkCmpKindText", { link = "BlinkCmpKindVariable" })
