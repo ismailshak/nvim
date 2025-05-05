@@ -102,6 +102,7 @@ vim.diagnostic.config({
 		source = "if_many",
 		header = "",
 		prefix = "",
+		border = "rounded",
 	},
 })
 
