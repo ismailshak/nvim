@@ -87,8 +87,20 @@ function M.lsp(bufnr)
 
 	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"))
 	api.nmap("K", function()
-		vim.lsp.buf.hover({ border = "rounded" })
+		vim.lsp.buf.hover({
+			border = "rounded",
+			max_width = utils.percentage_as_width(60),
+			max_height = utils.percentage_as_width(40),
+		})
 	end, gen_desc("Hover Documentation"), opts)
+	api.imap("<C-s>", function()
+		vim.lsp.buf.signature_help({
+			border = "rounded",
+			title = "",
+			max_width = utils.percentage_as_width(50),
+			max_height = utils.percentage_as_width(40),
+		})
+	end, gen_desc("Signature help"), opts)
 
 	api.nmap("gD", vim.lsp.buf.declaration, gen_desc("[G]oto [D]eclaration"), opts)
 	api.nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, gen_desc("[W]orkspace [A]dd Folder"), opts)
