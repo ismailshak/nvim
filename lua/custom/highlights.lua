@@ -13,6 +13,7 @@ function M.plugins()
 	M.copilot_chat()
 	M.blink()
 	M.leap()
+	M.render_markdown()
 end
 
 ---Overrides highlights for 'glepnir/dashboard-nvim'
@@ -97,6 +98,20 @@ function M.leap()
 	api.hi("LeapLabel", {}) -- Without this labels don't highlight
 end
 
+---Overrides highlights for 'MeanderingProgrammer/render-markdown.nvim'
+function M.render_markdown()
+	api.hi("RenderMarkdownH1Bg", { link = "CursorLineNr" })
+	api.hi("RenderMarkdownH2Bg", { link = "RenderMarkdownH1Bg" })
+	api.hi("RenderMarkdownH3Bg", { link = "RenderMarkdownH1Bg" })
+	api.hi("RenderMarkdownH4Bg", { link = "RenderMarkdownH1Bg" })
+	api.hi("RenderMarkdownH5Bg", { link = "RenderMarkdownH1Bg" })
+	api.hi("RenderMarkdownH6Bg", { link = "RenderMarkdownH1Bg" })
+	api.hi("RenderMarkdownDash", { link = "WinSeparator" })
+	api.hi("RenderMarkdownQuote", { link = "Comment" })
+	api.hi("RenderMarkdownTableHead", { link = "Normal" })
+	api.hi("RenderMarkdownTableRow", { link = "Normal" })
+end
+
 ---Overrides highlights for the provided colorscheme
 ---@param colorscheme theme
 ---@param is_dark boolean
@@ -156,6 +171,10 @@ function M.iceberg(is_dark)
 	api.hi("Pmenu", { bg = "NONE" })
 	api.hi("PmenuSel", { link = "Visual" })
 	api.hi("PmenuExtra", { link = "Comment" })
+
+	-- Markdown quote blocks
+	api.hi("@markup.quote.markdown", { link = "Comment" })
+	api.hi("@punctuation.special.markdown", { link = "Normal" })
 
 	---------------------------------
 	-- Dynamic highlight overrides --
