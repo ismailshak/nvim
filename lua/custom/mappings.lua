@@ -238,60 +238,9 @@ function M.copilot()
 	api.nmap("<leader>cd", "<CMD>Copilot disable<CR>", "Disable copilot autocomplete [copilot]")
 end
 
-function M.copilot_chat()
-	local chat = require("CopilotChat")
-
-	api.map(
-		{ "n", "x" },
-		"<leader>cv",
-		"<CMD>CopilotChatToggle<CR>",
-		"Toggle copilot chat in a vertical split [CopilotChat]"
-	)
-
-	api.map({ "n", "x" }, "<leader>cc", function()
-		chat.toggle({
-			window = {
-				border = "rounded",
-				height = 0.8,
-				layout = "float",
-				title = "",
-				width = 0.8,
-			},
-		})
-	end, "Toggle copilot chat in a floating window [CopilotChat]")
-
-	api.map({ "n", "x" }, "<leader>C", function()
-		chat.toggle({
-			window = {
-				height = 0.35,
-				layout = "float",
-				relative = "cursor",
-				row = 1,
-				title = "",
-				width = 0.95,
-			},
-		})
-	end, "Toggle copilot chat inline [CopilotChat]")
-
-	api.map({ "n", "x" }, "<leader>ch", function()
-		chat.toggle({
-			window = {
-				height = 0.35,
-				layout = "horizontal",
-			},
-		})
-	end, "Toggle copilot chat in a horizontal split [CopilotChat]")
-
-	-- Fzf integration
-	api.nmap("<leader>cfh", function()
-		local actions = require("CopilotChat.actions")
-		require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
-	end, "Open copilot help actions [CopilotChat]")
-
-	api.nmap("<leader>cfp", function()
-		local actions = require("CopilotChat.actions")
-		require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-	end, "Open copilot help actions [CopilotChat]")
+function M.codecompanion()
+	api.map({ "n", "x" }, "<leader>cc", "<CMD>CodeCompanionChat Toggle<CR>", "Toggle copilot chat [CodeCompanion]")
+	api.map({ "n", "x" }, "<leader>ca", "<CMD>CodeCompanionActions<CR>", "Open action palette [CodeCompanion]")
 end
 
 function M.dap_ui()

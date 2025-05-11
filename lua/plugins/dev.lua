@@ -48,45 +48,45 @@ return {
 		end,
 	},
 	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "main",
-		keys = {
-			{ "<leader>cc", mode = { "n", "x" } },
-			{ "<leader>ch", mode = { "n", "x" } },
-			{ "<leader>cv", mode = { "n", "x" } },
-			{ "<leader>C", mode = { "n", "x" } },
-			{ "<leader>cq", mode = { "n", "x" } },
-			{ "<leader>cfh", mode = { "n", "x" } },
-			{ "<leader>cfp", mode = { "n", "x" } },
-		},
+		"olimorris/codecompanion.nvim",
+		lazy = false,
 		dependencies = {
-			{ "zbirenbaum/copilot.lua" },
-			{ "nvim-lua/plenary.nvim" },
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"j-hui/fidget.nvim",
 		},
+		init = function()
+			require("utils.tools.codecompanion"):init()
+		end,
 		opts = {
-			question_header = icons.copilot.prompt .. "  ",
-			answer_header = icons.copilot.response .. "  ",
-			error_header = icons.copilot.error .. "  ",
-			separator = "⎯⎯⎯⎯⎯⎯⎯⎯⎯",
-			show_help = false,
-			show_folds = false,
-			auto_insert_mode = true,
-			insert_at_end = true,
-			window = {
-				layout = "vertical",
-				width = 0.35,
+			display = {
+				chat = {
+					intro_message = "",
+					show_header_separator = false,
+					start_in_insert_mode = true,
+					window = {
+						opts = {
+							number = false,
+							signcolumn = "no",
+						},
+					},
+				},
 			},
-			mappings = {
-				reset = {
-					normal = "<C-r>",
-					insert = "<C-r>",
+			strategies = {
+				chat = {
+					roles = {
+						---@type string|fun(adapter: CodeCompanion.Adapter): string
+						llm = function(adapter)
+							return icons.copilot.response .. "  " .. adapter.formatted_name
+						end,
+						user = icons.copilot.prompt,
+					},
 				},
 			},
 		},
 		config = function(_, opts)
-			mappings.copilot_chat()
-
-			require("CopilotChat").setup(opts)
+			mappings.codecompanion()
+			require("codecompanion").setup(opts)
 		end,
 	},
 

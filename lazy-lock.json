@@ -1,10 +1,10 @@
 {
-  "CopilotChat.nvim": { "branch": "main", "commit": "75653259442a8eb895abfc70d7064e07aeb7134c" },
   "auto-dark-mode.nvim": { "branch": "master", "commit": "c31de126963ffe9403901b4b0990dde0e6999cc6" },
   "barbecue": { "branch": "cherry-picked", "commit": "6c8187c877a6bcad704c784f6c709fc2819b6402" },
   "blink.cmp": { "branch": "main", "commit": "cb5e346d9e0efa7a3eee7fd4da0b690c48d2a98e" },
   "cellular-automaton.nvim": { "branch": "main", "commit": "1606e9d5d04ff254023c3f3c62842d065708d6d3" },
   "circleci.nvim": { "branch": "main", "commit": "ec9a49272daebb65669d107528bcf28a20f45535" },
+  "codecompanion.nvim": { "branch": "main", "commit": "e78658c58206b1373c3a2c41a51dd4be6a382adb" },
   "conform.nvim": { "branch": "master", "commit": "372fc521f8421b7830ea6db4d6ea3bae1c77548c" },
   "copilot.lua": { "branch": "master", "commit": "a5c390f8d8e85b501b22dcb2f30e0cbbd69d5ff0" },
   "dashboard-nvim": { "branch": "master", "commit": "591b5b29e2f17b97496ec3179f6ecd08bb8502cc" },
