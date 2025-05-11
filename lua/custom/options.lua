@@ -112,3 +112,25 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
+
+-- Configure clipboard for SSH sessions
+if os.getenv("SSH_CLIENT") ~= nil or os.getenv("SSH_TTY") ~= nil then
+	local function _paste(_)
+		return function(_)
+			local content = vim.fn.getreg('"')
+			return vim.split(content, "\n")
+		end
+	end
+
+	vim.g.clipboard = {
+		name = "OSC 52",
+		copy = {
+			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+		},
+		paste = {
+			["+"] = _paste("+"),
+			["*"] = _paste("*"),
+		},
+	}
+end
