@@ -1,6 +1,8 @@
 local api = require("utils.api")
 local utils = require("utils.helpers")
 
+local M = {}
+
 -- set the leader to space
 vim.g.mapleader = " "
 
@@ -58,15 +60,22 @@ api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of
 
 api.tmap("<Esc><Esc>", "<C-\\><C-n>", "Escape terminal mode")
 
+function M.hover()
+	vim.lsp.buf.hover({
+		border = "rounded",
+		max_width = utils.percentage_as_width(60),
+		max_height = utils.percentage_as_width(40),
+	})
+end
+
 -- Convenient mouse handling
+api.nmap("<2-LeftMouse>", M.hover, "Hover documentation [mouse]")
 api.nmap("<M-ScrollWheelUp>", "<C-i>", "Go forward in jump list [mouse]")
 api.nmap("<M-ScrollWheelDown>", "<C-o>", "Go back in jump list [mouse]")
 
 ------------------------------
 -- PLUGIN SPECIFIC MAPPINGS --
 ------------------------------
-
-local M = {}
 
 function M.lsp(bufnr)
 	local function gen_desc(desc)
@@ -86,13 +95,7 @@ function M.lsp(bufnr)
 	api.nmap("<leader>fS", "CMD>FzfLua lsp_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
 
 	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"))
-	api.nmap("K", function()
-		vim.lsp.buf.hover({
-			border = "rounded",
-			max_width = utils.percentage_as_width(60),
-			max_height = utils.percentage_as_width(40),
-		})
-	end, gen_desc("Hover Documentation"), opts)
+	api.nmap("K", M.hover, gen_desc("Hover Documentation"), opts)
 	api.imap("<C-s>", function()
 		vim.lsp.buf.signature_help({
 			border = "rounded",
