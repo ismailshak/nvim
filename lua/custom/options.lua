@@ -68,6 +68,8 @@ api.cabbr("W", "w")
 api.cabbr("wf", "w")
 api.cabbr("Q", "q")
 api.cabbr("Wq", "wq")
+api.cabbr("Wa", "wa")
+api.cabbr("Vs", "vs")
 
 -- Grep
 opt.grepformat = "%f:%l:%c:%m"
