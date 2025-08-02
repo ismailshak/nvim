@@ -72,8 +72,20 @@ return {
 					},
 				},
 			},
+			adapters = {
+				copilot = function()
+					return require("codecompanion.adapters").extend("copilot", {
+						schema = {
+							model = {
+								default = "claude-3.7-sonnet-thought",
+							},
+						},
+					})
+				end,
+			},
 			strategies = {
 				chat = {
+					adapter = "copilot",
 					roles = {
 						---@type string|fun(adapter: CodeCompanion.Adapter): string
 						llm = function(adapter)
