@@ -19,28 +19,14 @@
 
 Currently using the version specified in the [.tool-versions](./.tool-versions) file.
 
-Using [`asdf`](https://github.com/asdf-vm/asdf) as the neovim version manager and [lazy.nvim](https://github.com/folke/lazy.nvim) as the plugin manager.
+Using [`mise`](https://github.com/jdx/mise) as the neovim version manager and [lazy.nvim](https://github.com/folke/lazy.nvim) as the plugin manager.
 
 ## Setup
 
-Following is executed from this repo's root directory.
-
-Install the plugin
+Run the following from the repo root to install and set the neovim version globally
 
 ```bash
-asdf plugin add https://github.com/richin13/asdf-neovim
-```
-
-Install the version in the file
-
-```bash
-asdf install
-```
-
-Set the version globally
-
-```bash
-asdf global neovim $(cat .tool-versions | awk '/neovim/ {print $2}')
+mise run global
 ```
 
 ## Tools needed
