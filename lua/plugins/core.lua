@@ -123,8 +123,8 @@ return {
 			-- Exposing cmd so that it can be triggered by a new installation to grab all required tooling
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim", cmd = "MasonToolsInstallSync" },
 
-			"williamboman/mason.nvim", -- Install LSPs and tools to neovim's stdpath
-			"williamboman/mason-lspconfig.nvim", -- Closes gap between mason.nvim and lspconfig
+			{ "williamboman/mason.nvim", version = "^1" }, -- Install LSPs and tools to neovim's stdpath
+			{ "williamboman/mason-lspconfig.nvim", version = "^1" }, -- Closes gap between mason.nvim and lspconfig
 			"j-hui/fidget.nvim", -- Notification UI for LSP messages
 		},
 		config = function()

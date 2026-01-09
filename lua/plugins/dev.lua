@@ -14,7 +14,7 @@ return {
 		"ggandor/leap.nvim",
 		lazy = false, -- Handled by plugin
 		config = function()
-			require("leap").create_default_mappings()
+			mappings.leap()
 			require("leap").init_highlight(true)
 		end,
 	},
@@ -73,21 +73,22 @@ return {
 				},
 			},
 			adapters = {
-				copilot = function()
-					return require("codecompanion.adapters").extend("copilot", {
-						schema = {
-							model = {
-								default = "claude-3.7-sonnet-thought",
+				http = {
+					copilot = function()
+						return require("codecompanion.adapters").extend("copilot", {
+							schema = {
+								model = {
+									default = "claude-sonnet-4.5",
+								},
 							},
-						},
-					})
-				end,
+						})
+					end,
+				},
 			},
-			strategies = {
+			interactions = {
 				chat = {
 					adapter = "copilot",
 					roles = {
-						---@type string|fun(adapter: CodeCompanion.Adapter): string
 						llm = function(adapter)
 							return icons.copilot.response .. "  " .. adapter.formatted_name
 						end,
