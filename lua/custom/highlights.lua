@@ -4,7 +4,6 @@ local api = require("utils.api")
 
 ---Runs all non-colorscheme highlight overrides
 function M.plugins()
-	M.dashboard()
 	M.nvim_tree()
 	M.dap_ui()
 	M.octo()
@@ -13,13 +12,6 @@ function M.plugins()
 	M.blink()
 	M.leap()
 	M.render_markdown()
-end
-
----Overrides highlights for 'glepnir/dashboard-nvim'
-function M.dashboard()
-	api.hi("DashboardIcon", { fg = "#85A4F2", bg = "none" })
-	api.hi("DashboardShortCut", { fg = "#85A4F2", bg = "none" })
-	api.hi("DashboardFooter", { fg = "#7C7F96", bg = "none" })
 end
 
 ---Overrides highlights for 'kyazdani42/nvim-tree.lua'
@@ -168,6 +160,11 @@ function M.iceberg(is_dark)
 	-- Markdown quote blocks
 	api.hi("@markup.quote.markdown", { link = "Comment" })
 	api.hi("@punctuation.special.markdown", { link = "Normal" })
+
+	-- Custom dashboard highlights
+	api.hi("DashboardIcon", { fg = "#85A4F2", bg = "none" })
+	api.hi("DashboardKeymap", { fg = "#85A4F2", bg = "none" })
+	api.hi("DashboardFooter", { fg = "#7C7F96", bg = "none" })
 
 	---------------------------------
 	-- Dynamic highlight overrides --

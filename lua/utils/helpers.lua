@@ -3,7 +3,16 @@ local M = {}
 ---Return the current neovim version
 ---@return string version in the form of X.X.X
 function M.nvim_version()
-	return vim.fn.execute("version"):match("v(%d+%.%d+%.%d+)")
+	-- Implementation basically copied from https://github.com/neovim/neovim/blob/e2bc84e3156032d78891bc52ff466b9e552140cf/runtime/lua/vim/version.lua#L126
+	-- but without the build metadata
+	local v = vim.version()
+	local version = table.concat({ v.major, v.minor, v.patch }, ".")
+
+	if v.prerelease then
+		version = version .. "-" .. (v.prerelease or "dev")
+	end
+
+	return version
 end
 
 ---Return the current working directory

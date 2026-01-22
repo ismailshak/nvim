@@ -1,19 +1,7 @@
 local M = {}
 
 local utils = require("utils.helpers")
-local api = require("utils.api")
 local icons = require("utils.icons")
-
-function M.gen_dashboard_footer()
-	local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-	local branch = api.get_git_branch()
-	local dir_line = icons.statusline.dir .. " " .. dir_name
-	local branch_line = ""
-	if branch ~= "" then
-		branch_line = icons.statusline.git_branch .. " " .. branch
-	end
-	return { "", "", dir_line, "", branch_line }
-end
 
 function M.gen_mix_indent_symbol()
 	local space_pat = [[\v^ +]]
@@ -163,29 +151,6 @@ function M.get_ft_icon_overrides(background)
 		},
 	}
 end
-
-M.dashboard_header = {
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[ Neovim - v]] .. utils.nvim_version(),
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-	[[]],
-}
 
 ---@param ctx blink.cmp.DrawItemContext
 function M.split_label(ctx)

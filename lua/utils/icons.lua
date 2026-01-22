@@ -4,6 +4,12 @@ return {
 		error = " ",
 		prompt = "",
 	},
+	diagnostics = {
+		error = "",
+		warn = "",
+		info = "",
+		hint = "",
+	},
 	dap = {
 		Stopped = "󰁕",
 		Breakpoint = "",
@@ -11,11 +17,13 @@ return {
 		BreakpointRejected = "󱈸",
 		LogPoint = "󰣏",
 	},
-	diagnostics = {
-		error = "",
-		warn = "",
-		info = "",
-		hint = "",
+	dashboard = {
+		branch = "  ",
+		database = "  ",
+		dotfile = "  ",
+		file = "  ",
+		session = "  ",
+		word = "󰟵  ",
 	},
 	files = {
 		config = "",

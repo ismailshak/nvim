@@ -226,3 +226,15 @@ autocmd("WinLeave", {
 		end
 	end,
 })
+
+-- Open dashboard on startup if no files were specified
+autocmd("VimEnter", {
+	once = true,
+	callback = function()
+		if vim.fn.argc() > 0 then
+			return
+		end
+
+		require("custom.dashboard").open()
+	end,
+})
