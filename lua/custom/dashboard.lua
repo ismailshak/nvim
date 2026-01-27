@@ -350,7 +350,7 @@ function M.render(buf)
 	local ACTION_ITEM_PADDING = 1 -- Lines between action items
 	local ACTIONS_PADDING = 4 -- Lines after the actions section
 	local KEYMAP_SPACING = 16 -- Spaces between action text and keymap (horizontal spacing)
-	local LAYOUT_VERTICAL_OFFSET = -4 -- Lines to shift content relative to dead center (negative = up, positive = down)
+	local LAYOUT_VERTICAL_OFFSET = 0.4 -- Percentage from top (0-1, where 0.5 = center, <0.5 = up, >0.5 = down)
 
 	local header, actions, footer = M.build_config()
 
@@ -389,29 +389,34 @@ end
 
 ---Center lines vertically and horizontally
 ---@param lines table Lines to center
----@param vertical_offset number? Lines to offset from center (negative = up, positive = down)
+---@param vertical_offset number? Percentage offset from center (0-1, where 0.5 = center, <0.5 = up, >0.5 = down)
 ---@return table centered Centered lines
 ---@return number top_offset Number of padding lines added at the top
 function M.center_lines(lines, vertical_offset)
-	vertical_offset = vertical_offset or 0
+	vertical_offset = vertical_offset or 0.5 -- Default to center (50%)
 	local win_height = vim.api.nvim_win_get_height(0)
 	local win_width = vim.api.nvim_win_get_width(0)
 
 	local centered = {}
 
-	-- Add vertical padding to center content
+	-- Calculate vertical padding based on percentage
 	local content_height = #lines
 	local available_height = win_height - content_height
-	local top_offset = math.floor(available_height / 2) + vertical_offset
 
-	-- Add the empty lines above for top padding which takes into account vertical offset
+	-- Convert percentage to actual line offset
+	local top_offset = math.floor(available_height * vertical_offset)
+
+	-- Protect against negative offsets
+	top_offset = math.max(0, top_offset)
+
+	-- Add the empty lines above for top padding
 	for _ = 1, top_offset do
 		table.insert(centered, "")
 	end
 
 	-- Center each line horizontally
 	for _, line in ipairs(lines) do
-		local padding = math.floor((win_width - vim.fn.strdisplaywidth(line)) / 2) -- strdisplaywidth so we center visually and not just by byte count
+		local padding = math.floor((win_width - vim.fn.strdisplaywidth(line)) / 2)
 		table.insert(centered, string.rep(" ", padding) .. line)
 	end
 
