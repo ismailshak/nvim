@@ -235,6 +235,20 @@ autocmd("VimEnter", {
 			return
 		end
 
+		if vim.bo.filetype ~= "" then
+			return
+		end
+
+		-- https://github.com/nvim-mini/mini.starter/blob/8ee6ce6a4c9be47682516908557cc062c4d595a2/lua/mini/starter.lua#L1446-L1454
+		local n_lines = vim.api.nvim_buf_line_count(0)
+		if n_lines > 1 then
+			return
+		end
+		local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, true)[1]
+		if string.len(first_line) > 0 then
+			return
+		end
+
 		require("custom.dashboard").open()
 	end,
 })
