@@ -1,6 +1,108 @@
 local M = {}
-local helpers = require("utils.helpers")
 local api = require("utils.api")
+local helpers = require("utils.helpers")
+local icons = require("utils.icons")
+local ui = require("utils.ui")
+
+-- Configuration at the top level for easy customization
+M.config = {
+	-- Spacing configuration
+	action_item_padding = 1, -- Lines between action items
+	actions_padding = 4, -- Lines after the actions section
+	keymap_spacing = 16, -- Spaces between action text and keymap (horizontal spacing)
+	layout_vertical_offset = 0.4, -- Percentage from top (0-1, where 0.5 = center, <0.5 = up, >0.5 = down)
+
+	-- Header configuration
+	header = function()
+		return {
+			lines = {
+				"Neovim - v" .. helpers.nvim_version(),
+			},
+			padding = 4,
+		}
+	end,
+
+	-- Actions configuration
+	actions = function()
+		return {
+			{
+				icon = icons.dashboard.session,
+				text = "Load last session",
+				keymap = "SPC s l",
+				action = function()
+					require("persistence").load({ last = true })
+				end,
+			},
+			{
+				icon = icons.dashboard.file,
+				text = "Find file",
+				keymap = "SPC f f",
+				action = function()
+					vim.cmd("FzfLua files")
+				end,
+			},
+			{
+				icon = icons.dashboard.word,
+				text = "Find word",
+				keymap = "SPC f g",
+				action = function()
+					vim.cmd("FzfLua live_grep")
+				end,
+			},
+			{
+				icon = icons.dashboard.branch,
+				text = "Open diff",
+				keymap = "SPC d v",
+				action = function()
+					vim.cmd("DiffviewOpen")
+				end,
+			},
+			{
+				icon = icons.copilot.response .. "  ",
+				text = "Open copilot",
+				keymap = "SPC c c",
+				action = function()
+					vim.cmd("CodeCompanionChat")
+				end,
+			},
+			{
+				icon = icons.dashboard.database,
+				text = "Open database",
+				keymap = "SPC b d",
+				action = function()
+					vim.cmd("DBUIToggle")
+				end,
+			},
+			{
+				icon = icons.dashboard.dotfile,
+				text = "Open dotfile",
+				keymap = "",
+				action = function()
+					vim.cmd("Dotfiles")
+				end,
+			},
+		}
+	end,
+
+	-- Footer configuration
+	footer = function()
+		local footer_lines = {}
+		local dir_line = ui.build_dir_name_icon()
+		table.insert(footer_lines, helpers.trim(dir_line))
+
+		-- One line of padding between dir and git branch
+		table.insert(footer_lines, "")
+
+		local git_branch = api.get_git_branch()
+		if git_branch ~= "" then
+			table.insert(footer_lines, icons.statusline.git_branch .. " " .. git_branch)
+		end
+
+		return {
+			lines = footer_lines,
+		}
+	end,
+}
 
 ---Dashboard section configuration
 ---@class DashboardSection
@@ -14,106 +116,13 @@ local api = require("utils.api")
 ---@field keymap string Keyboard shortcut hint
 ---@field action function Action to execute on selection
 
----Build the dashboard configuration
----@return DashboardSection header
----@return DashboardAction[] actions
----@return DashboardSection footer
-function M.build_config()
-	local icons = require("utils.icons")
-	local ui = require("utils.ui")
-
-	local header = {
-		lines = {
-			"Neovim - v" .. helpers.nvim_version(),
-		},
-		padding = 4,
-	}
-
-	local actions = {
-		{
-			icon = icons.dashboard.session,
-			text = "Load last session",
-			keymap = "SPC s l",
-			action = function()
-				require("persistence").load({ last = true })
-			end,
-		},
-		{
-			icon = icons.dashboard.file,
-			text = "Find file",
-			keymap = "SPC f f",
-			action = function()
-				vim.cmd("FzfLua files")
-			end,
-		},
-		{
-			icon = icons.dashboard.word,
-			text = "Find word",
-			keymap = "SPC f g",
-			action = function()
-				vim.cmd("FzfLua live_grep")
-			end,
-		},
-		{
-			icon = icons.dashboard.branch,
-			text = "Open diff",
-			keymap = "SPC d v",
-			action = function()
-				vim.cmd("DiffviewOpen")
-			end,
-		},
-		{
-			icon = icons.copilot.response .. "  ",
-			text = "Open copilot",
-			keymap = "SPC c c",
-			action = function()
-				vim.cmd("CodeCompanionChat")
-			end,
-		},
-		{
-			icon = icons.dashboard.database,
-			text = "Open database",
-			keymap = "SPC b d",
-			action = function()
-				vim.cmd("DBUIToggle")
-			end,
-		},
-		{
-			icon = icons.dashboard.dotfile,
-			text = "Open dotfile",
-			keymap = "",
-			action = function()
-				vim.cmd("Dotfiles")
-			end,
-		},
-	}
-
-	local footer_lines = {}
-	local dir_line = ui.build_dir_name_icon()
-	table.insert(footer_lines, helpers.trim(dir_line))
-
-	-- One line of padding between dir and git branch
-	table.insert(footer_lines, "")
-
-	local git_branch = api.get_git_branch()
-	if git_branch ~= "" then
-		table.insert(footer_lines, icons.statusline.git_branch .. " " .. git_branch)
-	end
-
-	local footer = {
-		lines = footer_lines,
-	}
-
-	return header, actions, footer
-end
-
 ---Format action items with consistent width
 ---@param actions DashboardAction[] Action items
 ---@param actions_item_spacing number Lines between action items
 ---@param keymap_spacing number Spaces between text and keymap
 ---@return string[] formatted_actions Display lines with spacing
 ---@return table<number, number> action_line_map Map of display line to action index
-function M.format_actions(actions, actions_item_spacing, keymap_spacing)
+local function format_actions(actions, actions_item_spacing, keymap_spacing)
 	-- Calculate max width for "space-between" type of alignment
 	local max_width = 0
 	for _, action in ipairs(actions) do
@@ -124,7 +133,7 @@ function M.format_actions(actions, actions_item_spacing, keymap_spacing)
 		end
 	end
 
-	local formatted_actions = {} -- i.e. Actios are "space-between"'d (and any spacing lines between items)
+	local formatted_actions = {} -- i.e. Actions are "space-between"'d (and any spacing lines between items)
 	local action_line_map = {} -- Maps line number to action index (taking into account empty lines)
 
 	for i, action in ipairs(actions) do
@@ -155,7 +164,7 @@ end
 ---@param actions_bottom_padding number Spacing after actions section
 ---@return table all_lines Complete layout
 ---@return number actions_start_offset Line offset where actions begin
-function M.assemble_layout(header, actions_display, footer, actions_bottom_padding)
+local function assemble_layout(header, actions_display, footer, actions_bottom_padding)
 	local all_lines = {}
 
 	-- Add header
@@ -184,7 +193,7 @@ end
 ---@param top_padding number Vertical centering padding
 ---@return number[] valid_lines Array of valid line numbers
 ---@return table<number, number> line_to_action_map Map of buffer line to action index
-function M.calculate_valid_lines(action_line_map, actions_start_offset, top_padding)
+local function calculate_valid_lines(action_line_map, actions_start_offset, top_padding)
 	local valid_lines = {}
 	local line_to_action_map = {}
 
@@ -206,7 +215,7 @@ end
 ---@param left_padding number Left padding of centered content
 ---@param last_valid_line number Previous valid line position
 ---@return number current_line New current line after restriction
-function M.restrict_cursor(valid_lines, actions, line_to_action_map, left_padding, last_valid_line)
+local function restrict_cursor(valid_lines, actions, line_to_action_map, left_padding, last_valid_line)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local current_line = cursor_pos[1]
 	local current_col = cursor_pos[2]
@@ -278,7 +287,7 @@ end
 ---@param buf number Buffer handle
 ---@param actions DashboardAction[] Menu items
 ---@param line_to_action_map table Map of buffer line to item index
-function M.setup_keymaps(buf, actions, line_to_action_map)
+local function setup_keymaps(buf, actions, line_to_action_map)
 	-- Enter key executes current item's action
 	api.nmap("<CR>", function()
 		local current_line = vim.api.nvim_win_get_cursor(0)[1]
@@ -302,7 +311,7 @@ end
 ---@param footer DashboardSection Footer section
 ---@param all_lines table All layout lines before centering
 ---@param top_padding number Vertical centering padding
-function M.apply_highlights(buf, actions, line_to_action_map, valid_lines, footer, all_lines, top_padding)
+local function apply_highlights(buf, actions, line_to_action_map, valid_lines, footer, all_lines, top_padding)
 	local ns_id = vim.api.nvim_create_namespace("dashboard")
 
 	-- Highlight icons and keymaps in action items
@@ -344,55 +353,12 @@ function M.apply_highlights(buf, actions, line_to_action_map, valid_lines, foote
 	end
 end
 
----Render the dashboard content
----@param buf number Buffer handle
-function M.render(buf)
-	local ACTION_ITEM_PADDING = 1 -- Lines between action items
-	local ACTIONS_PADDING = 4 -- Lines after the actions section
-	local KEYMAP_SPACING = 16 -- Spaces between action text and keymap (horizontal spacing)
-	local LAYOUT_VERTICAL_OFFSET = 0.4 -- Percentage from top (0-1, where 0.5 = center, <0.5 = up, >0.5 = down)
-
-	local header, actions, footer = M.build_config()
-
-	local actions_display, action_line_map = M.format_actions(actions, ACTION_ITEM_PADDING, KEYMAP_SPACING)
-
-	-- Assemble complete layout
-	local all_lines, actions_start_offset = M.assemble_layout(header, actions_display, footer, ACTIONS_PADDING)
-
-	-- Center and write to buffer
-	vim.api.nvim_set_option_value("modifiable", true, { buf = buf })
-	local centered_lines, top_padding = M.center_lines(all_lines, LAYOUT_VERTICAL_OFFSET)
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_lines)
-	vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-
-	-- Calculate valid navigable lines
-	local valid_lines, line_to_action_map = M.calculate_valid_lines(action_line_map, actions_start_offset, top_padding)
-
-	-- Calculate left padding (left edge of centered content)
-	local rendered_line = vim.api.nvim_buf_get_lines(buf, valid_lines[1] - 1, valid_lines[1], false)[1]
-	local left_padding = rendered_line:find("%S") - 1
-
-	-- Apply syntax highlighting
-	M.apply_highlights(buf, actions, line_to_action_map, valid_lines, footer, all_lines, top_padding)
-
-	-- Set up keybindings
-	M.setup_keymaps(buf, actions, line_to_action_map)
-
-	-- Set up autocommands (includes cursor restriction)
-	M.setup_autocommands(buf, valid_lines, actions, line_to_action_map, left_padding)
-
-	-- Set initial cursor position (after first item's icon)
-	local first_item_idx = line_to_action_map[valid_lines[1]]
-	local first_icon = actions[first_item_idx].icon or ""
-	vim.api.nvim_win_set_cursor(0, { valid_lines[1], left_padding + #first_icon })
-end
-
 ---Center lines vertically and horizontally
 ---@param lines table Lines to center
 ---@param vertical_offset number? Percentage offset from center (0-1, where 0.5 = center, <0.5 = up, >0.5 = down)
 ---@return table centered Centered lines
 ---@return number top_offset Number of padding lines added at the top
-function M.center_lines(lines, vertical_offset)
+local function center_lines(lines, vertical_offset)
 	vertical_offset = vertical_offset or 0.5 -- Default to center (50%)
 	local win_height = vim.api.nvim_win_get_height(0)
 	local win_width = vim.api.nvim_win_get_width(0)
@@ -429,7 +395,7 @@ end
 ---@param actions DashboardAction[] Action items
 ---@param line_to_action_map table Map of buffer line to action index
 ---@param left_padding number Left padding of centered content
-function M.setup_autocommands(buf, valid_lines, actions, line_to_action_map, left_padding)
+local function setup_autocommands(buf, valid_lines, actions, line_to_action_map, left_padding)
 	-- Clear existing autocommands for this buffer since we'll be calling this on re-render
 	local augroup = vim.api.nvim_create_augroup("Dashboard_" .. buf, { clear = true })
 
@@ -446,7 +412,7 @@ function M.setup_autocommands(buf, valid_lines, actions, line_to_action_map, lef
 				return true -- Remove autocmd
 			end
 
-			last_valid_line = M.restrict_cursor(valid_lines, actions, line_to_action_map, left_padding, last_valid_line)
+			last_valid_line = restrict_cursor(valid_lines, actions, line_to_action_map, left_padding, last_valid_line)
 		end,
 	})
 
@@ -458,6 +424,47 @@ function M.setup_autocommands(buf, valid_lines, actions, line_to_action_map, lef
 			M.render(buf)
 		end,
 	})
+end
+
+---Render the dashboard content
+---@param buf number Buffer handle
+local function render(buf)
+	local header = M.config.header()
+	local actions = M.config.actions()
+	local footer = M.config.footer()
+
+	local actions_display, action_line_map =
+		format_actions(actions, M.config.action_item_padding, M.config.keymap_spacing)
+
+	-- Assemble complete layout
+	local all_lines, actions_start_offset = assemble_layout(header, actions_display, footer, M.config.actions_padding)
+
+	-- Center and write to buffer
+	vim.api.nvim_set_option_value("modifiable", true, { buf = buf })
+	local centered_lines, top_padding = center_lines(all_lines, M.config.layout_vertical_offset)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_lines)
+	vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+
+	-- Calculate valid navigable lines
+	local valid_lines, line_to_action_map = calculate_valid_lines(action_line_map, actions_start_offset, top_padding)
+
+	-- Calculate left padding (left edge of centered content)
+	local rendered_line = vim.api.nvim_buf_get_lines(buf, valid_lines[1] - 1, valid_lines[1], false)[1]
+	local left_padding = rendered_line:find("%S") - 1
+
+	-- Apply syntax highlighting
+	apply_highlights(buf, actions, line_to_action_map, valid_lines, footer, all_lines, top_padding)
+
+	-- Set up keybindings
+	setup_keymaps(buf, actions, line_to_action_map)
+
+	-- Set up autocommands (includes cursor restriction)
+	setup_autocommands(buf, valid_lines, actions, line_to_action_map, left_padding)
+
+	-- Set initial cursor position (after first item's icon)
+	local first_item_idx = line_to_action_map[valid_lines[1]]
+	local first_icon = actions[first_item_idx].icon or ""
+	vim.api.nvim_win_set_cursor(0, { valid_lines[1], left_padding + #first_icon })
 end
 
 function M.open()
@@ -473,7 +480,7 @@ function M.open()
 
 	vim.api.nvim_set_current_buf(buffer)
 
-	M.render(buffer)
+	render(buffer)
 
 	-- Hide all UI elements
 	vim.opt_local.number = false
