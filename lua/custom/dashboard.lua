@@ -301,6 +301,12 @@ local function setup_keymaps(buf, actions, line_to_action_map)
 	api.nmap("v", "<Nop>", "", { buffer = buf, silent = true })
 	api.nmap("V", "<Nop>", "", { buffer = buf, silent = true })
 	api.nmap("<C-v>", "<Nop>", "", { buffer = buf, silent = true })
+
+	-- Disable mouse scrolling
+	api.nmap("<ScrollWheelUp>", "<Nop>", "", { buffer = buf, silent = true })
+	api.nmap("<ScrollWheelDown>", "<Nop>", "", { buffer = buf, silent = true })
+	api.nmap("<ScrollWheelRight>", "<Nop>", "", { buffer = buf, silent = true })
+	api.nmap("<ScrollWheelLeft>", "<Nop>", "", { buffer = buf, silent = true })
 end
 
 ---Apply syntax highlighting to dashboard sections
