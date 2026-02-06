@@ -123,6 +123,10 @@ end, {
 	end,
 })
 
+usercmd("Settings", function()
+	require("custom.toggle").toggle()
+end, { nargs = 0 })
+
 -- AUTOCOMMANDS --
 
 local autocmd = vim.api.nvim_create_autocmd

@@ -11,6 +11,7 @@ function M.init()
 	-- Globals to stop notifications from spamming me
 	vim.g.conform_disabled_notify = true
 	vim.g.conform_no_formatters_notify = true
+	vim.g.format_on_save = true
 end
 
 ---Closes the notification handler and reports any errors
@@ -50,6 +51,10 @@ function M.format_progress_handler()
 end
 
 function M.format_on_save(bufnr)
+	if vim.g.format_on_save == false then
+		return
+	end
+
 	local path = utils.full_path()
 	local disabled_dirs = settings.get().disable_format
 	local formatters = require("conform").list_formatters(bufnr)
