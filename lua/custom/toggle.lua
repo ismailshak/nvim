@@ -73,6 +73,11 @@ M.config = {
 		title = "Settings",
 		margin = { top = 1, right = 4 },
 	},
+	highlights = {
+		enabled = "String",
+		disabled = "Comment",
+		key = "Special",
+	},
 	icons = {
 		enabled = "",
 		disabled = "",
@@ -149,13 +154,13 @@ local function render()
 		local state_val = toggle.get_state()
 		vim.api.nvim_buf_set_extmark(state.buf, ns_id, i - 1, 0, {
 			end_col = 1,
-			hl_group = "Special",
+			hl_group = M.config.highlights.key,
 		})
 		local line = lines[i]
 		local line_len = #line
-		local icon_width = vim.fn.strwidth(state_val and M.config.icons.enabled or M.config.icons.disabled)
+		local icon_width = state_val and #M.config.icons.enabled or #M.config.icons.disabled
 		local icon_start = line_len - icon_width
-		local hl = state_val and "String" or "Comment"
+		local hl = state_val and M.config.highlights.enabled or M.config.highlights.disabled
 		vim.api.nvim_buf_set_extmark(state.buf, ns_id, i - 1, icon_start, {
 			end_col = line_len,
 			hl_group = hl,
