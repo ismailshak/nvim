@@ -22,6 +22,7 @@ return {
 	-- GitHub Copilot
 	{
 		"zbirenbaum/copilot.lua",
+		enabled = settings.get().copilot,
 		cmd = "Copilot",
 		keys = { "<leader>cd", "<leader>ce" },
 		event = "VeryLazy",
@@ -49,6 +50,7 @@ return {
 	},
 	{
 		"olimorris/codecompanion.nvim",
+		enabled = settings.get().copilot,
 		lazy = false,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
