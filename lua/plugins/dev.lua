@@ -153,6 +153,32 @@ return {
 		},
 	},
 
+	-- Automatically close brackets
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		opts = {
+			check_ts = true,
+			ts_config = {
+				lua = { "string", "source" },
+				javascript = { "string", "template_string" },
+				java = false,
+			},
+			disable_filetype = { "TelescopePrompt", "spectre_panel", "dashboard", "NvimTree", "toggleterm", "term" },
+			fast_wrap = {
+				map = "<M-e>",
+				chars = { "{", "[", "(", '"', "'" },
+				pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+				offset = 0, -- Offset from pattern match
+				end_key = "$",
+				keys = "qwertyuiopzxcvbnmasdfghjkl",
+				check_comma = true,
+				highlight = "PmenuSel",
+				highlight_grey = "LineNr",
+			},
+		},
+	},
+
 	-- Automatically close html tags
 	{
 		"windwp/nvim-ts-autotag",
@@ -430,5 +456,21 @@ return {
 			},
 		},
 		opts_extend = { "sources.default" },
+	},
+
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+			"TmuxNavigatorProcessList",
+		},
+		init = function()
+			vim.g.tmux_navigator_no_mappings = 1
+			mappings.tmux_navigator()
+		end,
 	},
 }

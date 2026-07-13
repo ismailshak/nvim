@@ -39,11 +39,11 @@ api.nmap("<A-Down>", "yyp", "Duplicate current line below")
 api.vmap("<A-Up>", "yP", "Duplicate multiple lines")
 api.vmap("<A-Down>", "yP", "Duplicate multiple lines")
 
--- Splits
-api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
-api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
-api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
-api.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
+-- -- Splits
+-- api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
+-- api.nmap("<C-l>", "<c-w>l", "Jump 1 split plane to the right")
+-- api.nmap("<C-j>", "<c-w>j", "Jump 1 split plane below")
+-- api.nmap("<C-k>", "<c-w>k", "Jump 1 split plane above")
 
 api.nmap("<A-H>", "<CMD>vertical resize +2<CR>", "Make split pane wider (normal mode)")
 api.nmap("<A-L>", "<CMD>vertical resize -2<CR>", "Make split pane thinner (normal mode)")
@@ -335,6 +335,13 @@ function M.leap()
 	api.map({ "n", "x", "o" }, "s", "<Plug>(leap-forward)", "Leap forward")
 	api.map({ "n", "x", "o" }, "S", "<Plug>(leap-backward)", "Leap backward")
 	api.nmap("gs", "<Plug>(leap-from-window)", "Leap from window")
+end
+
+function M.tmux_navigator()
+	api.nmap("<C-h>", "<CMD>TmuxNavigateLeft<CR>", "Navigate to neovim or tmux pane to the left")
+	api.nmap("<C-l>", "<CMD>TmuxNavigateRight<CR>", "Navigate to neovim or tmux pane to the right")
+	api.nmap("<C-j>", "<CMD>TmuxNavigateDown<CR>", "Navigate to neovim or tmux pane below")
+	api.nmap("<C-k>", "<CMD>TmuxNavigateUp<CR>", "Navigate to neovim or tmux pane above")
 end
 
 return M
