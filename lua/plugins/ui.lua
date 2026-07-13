@@ -20,6 +20,7 @@ local ignore_list = {
 	"public",
 	"report",
 	"target",
+	"*.tsbuildinfo",
 }
 
 return {
