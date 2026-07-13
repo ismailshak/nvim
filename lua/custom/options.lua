@@ -78,9 +78,9 @@ opt.grepprg = "rg --vimgrep --smart-case --hidden --follow"
 -- Filetypes
 vim.filetype.add({
 	pattern = {
-		-- Map `.env.*` to `conf` so that shell-specific LSPs don't start (default is `.env ft=sh`)
-		-- and extend it any sub-env files so we get highlighting (e.g. `.env.local`)
-		[".env.*"] = "conf",
+		-- Map all `.env` variations to `conf` so that shell-specific LSPs don't start (default is `.env ft=sh`)
+		-- and extend it any sub-env files so we get highlighting (e.g. `.env.local` or `test.env`)
+		[".*%.env.*"] = "conf",
 	},
 })
 
