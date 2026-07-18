@@ -1,5 +1,5 @@
 [tools]
-neovim="0.11.1"
+neovim="0.11.2"
 
 [tasks.global]
 description = "Install the locally mise-defined neovim version globally"
