@@ -315,10 +315,6 @@ function M.dap()
 	})
 end
 
-function M.dadbod()
-	api.nmap("<leader>bd", "<CMD>DBUIToggle<CR>", "Toggle database client [dadbod]")
-end
-
 function M.leap()
 	api.map({ "n", "x", "o" }, "s", "<Plug>(leap-forward)", "Leap forward")
 	api.map({ "n", "x", "o" }, "S", "<Plug>(leap-backward)", "Leap backward")
