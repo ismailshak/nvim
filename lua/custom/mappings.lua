@@ -208,18 +208,6 @@ function M.fzf()
 	api.nmap("<leader>th", "<CMD>FzfLua colorscheme<CR>", "Colorscheme picker [fzf-lua]")
 end
 
-function M.ufo()
-	-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-	api.nmap("zR", require("ufo").openAllFolds, "Open all fold [ufo]")
-	api.nmap("zM", require("ufo").closeAllFolds, "Close all fold [ufo]")
-	api.nmap("zK", function()
-		local winid = require("ufo").peekFoldedLinesUnderCursor()
-		if not winid then
-			vim.lsp.buf.hover()
-		end
-	end, "Peek fold under cursor [ufo]")
-end
-
 function M.toggleterm()
 	api.nmap("<c-\\>", "<CMD>ToggleTerm direction=float<CR>", "Toggle terminal float [ToggleTerm]")
 	api.tmap("<c-\\>", function()

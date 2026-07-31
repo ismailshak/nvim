@@ -144,17 +144,6 @@ return {
 		},
 	},
 
-	-- Folds
-	{
-		"kevinhwang91/nvim-ufo",
-		dependencies = "kevinhwang91/promise-async",
-		event = "VimEnter",
-		config = function(_, opts)
-			require("ufo").setup(opts)
-			mappings.ufo()
-		end,
-	},
-
 	{
 		-- Terminal
 		"akinsho/toggleterm.nvim",

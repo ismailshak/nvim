@@ -208,6 +208,12 @@ autocmd("LspAttach", {
 				vim.lsp.buf_detach_client(opts.buf, id)
 			end)
 		end
+
+		-- Enable folds if supported
+		if client:supports_method("textDocument/foldingRange") then
+			local win = vim.api.nvim_get_current_win()
+			vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+		end
 	end,
 })
 

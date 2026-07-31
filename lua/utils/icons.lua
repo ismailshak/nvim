@@ -25,6 +25,10 @@ return {
 		session = "  ",
 		word = "󰟵  ",
 	},
+	editor = {
+		fold = "",
+	},
+
 	files = {
 		config = "",
 		env = "",

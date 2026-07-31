@@ -20,9 +20,6 @@ opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- removes blinki
 opt.cmdheight = 0 -- removes the space at the bottom for commands
 opt.laststatus = 3 -- turns the statusline into a global status line (not 1 per buffer/split)
 opt.wrap = false -- disable line wrap
-opt.foldlevel = 99 -- Keep all folds open
-opt.foldlevelstart = 99 -- Don't close any folds on load
-opt.foldenable = true
 opt.signcolumn = "yes" -- always display so icons don't move the text
 opt.winfixwidth = true -- don't resize windows when splitting
 opt.diffopt = {
@@ -34,6 +31,60 @@ opt.diffopt = {
 	"linematch:60",
 	"indent-heuristic",
 }
+
+-- Folds
+opt.foldenable = true
+opt.foldlevel = 99
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext = "v:lua.foldtext()"
+opt.foldcolumn = "0"
+opt.fillchars:append({
+	fold = " ",
+})
+
+-- Syntax highlighted fold line
+local function fold_virt_text(result, text, lnum, coloff)
+	coloff = coloff or 0
+
+	local chunks = {}
+	local current_hl
+
+	local function flush()
+		if #chunks > 0 then
+			result[#result + 1] = { table.concat(chunks), current_hl }
+			chunks = {}
+		end
+	end
+
+	for i = 1, #text do
+		local captures = vim.treesitter.get_captures_at_pos(0, lnum, coloff + i - 1)
+
+		local capture = captures[#captures]
+		local hl = capture and ("@" .. capture.capture) or nil
+
+		if hl ~= current_hl then
+			flush()
+			current_hl = hl
+		end
+
+		chunks[#chunks + 1] = text:sub(i, i)
+	end
+
+	flush()
+end
+
+function _G.foldtext()
+	local result = {}
+	local lnum = vim.v.foldstart - 1
+	local line = vim.fn.getline(vim.v.foldstart)
+
+	fold_virt_text(result, line, lnum)
+
+	result[#result + 1] = { " " .. icons.editor.fold, "Comment" }
+
+	return result
+end
 
 -- Interactions
 opt.mouse = "a" -- enable mouse for all modes
