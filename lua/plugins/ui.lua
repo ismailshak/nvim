@@ -291,9 +291,6 @@ return {
 		end,
 	},
 
-	-- Color editing modal
-	{ "nvchad/minty", dependencies = { { "nvchad/volt" } } },
-
 	-- Highlight colors in the buffer
 	{
 		"brenoprata10/nvim-highlight-colors",

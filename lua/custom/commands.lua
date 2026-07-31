@@ -106,23 +106,6 @@ usercmd("Dotfiles", function()
 	})
 end, { nargs = 0 })
 
-usercmd("Color", function(args)
-	if args.args == "shade" then
-		require("minty.shades").open()
-		return
-	end
-
-	require("minty.huefy").open()
-end, {
-	nargs = "?",
-	complete = function()
-		return {
-			"hue",
-			"shade",
-		}
-	end,
-})
-
 usercmd("Settings", function()
 	require("custom.toggle").toggle()
 end, { nargs = 0 })
