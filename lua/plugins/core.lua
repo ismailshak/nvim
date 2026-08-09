@@ -33,6 +33,7 @@ return {
 			linters_by_ft = {
 				markdown = { "markdownlint" },
 				sh = { "shellcheck" },
+				go = { "golangcilint" },
 			},
 			linters = {
 				markdownlint = {
