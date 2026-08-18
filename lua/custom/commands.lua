@@ -65,6 +65,10 @@ usercmd("Format", function(args)
 	)
 end, { range = true })
 
+usercmd("FormatJSON", function()
+	vim.cmd("%!jq .")
+end, { nargs = 0 })
+
 -- Trim trailing whitespace on save and keep cursor position intact
 usercmd("TrimTrailingWhitespace", function(args)
 	if vim.bo.filetype == "diff" then
