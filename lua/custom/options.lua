@@ -30,6 +30,7 @@ opt.diffopt = {
 	"algorithm:histogram",
 	"linematch:60",
 	"indent-heuristic",
+	"inline:char",
 }
 
 -- Folds
