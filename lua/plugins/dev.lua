@@ -11,11 +11,11 @@ return {
 
 	-- Move around the buffers
 	{
-		"ggandor/leap.nvim",
+		url = "https://codeberg.org/andyg/leap.nvim",
 		lazy = false, -- Handled by plugin
 		config = function()
 			mappings.leap()
-			require("leap").init_highlight(true)
+			require("leap").init_hl()
 		end,
 	},
 

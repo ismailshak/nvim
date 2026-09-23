@@ -7,7 +7,6 @@ function M.plugins()
 	M.nvim_tree()
 	M.dap_ui()
 	M.blink()
-	M.leap()
 	M.render_markdown()
 end
 
@@ -53,11 +52,6 @@ end
 ---Overrides highlights for 'saghen/blink.cmp'
 function M.blink()
 	api.hi("BlinkCmpDocBorder", { link = "FloatBorder" })
-end
-
----Overrides highlights for 'ggandor/leap.vim'
-function M.leap()
-	api.hi("LeapLabel", {}) -- Without this labels don't highlight
 end
 
 ---Overrides highlights for 'MeanderingProgrammer/render-markdown.nvim'
