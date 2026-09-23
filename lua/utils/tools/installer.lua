@@ -7,8 +7,10 @@ local tools = require("utils.tools.spec")
 function M.setup_mason()
 	require("mason").setup({ PATH = "append" })
 
-	-- Lets mason commands accept lspconfig server names, such as `:MasonInstall lua_ls`
-	require("mason-lspconfig").setup()
+	-- Adds `:LspInstall` and `:LspUninstall`, which take lspconfig server names such as `lua_ls`, and shows those
+	-- names next to the packages in `:Mason`. `automatic_enable` is off because `lsp.lua` enables servers itself,
+	-- including ones that are not installed by mason.
+	require("mason-lspconfig").setup({ automatic_enable = false })
 
 	-- Auto install tools
 	require("mason-tool-installer").setup({
