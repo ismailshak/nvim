@@ -19,6 +19,10 @@ usercmd("DeleteAllMarks", function()
 end, {})
 
 usercmd("T", "sp | term", {}) -- Open a terminal in a horizontal split
+
+usercmd("OrganizeImports", function()
+	vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" }, diagnostics = {} }, apply = true })
+end, {})
 usercmd("TT", "vsp | term", {}) -- Open a terminal in a vertical split
 usercmd("TTT", "tabnew | term", {}) -- Open a terminal in a new tab
 

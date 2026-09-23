@@ -80,18 +80,6 @@ return {
 		init = formatting.init,
 	},
 
-	-- Lua-based Typescript LSP
-	{
-		"pmizio/typescript-tools.nvim",
-		pin = true, -- replaced by tsc and vtsls after the nvim 0.12 upgrade
-		event = "BufReadPost",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {
-			publish_diagnostic_on = "change",
-			expose_as_code_action = "all",
-		},
-	},
-
 	-- Rust tools
 	{
 		"mrcjkb/rustaceanvim",

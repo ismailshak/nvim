@@ -10,6 +10,7 @@ return {
 		"lua_ls",
 		"marksman",
 		"typos_lsp",
+		"vtsls", -- TypeScript for projects on TypeScript 5 or 6, see `configure_typescript` in `lsp.lua`
 		"yamlls",
 	},
 	---Tools that will be automatically installed (linters/formatters/debuggers)
@@ -30,6 +31,7 @@ return {
 		-- "rust_analyzer", -- Handled by 'mrcjkb/rustaceanvim'
 		"svelte",
 		"tailwindcss",
+		"tsc", -- TypeScript 7 or later, installed by the project's package.json
 	},
 	---Tools that will be hooked up if found on system $PATH (linters/formatters/debuggers)
 	optional_tools = {
