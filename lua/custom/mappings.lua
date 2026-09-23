@@ -94,6 +94,7 @@ function M.lsp(bufnr)
 	api.nmap("grr", "<CMD>FzfLua lsp_references<CR>", gen_desc("Goto references"), opts)
 
 	api.nmap("gd", vim.lsp.buf.definition, gen_desc("Goto Definition"), opts)
+	api.nmap("gp", require("custom.peek").definition, gen_desc("Peek definition in a floating window"), opts)
 	api.nmap("gI", "<CMD>FzfLua lsp_implementations<CR>", gen_desc("Goto Implementation"), opts)
 	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type Definition"), opts)
 	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CR>", gen_desc("Document symbols"), opts)
@@ -116,11 +117,6 @@ function M.lsp(bufnr)
 	api.nmap("<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, gen_desc("Workspace list folders"), opts)
-end
-
-function M.lspsaga()
-	api.nmap("gp", "<CMD>Lspsaga peek_definition<CR>", "Peek definition in floating window")
-	api.nmap("go", "<CMD>Lspsaga outline<CR>", "Open buffer symbol outline in a panel")
 end
 
 function M.undotree()
