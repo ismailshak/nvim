@@ -523,7 +523,7 @@ return {
 			end
 
 			require("fzf-lua").setup({
-				"borderless_full",
+				"borderless-full",
 				fzf_opts = {
 					["--no-bold"] = "",
 					["--margin"] = "1,0",

@@ -195,7 +195,7 @@ function M.fzf()
 	api.nmap("<leader>gt", "<CMD>FzfLua git_status <CR>", "Run git status [fzf-lua]")
 	api.nmap("<leader>sc", "<CMD>FzfLua spell_suggest <CR>", "Suggest spelling [fzf-lua]")
 	api.nmap("<leader>fc", "<CMD>FzfLua grep_curbuf<CR>", "Fuzzy find in buffer [fzf-lua]")
-	api.nmap("<leader>th", "<CMD>FzfLua colorscheme<CR>", "Colorscheme picker [fzf-lua]")
+	api.nmap("<leader>th", "<CMD>FzfLua colorschemes<CR>", "Colorscheme picker [fzf-lua]")
 end
 
 function M.toggleterm()
