@@ -1,4 +1,3 @@
-local utils = require("utils.helpers")
 local icons = require("utils.icons")
 
 local M = {}
@@ -63,17 +62,9 @@ function M.setup_dap_ui()
 end
 
 function M.setup_dap()
-	local types_to_filetypes = {}
-
 	for _, config in pairs(M.debuggers) do
-		local launch_ext = config.setup()
-
-		if launch_ext then
-			types_to_filetypes = utils.merge_tables(types_to_filetypes, launch_ext)
-		end
+		config.setup()
 	end
-
-	require("dap.ext.vscode").load_launchjs(nil, types_to_filetypes)
 end
 
 return M

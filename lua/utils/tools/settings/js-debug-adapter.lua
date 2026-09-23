@@ -53,17 +53,6 @@ function M.adapters()
 	}
 end
 
---- Maps the .vscode/launch.json config types to the languages they support
----@return table
-function M.get_launch_ext()
-	return {
-		["chrome"] = M.languages,
-		["pwa-chrome"] = M.languages,
-		["node"] = M.languages,
-		["pwa-node"] = M.languages,
-	}
-end
-
 function M.configurations()
 	local dap = require("dap")
 
@@ -118,13 +107,11 @@ function M.configurations()
 			},
 		}
 	end
-
-	return M.get_launch_ext()
 end
 
 function M.setup()
 	M.adapters()
-	return M.configurations()
+	M.configurations()
 end
 
 return M
