@@ -83,7 +83,7 @@ return {
 	-- Rust tools
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^5",
+		version = "^9",
 		lazy = false,
 		opts = {
 			tools = {
@@ -91,9 +91,6 @@ return {
 					border = "rounded",
 					max_width = utils.percentage_as_width(70),
 					max_height = utils.percentage_as_width(20),
-				},
-				hover_actions = {
-					replace_builtin_hover = false,
 				},
 			},
 			server = {
