@@ -239,126 +239,93 @@ return {
 
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
-		pin = true, -- the `main` branch needs nvim 0.12
+		branch = "main",
+		lazy = false, -- registers filetype-to-parser aliases when it loads and does not support lazy loading
 		build = ":TSUpdate",
-		event = "VeryLazy",
-		cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter-textobjects", pin = true }, -- the `main` branch needs nvim 0.12
-			"JoosepAlviste/nvim-ts-context-commentstring",
-		},
 		config = function()
-			---@diagnostic disable-next-line: missing-fields
-			require("ts_context_commentstring").setup({
-				enable_autocmd = false,
+			-- `:TSUpdate` only updates installed parsers, so a new machine needs this list. `install` is async and
+			-- skips parsers that are already installed.
+			require("nvim-treesitter").install({
+				"bash",
+				"css",
+				"dockerfile",
+				"go",
+				"gomod",
+				"graphql",
+				"html",
+				"javascript",
+				"jsdoc",
+				"json",
+				"just",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"ocaml",
+				"python",
+				"query",
+				"regex",
+				"rust",
+				"sql",
+				"svelte",
+				"tsx",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"yaml",
 			})
 
-			---@diagnostic disable-next-line: missing-fields
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"bash",
-					"css",
-					"dockerfile",
-					"go",
-					"gomod",
-					"graphql",
-					"html",
-					"javascript",
-					"jsdoc",
-					"json",
-					"just",
-					"lua",
-					"markdown",
-					"markdown_inline",
-					"ocaml",
-					"python",
-					"regex",
-					"rust",
-					"sql",
-					"svelte",
-					"tsx",
-					"typescript",
-					"vim",
-					"vimdoc", -- https://github.com/nvim-treesitter/nvim-treesitter/issues/2293#issuecomment-1492982270
-					"yaml",
-				},
-				highlight = {
-					enable = true,
-					use_languagetree = true,
-				},
-				indent = {
-					enable = true,
-				},
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-						keymaps = {
-							["aa"] = { query = "@parameter.outer", desc = "Select around parameter" },
-							["ia"] = { query = "@parameter.inner", desc = "Select inside parameter" },
-							["af"] = { query = "@function.outer", desc = "Select around function" },
-							["if"] = { query = "@function.inner", desc = "Select inside function" },
-							["ac"] = { query = "@class.outer", desc = "Select around class" },
-							["ic"] = { query = "@class.inner", desc = "Select inside class" },
-							["ai"] = { query = "@conditional.outer", desc = "Select around conditional" },
-							["ii"] = { query = "@conditional.inner", desc = "Select inside conditional" },
-							["al"] = { query = "@loop.outer", desc = "Select around loop" },
-							["il"] = { query = "@loop.inner", desc = "Select inside loop" },
-							["ab"] = { query = "@block.outer", desc = "Select around block" },
-							["ib"] = { query = "@block.inner", desc = "Select inside block" },
-							["am"] = { query = "@call.outer", desc = "Select around method" },
-							["im"] = { query = "@call.inner", desc = "Select inside method" },
-							["as"] = { query = "@statement.outer", desc = "Select around statement" },
-							["is"] = { query = "@statement.inner", desc = "Select inside statement" },
-						},
-					},
-					move = {
-						enable = true,
-						set_jumps = true, -- Whether to set jumps in the jumplist
-						goto_next_start = {
-							["]f"] = { query = "@function.outer", desc = "Move to the next function" },
-							["]]"] = { query = "@class.outer", desc = "Move to the next class" },
-							["]a"] = { query = "@parameter.outer", desc = "Move to the next parameter" },
-							["]m"] = { query = "@call.outer", desc = "Move to the next method" },
-							["]i"] = { query = "@conditional.outer", desc = "Move to the next conditional" },
-							["]l"] = { query = "@loop.outer", desc = "Move to the next loop" },
-							["]b"] = { query = "@block.outer", desc = "Move to the next block" },
-							["]s"] = { query = "@statement.outer", desc = "Move to the next statement" },
-						},
-						goto_previous_start = {
-							["[f"] = { query = "@function.outer", desc = "Move to the previous function" },
-							["[["] = { query = "@class.outer", desc = "Move to the previous class" },
-							["[a"] = { query = "@parameter.outer", desc = "Move to the previous parameter" },
-							["[m"] = { query = "@call.outer", desc = "Move to the previous method" },
-							["[i"] = "@conditional.outer",
-							["[l"] = { query = "@loop.outer", desc = "Move to the previous loop" },
-							["[b"] = { query = "@block.outer", desc = "Move to the previous block" },
-							["[s"] = { query = "@statement.outer", desc = "Move to the previous statement" },
-						},
-					},
-					swap = {
-						enable = true,
-						swap_next = {
-							["<leader>sa"] = { query = "@parameter.inner", desc = "Swap current parameter with next" },
-						},
-						swap_previous = {
-							["<leader>sA"] = {
-								query = "@parameter.inner",
-								desc = "Swap current parameter with previous",
-							},
-						},
-					},
-				},
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<C-Space>",
-						node_incremental = "<C-Space>",
-						scope_incremental = false,
-						node_decremental = "<BS>",
-					},
-				},
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("TreesitterStart", { clear = true }),
+				callback = function(ev)
+					local lang = vim.treesitter.language.get_lang(vim.bo[ev.buf].filetype)
+					if not lang or not vim.treesitter.language.add(lang) then
+						return
+					end
+
+					vim.treesitter.start(ev.buf, lang)
+
+					-- nvim-treesitter's indentexpr only knows languages that have an indents query
+					if vim.treesitter.query.get(lang, "indents") then
+						vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
+				end,
 			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-treesitter-textobjects").setup({
+				select = { lookahead = true },
+				move = { set_jumps = true },
+			})
+
+			-- The mappings are buffer-local so that buffers without textobject queries keep the default `]a`, `]b`
+			-- and `]l` mappings. This autocmd is created after the ftplugin one, so these mappings replace the
+			-- `]]` and `]m` mappings of the go, rust and python ftplugins.
+			local function attach(buf)
+				local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+				local ok, query = pcall(vim.treesitter.query.get, lang or "", "textobjects")
+				if ok and query then
+					mappings.treesitter_textobjects(buf)
+				end
+			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("TreesitterTextobjects", { clear = true }),
+				callback = function(ev)
+					attach(ev.buf)
+				end,
+			})
+
+			-- Buffers opened before this plugin loaded
+			for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+				if vim.api.nvim_buf_is_loaded(buf) then
+					attach(buf)
+				end
+			end
 		end,
 	},
 }

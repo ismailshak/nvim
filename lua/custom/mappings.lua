@@ -60,6 +60,11 @@ api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of
 
 api.tmap("<Esc><Esc>", "<C-\\><C-n>", "Escape terminal mode")
 
+-- Treesitter node selection, using the built-in `an` and `in` visual mode mappings
+api.nmap("<C-Space>", "van", "Select node under cursor", { remap = true })
+api.map("x", "<C-Space>", "an", "Grow selection to parent node", { remap = true })
+api.map("x", "<BS>", "in", "Shrink selection to child node", { remap = true })
+
 function M.hover()
 	vim.lsp.buf.hover({
 		border = "rounded",
@@ -309,6 +314,53 @@ function M.leap()
 	api.map({ "n", "x", "o" }, "s", "<Plug>(leap-forward)", "Leap forward")
 	api.map({ "n", "x", "o" }, "S", "<Plug>(leap-backward)", "Leap backward")
 	api.nmap("gs", "<Plug>(leap-from-window)", "Leap from window")
+end
+
+function M.treesitter_textobjects(bufnr)
+	local select = require("nvim-treesitter-textobjects.select")
+	local move = require("nvim-treesitter-textobjects.move")
+	local swap = require("nvim-treesitter-textobjects.swap")
+	local opts = { buffer = bufnr }
+
+	-- `@statement` has no `.inner` capture in any language, so there is no `is`
+	local objects = {
+		{ key = "a", query = "@parameter", name = "parameter" },
+		{ key = "f", query = "@function", name = "function" },
+		{ key = "c", query = "@class", name = "class" },
+		{ key = "i", query = "@conditional", name = "conditional" },
+		{ key = "l", query = "@loop", name = "loop" },
+		{ key = "b", query = "@block", name = "block" },
+		{ key = "m", query = "@call", name = "call" },
+		{ key = "s", query = "@statement", name = "statement" },
+	}
+
+	for _, o in ipairs(objects) do
+		api.map({ "x", "o" }, "a" .. o.key, function()
+			select.select_textobject(o.query .. ".outer", "textobjects")
+		end, "Select around " .. o.name, opts)
+		if o.key ~= "s" then
+			api.map({ "x", "o" }, "i" .. o.key, function()
+				select.select_textobject(o.query .. ".inner", "textobjects")
+			end, "Select inside " .. o.name, opts)
+		end
+
+		-- Classes use `]]` and `[[`
+		local next_key = o.key == "c" and "]]" or "]" .. o.key
+		local prev_key = o.key == "c" and "[[" or "[" .. o.key
+		api.map({ "n", "x", "o" }, next_key, function()
+			move.goto_next_start(o.query .. ".outer", "textobjects")
+		end, "Move to the next " .. o.name, opts)
+		api.map({ "n", "x", "o" }, prev_key, function()
+			move.goto_previous_start(o.query .. ".outer", "textobjects")
+		end, "Move to the previous " .. o.name, opts)
+	end
+
+	api.nmap("<leader>sa", function()
+		swap.swap_next("@parameter.inner")
+	end, "Swap current parameter with next", opts)
+	api.nmap("<leader>sA", function()
+		swap.swap_previous("@parameter.inner")
+	end, "Swap current parameter with previous", opts)
 end
 
 function M.tmux_navigator()
