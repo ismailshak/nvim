@@ -297,7 +297,7 @@ return {
 	},
 
 	{
-		"kyazdani42/nvim-tree.lua",
+		"nvim-tree/nvim-tree.lua",
 		cmd = "NvimTreeToggle",
 		keys = "<C-n>",
 		config = function()
@@ -307,18 +307,23 @@ return {
 			-- nested options are documented by accessing them with `.` (eg: `:help nvim-tree.view.mappings.list`).
 			require("nvim-tree").setup({
 				auto_reload_on_write = true,
-				create_in_closed_folder = false,
 				disable_netrw = false,
 				hijack_cursor = false,
 				hijack_netrw = true,
 				hijack_unnamed_buffer_when_opening = false,
-				open_on_tab = false,
-				sort_by = "name",
-				update_cwd = false,
+				tab = {
+					sync = {
+						open = false,
+						close = false,
+					},
+				},
+				sort = {
+					sorter = "name",
+				},
+				sync_root_with_cwd = false,
 				reload_on_bufenter = false,
 				respect_buf_cwd = false,
 				view = {
-					adaptive_size = false,
 					centralize_selection = false,
 					width = {
 						min = 30,
@@ -335,10 +340,10 @@ return {
 				renderer = {
 					add_trailing = false,
 					group_empty = false,
-					highlight_git = false,
+					highlight_git = "none",
 					full_name = false,
 					highlight_opened_files = "none",
-					root_folder_modifier = ":~",
+					root_folder_label = ":~",
 					indent_markers = {
 						enable = false,
 						icons = {
@@ -349,9 +354,15 @@ return {
 						},
 					},
 					icons = {
-						webdev_colors = true,
+						web_devicons = {
+							file = {
+								color = true,
+							},
+						},
 						git_placement = "after",
-						padding = " ",
+						padding = {
+							icon = " ",
+						},
 						symlink_arrow = " ➛ ",
 						show = {
 							file = true,
@@ -393,12 +404,10 @@ return {
 				},
 				update_focused_file = {
 					enable = false,
-					update_cwd = false,
-					ignore_list = {},
-				},
-				system_open = {
-					cmd = "",
-					args = {},
+					update_root = {
+						enable = false,
+						ignore_list = {},
+					},
 				},
 				diagnostics = {
 					enable = false,
@@ -411,13 +420,13 @@ return {
 					},
 				},
 				filters = {
+					git_ignored = false,
 					dotfiles = false,
 					custom = {},
 					exclude = {},
 				},
 				git = {
 					enable = true,
-					ignore = false,
 					timeout = 400,
 				},
 				actions = {
@@ -457,7 +466,11 @@ return {
 				},
 				trash = {
 					cmd = "gio trash",
-					require_confirm = true,
+				},
+				ui = {
+					confirm = {
+						trash = true,
+					},
 				},
 				live_filter = {
 					prefix = "[FILTER]: ",
