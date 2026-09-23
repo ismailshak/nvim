@@ -103,7 +103,6 @@ return {
 	-- Useful UI for LSP progress
 	{
 		"j-hui/fidget.nvim",
-		pin = true, -- v2 needs nvim 0.11.3+
 		opts = {
 			progress = {
 				display = {

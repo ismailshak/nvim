@@ -168,12 +168,11 @@ local schemas = {
 	},
 }
 
-local opts = {
+---@type vim.lsp.Config
+return {
 	settings = {
 		json = {
 			schemas = schemas,
 		},
 	},
 }
-
-return opts

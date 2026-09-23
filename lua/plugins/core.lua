@@ -110,7 +110,6 @@ return {
 			},
 			server = {
 				default_settings = require("utils.tools.settings.rust-analyzer").settings,
-				on_attach = require("utils.tools.lsp").on_attach,
 			},
 		},
 		config = function(_, opts)
@@ -120,7 +119,6 @@ return {
 
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
-		pin = true, -- the latest version needs nvim 0.11.3+
 		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
 			-- Exposing cmd so that it can be triggered by a new installation to grab all required tooling

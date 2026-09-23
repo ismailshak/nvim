@@ -23,6 +23,7 @@ return {
 	---Language servers that will be configured if found on system $PATH
 	optional_servers = {
 		"clangd",
+		"elixirls",
 		"gopls",
 		"graphql",
 		"ocamllsp",

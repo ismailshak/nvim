@@ -1,6 +1,7 @@
 local settings = require("custom.settings")
 local highlight = require("custom.highlights")
 local formatting = require("utils.tools.formatting")
+local mappings = require("custom.mappings")
 local api = require("utils.api")
 local utils = require("utils.helpers")
 
@@ -188,6 +189,11 @@ autocmd("LspAttach", {
 	callback = function(opts)
 		local id = opts.data.client_id
 		local client = vim.lsp.get_client_by_id(id) or {}
+
+		mappings.lsp(opts.buf)
+
+		-- nvim-highlight-colors renders the server's colours. The built-in colours would draw each one a second time.
+		vim.lsp.document_color.enable(false, { bufnr = opts.buf })
 
 		-- Detach typos_lsp from certain filetypes
 		if client.name == "typos_lsp" and utils.contains(DISABLED_TYPOS_FT, vim.bo.filetype) then
