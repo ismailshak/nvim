@@ -92,7 +92,7 @@ function M.lsp(bufnr)
 	api.nmap("gI", "<CMD>FzfLua lsp_implementations<CR>", gen_desc("Goto Implementation"), opts)
 	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type Definition"), opts)
 	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CR>", gen_desc("Document symbols"), opts)
-	api.nmap("<leader>fS", "<CMD>FzfLua lsp_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
+	api.nmap("<leader>fS", "<CMD>FzfLua lsp_live_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
 
 	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"), opts)
 	api.nmap("K", M.hover, gen_desc("Hover Documentation"), opts)
