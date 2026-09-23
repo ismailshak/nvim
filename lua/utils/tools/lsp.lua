@@ -18,11 +18,8 @@ function M.configure_completion()
 	M.capabilities = require("blink.cmp").get_lsp_capabilities(M.capabilities)
 end
 
-function M.on_attach(client, bufnr)
+function M.on_attach(_, bufnr)
 	mappings.lsp(bufnr)
-
-	-- Disable LSP formatting
-	client.server_capabilities.document_formatting = false
 end
 
 function M.configure_servers()
@@ -58,7 +55,6 @@ function M.configure_servers()
 		on_attach = M.on_attach,
 		capabilities = M.capabilities,
 		settings = require("utils.tools.settings.jsonls").settings,
-		setup = require("utils.tools.settings.jsonls").setup,
 	})
 
 	require("lspconfig").elixirls.setup({
