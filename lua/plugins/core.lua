@@ -83,6 +83,7 @@ return {
 	-- Lua-based Typescript LSP
 	{
 		"pmizio/typescript-tools.nvim",
+		pin = true, -- replaced by tsc and vtsls after the nvim 0.12 upgrade
 		event = "BufReadPost",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {
@@ -119,10 +120,12 @@ return {
 
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
+		pin = true, -- the latest version needs nvim 0.11.3+
 		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
 			-- Exposing cmd so that it can be triggered by a new installation to grab all required tooling
-			{ "WhoIsSethDaniel/mason-tool-installer.nvim", cmd = "MasonToolsInstallSync" },
+			-- Pinned until the mason v2 upgrade
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim", cmd = "MasonToolsInstallSync", pin = true },
 
 			{ "williamboman/mason.nvim", version = "^1" }, -- Install LSPs and tools to neovim's stdpath
 			{ "williamboman/mason-lspconfig.nvim", version = "^1" }, -- Closes gap between mason.nvim and lspconfig
@@ -236,11 +239,12 @@ return {
 
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
+		pin = true, -- the `main` branch needs nvim 0.12
 		build = ":TSUpdate",
 		event = "VeryLazy",
 		cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
+			{ "nvim-treesitter/nvim-treesitter-textobjects", pin = true }, -- the `main` branch needs nvim 0.12
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 		config = function()
