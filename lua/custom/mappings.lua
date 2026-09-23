@@ -36,8 +36,8 @@ api.vmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
 
 api.nmap("<A-Up>", "yyP", "Duplicate current line above")
 api.nmap("<A-Down>", "yyp", "Duplicate current line below")
-api.vmap("<A-Up>", "yP", "Duplicate multiple lines")
-api.vmap("<A-Down>", "yP", "Duplicate multiple lines")
+api.vmap("<A-Up>", "yP", "Duplicate selected lines above")
+api.vmap("<A-Down>", "y'>p", "Duplicate selected lines below")
 
 -- -- Splits
 -- api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
@@ -64,7 +64,7 @@ function M.hover()
 	vim.lsp.buf.hover({
 		border = "rounded",
 		max_width = utils.percentage_as_width(60),
-		max_height = utils.percentage_as_width(40),
+		max_height = utils.percentage_as_height(40),
 	})
 end
 
@@ -92,16 +92,16 @@ function M.lsp(bufnr)
 	api.nmap("gI", "<CMD>FzfLua lsp_implementations<CR>", gen_desc("Goto Implementation"), opts)
 	api.nmap("<leader>D", vim.lsp.buf.type_definition, gen_desc("Type Definition"), opts)
 	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CR>", gen_desc("Document symbols"), opts)
-	api.nmap("<leader>fS", "CMD>FzfLua lsp_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
+	api.nmap("<leader>fS", "<CMD>FzfLua lsp_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
 
-	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"))
+	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"), opts)
 	api.nmap("K", M.hover, gen_desc("Hover Documentation"), opts)
 	api.imap("<C-s>", function()
 		vim.lsp.buf.signature_help({
 			border = "rounded",
 			title = "",
 			max_width = utils.percentage_as_width(50),
-			max_height = utils.percentage_as_width(40),
+			max_height = utils.percentage_as_height(40),
 		})
 	end, gen_desc("Signature help"), opts)
 
@@ -175,7 +175,6 @@ function M.gitsigns(bufnr)
 	api.nmap("<leader>hD", function()
 		gs.diffthis("~")
 	end, "Diff this ~ [gitsigns]", default_opts)
-	api.nmap("<leader>hr", gs.toggle_deleted, "Toggle deleted [gitsigns]", default_opts)
 
 	-- Text object
 	api.map(
