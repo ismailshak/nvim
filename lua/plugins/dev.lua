@@ -19,35 +19,6 @@ return {
 		end,
 	},
 
-	-- GitHub Copilot
-	{
-		"zbirenbaum/copilot.lua",
-		enabled = settings.get().copilot,
-		cmd = "Copilot",
-		keys = { "<leader>cd", "<leader>ce" },
-		event = "VeryLazy",
-		opts = {
-			panel = {
-				auto_refresh = true,
-			},
-			suggestion = {
-				auto_trigger = true,
-				accept = true, -- TAB mapping is defined inside `cmp`s "Tab" mapping
-				keymap = {
-					accept = "<M-a>",
-					accept_word = "<M-w>",
-					accept_line = "<M-l>",
-					next = "<M-]>",
-					prev = "<M-[>",
-					dismiss = "<C-]>",
-				},
-			},
-		},
-		config = function(_, opts)
-			mappings.copilot()
-			require("copilot").setup(opts)
-		end,
-	},
 	{
 		"olimorris/codecompanion.nvim",
 		enabled = settings.get().copilot,

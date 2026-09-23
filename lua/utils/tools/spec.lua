@@ -15,6 +15,9 @@ return {
 	},
 	---Tools that will be automatically installed (linters/formatters/debuggers)
 	default_tools = {
+		-- The `copilot` server, enabled by the `copilot` setting. This is the mason name because mason-lspconfig v1
+		-- has no mapping for `copilot`.
+		"copilot-language-server",
 		"js-debug-adapter",
 		"markdownlint",
 		"shellcheck",
