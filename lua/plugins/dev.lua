@@ -138,7 +138,7 @@ return {
 				javascript = { "string", "template_string" },
 				java = false,
 			},
-			disable_filetype = { "TelescopePrompt", "spectre_panel", "dashboard", "NvimTree", "toggleterm", "term" },
+			disable_filetype = { "TelescopePrompt", "spectre_panel", "dashboard", "NvimTree", "term" },
 			fast_wrap = {
 				map = "<M-e>",
 				chars = { "{", "[", "(", '"', "'" },

@@ -96,7 +96,7 @@ return {
 		opts = {
 			show_dirname = false,
 			show_modified = true,
-			exclude_filetypes = { "dashboard", "Trouble", "NvimTree", "toggleterm", "term" },
+			exclude_filetypes = { "dashboard", "Trouble", "NvimTree", "term" },
 		},
 	},
 
@@ -141,34 +141,6 @@ return {
 				api.set_bg("light")
 			end,
 		},
-	},
-
-	{
-		-- Terminal
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		keys = { "<c-\\>", { "c-\\", mode = "t" } },
-		cmd = "ToggleTerm",
-		opts = {
-			shade_terminals = false,
-			highlights = {
-				FloatBorder = {
-					link = "FloatBorder",
-				},
-			},
-			float_opts = {
-				border = "rounded",
-				width = math.floor(vim.o.columns * 0.8),
-				height = math.floor(vim.o.lines * 0.8),
-			},
-			winbar = {
-				enabled = false,
-			},
-		},
-		config = function(_, opts)
-			mappings.toggleterm()
-			require("toggleterm").setup(opts)
-		end,
 	},
 
 	-- Prettier navite UI elements

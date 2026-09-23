@@ -59,6 +59,7 @@ api.vmap("<C-f>", '"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of se
 api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of word under cursor")
 
 api.tmap("<Esc><Esc>", "<C-\\><C-n>", "Escape terminal mode")
+api.map({ "n", "t" }, "<C-\\>", require("custom.terminal").toggle, "Toggle floating terminal")
 
 -- Treesitter node selection, using the built-in `an` and `in` visual mode mappings
 api.nmap("<C-Space>", "van", "Select node under cursor", { remap = true })
@@ -197,13 +198,6 @@ function M.fzf()
 	api.nmap("<leader>sc", "<CMD>FzfLua spell_suggest <CR>", "Suggest spelling [fzf-lua]")
 	api.nmap("<leader>fc", "<CMD>FzfLua grep_curbuf<CR>", "Fuzzy find in buffer [fzf-lua]")
 	api.nmap("<leader>th", "<CMD>FzfLua colorschemes<CR>", "Colorscheme picker [fzf-lua]")
-end
-
-function M.toggleterm()
-	api.nmap("<c-\\>", "<CMD>ToggleTerm direction=float<CR>", "Toggle terminal float [ToggleTerm]")
-	api.tmap("<c-\\>", function()
-		require("toggleterm").toggle()
-	end, "Close terminal float [ToggleTerm]")
 end
 
 function M.diffview()

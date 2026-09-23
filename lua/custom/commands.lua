@@ -185,7 +185,7 @@ autocmd("ColorScheme", {
 })
 
 -- Filetypes that should not have typos_lsp attached
-local DISABLED_TYPOS_FT = { "dashboard", "term", "toggleterm" }
+local DISABLED_TYPOS_FT = { "dashboard", "term" }
 
 autocmd("LspAttach", {
 	pattern = "*",
