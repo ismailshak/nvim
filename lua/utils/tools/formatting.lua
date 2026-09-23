@@ -81,7 +81,7 @@ function M.format_on_save(bufnr)
 
 	local progress = M.format_progress_handler()
 
-	return { timeout_ms = 500, lsp_fallback = false }, M.format_callback(progress)
+	return { timeout_ms = 500, lsp_format = "never" }, M.format_callback(progress)
 end
 
 return M

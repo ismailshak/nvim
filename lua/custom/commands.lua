@@ -60,7 +60,7 @@ usercmd("Format", function(args)
 
 	local progress = formatting.format_progress_handler()
 	require("conform").format(
-		{ async = true, lsp_fallback = false, range = range },
+		{ async = true, lsp_format = "never", range = range },
 		formatting.format_callback(progress)
 	)
 end, { range = true })
