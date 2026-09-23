@@ -129,30 +129,26 @@ function M.gitsigns(bufnr)
 	-- Navigation
 	api.nmap("]c", function()
 		if vim.wo.diff then
-			return "]c"
+			vim.cmd.normal({ "]c", bang = true })
+		else
+			gs.nav_hunk("next")
 		end
-		vim.schedule(function()
-			gs.next_hunk()
-		end)
-		return "<Ignore>"
-	end, "Navigate to next hunk [gitsigns]", { expr = true, buffer = bufnr })
+	end, "Navigate to next hunk [gitsigns]", default_opts)
 
 	api.nmap("[c", function()
 		if vim.wo.diff then
-			return "[c"
+			vim.cmd.normal({ "[c", bang = true })
+		else
+			gs.nav_hunk("prev")
 		end
-		vim.schedule(function()
-			gs.prev_hunk()
-		end)
-		return "<Ignore>"
-	end, "Navigate to previous hunk [gitsigns]", { expr = true, buffer = bufnr })
+	end, "Navigate to previous hunk [gitsigns]", default_opts)
 
 	-- Actions
 	api.map(
 		{ "n", "v" },
 		"<leader>hs",
 		"<CMD>Gitsigns stage_hunk<CR>",
-		"Stage hunk under cursor [gitsigns]",
+		"Stage hunk under cursor, or unstage it if already staged [gitsigns]",
 		default_opts
 	)
 	api.map(
@@ -163,7 +159,6 @@ function M.gitsigns(bufnr)
 		default_opts
 	)
 	api.nmap("<leader>hS", gs.stage_buffer, "Stage the current buffer [gitsigns]", default_opts)
-	api.nmap("<leader>hu", gs.undo_stage_hunk, "Undo staging of hunk [gitsigns]", default_opts)
 	api.nmap("<leader>hR", gs.reset_buffer, "Reset the current buffer [gitsigns]", default_opts)
 	api.nmap("<leader>hP", gs.preview_hunk, "Previw hunk under cursor [gitsigns]", default_opts)
 	api.nmap("<leader>hp", gs.preview_hunk_inline, "Inline previw hunk under cursor [gitsigns]", default_opts)
