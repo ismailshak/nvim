@@ -107,7 +107,7 @@ return {
 
 	-- Moving code around
 	{
-		"echasnovski/mini.move",
+		"nvim-mini/mini.move",
 		event = "BufReadPost",
 		opts = {
 			-- Module mappings. Use `''` (empty string) to disable one.
