@@ -322,37 +322,38 @@ function M.treesitter_textobjects(bufnr)
 	local swap = require("nvim-treesitter-textobjects.swap")
 	local opts = { buffer = bufnr }
 
-	-- `@statement` has no `.inner` capture in any language, so there is no `is`
+	-- `select` is the letter after `a` and `i`. `next` and `prev` are the move keys; block has none so that `]b`
+	-- and `[b` keep the default `:bnext` and `:bprevious`. `@statement` has no `.inner` capture in any language,
+	-- so it has no `is`.
 	local objects = {
-		{ key = "a", query = "@parameter", name = "parameter" },
-		{ key = "f", query = "@function", name = "function" },
-		{ key = "c", query = "@class", name = "class" },
-		{ key = "i", query = "@conditional", name = "conditional" },
-		{ key = "l", query = "@loop", name = "loop" },
-		{ key = "b", query = "@block", name = "block" },
-		{ key = "m", query = "@call", name = "call" },
-		{ key = "s", query = "@statement", name = "statement" },
+		{ select = "a", next = "]a", prev = "[a", query = "@parameter", name = "parameter" },
+		{ select = "f", next = "]f", prev = "[f", query = "@function", name = "function" },
+		{ select = "c", next = "]]", prev = "[[", query = "@class", name = "class" },
+		{ select = "i", next = "]i", prev = "[i", query = "@conditional", name = "conditional" },
+		{ select = "l", next = "]l", prev = "[l", query = "@loop", name = "loop" },
+		{ select = "b", query = "@block", name = "block" },
+		{ select = "m", next = "]m", prev = "[m", query = "@call", name = "call" },
+		{ select = "s", next = "]s", prev = "[s", query = "@statement", name = "statement", inner = false },
 	}
 
 	for _, o in ipairs(objects) do
-		api.map({ "x", "o" }, "a" .. o.key, function()
+		api.map({ "x", "o" }, "a" .. o.select, function()
 			select.select_textobject(o.query .. ".outer", "textobjects")
 		end, "Select around " .. o.name, opts)
-		if o.key ~= "s" then
-			api.map({ "x", "o" }, "i" .. o.key, function()
+		if o.inner ~= false then
+			api.map({ "x", "o" }, "i" .. o.select, function()
 				select.select_textobject(o.query .. ".inner", "textobjects")
 			end, "Select inside " .. o.name, opts)
 		end
 
-		-- Classes use `]]` and `[[`
-		local next_key = o.key == "c" and "]]" or "]" .. o.key
-		local prev_key = o.key == "c" and "[[" or "[" .. o.key
-		api.map({ "n", "x", "o" }, next_key, function()
-			move.goto_next_start(o.query .. ".outer", "textobjects")
-		end, "Move to the next " .. o.name, opts)
-		api.map({ "n", "x", "o" }, prev_key, function()
-			move.goto_previous_start(o.query .. ".outer", "textobjects")
-		end, "Move to the previous " .. o.name, opts)
+		if o.next then
+			api.map({ "n", "x", "o" }, o.next, function()
+				move.goto_next_start(o.query .. ".outer", "textobjects")
+			end, "Move to the next " .. o.name, opts)
+			api.map({ "n", "x", "o" }, o.prev, function()
+				move.goto_previous_start(o.query .. ".outer", "textobjects")
+			end, "Move to the previous " .. o.name, opts)
+		end
 	end
 
 	api.nmap("<leader>sa", function()

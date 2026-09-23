@@ -302,9 +302,9 @@ return {
 				move = { set_jumps = true },
 			})
 
-			-- The mappings are buffer-local so that buffers without textobject queries keep the default `]a`, `]b`
-			-- and `]l` mappings. This autocmd is created after the ftplugin one, so these mappings replace the
-			-- `]]` and `]m` mappings of the go, rust and python ftplugins.
+			-- The mappings are buffer-local so that buffers without textobject queries keep the default `]a` and
+			-- `]l` mappings. This autocmd is created after the ftplugin one, so these mappings replace the `]]` and
+			-- `]m` mappings of the go, rust and python ftplugins.
 			local function attach(buf)
 				local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
 				local ok, query = pcall(vim.treesitter.query.get, lang or "", "textobjects")
