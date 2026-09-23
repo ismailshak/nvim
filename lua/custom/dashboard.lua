@@ -66,14 +66,6 @@ M.config = {
 				end,
 			},
 			{
-				icon = icons.dashboard.database,
-				text = "Open database",
-				keymap = "SPC b d",
-				action = function()
-					vim.cmd("DBUIToggle")
-				end,
-			},
-			{
 				icon = icons.dashboard.dotfile,
 				text = "Open dotfile",
 				keymap = "",

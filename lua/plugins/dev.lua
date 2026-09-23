@@ -153,50 +153,6 @@ return {
 		},
 	},
 
-	-- Automatically close brackets
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {
-			check_ts = true,
-			ts_config = {
-				lua = { "string", "source" },
-				javascript = { "string", "template_string" },
-				java = false,
-			},
-			disable_filetype = { "TelescopePrompt", "spectre_panel", "dashboard", "NvimTree", "toggleterm", "term" },
-			fast_wrap = {
-				map = "<M-e>",
-				chars = { "{", "[", "(", '"', "'" },
-				pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-				offset = 0, -- Offset from pattern match
-				end_key = "$",
-				keys = "qwertyuiopzxcvbnmasdfghjkl",
-				check_comma = true,
-				highlight = "PmenuSel",
-				highlight_grey = "LineNr",
-			},
-		},
-	},
-
-	-- Automatically close html tags
-	{
-		"windwp/nvim-ts-autotag",
-		ft = {
-			"html",
-			"javascript",
-			"typescript",
-			"javascriptreact",
-			"typescriptreact",
-			"svelte",
-			"vue",
-			"tsx",
-			"jsx",
-			"xml",
-			"markdown",
-		},
-	},
-
 	-- Better code commenting
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
@@ -318,20 +274,6 @@ return {
 				search_engine = "duckduckgo",
 			},
 		},
-	},
-
-	-- CircleCI integration
-	{
-		"ismailshak/circleci.nvim",
-		lazy = false,
-		---@type circleci.Config
-		opts = {
-			api_token = "CIRCLECI_TOKEN",
-		},
-		config = function(_, opts)
-			vim.keymap.set("n", "<leader>ci", "<cmd>CircleCI panel toggle<cr>", { noremap = true, silent = true })
-			require("circleci").setup(opts)
-		end,
 	},
 
 	-- Autocompletion

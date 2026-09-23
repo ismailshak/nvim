@@ -6,9 +6,6 @@ local api = require("utils.api")
 function M.plugins()
 	M.nvim_tree()
 	M.dap_ui()
-	M.octo()
-	M.dadbod()
-	M.circleci()
 	M.blink()
 	M.leap()
 	M.render_markdown()
@@ -18,13 +15,6 @@ end
 function M.nvim_tree()
 	api.hi("NvimTreeSpecialFile", { bold = true })
 	api.hi("NvimTreeRootFolder", { link = "Constant" })
-end
-
----Overrides highlights for 'kristijanhusak/vim-dadbod-ui'
-function M.dadbod()
-	api.hi("NotificationInfo", { link = "Normal" })
-	api.hi("NotificationWarning", { link = "Normal" })
-	api.hi("NotificationError", { link = "Normal" })
 end
 
 ---Overrides highlights for 'rcarriga/nvim-dap-ui'
@@ -58,19 +48,6 @@ function M.dap_ui()
 	api.hi("DapUIStepBack", { bg = winbar.bg, fg = diagnostic_info.fg })
 	api.hi("DapUIRestart", { bg = winbar.bg, fg = ts_function.fg })
 	api.hi("DapUIStop", { bg = winbar.bg, fg = diagnostic_error.fg })
-end
-
----Overrides highlights for 'pwntester/octo.nvim'
-function M.octo()
-	local hi = api.get_highlight("TabLine")
-	api.hi("OctoEditable", { bg = hi.bg })
-end
-
----Overrides highlights for 'ismailshak/circleci.nvim'
-function M.circleci()
-	local constant = api.get_highlight("Constant")
-	api.hi("CircleCIPanelWinBar", { fg = constant.fg, bold = true })
-	api.hi("CircleCIPanelWinBarNC", { fg = constant.fg })
 end
 
 ---Overrides highlights for 'saghen/blink.cmp'
@@ -132,7 +109,7 @@ function M.iceberg(is_dark)
 	----------------------
 
 	M.iceberg_blink()
-	M.icberg_telescope(is_dark)
+	M.iceberg_fzf(is_dark)
 
 	--------------------------------
 	-- Global highlight overrides --
@@ -236,8 +213,9 @@ function M.iceberg_blink()
 	api.hi("BlinkCmpKindColor", { link = "BlinkCmpKindVariable" })
 end
 
----Overrides highlights for 'nvim-telescope/telescope.nvim' just for iceberg
-function M.icberg_telescope(is_dark)
+---Defines the `Telescope*` highlight groups for iceberg. fzf-lua is configured to use these group names in
+---`lua/plugins/ui.lua` (`hls` and `fzf_colors`).
+function M.iceberg_fzf(is_dark)
 	local normal_hg = api.get_highlight("Normal")
 	local pmenu_hg = api.get_highlight("Pmenu")
 

@@ -19,7 +19,6 @@ return {
 	},
 	dashboard = {
 		branch = "  ",
-		database = "  ",
 		dotfile = "  ",
 		file = "  ",
 		session = "  ",

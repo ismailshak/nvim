@@ -187,10 +187,6 @@ function M.gitsigns(bufnr)
 	)
 end
 
-function M.cellular_automation()
-	api.nmap("<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", "Make it rain")
-end
-
 function M.fzf()
 	api.nmap("<leader>ff", "<CMD>FzfLua files<CR>", "Open file finder [fzf-lua]")
 	api.nmap("<leader>fo", "<cmd>FzfLua oldfiles<CR>", "Open old files history [fzf-lua]")

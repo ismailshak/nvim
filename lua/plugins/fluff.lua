@@ -1,5 +1,4 @@
 local icons = require("utils.icons")
-local mappings = require("custom.mappings")
 
 return {
 	{
@@ -78,15 +77,5 @@ return {
 				},
 			},
 		},
-	},
-
-	-- Dumb but fun buffer animations
-	{
-		"eandrju/cellular-automaton.nvim",
-		cmd = "CellularAutomaton",
-		keys = "<leader>fml",
-		config = function()
-			mappings.cellular_automation()
-		end,
 	},
 }

@@ -27,7 +27,6 @@ return {
 	-- All the dev icons that render
 	{
 		"nvim-tree/nvim-web-devicons",
-		priority = 1000, -- Load this first since it's used by a ton of things
 		event = "VeryLazy", -- Not needed right away though
 		opts = {
 			override_by_extension = ui.get_ft_icon_overrides(),
@@ -177,18 +176,6 @@ return {
 		"stevearc/dressing.nvim",
 		event = "VeryLazy",
 		opts = {},
-	},
-
-	-- Review PRs in Neovim
-	{
-		"pwntester/octo.nvim",
-		cmd = "Octo",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		opts = {
-			picker = "fzf-lua",
-		},
 	},
 
 	-- Better diff view
