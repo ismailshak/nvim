@@ -17,7 +17,7 @@
 
 <br />
 
-Currently using the version specified in the [.tool-versions](./.tool-versions) file.
+Currently using the version specified in the [mise.toml](./mise.toml) file.
 
 Using [`mise`](https://github.com/jdx/mise) as the neovim version manager and [lazy.nvim](https://github.com/folke/lazy.nvim) as the plugin manager.
 

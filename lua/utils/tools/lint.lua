@@ -22,7 +22,7 @@ function M.config(_, opts)
 end
 
 function M.debounce(ms, fn)
-	local timer = vim.loop.new_timer()
+	local timer = vim.uv.new_timer()
 	if not timer then
 		return fn
 	end

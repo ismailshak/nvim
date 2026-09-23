@@ -9,7 +9,7 @@ local M = {}
 ---Get OS name
 ---@return os
 function M.get_os()
-	local os_id = vim.loop.os_uname().sysname
+	local os_id = vim.uv.os_uname().sysname
 	if os_id == "Darwin" then
 		return "macos"
 	elseif os_id == "Linux" then
