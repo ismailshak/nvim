@@ -220,22 +220,8 @@ function M.nvim_tree()
 end
 
 function M.copilot()
-	local inline_completion = vim.lsp.inline_completion
-	api.imap("<M-a>", function()
-		if not inline_completion.get() then
-			return "<M-a>"
-		end
-	end, "Accept suggestion [copilot]", { expr = true })
-	api.imap("<M-]>", inline_completion.select, "Next suggestion [copilot]")
-	api.imap("<M-[>", function()
-		inline_completion.select({ count = -1 })
-	end, "Previous suggestion [copilot]")
-	api.nmap("<leader>ce", function()
-		inline_completion.enable(true)
-	end, "Enable suggestions [copilot]")
-	api.nmap("<leader>cd", function()
-		inline_completion.enable(false)
-	end, "Disable suggestions [copilot]")
+	api.nmap("<leader>ce", "<CMD>Copilot enable<CR>", "Enable copilot autocomplete [copilot]")
+	api.nmap("<leader>cd", "<CMD>Copilot disable<CR>", "Disable copilot autocomplete [copilot]")
 end
 
 function M.codecompanion()

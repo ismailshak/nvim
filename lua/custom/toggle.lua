@@ -1,6 +1,5 @@
 local M = {}
 local api = require("utils.api")
-local settings = require("custom.settings")
 
 local state = {
 	buf = nil,
@@ -84,19 +83,6 @@ M.config = {
 		disabled = "",
 	},
 }
-
-if settings.get().copilot then
-	table.insert(M.config.toggles, {
-		key = "c",
-		label = "Copilot suggestions",
-		get_state = function()
-			return vim.lsp.inline_completion.is_enabled()
-		end,
-		toggle = function()
-			vim.lsp.inline_completion.enable(not vim.lsp.inline_completion.is_enabled())
-		end,
-	})
-end
 
 ---Creates and configures the toggle window
 local function create_window()

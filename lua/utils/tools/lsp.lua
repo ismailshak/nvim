@@ -1,7 +1,5 @@
 local M = {}
 
-local mappings = require("custom.mappings")
-local settings = require("custom.settings")
 local utils = require("utils.helpers")
 local tools = require("utils.tools.spec")
 
@@ -22,13 +20,6 @@ function M.setup_lsp()
 	-- runs the FileType event for open buffers. Running it before detection makes `:setfiletype` skip the buffer.
 	vim.schedule(function()
 		vim.lsp.enable(M.servers)
-
-		if settings.get().copilot then
-			vim.lsp.enable("copilot")
-			-- Enabled for all buffers so that `<leader>cd` also applies to buffers opened later
-			vim.lsp.inline_completion.enable(true)
-			mappings.copilot()
-		end
 	end)
 end
 
