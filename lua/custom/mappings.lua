@@ -239,7 +239,10 @@ function M.dap()
 	api.nmap("<leader>do", require("dap").step_over, "Step over [nvim-dap]")
 	api.nmap("<leader>dO", require("dap").step_out, "Step out [nvim-dap]")
 	api.nmap("<leader>di", require("dap").step_into, "Step into [nvim-dap]")
-	api.nmap("<leader>dk", require("dap.ui.widgets").hover, "View value under cursor [nvim-dap]")
+	api.nmap("<leader>dk", function()
+		-- nvim-dap draws its floats with 'winborder', which is empty by default
+		require("dap.ui.widgets").hover(nil, { border = "rounded" })
+	end, "View value under cursor [nvim-dap]")
 
 	api.nmap("<leader>de", function()
 		vim.ui.input({
