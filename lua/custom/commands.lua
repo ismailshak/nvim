@@ -4,6 +4,7 @@ local formatting = require("utils.tools.formatting")
 local mappings = require("custom.mappings")
 local api = require("utils.api")
 local utils = require("utils.helpers")
+local ui = require("utils.ui")
 
 local CUSTOM_GROUP_ID = vim.api.nvim_create_augroup("ShakCommands", { clear = true })
 
@@ -141,6 +142,13 @@ autocmd("OptionSet", {
 		settings.update(s)
 
 		highlight.colorscheme(s.theme, s.background == "dark")
+
+		-- Reload icons after background has changed to change to other icon colors
+		if package.loaded["nvim-web-devicons"] then
+			vim.schedule(function()
+				require("nvim-web-devicons").set_icon(ui.get_ft_icon_overrides())
+			end)
+		end
 	end,
 })
 

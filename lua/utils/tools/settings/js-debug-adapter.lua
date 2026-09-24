@@ -9,39 +9,29 @@ M.languages = {
 	"typescriptreact",
 }
 
+---An adapter that starts js-debug-adapter on a free port. nvim-dap picks the port and replaces `${port}` in both places
+---@param extra? table Fields merged into the adapter
+---@return table
+local function js_debug_adapter(extra)
+	return vim.tbl_extend("force", {
+		type = "server",
+		host = "localhost",
+		port = "${port}",
+		executable = {
+			command = vim.fn.exepath("js-debug-adapter"),
+			args = { "${port}" },
+		},
+	}, extra or {})
+end
+
 function M.adapters()
 	local dap = require("dap")
 
-	dap.adapters["pwa-node"] = {
-		type = "server",
-		host = "localhost",
-		port = "8123",
-		executable = {
-			command = vim.fn.exepath("js-debug-adapter"),
-			args = { "8123" },
-		},
-	}
+	dap.adapters["pwa-node"] = js_debug_adapter()
+	dap.adapters["pwa-chrome"] = js_debug_adapter()
 
-	dap.adapters["pwa-chrome"] = {
-		type = "server",
-		host = "localhost",
-		port = "8123",
-		executable = {
-			command = vim.fn.exepath("js-debug-adapter"),
-			args = { "8123" },
-		},
-	}
-
-	-- This is a hack to get the chrome type in .vscode/launch.json to work with the pwa-chrome type
-	-- that the js-debug-adapter supports
-	dap.adapters.chrome = {
-		type = "server",
-		host = "localhost",
-		port = "8123",
-		executable = {
-			command = vim.fn.exepath("js-debug-adapter"),
-			args = { "8123" },
-		},
+	-- `.vscode/launch.json` files use the `chrome` type. js-debug-adapter only knows `pwa-chrome`.
+	dap.adapters.chrome = js_debug_adapter({
 		enrich_config = function(config, on_config)
 			local updated_config = utils.deep_clone(config)
 			if config.type == "chrome" then
@@ -50,7 +40,7 @@ function M.adapters()
 
 			on_config(updated_config)
 		end,
-	}
+	})
 end
 
 function M.configurations()

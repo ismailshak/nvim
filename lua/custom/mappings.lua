@@ -90,11 +90,11 @@ function M.lsp(bufnr)
 	-- `grn`, `gra` and `grt` are nvim defaults
 	local opts = { buf = bufnr }
 	api.nmap("grr", "<CMD>FzfLua lsp_references<CR>", gen_desc("Goto references"), opts)
+	api.nmap("gri", "<CMD>FzfLua lsp_implementations<CR>", gen_desc("Goto Implementation"), opts)
+	api.nmap("gO", "<CMD>FzfLua lsp_document_symbols<CR>", gen_desc("Document symbols"), opts)
 
 	api.nmap("gd", vim.lsp.buf.definition, gen_desc("Goto Definition"), opts)
 	api.nmap("gp", require("custom.peek").definition, gen_desc("Peek definition in a floating window"), opts)
-	api.nmap("gI", "<CMD>FzfLua lsp_implementations<CR>", gen_desc("Goto Implementation"), opts)
-	api.nmap("<leader>fs", "<CMD>FzfLua lsp_document_symbols<CR>", gen_desc("Document symbols"), opts)
 	api.nmap("<leader>fS", "<CMD>FzfLua lsp_live_workspace_symbols<CR>", gen_desc("Workspace symbols"), opts)
 
 	api.nmap("gl", vim.diagnostic.open_float, gen_desc("Open diagnostic error window"), opts)
