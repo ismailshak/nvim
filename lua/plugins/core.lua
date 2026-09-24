@@ -27,7 +27,7 @@ return {
 
 	{
 		"mfussenegger/nvim-lint",
-		event = { "BufWritePost", "BufReadPost", "InsertLeave", "BufEnter" },
+		event = { "BufWritePost", "BufReadPost", "BufNewFile", "InsertLeave" },
 		opts = {
 			linters_by_ft = {
 				markdown = { "markdownlint" },

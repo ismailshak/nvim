@@ -103,28 +103,30 @@ return {
 	-- Useful UI for LSP progress
 	{
 		"j-hui/fidget.nvim",
-		opts = {
-			progress = {
-				display = {
-					done_icon = "",
-					done_style = "TSKeyword",
-					group_style = "Type",
-					progress_style = "Comment",
+		opts = function()
+			return {
+				progress = {
+					display = {
+						done_icon = "",
+						done_style = "TSKeyword",
+						group_style = "Type",
+						progress_style = "Comment",
+					},
 				},
-			},
-			notification = {
-				override_vim_notify = true,
-				configs = {
-					default = utils.merge_tables(require("fidget.notification").default_config, {
-						name = "",
-						icon = "",
-					}),
+				notification = {
+					override_vim_notify = true,
+					configs = {
+						default = utils.merge_tables(require("fidget.notification").default_config, {
+							name = "",
+							icon = "",
+						}),
+					},
+					view = {
+						group_separator = "",
+					},
 				},
-				view = {
-					group_separator = "",
-				},
-			},
-		},
+			}
+		end,
 	},
 
 	-- Hook into dark/light mode toggle
@@ -247,7 +249,7 @@ return {
 	-- Highlight colors in the buffer
 	{
 		"brenoprata10/nvim-highlight-colors",
-		event = "BufEnter",
+		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			render = "virtual",
 			virtual_symbol = "󱓻",

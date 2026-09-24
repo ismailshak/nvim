@@ -201,7 +201,6 @@ return {
 	{
 		"mbbill/undotree",
 		cmd = "UndotreeToggle",
-		event = "BufReadPost",
 		keys = "<leader>uu",
 		config = function()
 			mappings.undotree()
@@ -228,7 +227,7 @@ return {
 	-- Autocompletion
 	{
 		"saghen/blink.cmp",
-		lazy = false, -- handled by plugin
+		event = { "InsertEnter", "CmdlineEnter" },
 		version = "1.*", -- release tags to download pre-built binaries
 		-- build = "cargo build --release", -- temporarily build from source until draw support is released
 		dependencies = "rafamadriz/friendly-snippets",
