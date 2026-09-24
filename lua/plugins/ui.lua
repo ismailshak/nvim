@@ -475,6 +475,10 @@ return {
 			"<leader>?",
 			"<leader>fc",
 			"<leader>sc",
+			"<leader>gb",
+			"<leader>gc",
+			"<leader>gt",
+			"<leader>th",
 		},
 		cmd = "FzfLua",
 		config = function()

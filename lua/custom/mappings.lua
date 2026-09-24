@@ -223,11 +223,6 @@ function M.dap_ui()
 	api.nmap("<leader>du", require("dapui").toggle, "Toggle DAP UI [nvim-dap-ui]")
 end
 
-function M.dap_go()
-	api.nmap("<leader>dt", require("dap-go").debug_test, "Debug test under cursor [nvim-dap-go]")
-	api.nmap("<leader>dT", require("dap-go").debug_last_test, "Debug last test [nvim-dap-go]")
-end
-
 function M.dap()
 	api.nmap("<leader>dd", require("dap").continue, "Debugger continue [nvim-dap]")
 	api.nmap("<leader>dL", require("dap").run_last, "Run the last debug configuration again [nvim-dap]")
@@ -292,16 +287,6 @@ function M.dap()
 			require("dap").toggle_breakpoint(nil, nil, message)
 		end)
 	end, "Toggle logpoint [nvim-dap]")
-
-	if vim.bo.filetype == "go" then
-		M.dap_go()
-	end
-
-	-- These should be in commands.lua, but since I'm just adding mappings I'm gonna look the other way
-	vim.api.nvim_create_autocmd("FileType", {
-		pattern = "dap-float",
-		command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
-	})
 end
 
 function M.leap()

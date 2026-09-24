@@ -7,7 +7,7 @@ local ui = require("utils.ui")
 
 return {
 	-- Detect tabstop and shiftwidth automatically
-	{ "tpope/vim-sleuth", event = "InsertEnter" },
+	{ "tpope/vim-sleuth", event = { "BufReadPost", "BufNewFile" } },
 
 	-- Move around the buffers
 	{
@@ -108,7 +108,7 @@ return {
 	-- Moving code around
 	{
 		"nvim-mini/mini.move",
-		event = "BufReadPost",
+		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			-- Module mappings. Use `''` (empty string) to disable one.
 			mappings = {
@@ -133,11 +133,6 @@ return {
 		event = "InsertEnter",
 		opts = {
 			check_ts = true,
-			ts_config = {
-				lua = { "string", "source" },
-				javascript = { "string", "template_string" },
-				java = false,
-			},
 			disable_filetype = { "TelescopePrompt", "spectre_panel", "dashboard", "NvimTree", "term" },
 			fast_wrap = {
 				map = "<M-e>",
@@ -176,7 +171,7 @@ return {
 	-- Surround utility like "change surrounding quotes" or "delete surrounding quotes"
 	{
 		"kylechui/nvim-surround", -- surround utility
-		event = "BufReadPost",
+		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			aliases = {
 				["a"] = ">",

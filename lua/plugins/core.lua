@@ -36,7 +36,9 @@ return {
 			},
 			linters = {
 				markdownlint = {
-					args = { "--disable", "MD013", "MD033", "--" },
+					-- Replaces the linter's default args, so `--stdin` has to be repeated. Without it markdownlint
+					-- prints its help text and reports nothing.
+					args = { "--stdin", "--disable", "MD013", "MD033", "--" },
 				},
 			},
 		},
@@ -90,7 +92,7 @@ return {
 				float_win_config = {
 					border = "rounded",
 					max_width = utils.percentage_as_width(70),
-					max_height = utils.percentage_as_width(20),
+					max_height = utils.percentage_as_height(20),
 				},
 			},
 			server = {
@@ -123,11 +125,21 @@ return {
 	-- Debugging
 	{
 		"mfussenegger/nvim-dap",
+		-- Every mapping `mappings.dap()` and `mappings.dap_ui()` set. The Go test mappings are in `after/ftplugin/go.lua`.
 		keys = {
 			"<leader>du",
 			"<leader>dd",
-			"<leader>dt",
+			"<leader>dL",
+			"<leader>dx",
 			"<leader>db",
+			"<leader>dB",
+			"<leader>dr",
+			"<leader>ds",
+			"<leader>do",
+			"<leader>dO",
+			"<leader>di",
+			"<leader>dk",
+			"<leader>de",
 			"<leader>dc",
 			"<leader>dl",
 		},
@@ -136,18 +148,7 @@ return {
 				"rcarriga/nvim-dap-ui",
 				dependencies = { "nvim-neotest/nvim-nio" },
 			},
-			{
-				"leoluz/nvim-dap-go",
-				keys = {
-					"<leader>du",
-					"<leader>dd",
-					"<leader>dt",
-					"<leader>db",
-					"<leader>dc",
-					"<leader>dl",
-				},
-				ft = "go",
-			},
+			"leoluz/nvim-dap-go",
 			"theHamsta/nvim-dap-virtual-text",
 		},
 		config = function()
