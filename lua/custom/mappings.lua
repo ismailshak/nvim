@@ -230,6 +230,7 @@ end
 
 function M.dap()
 	api.nmap("<leader>dd", require("dap").continue, "Debugger continue [nvim-dap]")
+	api.nmap("<leader>dL", require("dap").run_last, "Run the last debug configuration again [nvim-dap]")
 	api.nmap("<leader>dx", require("dap").disconnect, "Debugger disconnect [nvim-dap]")
 	api.nmap("<leader>db", require("dap").toggle_breakpoint, "Toggle breakpoint [nvim-dap]")
 	api.nmap("<leader>dB", require("dap").clear_breakpoints, "Clear all breakpoints [nvim-dap]")
