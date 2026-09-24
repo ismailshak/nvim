@@ -109,22 +109,8 @@ return {
 	{
 		"nvim-mini/mini.move",
 		event = { "BufReadPost", "BufNewFile" },
-		opts = {
-			-- Module mappings. Use `''` (empty string) to disable one.
-			mappings = {
-				-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-				left = "<A-h>",
-				right = "<A-l>",
-				down = "<A-j>",
-				up = "<A-k>",
-
-				-- Move current line in Normal mode
-				line_left = "<A-h>",
-				line_right = "<A-l>",
-				line_down = "<A-j>",
-				line_up = "<A-k>",
-			},
-		},
+		-- The defaults are Alt + hjkl in Visual and Normal mode
+		opts = {},
 	},
 
 	-- Automatically close brackets
@@ -148,53 +134,11 @@ return {
 		},
 	},
 
-	-- Better code commenting
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		event = "BufReadPost",
-		opts = {
-			enable_autocmd = false,
-		},
-		config = function(_, opts)
-			require("ts_context_commentstring").setup(opts)
-
-			local original_get_option = vim.filetype.get_option
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.filetype.get_option = function(filetype, option)
-				return option == "commentstring"
-						and require("ts_context_commentstring.internal").calculate_commentstring()
-					or original_get_option(filetype, option)
-			end
-		end,
-	},
-
 	-- Surround utility like "change surrounding quotes" or "delete surrounding quotes"
 	{
 		"kylechui/nvim-surround", -- surround utility
 		event = { "BufReadPost", "BufNewFile" },
-		opts = {
-			aliases = {
-				["a"] = ">",
-				["b"] = ")",
-				["B"] = "}",
-				["r"] = "]",
-				["q"] = { '"', "'", "`" },
-				["s"] = { "}", "]", ")", ">", '"', "'", "`" },
-			},
-			highlight = {
-				duration = 0,
-			},
-			move_cursor = "begin",
-			indent_lines = function(start, stop)
-				local b = vim.bo
-				-- Only re-indent the selection if a formatter is set up already
-				if
-					start <= stop and (b.equalprg ~= "" or b.indentexpr ~= "" or b.cindent or b.smartindent or b.lisp)
-				then
-					vim.cmd(string.format("silent normal! %dG=%dG", start, stop))
-				end
-			end,
-		},
+		opts = {},
 	},
 
 	-- A more powerful undo mechanism

@@ -173,61 +173,34 @@ return {
 				desc = "Load the last session [persistence]",
 			},
 		},
-		opts = {
-			need = 1,
-			branch = true,
-		},
+		opts = {},
 	},
 
 	-- Git integration
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufReadPost",
-		config = function()
-			require("gitsigns").setup({
-				signs = {
-					add = { text = icons.gutter.added },
-					change = { text = icons.gutter.changed },
-					delete = { text = icons.gutter.deleted },
-					topdelete = { text = icons.gutter.topdelete },
-					changedelete = { text = icons.gutter.changedelete },
-					untracked = { text = icons.gutter.untracked },
-				},
-				signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-				numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
-				linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
-				word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
-				watch_gitdir = {
-					interval = 1000,
-					follow_files = true,
-				},
-				attach_to_untracked = true,
-				current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-				current_line_blame_opts = {
-					virt_text = true,
-					virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-					delay = 500,
-					ignore_whitespace = false,
-				},
-				--current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
-				current_line_blame_formatter = "   <author>, <author_time:%R> - <summary>",
-				sign_priority = 6,
-				update_debounce = 100,
-				status_formatter = nil, -- Use default
-				max_file_length = 40000,
-				preview_config = {
-					-- Options passed to nvim_open_win
-					border = "rounded",
-					style = "minimal",
-					relative = "cursor",
-					row = 0,
-					col = 1,
-				},
-				on_attach = function(bufnr)
-					mappings.gitsigns(bufnr)
-				end,
-			})
-		end,
+		opts = {
+			signs = {
+				add = { text = icons.gutter.added },
+				change = { text = icons.gutter.changed },
+				delete = { text = icons.gutter.deleted },
+				topdelete = { text = icons.gutter.topdelete },
+				changedelete = { text = icons.gutter.changedelete },
+				untracked = { text = icons.gutter.untracked },
+			},
+			attach_to_untracked = true,
+			current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+			current_line_blame_opts = {
+				delay = 500,
+				ignore_whitespace = false,
+			},
+			current_line_blame_formatter = "   <author>, <author_time:%R> - <summary>",
+			preview_config = {
+				border = "rounded",
+			},
+			on_attach = mappings.gitsigns,
+		},
 	},
 
 	{ -- Highlight, edit, and navigate code

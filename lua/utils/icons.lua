@@ -92,4 +92,11 @@ return {
 		git_modified = " ",
 		git_removed = " ",
 	},
+	tree = {
+		git = {
+			unstaged = "",
+			staged = "󰄬",
+			untracked = "+",
+		},
+	},
 }

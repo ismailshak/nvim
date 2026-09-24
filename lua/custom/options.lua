@@ -21,16 +21,7 @@ opt.cmdheight = 0 -- removes the space at the bottom for commands
 opt.laststatus = 3 -- turns the statusline into a global status line (not 1 per buffer/split)
 opt.wrap = false -- disable line wrap
 opt.signcolumn = "yes" -- always display so icons don't move the text
-opt.diffopt = {
-	"internal",
-	"filler",
-	"closeoff",
-	"context:12",
-	"algorithm:histogram",
-	"linematch:60",
-	"indent-heuristic",
-	"inline:char",
-}
+vim.cmd("set diffopt+=context:12,algorithm:histogram,linematch:60")
 
 -- Folds
 opt.foldenable = true
