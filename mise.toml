@@ -3,4 +3,4 @@ neovim="0.12.5"
 
 [tasks.global]
 description = "Install the locally mise-defined neovim version globally"
-run = "mise use -g neovim@${version:neovim}"
+run = "mise use -g neovim@$(mise current neovim)"
