@@ -24,9 +24,23 @@ end
 ---Closes the terminal window if it is open, otherwise opens it. The first open starts the shell.
 function M.toggle()
 	if state.win and vim.api.nvim_win_is_valid(state.win) then
+		-- A window open in another tab is closed there and reopened in this one
+		local in_current_tab = vim.api.nvim_win_get_tabpage(state.win) == vim.api.nvim_get_current_tabpage()
 		vim.api.nvim_win_close(state.win, true)
 		state.win = nil
-		return
+		if in_current_tab then
+			return
+		end
+	end
+
+	-- nvim deletes a terminal buffer only when its shell exits with status 0. After any other status the buffer
+	-- stays with no job in it, so it is deleted here and a new shell started.
+	if state.buf and vim.api.nvim_buf_is_valid(state.buf) then
+		local running = vim.fn.jobwait({ vim.bo[state.buf].channel }, 0)[1] == -1
+		if not running then
+			vim.api.nvim_buf_delete(state.buf, { force = true })
+			state.buf = nil
+		end
 	end
 
 	if state.buf and vim.api.nvim_buf_is_valid(state.buf) then
@@ -34,8 +48,7 @@ function M.toggle()
 	else
 		state.buf = vim.api.nvim_create_buf(false, true)
 		state.win = vim.api.nvim_open_win(state.buf, true, win_config())
-		-- `:terminal` turns the empty buffer into a terminal running 'shell'. nvim deletes a buffer started this way
-		-- when the shell exits, so the next open starts a new shell.
+		-- `:terminal` turns the empty buffer into a terminal running 'shell'
 		vim.cmd.terminal()
 		vim.bo[state.buf].bufhidden = "hide"
 	end

@@ -93,24 +93,19 @@ function M.save(table, file_path)
 	file:close()
 end
 
----Load local settings content
+---Load local settings content. The file is read on every call, not `require`d, so a `save` in the same session is
+---seen by the next `load`.
 ---@see docs https://lua-users.org/wiki/SaveTableToFile
 ---@param file_path? string Path to file
 ---@return Settings|nil
 function M.load(file_path)
-	if file_path ~= nil then
-		local ftables, err = loadfile(file_path)
-		if err or ftables == nil then
-			print("Error loading local settings")
-			print(vim.inspect(err))
-			return nil
-		end
-		local tables = ftables()
-		return tables
+	local ftables, err = loadfile(file_path or utils.module_to_path("custom.settings.local"))
+	if err or ftables == nil then
+		print("Error loading local settings")
+		print(vim.inspect(err))
+		return nil
 	end
-
-	local settings = require("custom.settings.local")
-	return settings
+	return ftables()
 end
 
 ---Merge local and default settings

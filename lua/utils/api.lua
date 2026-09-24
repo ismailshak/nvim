@@ -138,11 +138,14 @@ function M.iabbr(lhs, rhs)
 	vim.cmd("iabbrev " .. lhs .. " " .. rhs)
 end
 
----Define an abbreviation for command mode
+---Define an abbreviation for a `:` command. It expands only when it is the whole command line so far, so `:s/ W /-/`
+---and a `/ W ` search keep their text.
 ---@param lhs string The abbreviation
 ---@param rhs string The expansion
 function M.cabbr(lhs, rhs)
-	vim.cmd("cabbrev " .. lhs .. " " .. rhs)
+	vim.keymap.set("ca", lhs, function()
+		return (vim.fn.getcmdtype() == ":" and vim.fn.getcmdline() == lhs) and rhs or lhs
+	end, { expr = true })
 end
 
 ---Base function that creates a mapping between key and command
@@ -169,13 +172,14 @@ function M.nmap(key, binding, desc, opts)
 	M.map("n", key, binding, desc, opts)
 end
 
----Creates a visual-mode-only mapping
+---Creates a Visual-mode-only mapping. Mode `x`, not `v`: `v` also covers Select mode, which snippet placeholders use,
+---and typing a word over a placeholder would run these mappings.
 ---@param key string The key used in the mapping
 ---@param binding string|function The command to bind to the mapping
 ---@param desc string The description will be added to the mapping for context/search
 ---@param opts? table Any options you can pass to the underlying keymap api
-function M.vmap(key, binding, desc, opts)
-	M.map("v", key, binding, desc, opts)
+function M.xmap(key, binding, desc, opts)
+	M.map("x", key, binding, desc, opts)
 end
 
 ---Creates a insert-mode-only mapping

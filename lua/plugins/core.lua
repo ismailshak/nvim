@@ -164,6 +164,15 @@ return {
 	{
 		"folke/persistence.nvim",
 		event = "BufReadPre",
+		keys = {
+			{
+				"<leader>sl",
+				function()
+					require("persistence").load({ last = true })
+				end,
+				desc = "Load the last session [persistence]",
+			},
+		},
 		opts = {
 			need = 1,
 			branch = true,

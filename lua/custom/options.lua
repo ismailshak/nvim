@@ -21,7 +21,6 @@ opt.cmdheight = 0 -- removes the space at the bottom for commands
 opt.laststatus = 3 -- turns the statusline into a global status line (not 1 per buffer/split)
 opt.wrap = false -- disable line wrap
 opt.signcolumn = "yes" -- always display so icons don't move the text
-opt.winfixwidth = true -- don't resize windows when splitting
 opt.diffopt = {
 	"internal",
 	"filler",
@@ -126,15 +125,6 @@ api.cabbr("Vs", "vs")
 -- Grep
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep --smart-case --hidden --follow"
-
--- Filetypes
-vim.filetype.add({
-	pattern = {
-		-- Map all `.env` variations to `conf` so that shell-specific LSPs don't start (default is `.env ft=sh`)
-		-- and extend it any sub-env files so we get highlighting (e.g. `.env.local` or `test.env`)
-		[".*%.env.*"] = "conf",
-	},
-})
 
 -- Diagnostics
 vim.diagnostic.config({

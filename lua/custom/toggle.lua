@@ -40,7 +40,11 @@ M.config = {
 				if vim.treesitter.highlighter.active[state.origin_buf] ~= nil then
 					vim.treesitter.stop(state.origin_buf)
 				else
-					vim.treesitter.start(state.origin_buf)
+					-- `start` throws when the buffer's filetype has no parser
+					local ok, err = pcall(vim.treesitter.start, state.origin_buf)
+					if not ok then
+						vim.notify(err, vim.log.levels.WARN)
+					end
 				end
 			end,
 		},

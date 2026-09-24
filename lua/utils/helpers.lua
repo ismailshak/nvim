@@ -141,7 +141,8 @@ end
 ---@param substr string
 ---@return boolean
 function M.includes(str, substr)
-	return str:match(substr) ~= nil
+	-- A plain search. With a pattern, a `-` in the substring is a quantifier and never matches itself.
+	return str:find(substr, 1, true) ~= nil
 end
 
 ---Checks if string is an integer

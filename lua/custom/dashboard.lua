@@ -24,7 +24,7 @@ M.config = {
 
 	-- Actions configuration
 	actions = function()
-		return {
+		local actions = {
 			{
 				icon = icons.dashboard.session,
 				text = "Load last session",
@@ -57,23 +57,30 @@ M.config = {
 					vim.cmd("DiffviewOpen")
 				end,
 			},
-			{
+		}
+
+		-- CodeCompanion, and so `:CodeCompanionChat`, is only installed when the copilot setting is on
+		if require("custom.settings").get().copilot then
+			table.insert(actions, {
 				icon = icons.copilot.response .. "  ",
 				text = "Open copilot",
 				keymap = "SPC c c",
 				action = function()
 					vim.cmd("CodeCompanionChat")
 				end,
-			},
-			{
-				icon = icons.dashboard.dotfile,
-				text = "Open dotfile",
-				keymap = "",
-				action = function()
-					vim.cmd("Dotfiles")
-				end,
-			},
-		}
+			})
+		end
+
+		table.insert(actions, {
+			icon = icons.dashboard.dotfile,
+			text = "Open dotfile",
+			keymap = "",
+			action = function()
+				vim.cmd("Dotfiles")
+			end,
+		})
+
+		return actions
 	end,
 
 	-- Footer configuration
@@ -393,6 +400,9 @@ end
 ---@param actions DashboardAction[] Action items
 ---@param line_to_action_map table Map of buffer line to action index
 ---@param left_padding number Left padding of centered content
+-- Defined below. Declared here so the resize autocmd can call it.
+local render
+
 local function setup_autocommands(buf, valid_lines, actions, line_to_action_map, left_padding)
 	-- Clear existing autocommands for this buffer since we'll be calling this on re-render
 	local augroup = vim.api.nvim_create_augroup("Dashboard_" .. buf, { clear = true })
@@ -419,14 +429,14 @@ local function setup_autocommands(buf, valid_lines, actions, line_to_action_map,
 		buf = buf,
 		group = augroup,
 		callback = function()
-			M.render(buf)
+			render(buf)
 		end,
 	})
 end
 
 ---Render the dashboard content
 ---@param buf number Buffer handle
-local function render(buf)
+render = function(buf)
 	local header = M.config.header()
 	local actions = M.config.actions()
 	local footer = M.config.footer()

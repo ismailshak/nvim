@@ -13,8 +13,7 @@ api.nmap("<leader>pm", "<CMD>Lazy<CR>", "Open [p]lugin [m]anager")
 api.nmap("<leader>ss", "<CMD>w<CR>", "Save buffer")
 api.nmap("<Esc>", "<CMD>noh<CR>", "Remove selection highlighting")
 api.nmap("<C-a>", "ggVG", "Select all in buffer")
-api.nmap("<leader>r", "<CMD>source %<CR>", "Source current buffer")
-api.imap("<C-z>", "<Esc>zza", "Center cursor position in window while in insert mode")
+api.imap("<C-z>", "<C-o>zz", "Center cursor position in window while in insert mode")
 
 api.nmap("<leader>w", "<CMD>bd<CR>", "Close currently open buffer")
 api.nmap("<leader>e", "<CMD>%bd|e#|bd#<CR>|'\"", "Close all buffers except the currently open")
@@ -30,14 +29,14 @@ api.nmap("<leader>tw", "<CMD>set wrap!<CR>", "Toggle text wrap")
 
 -- Don't yank on delete / change
 api.nmap("d", '"_d', "Rebinds 'd' to not yank on delete (normal mode)")
-api.vmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
+api.xmap("d", '"_d', "Rebinds 'd' to not yank on delete (visual mode")
 api.nmap("c", '"_c', "Rebinds 'c' to not yank on removal (normal mode)")
-api.vmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
+api.xmap("c", '"_c', "Rebinds 'c' to not yank on removal (visual mode)")
 
 api.nmap("<A-Up>", "yyP", "Duplicate current line above")
 api.nmap("<A-Down>", "yyp", "Duplicate current line below")
-api.vmap("<A-Up>", "yP", "Duplicate selected lines above")
-api.vmap("<A-Down>", "y'>p", "Duplicate selected lines below")
+api.xmap("<A-Up>", "yP", "Duplicate selected lines above")
+api.xmap("<A-Down>", "y'>p", "Duplicate selected lines below")
 
 -- -- Splits
 -- api.nmap("<C-h>", "<c-w>h", "Jump 1 split plane to the left")
@@ -49,13 +48,13 @@ api.nmap("<A-H>", "<CMD>vertical resize +2<CR>", "Make split pane wider (normal 
 api.nmap("<A-L>", "<CMD>vertical resize -2<CR>", "Make split pane thinner (normal mode)")
 api.nmap("<A-J>", "<CMD>horizontal resize -2<CR>", "Make split pane shorter (normal mode)")
 api.nmap("<A-K>", "<CMD>horizontal resize +2<CR>", "Make split pane longer (normal mode)")
-api.vmap("<A-H>", "<CMD>vertical resize -2<CR>", "Make split pane shorter (visual mode)")
-api.vmap("<A-L>", "<CMD>vertical resize +2<CR>", "Make split pane longer (visual mode)")
-api.vmap("<A-J>", "<CMD>horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
-api.vmap("<A-K>", "<CMD>horizontal resize +2<CR>", "Make split pane wider (visual mode)")
+api.xmap("<A-H>", "<CMD>vertical resize -2<CR>", "Make split pane shorter (visual mode)")
+api.xmap("<A-L>", "<CMD>vertical resize +2<CR>", "Make split pane longer (visual mode)")
+api.xmap("<A-J>", "<CMD>horizontal resize -2<CR>", "Make split pane thinner (visual mode)")
+api.xmap("<A-K>", "<CMD>horizontal resize +2<CR>", "Make split pane wider (visual mode)")
 
 -- Replacing text
-api.vmap("<C-f>", '"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of selected text")
+api.xmap("<C-f>", '"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of selected text")
 api.nmap("<C-f>", 'viw"hy:%s/<C-r>h//g<left><left>', "Replace all occurrences of word under cursor")
 
 api.tmap("<Esc><Esc>", "<C-\\><C-n>", "Escape terminal mode")
@@ -91,7 +90,7 @@ function M.lsp(bufnr)
 	local opts = { buf = bufnr }
 	api.nmap("grn", vim.lsp.buf.rename, gen_desc("Rename"), opts)
 	api.nmap("gra", vim.lsp.buf.code_action, gen_desc("Code Action"), opts)
-	api.vmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range Code Action"), opts)
+	api.xmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range Code Action"), opts)
 	api.nmap("grr", "<CMD>FzfLua lsp_references<CR>", gen_desc("Goto references"), opts)
 
 	api.nmap("gd", vim.lsp.buf.definition, gen_desc("Goto Definition"), opts)
@@ -113,11 +112,6 @@ function M.lsp(bufnr)
 	end, gen_desc("Signature help"), opts)
 
 	api.nmap("gD", vim.lsp.buf.declaration, gen_desc("[G]oto [D]eclaration"), opts)
-	api.nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, gen_desc("[W]orkspace [A]dd Folder"), opts)
-	api.nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, gen_desc("[W]orkspace [R]emove Folder"), opts)
-	api.nmap("<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, gen_desc("Workspace list folders"), opts)
 end
 
 function M.undotree()
@@ -146,20 +140,20 @@ function M.gitsigns(bufnr)
 	end, "Navigate to previous hunk [gitsigns]", default_opts)
 
 	-- Actions
-	api.map(
-		{ "n", "v" },
+	api.nmap(
 		"<leader>hs",
-		"<CMD>Gitsigns stage_hunk<CR>",
+		gs.stage_hunk,
 		"Stage hunk under cursor, or unstage it if already staged [gitsigns]",
 		default_opts
 	)
-	api.map(
-		{ "n", "v" },
-		"<leader>hr",
-		"<CMD>Gitsigns reset_hunk<CR>",
-		"Reset hunk under cursor [gitsigns]",
-		default_opts
-	)
+	api.nmap("<leader>hr", gs.reset_hunk, "Reset hunk under cursor [gitsigns]", default_opts)
+	-- A `<Cmd>` mapping passes no range, so the visual mappings pass the selected lines themselves
+	api.xmap("<leader>hs", function()
+		gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+	end, "Stage the selected lines [gitsigns]", default_opts)
+	api.xmap("<leader>hr", function()
+		gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+	end, "Reset the selected lines [gitsigns]", default_opts)
 	api.nmap("<leader>hS", gs.stage_buffer, "Stage the current buffer [gitsigns]", default_opts)
 	api.nmap("<leader>hR", gs.reset_buffer, "Reset the current buffer [gitsigns]", default_opts)
 	api.nmap("<leader>hP", gs.preview_hunk, "Previw hunk under cursor [gitsigns]", default_opts)
@@ -174,13 +168,7 @@ function M.gitsigns(bufnr)
 	end, "Diff this ~ [gitsigns]", default_opts)
 
 	-- Text object
-	api.map(
-		{ "o", "x" },
-		"ih",
-		"<CMD><C-U>Gitsigns select_hunk<CR>",
-		"Motion for inside git hunk [gitsigns]",
-		default_opts
-	)
+	api.map({ "o", "x" }, "ih", gs.select_hunk, "Motion for inside git hunk [gitsigns]", default_opts)
 end
 
 function M.fzf()

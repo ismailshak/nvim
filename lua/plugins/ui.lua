@@ -470,6 +470,7 @@ return {
 		keys = {
 			"<leader>ff",
 			"<leader>fo",
+			"<leader>rr",
 			"<leader>fd",
 			"<leader>fg",
 			"<leader>fh",

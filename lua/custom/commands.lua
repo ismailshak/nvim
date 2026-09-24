@@ -170,8 +170,7 @@ autocmd("ColorScheme", {
 	pattern = "iceberg",
 	group = CUSTOM_GROUP_ID,
 	callback = function()
-		local is_dark = settings.get().background == "dark"
-		highlight.iceberg(is_dark)
+		highlight.iceberg(vim.o.background == "dark")
 	end,
 })
 
@@ -209,6 +208,7 @@ autocmd("LspAttach", {
 
 -- Enable cursor line on active window
 autocmd("WinEnter", {
+	group = CUSTOM_GROUP_ID,
 	callback = function()
 		if vim.w.auto_cursorline then
 			vim.wo.cursorline = true
@@ -219,6 +219,7 @@ autocmd("WinEnter", {
 
 -- Disable cursor line on inactive window
 autocmd("WinLeave", {
+	group = CUSTOM_GROUP_ID,
 	callback = function()
 		if vim.wo.cursorline then
 			vim.w.auto_cursorline = true
@@ -229,6 +230,7 @@ autocmd("WinLeave", {
 
 -- Open dashboard on startup if no files were specified
 autocmd("VimEnter", {
+	group = CUSTOM_GROUP_ID,
 	once = true,
 	callback = function()
 		if vim.fn.argc() > 0 then

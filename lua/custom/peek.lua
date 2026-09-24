@@ -62,8 +62,11 @@ local function open(location, client)
 	})
 	state.win, state.buf = win, buf
 
-	-- Moves the cursor to the definition, converting the LSP column to a byte column
+	-- Moves the cursor to the definition, converting the LSP column to a byte column. `show_document` also lists the
+	-- buffer, and it is listed on `<CR>` only, so the flag is put back.
+	local listed = vim.bo[buf].buflisted
 	vim.lsp.util.show_document(location, client.offset_encoding, { focus = true })
+	vim.bo[buf].buflisted = listed
 	vim.cmd("normal! zt")
 
 	---Maps a key in the peek buffer, unless the buffer already has its own mapping for it
