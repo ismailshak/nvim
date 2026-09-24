@@ -105,9 +105,10 @@ return {
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile" },
+		-- So that headless installs have the configs they need
+		cmd = "MasonToolsInstallSync",
 		dependencies = {
-			-- Exposing cmd so that it can be triggered by a new installation to grab all required tooling
-			{ "WhoIsSethDaniel/mason-tool-installer.nvim", cmd = "MasonToolsInstallSync" },
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			{ "mason-org/mason.nvim", version = "^2" }, -- Install LSPs and tools to neovim's stdpath
 			{ "mason-org/mason-lspconfig.nvim", version = "^2" }, -- Closes gap between mason.nvim and lspconfig
