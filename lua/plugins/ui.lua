@@ -241,13 +241,7 @@ return {
 	-- Adds LSP rename handlers to nvim-tree
 	{
 		"antosha417/nvim-lsp-file-operations",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-tree.lua",
-		},
-		config = function()
-			require("lsp-file-operations").setup()
-		end,
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
 	-- Highlight colors in the buffer
@@ -461,6 +455,8 @@ return {
 					},
 				},
 			})
+
+			require("lsp-file-operations").setup()
 		end,
 	},
 

@@ -184,9 +184,6 @@ autocmd("ColorScheme", {
 	end,
 })
 
--- Filetypes that should not have typos_lsp attached
-local DISABLED_TYPOS_FT = { "dashboard", "term" }
-
 autocmd("LspAttach", {
 	pattern = "*",
 	group = CUSTOM_GROUP_ID,
@@ -194,17 +191,13 @@ autocmd("LspAttach", {
 		local id = opts.data.client_id
 		local client = vim.lsp.get_client_by_id(id) or {}
 
-		mappings.lsp(opts.buf)
+		-- typos lsp is just for diagnostics so doesn't need any of these mappings
+		if client.name ~= "typos_lsp" then
+			mappings.lsp(opts.buf)
+		end
 
 		-- nvim-highlight-colors renders the server's colours. The built-in colours would draw each one a second time.
 		vim.lsp.document_color.enable(false, { bufnr = opts.buf })
-
-		-- Detach typos_lsp from certain filetypes
-		if client.name == "typos_lsp" and utils.contains(DISABLED_TYPOS_FT, vim.bo.filetype) then
-			vim.schedule(function()
-				vim.lsp.buf_detach_client(opts.buf, id)
-			end)
-		end
 
 		-- Enable folds if supported
 		if client:supports_method("textDocument/foldingRange") then

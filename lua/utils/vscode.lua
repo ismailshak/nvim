@@ -28,7 +28,11 @@ function M.parse_settings()
 		return nil
 	end
 
-	local settings = vim.json.decode(content, { object = true, array = true })
+	local ok, settings = pcall(vim.json.decode, content, { object = true, array = true, skip_comments = true })
+	if not ok then
+		vim.notify_once("Could not parse " .. M.settings_path() .. ": " .. settings, vim.log.levels.WARN)
+		return nil
+	end
 	return settings
 end
 

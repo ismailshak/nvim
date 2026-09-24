@@ -7,10 +7,19 @@ M.servers = utils.concat_tables(tools.default_servers, tools.optional_servers)
 
 ---Sets the capabilities shared by every server and enables the servers. Per-server config is in `after/lsp/`.
 function M.setup_lsp()
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-	capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
-	capabilities = vim.tbl_deep_extend("force", capabilities, require("lsp-file-operations").default_capabilities())
+	local capabilities = require("blink.cmp").get_lsp_capabilities({}, false)
+	-- What nvim-lsp-file-operations' `default_capabilities()` returns with its default config. Requiring the plugin
+	-- here would load nvim-tree on the first file open.
+	capabilities.workspace = {
+		fileOperations = {
+			didCreate = true,
+			didDelete = true,
+			didRename = true,
+			willCreate = true,
+			willDelete = true,
+			willRename = true,
+		},
+	}
 
 	vim.lsp.config("*", { capabilities = capabilities })
 
