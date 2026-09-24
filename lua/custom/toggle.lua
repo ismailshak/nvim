@@ -191,7 +191,7 @@ local function toggle_by_key(key)
 end
 
 local function setup_keymaps()
-	local opts = { buffer = state.buf, nowait = true, silent = true }
+	local opts = { buf = state.buf, nowait = true, silent = true }
 
 	api.nmap("q", M.close, "Close settings window", opts)
 	api.nmap("<Esc>", M.close, "Close settings window", opts)

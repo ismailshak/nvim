@@ -41,5 +41,5 @@ local function remove_qf_item()
 	vim.api.nvim_win_set_cursor(winid, { new_index, 0 })
 end
 
-api.vmap("d", remove_qf_item, "Delete selected items from quick fix list", { buffer = true })
-api.nmap("dd", remove_qf_item, "Delete item under cursor from quick fix list", { buffer = true })
+api.vmap("d", remove_qf_item, "Delete selected items from quick fix list", { buf = 0 })
+api.nmap("dd", remove_qf_item, "Delete item under cursor from quick fix list", { buf = 0 })

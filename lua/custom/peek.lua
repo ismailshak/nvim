@@ -12,7 +12,7 @@ local function forget()
 	local win, buf = state.win, state.buf
 	if buf and vim.api.nvim_buf_is_valid(buf) then
 		for _, key in ipairs(state.mapped) do
-			pcall(vim.keymap.del, "n", key, { buffer = buf })
+			pcall(vim.keymap.del, "n", key, { buf = buf })
 		end
 	end
 	state.win, state.buf, state.mapped = nil, nil, {}
@@ -69,7 +69,7 @@ local function open(location, client)
 	---Maps a key in the peek buffer, unless the buffer already has its own mapping for it
 	local function map(key, fn, desc)
 		if vim.fn.maparg(key, "n", false, true).buffer ~= 1 then
-			vim.keymap.set("n", key, fn, { buffer = buf, desc = desc })
+			vim.keymap.set("n", key, fn, { buf = buf, desc = desc })
 			table.insert(state.mapped, key)
 		end
 	end

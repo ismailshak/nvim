@@ -287,18 +287,18 @@ local function setup_keymaps(buf, actions, line_to_action_map)
 		if item_idx and actions[item_idx] then
 			actions[item_idx].action()
 		end
-	end, "Trigger action on current line [dashboard]", { buffer = buf, silent = true })
+	end, "Trigger action on current line [dashboard]", { buf = buf, silent = true })
 
 	-- Disable visual mode
-	api.nmap("v", "<Nop>", "", { buffer = buf, silent = true })
-	api.nmap("V", "<Nop>", "", { buffer = buf, silent = true })
-	api.nmap("<C-v>", "<Nop>", "", { buffer = buf, silent = true })
+	api.nmap("v", "<Nop>", "", { buf = buf, silent = true })
+	api.nmap("V", "<Nop>", "", { buf = buf, silent = true })
+	api.nmap("<C-v>", "<Nop>", "", { buf = buf, silent = true })
 
 	-- Disable mouse scrolling
-	api.nmap("<ScrollWheelUp>", "<Nop>", "", { buffer = buf, silent = true })
-	api.nmap("<ScrollWheelDown>", "<Nop>", "", { buffer = buf, silent = true })
-	api.nmap("<ScrollWheelRight>", "<Nop>", "", { buffer = buf, silent = true })
-	api.nmap("<ScrollWheelLeft>", "<Nop>", "", { buffer = buf, silent = true })
+	api.nmap("<ScrollWheelUp>", "<Nop>", "", { buf = buf, silent = true })
+	api.nmap("<ScrollWheelDown>", "<Nop>", "", { buf = buf, silent = true })
+	api.nmap("<ScrollWheelRight>", "<Nop>", "", { buf = buf, silent = true })
+	api.nmap("<ScrollWheelLeft>", "<Nop>", "", { buf = buf, silent = true })
 end
 
 ---Apply syntax highlighting to dashboard sections
@@ -402,7 +402,7 @@ local function setup_autocommands(buf, valid_lines, actions, line_to_action_map,
 
 	-- Restrict cursor movement to valid action items
 	vim.api.nvim_create_autocmd("CursorMoved", {
-		buffer = buf,
+		buf = buf,
 		group = augroup,
 		callback = function()
 			-- Verify buffer is still valid
@@ -416,7 +416,7 @@ local function setup_autocommands(buf, valid_lines, actions, line_to_action_map,
 
 	-- Re-render on window resize to maintain centering
 	vim.api.nvim_create_autocmd("VimResized", {
-		buffer = buf,
+		buf = buf,
 		group = augroup,
 		callback = function()
 			M.render(buf)

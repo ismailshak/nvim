@@ -88,7 +88,7 @@ function M.lsp(bufnr)
 		return desc .. " (LSP)"
 	end
 
-	local opts = { buffer = bufnr }
+	local opts = { buf = bufnr }
 	api.nmap("grn", vim.lsp.buf.rename, gen_desc("Rename"), opts)
 	api.nmap("gra", vim.lsp.buf.code_action, gen_desc("Code Action"), opts)
 	api.vmap("gra", vim.lsp.buf.code_action, gen_desc("Selected range Code Action"), opts)
@@ -126,7 +126,7 @@ end
 
 function M.gitsigns(bufnr)
 	local gs = require("gitsigns")
-	local default_opts = { buffer = bufnr }
+	local default_opts = { buf = bufnr }
 
 	-- Navigation
 	api.nmap("]c", function()
@@ -310,7 +310,7 @@ function M.treesitter_textobjects(bufnr)
 	local select = require("nvim-treesitter-textobjects.select")
 	local move = require("nvim-treesitter-textobjects.move")
 	local swap = require("nvim-treesitter-textobjects.swap")
-	local opts = { buffer = bufnr }
+	local opts = { buf = bufnr }
 
 	-- `select` is the letter after `a` and `i`. `next` and `prev` are the move keys; block has none so that `]b`
 	-- and `[b` keep the default `:bnext` and `:bprevious`. `@statement` has no `.inner` capture in any language,
