@@ -41,6 +41,7 @@ mise run global
 - `node`
 - `python3`
 - `rg`
+- `tree-sitter`
 - `wget`
 - `gh`
 
