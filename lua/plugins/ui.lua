@@ -103,6 +103,7 @@ return {
 	-- Useful UI for LSP progress
 	{
 		"j-hui/fidget.nvim",
+		lazy = false,
 		opts = function()
 			return {
 				progress = {
