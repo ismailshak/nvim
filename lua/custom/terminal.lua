@@ -56,7 +56,7 @@ function M.toggle()
 	-- The term ftplugin sets window options, which reach only the window the shell started in. Running it again
 	-- applies them to this window.
 	vim.cmd.runtime({ "after/ftplugin/term.lua", bang = true })
-	vim.wo[win].winhighlight = "NormalFloat:Normal"
+	vim.api.nvim_set_option_value("winhighlight", "NormalFloat:Normal", { scope = "local", win = win })
 	vim.cmd.startinsert()
 end
 
