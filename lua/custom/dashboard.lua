@@ -10,7 +10,7 @@ M.config = {
 	action_item_padding = 1, -- Lines between action items
 	actions_padding = 4, -- Lines after the actions section
 	keymap_spacing = 16, -- Spaces between action text and keymap (horizontal spacing)
-	layout_vertical_offset = 0.4, -- Percentage from top (0-1, where 0.5 = center, <0.5 = up, >0.5 = down)
+	layout_vertical_offset = 0.5, -- Percentage from top (0-1, where 0.5 = center, <0.5 = up, >0.5 = down)
 
 	-- Header configuration
 	header = function()
