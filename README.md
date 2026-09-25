@@ -43,42 +43,47 @@ mise run global
 - `rg`
 - `tree-sitter`
 - `wget`
-- `gh`
 
 ### Optional
 
 - `bat`
 - `delta`
 - `fd`
+- `gh`
 
-## Language Support
+## Language support
 
-By default, the following languages and file types will work out of the box
-
-- Bash
-- Dockerfile
-- JavaScript/TypeScript (+ HTML/CSS)
-- JSON
-- Lua
-- Markdown
-- YAML
-
-Below is a list of expandable sections detailing what's needed in order to enable other supported languages
+Bash, CSS, Docker, HTML, JSON, Lua, Markdown and YAML work out of the box. Other languages are supported but need extra steps:
 
 <details>
 <summary>C/C++</summary>
 
 <h3>Installer</h3>
 
-Using mason.nvim, you can run the command `:MasonInstall clangd clang-format codelldb`.
+Using mason.nvim, you can run the command `:MasonInstall clangd clang-format codelldb`
 
 <h3>Manual</h3>
 
-Or using your system's package manager, install the following and make sure they're on your `$PATH`:
+Or using your package manager of choice, install the following and make sure they're on your `$PATH`:
 
-- `clangd`
-- `clang-format`
+- `clangd` (language server)
+- `clang-format` (formatter)
 - `codelldb` (debugger, optional)
+
+</details>
+
+<details>
+<summary>Elixir</summary>
+
+<h3>Installer</h3>
+
+Using mason.nvim, you can run the command `:MasonInstall elixir-ls`
+
+<h3>Manual</h3>
+
+Or install it with your method of choice and make sure it's on your `$PATH`:
+
+- `elixir-ls` (language server)
 
 </details>
 
@@ -87,7 +92,7 @@ Or using your system's package manager, install the following and make sure they
 
 <h3>Installer</h3>
 
-Using mason.nvim, you can run the command `:MasonInstall gopls goimports delve`
+Using mason.nvim, you can run the command `:MasonInstall gopls goimports golangci-lint delve`
 
 <h3>Manual</h3>
 
@@ -105,13 +110,62 @@ go install golang.org/x/tools/gopls@latest
 go install golang.org/x/tools/cmd/goimports@latest
 ```
 
+- `golangci-lint` (linter, optional)
+
+```bash
+go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
+```
+
 - `delve` (debugger, optional)
 
 ```bash
 go install github.com/go-delve/delve/cmd/dlv@latest
-  ```
+```
 
 Since `$GOPATH` should already be on your `$PATH`, no more configuration is needed
+
+</details>
+
+<details>
+<summary>GraphQL</summary>
+
+<h3>Installer</h3>
+
+Using mason.nvim, you can run the command `:MasonInstall graphql-language-service-cli`
+
+<h3>Manual</h3>
+
+Or install it with npm and make sure it's on your `$PATH`:
+
+- `graphql-lsp` (language server, from the `graphql-language-service-cli` package)
+
+Formatting uses the project's `prettier`, see the JavaScript/TypeScript section.
+
+</details>
+
+<details>
+<summary>JavaScript/TypeScript</summary>
+
+<h3>Installer</h3>
+
+mason.nvim installs `vtsls`, `eslint` and `js-debug-adapter` on its own. For Tailwind projects, you can run the command `:MasonInstall tailwindcss-language-server`
+
+<h3>Manual</h3>
+
+TypeScript and prettier come from the project's package.json:
+
+```bash
+pnpm install -D typescript prettier
+```
+
+- `tsc --lsp` (language server) is used when the project's TypeScript is 7 or later
+- `vtsls` (language server) is used when the project's TypeScript is 5 or 6. It bundles its own TypeScript. Only one of the two attaches per project.
+- `prettier` (formatter). The project's `node_modules` copy is used. One on your `$PATH` works as a fallback for files outside a project.
+- `eslint` (linter). Also covers JSON, Markdown, Svelte and Vue files.
+- `js-debug-adapter` (debugger). Node and Chrome launch configurations are built in, and `.vscode/launch.json` entries are picked up.
+- `tailwindcss-language-server` (language server, optional).
+
+`:OrganizeImports` runs the organize imports code action with whichever server is attached.
 
 </details>
 
@@ -124,7 +178,7 @@ Using mason.nvim, you can run the command `:MasonInstall ocaml-lsp ocamlformat`
 
 <h3>Manual</h3>
 
-Or using your system's package manager, install [`opam`](https://opam.ocaml.org/). Then run the following commands:
+Or using your package manager of choice, install [`opam`](https://opam.ocaml.org/). Then run the following commands:
 
 - Initialize internals
 
@@ -172,5 +226,37 @@ rustup component add clippy
 ```
 
 The `rustup` installation should automatically handle updating your `$PATH`, so no more configuration needed
+
+</details>
+
+<details>
+<summary>SQL</summary>
+
+<h3>Installer</h3>
+
+Using mason.nvim, you can run the command `:MasonInstall sql-formatter`
+
+<h3>Manual</h3>
+
+Or install it with your package manager of choice and make sure it's on your `$PATH`:
+
+- `sql-formatter` (formatter)
+
+</details>
+
+<details>
+<summary>Svelte</summary>
+
+<h3>Installer</h3>
+
+Using mason.nvim, you can run the command `:MasonInstall svelte-language-server`
+
+<h3>Manual</h3>
+
+Or install it with your package manager of choice and make sure it's on your `$PATH`:
+
+- `svelteserver` (language server, from the `svelte-language-server` package)
+
+Formatting uses the project's `prettier`, see the JavaScript/TypeScript section.
 
 </details>
