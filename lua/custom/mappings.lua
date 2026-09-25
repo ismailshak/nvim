@@ -328,6 +328,18 @@ function M.treesitter_textobjects(bufnr)
 	end, "Swap current parameter with previous", opts)
 end
 
+function M.treesitter_repeat()
+	local repeatable = require("nvim-treesitter-textobjects.repeatable_move")
+	local modes = { "n", "x", "o" }
+
+	api.map(modes, ";", repeatable.repeat_last_move, "Repeat the last move")
+	api.map(modes, ",", repeatable.repeat_last_move_opposite, "Repeat the last move in the opposite direction")
+	api.map(modes, "f", repeatable.builtin_f_expr, "Find character forwards", { expr = true })
+	api.map(modes, "F", repeatable.builtin_F_expr, "Find character backwards", { expr = true })
+	api.map(modes, "t", repeatable.builtin_t_expr, "Till character forwards", { expr = true })
+	api.map(modes, "T", repeatable.builtin_T_expr, "Till character backwards", { expr = true })
+end
+
 function M.tmux_navigator()
 	api.nmap("<C-h>", "<CMD>TmuxNavigateLeft<CR>", "Navigate to neovim or tmux pane to the left")
 	api.nmap("<C-l>", "<CMD>TmuxNavigateRight<CR>", "Navigate to neovim or tmux pane to the right")

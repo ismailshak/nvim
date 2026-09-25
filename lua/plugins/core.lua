@@ -267,6 +267,7 @@ return {
 				select = { lookahead = true },
 				move = { set_jumps = true },
 			})
+			mappings.treesitter_repeat()
 
 			-- The mappings are buffer-local so that buffers without textobject queries keep the default `]a` and
 			-- `]l` mappings. This autocmd is created after the ftplugin one, so these mappings replace the `]]` and
