@@ -3,7 +3,7 @@ local highlight = require("custom.highlights")
 local formatting = require("utils.tools.formatting")
 local mappings = require("custom.mappings")
 local api = require("utils.api")
-local utils = require("utils.helpers")
+local git = require("custom.git")
 local ui = require("utils.ui")
 
 local CUSTOM_GROUP_ID = vim.api.nvim_create_augroup("ShakCommands", { clear = true })
@@ -34,25 +34,21 @@ end, { nargs = "*" })
 usercmd("YankRelativePath", "let @+=expand('%:~:.')", {})
 usercmd("YankAbsolutePath", "let @+=expand('%:p')", {})
 
-usercmd("BlamePR", function(args)
-	local commit_sha
-	local line = vim.fn.line(".")
-	local path = vim.fn.expand("%:p")
-
-	if args.args ~= "" then
-		commit_sha = args.args
-	else
-		commit_sha = vim.fn.system(string.format("git blame -s -L %d,%d %s | awk '{print $1}'", line, line, path))
-	end
-
-	local repo = vim.fn.system("gh repo view --json nameWithOwner --jq .nameWithOwner")
-
-	local pr_number = vim.fn.system(
-		string.format("gh api /repos/%s/commits/%s/pulls --jq '.[0].number'", utils.trim(repo), utils.trim(commit_sha))
-	)
-
-	vim.fn.system(string.format("gh pr view --web %s", utils.trim(pr_number)))
+-- Open the pull request for the commit under the cursor, or for the commit given as the argument
+usercmd("OpenPR", function(args)
+	git.open_pull_request(0, args.args ~= "" and args.args or nil)
 end, { nargs = "?" })
+
+-- Copy the URL of the pull request for the commit under the cursor, or for the commit given as the argument, to the
+-- + register
+usercmd("YankPR", function(args)
+	git.yank_pull_request(0, args.args ~= "" and args.args or nil)
+end, { nargs = "?" })
+
+-- Copy a GitHub link to the current line at HEAD's commit to the + register. A visual range links the whole range.
+usercmd("YankPermalink", function(args)
+	git.yank_permalink(0, args.line1, args.line2)
+end, { range = true })
 
 usercmd("Format", function(args)
 	local range = nil
