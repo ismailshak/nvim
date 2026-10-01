@@ -125,7 +125,7 @@ return {
 	-- Debugging
 	{
 		"mfussenegger/nvim-dap",
-		-- Every mapping `mappings.dap()` and `mappings.dap_ui()` set. The Go test mappings are in `after/ftplugin/go.lua`.
+		-- Every mapping `mappings.dap()` and `mappings.dap_view()` set. The Go test mappings are in `after/ftplugin/go.lua`.
 		keys = {
 			"<leader>du",
 			"<leader>dd",
@@ -144,19 +144,16 @@ return {
 			"<leader>dl",
 		},
 		dependencies = {
-			{
-				"rcarriga/nvim-dap-ui",
-				dependencies = { "nvim-neotest/nvim-nio" },
-			},
+			"igorlfs/nvim-dap-view",
 			"leoluz/nvim-dap-go",
-			"theHamsta/nvim-dap-virtual-text",
 		},
 		config = function()
 			dap.setup_dap()
+			dap.report_progress()
 			mappings.dap()
 
-			dap.setup_dap_ui()
-			mappings.dap_ui()
+			dap.setup_dap_view()
+			mappings.dap_view()
 		end,
 	},
 

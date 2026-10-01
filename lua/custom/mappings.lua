@@ -204,8 +204,9 @@ function M.codecompanion()
 	api.map({ "n", "x" }, "<leader>ca", "<CMD>CodeCompanionActions<CR>", "Open action palette [CodeCompanion]")
 end
 
-function M.dap_ui()
-	api.nmap("<leader>du", require("dapui").toggle, "Toggle DAP UI [nvim-dap-ui]")
+function M.dap_view()
+	api.nmap("<leader>du", require("dap-view").toggle, "Toggle debugger panel [nvim-dap-view]")
+	api.nmap("<leader>dk", require("dap-view").hover, "View value under cursor [nvim-dap-view]")
 end
 
 function M.dap()
@@ -219,10 +220,6 @@ function M.dap()
 	api.nmap("<leader>do", require("dap").step_over, "Step over [nvim-dap]")
 	api.nmap("<leader>dO", require("dap").step_out, "Step out [nvim-dap]")
 	api.nmap("<leader>di", require("dap").step_into, "Step into [nvim-dap]")
-	api.nmap("<leader>dk", function()
-		-- nvim-dap draws its floats with 'winborder', which is empty by default
-		require("dap.ui.widgets").hover(nil, { border = "rounded" })
-	end, "View value under cursor [nvim-dap]")
 
 	api.nmap("<leader>de", function()
 		vim.ui.input({

@@ -5,7 +5,7 @@ local api = require("utils.api")
 ---Runs all non-colorscheme highlight overrides
 function M.plugins()
 	M.nvim_tree()
-	M.dap_ui()
+	M.dap_view()
 	M.blink()
 	M.render_markdown()
 end
@@ -16,37 +16,20 @@ function M.nvim_tree()
 	api.hi("NvimTreeRootFolder", { link = "Constant" })
 end
 
----Overrides highlights for 'rcarriga/nvim-dap-ui'
-function M.dap_ui()
-	local winbar = api.get_highlight("WinBar")
-	local diagnostic_info = api.get_highlight("DiagnosticInfo")
-	local diagnostic_error = api.get_highlight("DiagnosticError")
-	local ts_function = api.get_highlight("TSFunction")
-
-	api.hi("DapUIScope", { link = "Statement" })
-	api.hi("DapUIType", { link = "Type" })
-	api.hi("DapUIDecoration", { link = "Type" })
-	api.hi("DapUIThread", { link = "TSFunction" })
-	api.hi("DapUIStoppedThread", { link = "String" })
-	api.hi("DapUIWatchesEmpty", { link = "DiagnosticWarn" })
-	api.hi("DapUIWatchesValue", { link = "DiagnosticInfo" })
-	api.hi("DapUIWatchesError", { link = "DiagnosticError" })
-	api.hi("DapUIBreakpointsPath", { link = "DapUIScope" })
-	api.hi("DapUIBreakpointsInfo", { link = "TSFunction" })
-	api.hi("DapUILineNumber", { link = "Statement" })
-	api.hi("DapUIBreakpointsCurrentLine", { link = "TSFunction" })
-	api.hi("DapUISource", { link = "Type" })
-	api.hi("DapUIModifiedValue", { link = "Statement" })
-	api.hi("DapStoppedLine", { link = "Visual" })
-
-	-- Control bar buttons
-	api.hi("DapUIPlayPause", { bg = winbar.bg, fg = ts_function.fg })
-	api.hi("DapUIStepInto", { bg = winbar.bg, fg = diagnostic_info.fg })
-	api.hi("DapUIStepOver", { bg = winbar.bg, fg = diagnostic_info.fg })
-	api.hi("DapUIStepOut", { bg = winbar.bg, fg = diagnostic_info.fg })
-	api.hi("DapUIStepBack", { bg = winbar.bg, fg = diagnostic_info.fg })
-	api.hi("DapUIRestart", { bg = winbar.bg, fg = ts_function.fg })
-	api.hi("DapUIStop", { bg = winbar.bg, fg = diagnostic_error.fg })
+---Overrides highlights for 'igorlfs/nvim-dap-view'
+function M.dap_view()
+	api.hi("NvimDapViewTabFill", { link = "TabLine" })
+	api.hi("NvimDapViewFileName", { link = "Statement" })
+	api.hi("NvimDapViewLineNumber", { link = "Statement" })
+	api.hi("NvimDapViewMissingData", { link = "DiagnosticError" })
+	api.hi("NvimDapViewControlTerminate", { link = "DiagnosticError" })
+	api.hi("NvimDapViewControlDisconnect", { link = "DiagnosticError" })
+	api.hi("NvimDapViewControlPlay", { link = "TSFunction" })
+	api.hi("NvimDapViewControlRunLast", { link = "TSFunction" })
+	api.hi("NvimDapViewControlStepInto", { link = "DiagnosticInfo" })
+	api.hi("NvimDapViewControlStepOver", { link = "DiagnosticInfo" })
+	api.hi("NvimDapViewControlStepOut", { link = "DiagnosticInfo" })
+	api.hi("NvimDapViewControlStepBack", { link = "DiagnosticInfo" })
 end
 
 ---Overrides highlights for 'saghen/blink.cmp'
