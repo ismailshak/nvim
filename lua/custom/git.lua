@@ -229,7 +229,7 @@ end
 ---@param cb fun(url: string)
 local function pull_request_url_from_github(cwd, sha, cb)
 	local short = sha:sub(1, 7)
-	if vim.fn.executable("ghs") ~= 1 then
+	if vim.fn.executable("gh") ~= 1 then
 		local message = string.format("No pull request found for %s in git history, and gh is not installed", short)
 		vim.notify(message, vim.log.levels.WARN)
 		return
