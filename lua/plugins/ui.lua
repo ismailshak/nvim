@@ -74,7 +74,7 @@ return {
 	-- Add indentation guides even on blank lines
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		event = "BufReadPost",
+		event = "VeryLazy",
 		main = "ibl",
 		opts = {
 			exclude = { filetypes = { "dashboard" } },
@@ -250,7 +250,7 @@ return {
 	-- Highlight colors in the buffer
 	{
 		"brenoprata10/nvim-highlight-colors",
-		event = { "BufReadPost", "BufNewFile" },
+		event = "VeryLazy",
 		opts = {
 			render = "virtual",
 			virtual_symbol = "󱓻",

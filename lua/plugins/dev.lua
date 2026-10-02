@@ -108,7 +108,7 @@ return {
 	-- Moving code around
 	{
 		"nvim-mini/mini.move",
-		event = { "BufReadPost", "BufNewFile" },
+		event = "VeryLazy",
 		-- The defaults are Alt + hjkl in Visual and Normal mode
 		opts = {},
 	},
@@ -137,7 +137,7 @@ return {
 	-- Surround utility like "change surrounding quotes" or "delete surrounding quotes"
 	{
 		"kylechui/nvim-surround", -- surround utility
-		event = { "BufReadPost", "BufNewFile" },
+		event = "VeryLazy",
 		opts = {},
 	},
 

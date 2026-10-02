@@ -4,8 +4,8 @@ local icons = require("utils.icons")
 
 local opt = vim.opt
 
--- Colorscheme
-opt.background = api.get_system_background()
+-- Colorscheme. 'background' is not set here because nvim sets it from the terminal's background colour before this
+-- file runs, and setting it here turns that off.
 vim.cmd("silent colorscheme " .. settings.get().theme)
 
 -- UI

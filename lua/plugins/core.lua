@@ -107,19 +107,27 @@ return {
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile" },
-		-- So that headless installs have the configs they need
-		cmd = "MasonToolsInstallSync",
 		dependencies = {
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-
-			{ "mason-org/mason.nvim", version = "^2" }, -- Install LSPs and tools to neovim's stdpath
-			{ "mason-org/mason-lspconfig.nvim", version = "^2" }, -- Closes gap between mason.nvim and lspconfig
 			"j-hui/fidget.nvim", -- Notification UI for LSP messages
 		},
 		config = function()
-			installer.setup_mason()
 			lsp.setup_lsp()
 		end,
+	},
+
+	-- Installs language servers and tools, and adds `:Mason` and `:LspInstall`. None of it is needed to open a file, so
+	-- it loads on VeryLazy. `init` puts mason's bin directory on PATH at startup.
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		event = "VeryLazy",
+		-- VeryLazy does not fire in a headless nvim, so a new machine installs its tools with this command
+		cmd = "MasonToolsInstallSync",
+		dependencies = {
+			{ "mason-org/mason.nvim", version = "^2" },
+			{ "mason-org/mason-lspconfig.nvim", version = "^2" },
+		},
+		init = installer.add_to_path,
+		config = installer.setup_mason,
 	},
 
 	-- Debugging
@@ -176,7 +184,7 @@ return {
 	-- Git integration
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "BufReadPost",
+		event = "VeryLazy",
 		opts = {
 			signs = {
 				add = { text = icons.gutter.added },
