@@ -190,6 +190,10 @@ function M.codediff()
 	api.nmap("<leader>df", "<cmd>CodeDiff history %<cr>", "Open file history")
 end
 
+function M.atlas()
+	api.nmap("<leader>gp", "<cmd>Atlas pulls<cr>", "Open pull requests dashboard [atlas]")
+end
+
 function M.nvim_tree()
 	api.nmap("<c-n>", "<CMD>NvimTreeFindFileToggle <CR>", "Toggle file tree")
 end

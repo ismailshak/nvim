@@ -6,6 +6,7 @@ local formatting = require("utils.tools.formatting")
 local installer = require("utils.tools.installer")
 local lint = require("utils.tools.lint")
 local lsp = require("utils.tools.lsp")
+local settings = require("custom.settings")
 
 --
 -- Core functionality
@@ -206,6 +207,63 @@ return {
 			},
 			on_attach = mappings.gitsigns,
 		},
+	},
+
+	-- Review GitHub pull requests and browse repositories
+	{
+		"emrearmagan/atlas.nvim",
+		cmd = "Atlas",
+		keys = {
+			{ "<leader>gp" },
+		},
+		dependencies = { "nvim-tree/nvim-web-devicons", "esmuellert/codediff.nvim" },
+		opts = function()
+			local exclude_orgs = table.concat(
+				vim.tbl_map(function(org)
+					return " -org:" .. org
+				end, settings.get().github_exclude_orgs),
+				""
+			)
+
+			return {
+				providers = {
+					github = {},
+				},
+				pulls = {
+					git_transport = "ssh",
+					repo_config = {
+						paths = settings.get().repo_paths,
+					},
+					diff = {
+						open_cmd = "CodeDiff",
+						lsp = {
+							enabled = true,
+						},
+					},
+					github = {
+						views = {
+							{
+								name = "Reviewing",
+								key = "1",
+								layout = "compact",
+								search = "is:pr is:open review-requested:@me" .. exclude_orgs,
+							},
+							{
+								name = "Authored",
+								key = "2",
+								layout = "compact",
+								search = "is:pr is:open author:@me" .. exclude_orgs,
+							},
+						},
+					},
+				},
+			}
+		end,
+		config = function(_, opts)
+			mappings.atlas()
+
+			require("atlas").setup(opts)
+		end,
 	},
 
 	{ -- Highlight, edit, and navigate code

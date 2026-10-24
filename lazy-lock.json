@@ -1,4 +1,5 @@
 {
+  "atlas.nvim": { "branch": "main", "commit": "184e891e19d989deb93f890fa20f4ec3dcb89ef2" },
   "auto-dark-mode.nvim": { "branch": "main", "commit": "2b16a24c202892e61fca7df4d2d7c4c872a44165" },
   "barbecue": { "branch": "cherry-picked", "commit": "6c8187c877a6bcad704c784f6c709fc2819b6402" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
