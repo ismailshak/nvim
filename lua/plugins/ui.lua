@@ -86,8 +86,6 @@ return {
 	-- Context breadcrumbs at the top of the window
 	{
 		"ismailshak/barbecue.nvim",
-		name = "barbecue",
-		branch = "cherry-picked", -- Combines 2 open PRs on upstream
 		event = "BufReadPost",
 		dependencies = {
 			"SmiteshP/nvim-navic",

@@ -1,7 +1,7 @@
 {
   "atlas.nvim": { "branch": "main", "commit": "184e891e19d989deb93f890fa20f4ec3dcb89ef2" },
   "auto-dark-mode.nvim": { "branch": "main", "commit": "2b16a24c202892e61fca7df4d2d7c4c872a44165" },
-  "barbecue": { "branch": "cherry-picked", "commit": "6c8187c877a6bcad704c784f6c709fc2819b6402" },
+  "barbecue.nvim": { "branch": "main", "commit": "b43f02e0a24288bb9bccd8465896bdd838d34c0f" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "codecompanion.nvim": { "branch": "main", "commit": "5319d842938d9a971d2aa38be57f4ecf120ef83b" },
   "codediff.nvim": { "branch": "main", "commit": "09d9ebef2cc5a5c04db7a349cd6c61bdf84ecc8e" },
