@@ -54,7 +54,7 @@ M.config = {
 				text = "Open diff",
 				keymap = "SPC d v",
 				action = function()
-					vim.cmd("DiffviewOpen")
+					vim.cmd("CodeDiff")
 				end,
 			},
 		}

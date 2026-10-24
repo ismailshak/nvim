@@ -185,9 +185,9 @@ function M.fzf()
 	api.nmap("<leader>th", "<CMD>FzfLua colorschemes<CR>", "Colorscheme picker [fzf-lua]")
 end
 
-function M.diffview()
-	api.nmap("<leader>dv", "<cmd>DiffviewOpen<cr>", "Open diff view")
-	api.nmap("<leader>df", "<cmd>DiffviewFileHistory %<cr>", "Open file history")
+function M.codediff()
+	api.nmap("<leader>dv", "<cmd>CodeDiff<cr>", "Open diff view")
+	api.nmap("<leader>df", "<cmd>CodeDiff history %<cr>", "Open file history")
 end
 
 function M.nvim_tree()

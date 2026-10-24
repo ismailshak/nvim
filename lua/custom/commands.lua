@@ -4,6 +4,7 @@ local formatting = require("utils.tools.formatting")
 local mappings = require("custom.mappings")
 local api = require("utils.api")
 local git = require("custom.git")
+local codediff = require("utils.tools.codediff")
 local ui = require("utils.ui")
 
 local CUSTOM_GROUP_ID = vim.api.nvim_create_augroup("ShakCommands", { clear = true })
@@ -49,6 +50,10 @@ end, { nargs = "?" })
 usercmd("YankPermalink", function(args)
 	git.yank_permalink(0, args.line1, args.line2)
 end, { range = true })
+
+-- Open codediff on the files or directories nvim was started with, or on the repository's changes when there are none.
+-- codediff's q quits nvim.
+usercmd("DiffArgs", codediff.diff_args, { nargs = 0 })
 
 usercmd("Format", function(args)
 	local range = nil

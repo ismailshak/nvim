@@ -96,7 +96,14 @@ return {
 		opts = {
 			show_dirname = false,
 			show_modified = true,
+			-- codediff shows files read from git in "nowrite" buffers
+			include_buftypes = { "", "nowrite" },
 			exclude_filetypes = { "dashboard", "Trouble", "NvimTree", "term" },
+			-- The revision of a file codediff read from git, at the right end of the winbar
+			custom_section = function(bufnr)
+				local revision = require("utils.tools.codediff").revision(bufnr)
+				return revision and { { revision .. " ", "barbecue_dirname" } } or " "
+			end,
 		},
 	},
 
@@ -155,89 +162,36 @@ return {
 
 	-- Better diff view
 	{
-		"sindrets/diffview.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
-		cmd = {
-			"DiffviewOpen",
-			"DiffviewLog",
-			"DiffviewFileHistory",
-			"DiffviewToggleFiles",
-			"DiffviewFocusFiles",
-		},
+		"esmuellert/codediff.nvim",
+		cmd = "CodeDiff",
 		keys = {
 			{ "<leader>dv" },
 			{ "<leader>df" },
 		},
 		config = function()
-			mappings.diffview()
+			mappings.codediff()
 
-			require("diffview").setup({
-				diff_binaries = false, -- Show diffs for binaries
-				enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-				use_icons = true, -- Requires nvim-web-devicons
-				icons = { -- Only applies when use_icons is true.
-					folder_closed = "",
-					folder_open = "",
+			require("codediff").setup({
+				diff = {
+					highlight_added_deleted_files = true,
+					compact = true,
+					compact_context_lines = 15,
 				},
-				signs = {
-					fold_closed = "",
-					fold_open = "",
+				explorer = {
+					width = 30,
+					view_mode = "tree",
 				},
-				view = {
-					-- Configure the layout and behavior of different types of views.
-					-- Available layouts:
-					--  'diff1_plain'
-					--    |'diff2_horizontal'
-					--    |'diff2_vertical'
-					--    |'diff3_horizontal'
-					--    |'diff3_vertical'
-					--    |'diff3_mixed'
-					--    |'diff4_mixed'
-					-- For more info, see ':h diffview-config-view.x.layout'.
-					merge_tool = {
-						-- Config for conflicted files in diff views during a merge or rebase.
-						layout = "diff3_mixed",
-					},
+				history = {
+					height = 16,
 				},
-				file_panel = {
-					listing_style = "tree", -- One of 'list' or 'tree'
-					tree_options = { -- Only applies when listing_style is 'tree'
-						flatten_dirs = true, -- Flatten dirs that only contain one single dir
-						folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
-					},
-					win_config = { -- See ':h diffview-config-win_config'
-						position = "right",
-						width = 30,
-					},
-				},
-				file_history_panel = {
-					log_options = { -- See ':h diffview-config-log_options'
-						git = {
-							single_file = {
-								diff_merges = "combined",
-							},
-							multi_file = {
-								diff_merges = "first-parent",
-							},
-						},
-					},
-					win_config = { -- See ':h diffview-config-win_config'
-						position = "bottom",
-						height = 16,
-					},
-				},
-				commit_log_panel = {
-					win_config = {}, -- See ':h diffview-config-win_config'
-				},
-				default_args = { -- Default args prepended to the arg-list for the listed commands
-					DiffviewOpen = {},
-					DiffviewFileHistory = {},
-				},
-				hooks = {}, -- See ':h diffview-config-hooks'
 				keymaps = {
-					disable_defaults = false, -- Disable the default keymaps
+					view = {
+						next_file = "<Tab>",
+						prev_file = "<S-Tab>",
+					},
 				},
 			})
+			require("utils.tools.codediff").setup_winbars()
 		end,
 	},
 
