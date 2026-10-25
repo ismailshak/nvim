@@ -57,6 +57,14 @@ M.config = {
 					vim.cmd("CodeDiff")
 				end,
 			},
+			{
+				icon = icons.dashboard.pull_request,
+				text = "Open pull requests",
+				keymap = "SPC g p",
+				action = function()
+					vim.cmd("Atlas pulls")
+				end,
+			},
 		}
 
 		-- CodeCompanion, and so `:CodeCompanionChat`, is only installed when the copilot setting is on

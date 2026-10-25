@@ -21,6 +21,7 @@ return {
 		branch = "  ",
 		dotfile = "  ",
 		file = "  ",
+		pull_request = "  ",
 		session = "  ",
 		word = "󰟵  ",
 	},
