@@ -231,6 +231,8 @@ return {
 				},
 				pulls = {
 					git_transport = "ssh",
+					default_merge_method = "squash",
+					default_delete_source_branch = true,
 					repo_config = {
 						paths = settings.get().repo_paths,
 					},
