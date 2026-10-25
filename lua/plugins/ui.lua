@@ -170,6 +170,10 @@ return {
 			mappings.codediff()
 
 			require("codediff").setup({
+				highlights = {
+					line_insert = "DiffChange",
+					char_insert = "DiffText",
+				},
 				diff = {
 					highlight_added_deleted_files = true,
 					compact = true,
