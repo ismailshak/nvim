@@ -243,16 +243,22 @@ return {
 					github = {
 						views = {
 							{
-								name = "Reviewing",
+								name = "Authored",
 								key = "1",
+								layout = "compact",
+								search = "is:pr is:open author:@me" .. exclude_orgs,
+							},
+							{
+								name = "Reviewing",
+								key = "2",
 								layout = "compact",
 								search = "is:pr is:open review-requested:@me" .. exclude_orgs,
 							},
 							{
-								name = "Authored",
-								key = "2",
+								name = "My repos",
+								key = "3",
 								layout = "compact",
-								search = "is:pr is:open author:@me" .. exclude_orgs,
+								search = "is:pr is:open user:@me -author:@me archived:false",
 							},
 						},
 					},
